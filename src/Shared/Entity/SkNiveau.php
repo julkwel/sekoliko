@@ -17,6 +17,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class SkNiveau
 {
+    use SkEtablissement;
+
     /**
      * @var int
      *
@@ -34,11 +36,34 @@ class SkNiveau
     private $niveauNom;
 
     /**
-     * @var SkEtablissement
-     * @ORM\ManyToOne(targetEntity="App\Shared\Entity\SkEtablissement")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="etsNom", referencedColumnName="id", onDelete="CASCADE")
-     * })
+     * @return int
      */
-    private $etsNom;
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNiveauNom()
+    {
+        return $this->niveauNom;
+    }
+
+    /**
+     * @param string $niveauNom
+     */
+    public function setNiveauNom($niveauNom)
+    {
+        $this->niveauNom = $niveauNom;
+    }
 }

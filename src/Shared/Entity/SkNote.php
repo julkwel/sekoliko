@@ -18,6 +18,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class SkNote
 {
+    use SkEtablissement;
+
     /**
      * @var int
      *

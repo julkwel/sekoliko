@@ -21,6 +21,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class SkRetard
 {
+
+    use SkEtablissement;
+
     /**
      * @var int
      *

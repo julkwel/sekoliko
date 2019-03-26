@@ -19,6 +19,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class SkMatiere
 {
+    use SkEtablissement;
+
     /**
      * @var int
      *
@@ -51,14 +53,6 @@ class SkMatiere
      */
     private $matProf;
 
-    /**
-     * @var SkEtablissement
-     * @ORM\ManyToOne(targetEntity="App\Shared\Entity\SkEtablissement")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="actEvent", referencedColumnName="id", onDelete="CASCADE")
-     * })
-     */
-    private $etsNom;
 
     /**
      * @return int
@@ -123,23 +117,4 @@ class SkMatiere
     {
         $this->matProf = $matProf;
     }
-
-    /**
-     * @return SkEtablissement
-     */
-    public function getEtsNom()
-    {
-        return $this->etsNom;
-    }
-
-    /**
-     * @param SkEtablissement $etsNom
-     */
-    public function setEtsNom($etsNom)
-    {
-        $this->etsNom = $etsNom;
-    }
-    
-    
-
 }

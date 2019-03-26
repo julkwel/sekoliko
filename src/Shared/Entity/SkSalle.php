@@ -19,6 +19,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 class SkSalle
 {
+    use SkEtablissement;
+
     /**
      * @var int
      *
@@ -27,15 +29,6 @@ class SkSalle
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
-    /**
-     * @var SkEtablissement
-     * @ORM\ManyToOne(targetEntity="App\Shared\Entity\SkEtablissement")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="etsNom", referencedColumnName="id", onDelete="CASCADE")
-     * })
-     */
-    private $etsNom;
 
     /**
      * @var string
@@ -60,6 +53,28 @@ class SkSalle
     private $isReserve = false;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="deb_reserve", type="datetime", nullable=true)
+     */
+    private $debReserve;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fin_reserve", type="datetime", nullable=true)
+     */
+    private $finReserve;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="motifs", type="string", length=200,nullable=true)
+     */
+    private $motifs;
+
+
+    /**
      * @return int
      */
     public function getId()
@@ -73,22 +88,6 @@ class SkSalle
     public function setId($id)
     {
         $this->id = $id;
-    }
-
-    /**
-     * @return SkEtablissement
-     */
-    public function getEtsNom()
-    {
-        return $this->etsNom;
-    }
-
-    /**
-     * @param SkEtablissement $etsNom
-     */
-    public function setEtsNom($etsNom)
-    {
-        $this->etsNom = $etsNom;
     }
 
     /**
@@ -118,7 +117,7 @@ class SkSalle
     /**
      * @param string $salleNumero
      */
-    public function setSalleNumero(string $salleNumero)
+    public function setSalleNumero($salleNumero)
     {
         $this->salleNumero = $salleNumero;
     }
@@ -134,9 +133,57 @@ class SkSalle
     /**
      * @param string $isReserve
      */
-    public function setIsReserve(string $isReserve)
+    public function setIsReserve($isReserve)
     {
         $this->isReserve = $isReserve;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDebReserve()
+    {
+        return $this->debReserve;
+    }
+
+    /**
+     * @param string $debReserve
+     */
+    public function setDebReserve($debReserve)
+    {
+        $this->debReserve = $debReserve;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFinReserve()
+    {
+        return $this->finReserve;
+    }
+
+    /**
+     * @param string $finReserve
+     */
+    public function setFinReserve($finReserve)
+    {
+        $this->finReserve = $finReserve;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMotifs()
+    {
+        return $this->motifs;
+    }
+
+    /**
+     * @param string $motifs
+     */
+    public function setMotifs($motifs)
+    {
+        $this->motifs = $motifs;
     }
     
     

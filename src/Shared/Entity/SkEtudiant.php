@@ -20,6 +20,7 @@ use Doctrine\ORM\Mapping as ORM;
 class SkEtudiant
 {
 
+    use SkEtablissement;
 
     /**
      * @var int

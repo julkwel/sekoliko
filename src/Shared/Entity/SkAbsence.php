@@ -21,6 +21,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class SkAbsence
 {
+    use SkEtablissement;
+
     /**
      * @var int
      *

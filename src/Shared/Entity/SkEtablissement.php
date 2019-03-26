@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="ets")
  * @ORM\Entity
  */
-class SkEtablissement
+trait SkEtablissement
 {
     /**
      * @var int
