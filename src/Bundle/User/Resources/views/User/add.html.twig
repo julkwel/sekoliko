@@ -8,40 +8,40 @@
 {% set menu_user_create = true %}
 
 {% block body %}
-    <div class="row">
-        <div class="col-md-12">
-            <div class="box box-primary">
-                {{ form_start(form) }}
-                    <div class="box-header">
-                        <h3 class="box-title">Créer un utilisateur</h3>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary text-center">Créer un utilisateur</h6>
+        </div>
+        <div class="card-body">
+            {{ form_start(form) }}
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(form.usrLastname) }}
+                    {{ form_row(form.usrFirstname) }}
+                    {{ form_row(form.usrAddress) }}
+                    {{ form_row(form.email) }}
+                    {{ form_row(form.usrPhone) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_row(form.imgUrl) }}
+                    {{ form_row(form.skRole) }}
+                    <div class="hide">
+                        {{ form_row(form.enabled) }}
                     </div>
-                    
-                    <div class="box-body">
-                        {{ form_row(form.usrLastname) }}
-                        {{ form_row(form.usrFirstname) }}
-                        {{ form_row(form.usrAddress) }}
-                        {{ form_row(form.email) }}
-                        {{ form_row(form.usrPhone) }}
-                        {{ form_row(form.imgUrl) }}
-                        {{ form_row(form.skRole) }}
-                        <div class="hide">
-                            {{ form_row(form.enabled) }}
-                        </div>
-                        <hr>
-                        {{ form_row(form.username) }}
-                        {{ form_row(form.plainPassword.first) }}
-                        {{ form_row(form.plainPassword.second) }}
-                    </div>
-
-                    <div class="box-footer">
-                        <input type="submit" class="btn btn-primary" value="Enregistrer" name="new_user"/>
-                        <a href="{{ path('user_index') }}" 
-                           class="btn btn-default pull-left btn-mini-rectif" >
-                            Retour à la liste
-                        </a>
-                    </div>                    
-                {{ form_end(form) }}
+                    {{ form_row(form.username) }}
+                    {{ form_row(form.plainPassword.first) }}
+                    {{ form_row(form.plainPassword.second) }}
+                </div>
             </div>
+
+            <div class="box-footer">
+                <input type="submit" class="btn btn-primary btn-block" value="Enregistrer" name="new_user"/>
+                <a href="{{ path('user_index') }}"
+                   class="btn btn-google btn-block">
+                    Annuler
+                </a>
+            </div>
+            {{ form_end(form) }}
         </div>
     </div>
 {% endblock %}

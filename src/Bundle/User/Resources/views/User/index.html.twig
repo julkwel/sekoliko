@@ -25,11 +25,8 @@
                     {# Bouton création #}
                     {% if is_granted('ROLE_ADMIN') %}
                         <div class="row add-btn-top-list">
-                            <a href="{{ path('user_new') }}" onclick=";">
-                                <button class="btn btn-primary">
-                                    <i class="fa fa-plus"></i>
+                            <a href="{{ path('user_new') }}" class="btn btn-primary">
                                     Créer un utilisateur
-                                </button>
                             </a>
                         </div>
                     {% endif %}
