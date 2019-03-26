@@ -1,0 +1,75 @@
+{% block subject %}{% endblock %}
+
+{% block body_text %}{% endblock %}
+
+{% block body_html %}
+    <html>
+    <head>
+        <title>Analyse</title>
+        <style type="text/css">
+            p{ font-family:arial;}
+            @media only screen and (max-device-width: 600px) {
+                table[class=kl-w480], td[class=kl-w480], img[class=kl-w480], tr{ width:100%;}
+            }
+        </style>
+    </head>
+        <body style="margin:0;">
+            <table cellpadding="0" cellspacing="0" border="0" width="600" align="center" class="kl-w480">
+                <tr>
+                    <td width="600" class="kl-w480">
+                        <table cellpadding="0" cellspacing="0" border="0" width="600" class="kl-w480">
+                            <tr>
+                                <td>
+                                    <a href="#">
+                                        <img src="http://www.techzara.org/images-email/banner.jpg" alt="" class="kl-w480" style="display:block;" />
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                        {% block body_html_content %}{% endblock %}
+
+                        {% block body_html_footer_action %}
+                            <table cellpadding="0" cellspacing="0" border="0" width="600" class="kl-w480">
+                                <tr>
+                                    <td width="600" class="kl-w480" style="background:url('http://tzevent.fr/images-email/bg-footer.jpg') repeat-y; font-size:13px; color:#fff; text-align:center;">
+                                        <table cellpadding="0" cellspacing="0" border="0" width="600" class="kl-w480">
+                                            <tr>
+                                                <td height="15"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-size:14px; color:#fff; text-align:center;">
+                                                    <p><strong>Service commercial :</strong> commercial@tzevent.fr</p>
+                                                    <p><strong>Service technique :</strong> technique@tzevent.fr</p>
+                                                    <p><strong>Skype :</strong> Skvent w3c</p>
+                                                    <p><strong>T&eacute;l&eacute;phone :</strong> + 261 32 05 326 08</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td height="15"></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table cellpadding="0" cellspacing="0" border="0" width="600" class="kl-w480">
+                                <tr>
+                                    <td height="10"></td>
+                                </tr>
+                                <tr>
+                                    <td width="600" class="kl-w480" style="text-align:center;">
+                                        <p style="font-size:12px; color:#5b5a5d;">
+                                            FSC Hous 54, Cybercity Ebene,Republic of Mauritius
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="10"></td>
+                                </tr>
+                            </table>
+                        {% endblock %}
+                        </td>
+                    </tr>
+             </table>
+        </body>
+    </html>
+{% endblock %}

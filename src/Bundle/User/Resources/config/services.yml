@@ -1,0 +1,14 @@
+services:
+    sk.repository.user:
+        class: App\Bundle\User\Repository\UserManager
+        arguments: [ "@doctrine.orm.entity_manager","@service_container" ]
+        public: true
+
+    sk.repository.user.upload:
+        class: App\Bundle\User\Repository\UploadManager
+        arguments: ['@doctrine.orm.entity_manager','%kernel.root_dir%']
+        public: true
+
+    sk.handler.login_success_handler:
+        class:  App\Bundle\User\Redirection\AfterLoginRedirection
+        arguments:  ['@router', '@security.authorization_checker', '@service_container']

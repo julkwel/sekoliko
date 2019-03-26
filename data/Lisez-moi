@@ -1,0 +1,10 @@
+Voici les documents technique à lire à propos du projet Skvent :
+
+- Documentation.txt
+    Dans le répertoire data/doc/, c'est une documentation à compléter pour l'installation et le paramétrage du projet.
+
+- Acces.txt
+    Dans le répertoire data/doc/, contenant l'accès backoffice (url et compte).
+
+- Structure.txt
+    Dans le répertoire data/doc/, c'est une structure symfony 3 utilisé lors de développement du projet.

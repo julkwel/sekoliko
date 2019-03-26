@@ -1,0 +1,136 @@
+{% block form_errors %}
+    {% spaceless %}
+        {% if errors|length > 0 %}
+            <ul>
+                {% for error in errors %}
+                    <li class="error-message">{{ error.message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endspaceless %}
+{% endblock form_errors %}
+
+{% block form_widget_compound %}
+    <div {{ block('widget_container_attributes') }}>
+        {% if form.parent is empty %}
+            {{ form_errors(form) }}
+        {% endif %}
+        {{ block('form_rows') }}
+        {{ form_rest(form) }}
+    </div>
+{% endblock form_widget_compound %}
+
+{% block form_widget_simple %}
+    {%- set type = type|default('text') -%}    
+    {% if type == 'file' %}
+        <input class="inputfile" type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}  />
+        {#<label for="file" class="inputfile-text btn btn-primary" onclick="$(this).prev().trigger('click');">Choose a file</label>#}
+    {% else %}
+{#        <div class="col-sm-10 ">#}
+        <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+{#        </div>#}        
+    {% endif %}    
+{% endblock form_widget_simple %}
+
+{% block form_row %}
+    {% spaceless %}
+        {%- set attr = attr|merge( {'class': (attr.class|default('') ~ ' form-control')|trim }) -%}
+        {% if compound %}
+            <div class="form-group {{ errors|length > 0 ? 'has-error' : '' }}">
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-4">
+            {#            {{ form_label(form, "", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}#}
+                        {{ form_label(form) }}
+                        {{ form_widget(form, {'attr': attr}) }}
+                        {{ form_errors(form) }}
+                    </div> 
+                </div>
+            </div> 
+        {% else %}
+            <div class="form-group {{ errors|length > 0 ? 'has-error' : '' }}">
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-4">
+            {#            {{ form_label(form, "", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}#}
+                        {{ form_label(form) }}
+                        {{ form_widget(form, {'attr': attr}) }}
+                        {{ form_errors(form) }}
+                    </div>
+                </div>
+            </div> 
+        {% endif %}     
+    {% endspaceless %}
+{% endblock form_row %}
+
+{% block number_widget %}
+{#        <div class="col-sm-10">#}
+    <input min="0" oninvalid="setErrorClass($(this));" class="form-control" type="number" {{ block('widget_attributes') }} value="{{ value }}" />
+{#        </div>#}
+{% endblock %}
+
+{% block text_widget %}
+{#    <div class="col-sm-10">#}
+        <input type="text" {{ block('widget_attributes') }} value="{{ value }}" oninvalid="setErrorClass($(this));" />
+{#    </div>#}
+{% endblock %}
+
+{% block email_widget %}
+{#    <div class="col-sm-10">#}
+    <input type="text" {{ block('widget_attributes') }} value="{{ value }}" oninvalid="setErrorClass($(this));"/>
+{#    </div>#}
+{% endblock %}
+
+{% block checkbox_widget %}
+{#    <div class="col-sm-10">#}
+    <input oninvalid="setErrorClass($(this));" class="checkbox-custom-style" type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+{#    </div>#}
+{% endblock checkbox_widget %}
+    
+{% block field_widget %}
+    <div class="text_widget2">
+        <input oninvalid="setErrorClass($(this));" type="text" {{ block('widget_attributes') }} value="{{ value }}" />
+    </div>
+{% endblock field_widget %}
+
+{% block collection_widget %}
+    {% if prototype is defined %}
+        {% set attr = attr|merge({'data-prototype': form_widget(prototype) }) %}
+    {% endif %}
+    {{ block('form_widget') }}
+{% endblock collection_widget %}
+
+{%- block choice_widget_collapsed -%}
+    {%- if required and placeholder is none and not placeholder_in_choices and not multiple -%}
+        {% set required = false %}
+    {%- endif -%}
+{#    <div class="col-sm-10">#}
+    <select oninvalid="setErrorClass($(this));" {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}>
+        {%- if placeholder is not none -%}
+            <option value=""{% if required and value is empty %} selected="selected"{% endif %}>{{ placeholder != '' ? placeholder|trans({}, translation_domain) }}</option>
+        {%- endif -%}
+        {%- if preferred_choices|length > 0 -%}
+            {% set options = preferred_choices %}
+            {{- block('choice_widget_options') -}}
+            {%- if choices|length > 0 and separator is not none -%}
+                <option disabled="disabled">{{ separator }}</option>
+            {%- endif -%}
+        {%- endif -%}
+        {%- set options = choices -%}
+        {{- block('choice_widget_options') -}}
+    </select>
+{#    </div>#}
+{%- endblock choice_widget_collapsed -%}
+
+{%- block textarea_widget -%}
+{#    <div class="col-sm-10">#}
+        <textarea oninvalid="setErrorClass($(this));" {{ block('widget_attributes') }}>{{ value }}</textarea>
+{#    </div>#}
+{%- endblock textarea_widget -%}
+
+{%- block choice_widget_expanded -%}
+    <div class="col-sm-10">
+        {%- for child in form %}
+            {{- form_widget(child) -}}
+            {{- form_label(child, null, {translation_domain: choice_translation_domain}) -}}
+        {% endfor -%}
+    </div>
+{%- endblock choice_widget_expanded -%}

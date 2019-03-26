@@ -1,0 +1,8 @@
+# FosUser
+fos_user:
+    db_driver:      orm # can be orm or odm
+    firewall_name:  main
+    user_class:     App\Bundle\User\Entity\User
+    from_email:
+        address: "%mailer_user%"
+        sender_name: "%mailer_user%"

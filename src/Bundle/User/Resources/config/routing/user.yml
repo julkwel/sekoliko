@@ -1,0 +1,34 @@
+user_index:
+    path:     /
+    defaults: { _controller: "UserBundle:User:index" }
+    methods:  GET
+
+user_new:
+    path:     /new
+    defaults: { _controller: "UserBundle:User:new" }
+    methods:  [GET, POST]
+
+user_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "UserBundle:User:edit" }
+    methods:  [GET, POST]
+
+user_update:
+    path:     /{id}/update
+    defaults: { _controller: "UserBundle:User:update" }
+    methods:  [POST, PUT]
+
+user_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "UserBundle:User:delete" }
+    methods:  [GET, DELETE]
+
+user_delete_group:
+    path:     /delete-group
+    defaults: { _controller: "UserBundle:User:deleteGroup" }
+    methods:  POST
+
+user_delete_image_ajax:
+    path:     /delete-image
+    defaults: { _controller: "UserBundle:User:deleteImageAjax" }
+    methods:  POST

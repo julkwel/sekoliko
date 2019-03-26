@@ -1,0 +1,3 @@
+tz_dashboard:
+    resource: "@AdminBundle/Resources/config/routing/dashboard.yml"
+    prefix:   /

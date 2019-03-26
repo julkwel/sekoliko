@@ -1,0 +1,14 @@
+{% extends 'frontoffice/base_front.html.twig' %}
+
+{% block title %} {{ parent() }} Erreur 404 {% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="list-count text-center kl-title-bloc">
+            <img src="{{ asset('frontoffice/images/page_404.png') }}" alt="page erreur">
+        </div>
+        <div class="text-center">
+            <p>Désolé, l'URL demandée n'a pas été trouvée</p>
+        </div>
+    </div>
+{% endblock %}

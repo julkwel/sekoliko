@@ -1,0 +1,43 @@
+Structure symfony 4 pour le développement du projet Etiseo
+
+
++ Dans src/Skvent/Service :
+    C’est le Bundle qui va traiter tout les services utiles lors du développement.
+    Ci-dessous donc les rôles respectives des dossier et fichiers dans ce bundle
+        - Entity :
+            Dossier de gestion et centralisation des entités (génération , récupération , modification, …)
+        - Listeners:
+            Interception et déclenchement des évènements. Il contient les fichiers comme AuthenticationListener.php
+            qui sert par exemple à déclencher les évènement lors de la succès de l’authentification
+            ou l’echec de l’authentification.
+        - Metier :
+            Ce dossier contient tous les services métier et les repository communs du projet.
+        - Repository :
+            Ce dossier contient tous les repository de chaque entité.
+        - Utils :
+            Ce dossier contient la liste de classe comportant des constantes utiles dans le projet.
+            Exemples :
+                EntityName.php ce classe contient les noms de tout les entités pour normaliser les nomenclatures.
+                ServiceName.php pour normaliser la nomenclature des services et le rendre en constante.
+
++ Dans src/Skvent/BackOffice :
+    C’est le Bundle qui contient les blocs des codes concernant seulement le BackOffice.
+    ==> Dans controller :
+            Liste des controller utiliser dans BackOffice.
+    ==> Dans /Resources/config :
+            Liste des fiches config dans BackOffice.
+            Exemple : routing.yml pour les routes spécifique pour le BO.
+    ==> Dans /Resources/views :
+            Liste des fiches twig qui fait l'affichage dans BackOffice.
+            Exemple : add.html.twig
+
++ Dans templates :
+    C'est le répertoire qui contient les fichiers parent (twig) concernant le BackOffice/FrontOffice.
+    Exemple : base-admin-footer.html.twig
+
++ Dans public :
+    C'est le répertoire qui contient les fichiers publics (image, css, js, ...) utilisés dans l'application.
+    Exemples :
+        - Le répertoire backoffice contient les fichiers css, js, ... concernant seulement pour le BackOffice.
+        - Le répertoire upload contient les fichiers envoyés.
+        - Le répertoire plugins contient les plugins utilisés dans le BackOffice et le FrontOffice.

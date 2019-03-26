@@ -1,0 +1,68 @@
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+imports:
+    - { resource: "@UserBundle/Resources/config/services.yml" }
+
+parameters:
+    locale: 'fr'
+    mailer_transport: '%env(resolve:MAILER_TRANSPORT)%'
+    mailer_host: '%env(resolve:MAILER_HOST)%'
+    mailer_user: '%env(resolve:MAILER_USER)%'
+    mailer_password: '%env(resolve:MAILER_PASSWORD)%'
+    to_email_address: '%env(resolve:TO_EMAIL_ADDRESS)%'
+    to_email_name: '%env(resolve:TO_EMAIL_NAME)%'
+    to_cc_ct_email_address: '%env(resolve:TO_CC_CT_EMAIL_ADDRESS)%'
+    to_cc_rc_email_address: '%env(resolve:TO_CC_RC_EMAIL_ADDRESS)%'
+    from_email_address: '%env(resolve:FROM_EMAIL_ADDRESS)%'
+    from_firstname: '%env(resolve:FROM_FIRSTNAME)%'
+    stripe_api_secret_key: '%env(resolve:STRIPE_API_SECRET_SECRET)%'
+    stripe_api_publishable_key: '%env(resolve:STRIPE_API_PUBLISHABLE_KEY)%'
+    max_size_value_upload: '%env(resolve:MAX_SIZE_VALUE_UPLOAD)%'
+    paypal_client_id: '%env(resolve:PAYPAL_CLIENT_ID)%'
+    paypal_client_secret: '%env(resolve:PAYPAL_CLIENT_SECRET)%'
+    id_klikandpay: '%env(resolve:ID_KLIKANDPAY)%'
+    reporting_template_directory: '%kernel.project_dir%/public/reporting/'
+
+services:
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/*'
+        exclude: '../src/{Migrations}'
+
+    sk.repository.user.role:
+        class: App\Shared\Repository\RepositorySkRoleManager
+        arguments: [ "@doctrine.orm.entity_manager","@service_container" ]
+        public: true
+
+    sk.repository.email.newsletter:
+        class: App\Shared\Repository\RepositoryEmailNewsletterManager
+        arguments: [ "@doctrine.orm.entity_manager","@service_container" ]
+        public: true
+
+    sk.repository.message.newsletter:
+        class: App\Shared\Repository\RepositoryMessageNewsletterManager
+        arguments: [ "@doctrine.orm.entity_manager","@service_container" ]
+        public: true
+
+    sk.twig.file.exists:
+        class: App\Shared\Services\Twig\Extension\FileExistsExtension
+        arguments: ['@service_container']
+        tags:
+            - { name: twig.extension }
+
+    sk.repository.slide:
+        class: App\Shared\Repository\RepositorySkSlideManager
+        arguments: [ "@doctrine.orm.entity_manager","@service_container",'%kernel.root_dir%' ]
+        public: true
+
+    sk.repository.participants:
+        class: App\Shared\Repository\RepositorySkParticipantsManager
+        arguments: [ "@doctrine.orm.entity_manager","@service_container",'%kernel.root_dir%' ]
+        public: true
+
+
+    sk.repository.entity:
+        class: App\Shared\Repository\SkEntityManager
+        arguments: [ "@doctrine.orm.entity_manager","@service_container",'%kernel.root_dir%' ]
+        public: true

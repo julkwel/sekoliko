@@ -1,0 +1,35 @@
+Documentation à compléter pour l'installation et le paramétrage du projet
+
+- - - - - - - -- - - - - - - -- - - - - - - -- - - - - - - -- - - - - - - -
+Remarques générales :
+- Base de données initiale
+    C'est la base de données initiale à exécuter lors du paramétrage du projet (partie création base de données).
+        . Initiale dans data/dump/dit-database.sql
+        . Données rôles utilisateurs dans data/dump/dit-role.sql
+        . Données comptes utilisateurs (avec rôle admin et superadmin) dans data/dit-user.sql
+
+- Patch à exécuter (dans le répertoire src/Migrations/)
+    C'est une script sql à exécuter pour mettre à jour la table (trié par date d'ajout).
+    Voir les commandes nécéssaires ci-dessous pour exécuter le patch.
+
+- - - - - - - -- - - - - - - -- - - - - - - -- - - - - - - -- - - - - - - -
+Listes commandes utiles :
+- Créer un utilisateur
+    php bin/console fos:user:create
+
+- Créer un rôle
+    php bin/console fos:user:promote
+
+- Mettre à jour les dépendances du projet
+    composer update
+
+- Vérifier la requête sql
+    php bin/console doctrine:migrations:diff
+
+- Afficher le statut des migrations
+    php bin/console doctrine:migrations:status --show-versions
+
+- Executer la requête sql
+    php bin/console doctrine:migrations:migrate
+    php bin/console doctrine:migrations:migrate 20100621140655
+    php bin/console doctrine:query:sql 'SELECT * FROM product'

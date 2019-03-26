@@ -1,0 +1,23 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}{{ parent() }} Tableau de bord {% endblock %}
+
+{% set menu_dashboard = true %}
+
+{% block body %}
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="callout callout-success">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <div class="callout callout-danger">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+
+    <div class="callout callout-warning">
+        <h4>Techzara International</h4>
+        <p>Bienvenue dans l'espace d'administration</p>
+    </div>
+{% endblock %}

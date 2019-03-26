@@ -1,0 +1,14 @@
+{% extends 'frontoffice/base_front.html.twig' %}
+
+{% block title %} {{ parent() }} Erreur 403 {% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="list-count text-center kl-title-bloc">
+            <img src="{{ asset('frontoffice/images/page_403.png') }}" alt="page erreur">
+        </div>
+        <div class="text-center">
+            <p>Accès non autorisé</p>
+        </div>
+    </div>
+{% endblock %}

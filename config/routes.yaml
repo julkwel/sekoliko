@@ -1,0 +1,14 @@
+user:
+    resource: "@UserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+sk_admin:
+    resource: "@AdminBundle/Resources/config/routing.yml"
+    prefix:   /admin
+
+sk_api:
+    resource: "@ApiBundle/Ressources/config/routing/api.yml"
+    prefix:   /api
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
