@@ -17,6 +17,11 @@ use FOS\UserBundle\Controller\SecurityController as BaseSecurityController;
 
 class SecurityController extends BaseSecurityController
 {
+
+    public function redirectAction()
+    {
+        return $this->redirect($this->generateUrl('sk_login'));
+    }
     /**
      * Afficher la page d'authentification.
      *

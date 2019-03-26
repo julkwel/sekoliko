@@ -51,17 +51,6 @@ services:
         tags:
             - { name: twig.extension }
 
-    sk.repository.slide:
-        class: App\Shared\Repository\RepositorySkSlideManager
-        arguments: [ "@doctrine.orm.entity_manager","@service_container",'%kernel.root_dir%' ]
-        public: true
-
-    sk.repository.participants:
-        class: App\Shared\Repository\RepositorySkParticipantsManager
-        arguments: [ "@doctrine.orm.entity_manager","@service_container",'%kernel.root_dir%' ]
-        public: true
-
-
     sk.repository.entity:
         class: App\Shared\Repository\SkEntityManager
         arguments: [ "@doctrine.orm.entity_manager","@service_container",'%kernel.root_dir%' ]
