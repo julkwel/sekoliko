@@ -8,6 +8,7 @@
 
 namespace App\Shared\Entity;
 
+use App\Bundle\User\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,6 +29,15 @@ class SkNote
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
+
+    /**
+     * @var User
+     * @ORM\ManyToOne(targetEntity="App\Bundle\User\Entity\User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="matNom", referencedColumnName="id", onDelete="CASCADE")
+     * })
+     */
+    private $etudiant;
 
     /**
      * @var SkMatiere
@@ -92,6 +102,23 @@ class SkNote
     {
         $this->noteVal = $noteVal;
     }
-    
+
+    /**
+     * @return User
+     */
+    public function getEtudiant()
+    {
+        return $this->etudiant;
+    }
+
+    /**
+     * @param User $etudiant
+     */
+    public function setEtudiant($etudiant)
+    {
+        $this->etudiant = $etudiant;
+    }
+
+
     
 }

@@ -17,3 +17,7 @@ tz_matiere:
 tz_salle:
     resource: "@AdminBundle/Resources/config/routing/salle.yml"
     prefix:   /salle
+
+tz_recherche:
+    resource: "@AdminBundle/Resources/config/routing/recherche.yml"
+    prefix:   /recherche

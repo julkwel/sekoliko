@@ -8,6 +8,7 @@ use App\Shared\Services\Utils\EntityName;
 use App\Shared\Services\Utils\ServiceName;
 use App\Shared\Services\Utils\RoleName;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\HttpFoundation\Request;
 
 class UserManager
 {
@@ -73,6 +74,23 @@ class UserManager
         }
 
         return $this->getRepository()->findBy($_array_type, array('id' => 'DESC'));
+    }
+
+    /**
+     * @param $_nom
+     * @return array
+     * @throws \Exception
+     */
+    public function getUserByNom($_nom)
+    {
+        $_user_ets = $this->_container->get('security.token_storage')->getToken()->getUser()->getEtsNom();
+
+        $_array_params = array(
+            'usrFirstname' => $_nom ,
+            'etsNom' => $_user_ets
+        );
+
+        return $this->getRepository()->findBy($_array_params,array('id' => 'DESC'));
     }
 
     /**
