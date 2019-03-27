@@ -19,6 +19,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 class SkDiscipline
 {
+    use SkEtablissement;
+
     /**
      * @var int
      *

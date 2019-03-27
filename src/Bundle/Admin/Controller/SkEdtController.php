@@ -21,13 +21,13 @@ class SkEdtController extends Controller
      */
     public function indexAction(SkClasse $skClasse)
     {
-        dump($skClasse);die();
-        return $this->render('@Admin/SkClasse/edt.html.twig',array(
-
-        ));
+        dump($skClasse);
+        die();
+        return $this->render('@Admin/SkClasse/edt.html.twig', array());
     }
 
-    public function addEdtAction(Request $request,SkClasse $skClasse){
+    public function addEdtAction(Request $request, SkClasse $skClasse)
+    {
 
     }
 }
