@@ -1,0 +1,84 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}{{ parent() }} Tableau de bord {% endblock %}
+
+{% set menu_dashboard = true %}
+
+{% block body %}
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="callout callout-success">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <div class="callout callout-danger">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+
+    <div class="row">
+        <form action="{{ path('niveau_new') }}" method="POST" class="form-search">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary text-center">Listes des utilisateurs</h6>
+                    {# Bouton création #}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <div class="row add-btn-top-list">
+                            <a href="{{ path('niveau_new') }}" class="btn btn-primary">
+                                Créer un niveau
+                            </a>
+                        </div>
+                    {% endif %}
+                    <div class="box-header">
+                        <div class="list-count">
+                            <span class="title-count-text"> TOTAL: </span><span class="title-count"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>Nom</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for niveau in niveaux %}
+                                <tr>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="{{ niveau.id }}" name="delete[]"/>
+                                    </td>
+                                    <td>{{ niveau.niveauNom }}</td>
+                                    <td class="kl-action-button-bloc">
+                                        <a class="btn btn-primary" title="Modifier"
+                                           href="{{ path('niveau_edit', { 'id': niveau.id }) }}">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                            <a class="btn btn-danger remove-elt" title="Supprimer"
+                                               href="{{ path('niveau_delete', { 'id': niveau.id }) }}">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="#">
+                                <button type="submit" name="_group_delete" class="btn btn-danger delete-btn">
+                                    <i class="fa fa-trash"></i>
+                                    Supprimer la sélection
+                                </button>
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

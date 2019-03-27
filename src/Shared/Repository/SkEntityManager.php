@@ -23,14 +23,14 @@ class SkEntityManager
      * ServiceMetierSkParticipants constructor.
      *
      * @param EntityManager $_entity_manager
-     * @param Container     $_container
+     * @param Container $_container
      * @param $_root_dir
      */
     public function __construct(EntityManager $_entity_manager, Container $_container, $_root_dir)
     {
         $this->_entity_manager = $_entity_manager;
         $this->_container = $_container;
-        $this->_web_root = realpath($_root_dir.'/../public');
+        $this->_web_root = realpath($_root_dir . '/../public');
     }
 
     /**
@@ -42,13 +42,20 @@ class SkEntityManager
         return $this->_entity_manager->getRepository($_entity_name);
     }
 
-    /**
-     * @param $_entity_name
-     * @return array
-     */
     public function getAllList($_entity_name)
     {
         return $this->getRepository($_entity_name)->findBy(array(), array('id' => 'DESC'));
+    }
+
+    /**
+     * @param $_entity_name
+     * @return array
+     * @throws \Exception
+     */
+    public function getAllListByEts($_entity_name)
+    {
+        $_user_ets = $this->_container->get('security.token_storage')->getToken()->getUser()->getEtsNom();
+        return $this->getRepository($_entity_name)->findBy(array('etsNom' => $_user_ets), array('id' => 'DESC'));
     }
 
     /**
@@ -66,7 +73,7 @@ class SkEntityManager
      *
      * @return object|null
      */
-    public function getEntityById($_entity_name,  $_id)
+    public function getEntityById($_entity_name, $_id)
     {
         return $this->getRepository($_entity_name)->find($_id);
     }
@@ -96,7 +103,6 @@ class SkEntityManager
      */
     public function addEntity($_data, $_image)
     {
-        // S'il y a un nouveau image ajouté, on supprime l'ancien puis on enregistre ce nouveau
         if ($_image) {
             $this->deleteOnlyImage($_data);
             $this->addImage($_data, $_image);
@@ -125,13 +131,16 @@ class SkEntityManager
 
     /**
      * @param $_data
+     * @param $_image
      * @return bool
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function deleteEntity($_data)
+    public function deleteEntity($_data,$_image)
     {
-        $this->deleteImage($_data);
+        if (!'' === $_image){
+            $this->deleteImage($_data);
+        }
         $this->_entity_manager->remove($_data);
         $this->_entity_manager->flush();
 
@@ -145,11 +154,11 @@ class SkEntityManager
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function deleteEntityGroup($_entity_name,$_ids)
+    public function deleteEntityGroup($_entity_name, $_ids)
     {
         if (count($_ids)) {
             foreach ($_ids as $_id) {
-                $_slide = $this->getEntityById($_entity_name,$_id);
+                $_slide = $this->getEntityById($_entity_name, $_id);
                 $this->deleteEntity($_slide);
                 $this->deleteImage($_slide);
             }
@@ -167,14 +176,14 @@ class SkEntityManager
     {
         // Récupérer le répertoire image spécifique
         $_directory_image = PathName::UPLOAD_IMAGE;
-            // Upload image
-            $_file_name_image = md5(uniqid()).'.'.$_image->guessExtension();
-            $_uri_file = $_directory_image.$_file_name_image;
-            $_dir = $this->_web_root.$_directory_image;
-            $_image->move(
-                $_dir,
-                $_file_name_image
-            );
+        // Upload image
+        $_file_name_image = md5(uniqid()) . '.' . $_image->guessExtension();
+        $_uri_file = $_directory_image . $_file_name_image;
+        $_dir = $this->_web_root . $_directory_image;
+        $_image->move(
+            $_dir,
+            $_file_name_image
+        );
 
         $_data->setImgUrl($_uri_file);
     }
@@ -187,7 +196,7 @@ class SkEntityManager
     public function deleteOnlyImage($_data)
     {
         if ($_data) {
-            $_path = $this->_web_root.$_data->getImgUrl();
+            $_path = $this->_web_root . $_data->getImgUrl();
 
             // Suppression du fichier
             @unlink($_path);
@@ -205,7 +214,7 @@ class SkEntityManager
     {
         if ($_data) {
             try {
-                $_path = $this->_web_root.$_data->getImgUrl();
+                $_path = $this->_web_root . $_data->getImgUrl();
 
                 // Suppression du fichier
                 @unlink($_path);

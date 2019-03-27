@@ -18,19 +18,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 trait SkEtablissement
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="ets_nom", type="string", length=100, nullable=false)
+     * @ORM\Column(name="ets_nom", type="string", length=100, nullable=true)
      */
     private $etsNom;
 
@@ -44,7 +36,7 @@ trait SkEtablissement
     /**
      * @var string
      *
-     * @ORM\Column(name="ets_responsable", type="string", length=100, nullable=false)
+     * @ORM\Column(name="ets_responsable", type="string", length=100, nullable=true)
      */
     private $etsResponsable;
 
@@ -69,21 +61,6 @@ trait SkEtablissement
      */
     private $etsLogo;
 
-    /**
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
 
     /**
      * @return string

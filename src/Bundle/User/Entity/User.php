@@ -2,6 +2,7 @@
 
 namespace App\Bundle\User\Entity;
 
+use App\Shared\Entity\SkEtablissement;
 use App\Shared\Entity\SkRole;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
@@ -17,6 +18,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class User extends BaseUser
 {
+    use SkEtablissement;
+
     /**
      * @var int
      *

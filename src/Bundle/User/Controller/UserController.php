@@ -62,7 +62,7 @@ class UserController extends Controller
     {
         $_user_manager = $this->getUserMetier();
 
-        $_users = $_user_manager->getAllUser();
+        $_users = $_user_manager->getUserByEts();
 
         return $this->render('UserBundle:User:index.html.twig', array(
             'users' => $_users,
@@ -118,6 +118,10 @@ class UserController extends Controller
         $_form->handleRequest($_request);
 
         if ($_form->isSubmitted() && $_form->isValid()) {
+
+            $_user_ets = $this->container->get('security.token_storage')->getToken()->getUser()->getEtsNom();
+            $_user->setEtsNom($_user_ets);
+
             $_user_manager->addUser($_user, $_form);
             $_user_manager->setFlash('success', 'Utilisateur ajouté');
 
@@ -199,7 +203,7 @@ class UserController extends Controller
 
     /**
      * @param Request $_request
-     * @param User    $_user
+     * @param User $_user
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *
