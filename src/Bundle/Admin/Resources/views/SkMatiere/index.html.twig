@@ -2,7 +2,7 @@
 
 {% block title %}{{ parent() }} Tableau de bord {% endblock %}
 
-{% set menu_classe = true %}
+{% set menu_matiere = true %}
 
 {% block body %}
     {% for flashMessage in app.session.flashbag.get('success') %}
