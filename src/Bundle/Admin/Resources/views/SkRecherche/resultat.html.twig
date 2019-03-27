@@ -1,8 +1,9 @@
 {% extends 'admin/admin.html.twig' %}
+{% form_theme form 'form/custom_fields.html.twig' %}
 
 {% block title %}{{ parent() }} Tableau de bord {% endblock %}
 
-{% set menu_classe = true %}
+{% set menu_recherche = true %}
 
 {% block body %}
     {% for flashMessage in app.session.flashbag.get('success') %}
@@ -17,56 +18,50 @@
     {% endfor %}
 
     <div class="row">
+        <div class="card shadow mb-4 p-2">
+            <h4>Rechercher un utilisateur</h4>
+            <div class="col-md-12">
+                {{ form_start(form) }}
+                {{ form_row(form.username,{ 'value': '' }) }}
+                {{ form_row(form.prenom,{ 'value': '' }) }}
+                {{ form_row(form.nom,{ 'value': '' }) }}
+                <input type="submit" class="btn btn-primary btn-block" value="Chercher" name="find"/>
+                {{ form_end(form) }}
+            </div>
+        </div>
+
         <form action="" method="POST" class="form-search">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary text-center">Listes des classes</h6>
-                    {# Bouton création #}
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <div class="row add-btn-top-list">
-                            <a href="{{ path('classe_new') }}" class="btn btn-primary">
-                                Créer un classe
-                            </a>
-                        </div>
-                    {% endif %}
+                    <h6 class="m-0 font-weight-bold text-primary text-center">Resultats</h6>
                     <div class="box-header">
                         <div class="list-count">
-                            <span class="title-count-text"> TOTAL: </span><span class="title-count"></span>
+                            <span class="title-count-text"> {% if users %} TOTAL: {{ users ? users|length }} {% endif %}</span><span
+                                    class="title-count"></span>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table" id="dataTable">
                             <thead>
                             <tr>
-                                <th></th>
-                                <th>Matiere</th>
-                                <th>Note obténue</th>
-                                <th>Coefficient</th>
+                                <th>Role</th>
+                                <th>Nom</th>
+                                <th>Prenom</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {% for note in note_liste %}
+                            {% for user in users %}
                                 <tr>
-                                    <td class="text-center">
-                                        <input type="checkbox" value="{{ note.id }}" name="delete[]"/>
-                                    </td>
-                                    <td>{{ note.matNom.matNom }}</td>
-                                    <td>{{ note.noteVal }}</td>
-                                    <td>{{ note.matNom.matCoeff }}</td>
-                                    <td class="kl-action-button-bloc">
-                                        <a class="btn btn-primary" title="Modifier"
-                                           href="{{ path('note_edit', { 'id': note.id }) }}">
-                                            <i class="fa fa-edit"></i>
+                                    <td>{{ user.skRole.rlName }}</td>
+                                    <td>{{ user.usrLastname }}</td>
+                                    <td>{{ user.usrFirstname }}</td>
+                                    <td>
+                                        <a href="{{ path('search_details',{id:user.id}) }}" class="btn btn-circle btn-primary">
+                                            <i class="fa fa-eye"></i>
                                         </a>
-                                        {% if is_granted('ROLE_ADMIN') %}
-                                            <a class="btn btn-danger remove-elt" title="Supprimer"
-                                               href="{{ path('note_delete', { 'id': note.id }) }}">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        {% endif %}
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -84,7 +79,7 @@
 
     <script type="text/javascript">
         // Call the dataTables jQuery plugin
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#dataTable').DataTable();
         });
 

@@ -4,21 +4,23 @@
 
 {% block title %}{{ parent() }} Ajout Utilisateur {% endblock %}
 
-{% set menu_niveau        = true %}
+{% set menu_user        = true %}
 
 {% block body %}
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary text-center">Créer un niveau</h6>
+            <h6 class="m-0 font-weight-bold text-primary text-center">Créer un étudiant</h6>
         </div>
         <div class="card-body">
             {{ form_start(form) }}
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
+                        <label for="" >Nom</label>
                         <input type="text" class="form-control" disabled value="{{ user.usrLastname }}">
                     </div>
                     <div class="form-group">
+                        <label for="">Classe</label>
                         <select name="classe" id="" class="form-control">
                             {% for classe in classe %}
                                 <option value="{{ classe.id }}">{{ classe.classeNom }}</option>
@@ -29,7 +31,7 @@
             </div>
             <div class="box-footer">
                 <input type="submit" class="btn btn-primary btn-block" value="Enregistrer" name="new_niveau"/>
-                <a href="{{ path('niveau_index') }}"
+                <a href="{{ path('classe_index') }}"
                    class="btn btn-google btn-block">
                     Annuler
                 </a>

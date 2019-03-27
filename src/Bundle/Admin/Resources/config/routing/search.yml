@@ -1,0 +1,9 @@
+user_search:
+    path:     /
+    defaults: { _controller: "AdminBundle:SkRecherche:search" }
+    methods:  [GET, POST]
+
+search_details:
+    path:     /{id}/show
+    defaults: { _controller: "AdminBundle:SkRecherche:details" }
+    methods:  [GET, POST]

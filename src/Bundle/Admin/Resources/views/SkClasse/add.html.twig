@@ -4,7 +4,7 @@
 
 {% block title %}{{ parent() }} Ajout Utilisateur {% endblock %}
 
-{% set menu_niveau        = true %}
+{% set menu_classe        = true %}
 
 {% block body %}
     <div class="card shadow mb-4">
@@ -17,6 +17,7 @@
                 <div class="col-md-12">
                     {{ form_row(form.classeNom) }}
                     <div class="form-group ">
+                        <label for="">Selectionner le niveau</label>
                         <select name="niveau" id="" class="form-control">
                             {% for niveau in niveau  %}
                                 <option value="{{ niveau.id }}" >{{ niveau.niveauNom }}</option>

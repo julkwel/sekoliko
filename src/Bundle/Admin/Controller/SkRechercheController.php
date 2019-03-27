@@ -3,44 +3,20 @@
  * Created by PhpStorm.
  * User: julkwel
  * Date: 3/27/19
- * Time: 2:20 PM
+ * Time: 7:46 PM
  */
 
 namespace App\Bundle\Admin\Controller;
 
 
 use App\Bundle\User\Entity\User;
-use App\Shared\Entity\SkClasse;
-use App\Shared\Entity\SkEtudiant;
-use App\Shared\Form\SkEtudiantType;
 use App\Shared\Services\Utils\RoleName;
-use App\Shared\Services\Utils\ServiceName;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\HttpFoundation\Request;
 
-/**
- * Class SkEtudiant
- * @package App\Bundle\Admin\Controller
- */
-class SkEtudiantController extends Controller
+class SkRechercheController extends Controller
 {
-    /**
-     * @return \App\Shared\Repository\SkEntityManager|object
-     */
-    public function getEntityService()
-    {
-        return $this->get('sk.repository.entity');
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getUserConnected()
-    {
-        return $this->get('security.token_storage')->getToken()->getUser();
-    }
-
     /**
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
@@ -62,10 +38,7 @@ class SkEtudiantController extends Controller
         $_list = '';
 
         $_array_type = array(
-            'skRole' => array(
-                RoleName::ID_ROLE_ETUDIANT,
-            ),
-            'etsNom' => $_user_ets
+            'etsNom' => $_user_ets,
         );
 
         if ($_form->isSubmitted()) {
@@ -100,47 +73,22 @@ class SkEtudiantController extends Controller
                 $_list = $this->getDoctrine()->getRepository(User::class)->findBy($_array_type, array('id' => 'DESC'));
             }
 
-            return $this->render('@Admin/SkEtudiant/resultat.html.twig', array(
+            return $this->render('@Admin/SkRecherche/resultat.html.twig', array(
                 'form' => $_form->createView(),
                 'users' => $_list
             ));
         }
 
-        return $this->render('@Admin/SkEtudiant/resultat.html.twig', array(
+        return $this->render('@Admin/SkRecherche/resultat.html.twig', array(
             'form' => $_form->createView(),
             'users' => $_list
         ));
     }
 
-    public function newAction(Request $request, User $user)
-    {
-        $_ets = $this->getUserConnected()->getEtsNom();
-        $_classe_list = $this->getDoctrine()->getRepository(SkClasse::class)->findBy(array('etsNom' => $_ets));
 
-        $_etudiant = new SkEtudiant();
-        $_form = $this->createForm(SkEtudiantType::class, $_etudiant);
-        $_form->handleRequest($request);
-
-        if ($_form->isSubmitted() && $_form->isValid()) {
-            $_class = $request->request->get('classe');
-            $_class = $this->getDoctrine()->getRepository(SkClasse::class)->find($_class);
-
-            $_etudiant->setClasse($_class);
-            $_etudiant->setEtudiant($user);
-            try {
-                $this->getEntityService()->saveEntity($_etudiant, 'new');
-                $this->getEntityService()->setFlash('success', 'Ajout etudiant avec success');
-            } catch (\Exception $exception) {
-                $exception->getMessage();
-            }
-            return $this->redirectToRoute('etudiant_search');
-        }
-
-        return $this->render('AdminBundle:SkEtudiant:add.html.twig', array(
-            'user' => $user,
-            'classe' => $_classe_list,
-            'form' => $_form->createView(),
-            'etudiant' => $_etudiant
+    public function detailsAction(User $user){
+        return $this->render('@Admin/SkRecherche/details.html.twig',array(
+            'users' => $user
         ));
     }
 }

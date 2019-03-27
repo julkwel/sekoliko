@@ -17,10 +17,10 @@
     {% endfor %}
 
     <div class="row">
-        <form action="{{ path('niveau_delete_group') }}" method="POST" class="form-search">
+        <form action="" method="POST" class="form-search">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary text-center">Listes des utilisateurs</h6>
+                    <h6 class="m-0 font-weight-bold text-primary text-center">Listes des salles</h6>
                     {# Bouton création #}
                     {% if is_granted('ROLE_ADMIN') %}
                         <div class="row add-btn-top-list">
@@ -82,14 +82,6 @@
                             {% endfor %}
                             </tbody>
                         </table>
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <a href="#">
-                                <button type="submit" name="_group_delete" class="btn btn-danger delete-btn">
-                                    <i class="fa fa-trash"></i>
-                                    Supprimer la sélection
-                                </button>
-                            </a>
-                        {% endif %}
                     </div>
                 </div>
             </div>

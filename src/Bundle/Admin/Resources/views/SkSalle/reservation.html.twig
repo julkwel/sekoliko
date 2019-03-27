@@ -9,7 +9,7 @@
 {% block body %}
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary text-center">Créer un niveau</h6>
+            <h6 class="m-0 font-weight-bold text-primary text-center">Ajouter un reservation</h6>
         </div>
         <div class="card-body">
             {{ form_start(form) }}
@@ -18,6 +18,7 @@
                     {{ form_row(form.salleNom) }}
                     {{ form_row(form.salleNumero) }}
                     <div class="form-group">
+                        <label for="">Date début réservation</label>
                         <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
                             <input type="text" name="debut" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
                             <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
@@ -26,6 +27,7 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="">Date fin réservation</label>
                         <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
                             <input type="text" name="fin" class="form-control datetimepicker-input" data-target="#datetimepicker2"/>
                             <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
@@ -34,6 +36,7 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="">Motifs d'utilisation</label>
                         <input type="text" name="motif" class="form-control">
                     </div>
                 </div>

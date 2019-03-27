@@ -61,8 +61,17 @@ class UserController extends Controller
     public function indexAction()
     {
         $_user_manager = $this->getUserMetier();
+        $_user_ets = $this->container->get('security.token_storage')->getToken()->getUser()->getEtsNom();
 
-        $_users = $_user_manager->getUserByEts();
+        $_array_type = array(
+            'skRole' => array(
+                RoleName::ID_ROLE_SUPERADMIN,
+                RoleName::ID_ROLE_ADMIN,
+            ),
+            'etsNom'=> $_user_ets
+        );
+
+        $_users = $this->getDoctrine()->getRepository(User::class)->findBy($_array_type,array('id'=>'DESC'));
 
         return $this->render('UserBundle:User:index.html.twig', array(
             'users' => $_users,

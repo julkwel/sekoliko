@@ -1,0 +1,21 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}{{ parent() }} Tableau de bord {% endblock %}
+
+{% set menu_niveau = true %}
+
+{% block body %}
+    <div class="card mb-4">
+        <div class="card-header text-center">
+            A propos de {{ users }} du {{ users.etsNom }}
+        </div>
+        <div class="card-body">
+            <ul>
+                <li>NOM : {{ users.usrLastname }}</li>
+                <li>PRENOM : {{ users.usrFirstname }}</li>
+                <li>ADRESS : {{ users.usrAddress }}</li>
+                <li>CONTACT : {{ users.usrPhone }}</li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
