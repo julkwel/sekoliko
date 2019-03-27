@@ -41,6 +41,7 @@ class SkNiveauController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Exception
      */
     public function newAction(Request $request)
     {
@@ -54,7 +55,10 @@ class SkNiveauController extends Controller
             $_niveau->setEtsNom($_user_ets);
 
             $this->getEntityService()->saveEntity($_niveau, 'new');
+            $this->getEntityService()->setFlash('success','niveau ajouté avec success');
             return $this->redirectToRoute('niveau_index');
+        } else{
+            $this->getEntityService()->setFlash('error','un erreur se produite');
         }
 
         return $this->render('AdminBundle:SkNiveau:add.html.twig', array(
@@ -69,6 +73,7 @@ class SkNiveauController extends Controller
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Exception
      */
     public function updateAction(Request $request,SkNiveau $skNiveau)
     {
@@ -78,7 +83,10 @@ class SkNiveauController extends Controller
         if($_form->isSubmitted() && $_form->isSubmitted())
         {
             $this->getEntityService()->saveEntity($skNiveau, 'update');
+            $this->getEntityService()->setFlash('success','Modification avec success');
             return $this->redirectToRoute('niveau_index');
+        }else{
+            $this->getEntityService()->setFlash('error','Un erreur se produite');
         }
 
         return $this->render('AdminBundle:SkNiveau:edit.html.twig', array(
@@ -92,12 +100,44 @@ class SkNiveauController extends Controller
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Exception
      */
     public function deleteAction(SkNiveau $skNiveau)
     {
         $_del_niveau = $this->getEntityService()->deleteEntity($skNiveau,'');
         if ($_del_niveau === true){
+            $this->getEntityService()->setFlash('success','Niveau supprimée avec success');
             return $this->redirectToRoute('niveau_index');
         }
+        $this->getEntityService()->setFlash('error','Un erreur se produite pendant la suppression niveau');
     }
+
+    /**
+     * @param Request $_request
+     * @param SkNiveau $skNiveau
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Exception
+     */
+    public function deleteGroupeAction(Request $_request,SkNiveau $skNiveau)
+    {
+        // Récupérer manager
+        $_entity_service = $this->getEntityService();
+
+        if (null !== $_request->request->get('_group_delete')) {
+            $_ids = $_request->request->get('delete');
+            if (null === $_ids) {
+                $_entity_service->setFlash('error', 'Veuillez sélectionner un élément à supprimer');
+
+                return $this->redirect($this->generateUrl('niveau_index'));
+            }
+            $_entity_service->deleteEntityGroup($skNiveau,$_ids);
+        }
+
+        $_entity_service->setFlash('success', 'Eléments sélectionnés supprimés');
+
+        return $this->redirect($this->generateUrl('niveau_index'));
+    }
+
 }

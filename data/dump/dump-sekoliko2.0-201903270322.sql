@@ -16,34 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `ets`
---
-
-DROP TABLE IF EXISTS `ets`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ets` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `ets_nom` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `ets_adresse` longtext COLLATE utf8_unicode_ci,
-  `ets_responsable` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `ets_phone` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `ets_email` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `ets_logo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ets`
---
-
-LOCK TABLES `ets` WRITE;
-/*!40000 ALTER TABLE `ets` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ets` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `migration_versions`
 --
 
@@ -62,7 +34,7 @@ CREATE TABLE `migration_versions` (
 
 LOCK TABLES `migration_versions` WRITE;
 /*!40000 ALTER TABLE `migration_versions` DISABLE KEYS */;
-INSERT INTO `migration_versions` VALUES ('20190124205803'),('20190128053150'),('20190128102308'),('20190214103107'),('20190215100015'),('20190215101315'),('20190215102505'),('20190215133951'),('20190215134050'),('20190216125744'),('20190216191316'),('20190216201504'),('20190216220041'),('20190225081452'),('20190225084907'),('20190225093858'),('20190225122151'),('20190225122345'),('20190225140546'),('20190225191533');
+INSERT INTO `migration_versions` VALUES ('20190124205803'),('20190128053150'),('20190128102308'),('20190214103107'),('20190215100015'),('20190215101315'),('20190215102505'),('20190215133951'),('20190215134050'),('20190216125744'),('20190216191316'),('20190216201504'),('20190216220041'),('20190225081452'),('20190225084907'),('20190225093858'),('20190225122151'),('20190225122345'),('20190225140546'),('20190225191533'),('20190326223059'),('20190326224726'),('20190326225217');
 /*!40000 ALTER TABLE `migration_versions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -79,6 +51,12 @@ CREATE TABLE `sk_abs` (
   `abs_motif` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `abs_date_deb` datetime DEFAULT NULL,
   `abs_date_fin` datetime DEFAULT NULL,
+  `ets_nom` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_adresse` longtext COLLATE utf8_unicode_ci,
+  `ets_responsable` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_phone` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_email` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_logo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_962A0FD08D93D649` (`user`),
   CONSTRAINT `FK_962A0FD08D93D649` FOREIGN KEY (`user`) REFERENCES `sk_user` (`id`) ON DELETE CASCADE
@@ -105,6 +83,12 @@ CREATE TABLE `sk_classe` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `niveau` int(11) DEFAULT NULL,
   `classe_nom` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `ets_nom` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_adresse` longtext COLLATE utf8_unicode_ci,
+  `ets_responsable` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_phone` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_email` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_logo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_497ED0384BDFF36B` (`niveau`),
   CONSTRAINT `FK_497ED0384BDFF36B` FOREIGN KEY (`niveau`) REFERENCES `sk_niveau` (`id`) ON DELETE CASCADE
@@ -132,6 +116,12 @@ CREATE TABLE `sk_edt` (
   `etd_date_deb` datetime DEFAULT NULL,
   `etd_date_fin` datetime DEFAULT NULL,
   `matNom` int(11) DEFAULT NULL,
+  `ets_nom` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_adresse` longtext COLLATE utf8_unicode_ci,
+  `ets_responsable` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_phone` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_email` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_logo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_591D9529EEC51E56` (`matNom`),
   CONSTRAINT `FK_591D9529EEC51E56` FOREIGN KEY (`matNom`) REFERENCES `sk_matiere` (`id`) ON DELETE CASCADE
@@ -184,6 +174,12 @@ CREATE TABLE `sk_etudiant` (
   `niveau` int(11) DEFAULT NULL,
   `etudiant` int(11) DEFAULT NULL,
   `note` int(11) DEFAULT NULL,
+  `ets_nom` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_adresse` longtext COLLATE utf8_unicode_ci,
+  `ets_responsable` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_phone` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_email` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_logo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_9CF709B44BDFF36B` (`niveau`),
   UNIQUE KEY `UNIQ_9CF709B4717E22E3` (`etudiant`),
@@ -215,12 +211,15 @@ CREATE TABLE `sk_matiere` (
   `mat_nom` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `mat_coeff` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `matProf` int(11) DEFAULT NULL,
-  `actEvent` int(11) DEFAULT NULL,
+  `ets_nom` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_adresse` longtext COLLATE utf8_unicode_ci,
+  `ets_responsable` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_phone` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_email` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_logo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_A1BC20CA623B6832` (`matProf`),
-  KEY `IDX_A1BC20CA6FC3B45D` (`actEvent`),
-  CONSTRAINT `FK_A1BC20CA623B6832` FOREIGN KEY (`matProf`) REFERENCES `sk_user` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `FK_A1BC20CA6FC3B45D` FOREIGN KEY (`actEvent`) REFERENCES `ets` (`id`) ON DELETE CASCADE
+  CONSTRAINT `FK_A1BC20CA623B6832` FOREIGN KEY (`matProf`) REFERENCES `sk_user` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -294,11 +293,14 @@ DROP TABLE IF EXISTS `sk_niveau`;
 CREATE TABLE `sk_niveau` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `niveau_nom` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `etsNom` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `IDX_8D269CC53741BC70` (`etsNom`),
-  CONSTRAINT `FK_8D269CC53741BC70` FOREIGN KEY (`etsNom`) REFERENCES `ets` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `ets_nom` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_adresse` longtext COLLATE utf8_unicode_ci,
+  `ets_responsable` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_phone` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_email` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_logo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -307,6 +309,7 @@ CREATE TABLE `sk_niveau` (
 
 LOCK TABLES `sk_niveau` WRITE;
 /*!40000 ALTER TABLE `sk_niveau` DISABLE KEYS */;
+INSERT INTO `sk_niveau` VALUES (1,'Testzaaaaaaaaaaaaaa','Techzara',NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `sk_niveau` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -321,6 +324,12 @@ CREATE TABLE `sk_note` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `note_val` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `matNom` int(11) DEFAULT NULL,
+  `ets_nom` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_adresse` longtext COLLATE utf8_unicode_ci,
+  `ets_responsable` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_phone` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_email` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_logo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_76659743EEC51E56` (`matNom`),
   CONSTRAINT `FK_76659743EEC51E56` FOREIGN KEY (`matNom`) REFERENCES `sk_matiere` (`id`) ON DELETE CASCADE
@@ -347,6 +356,12 @@ CREATE TABLE `sk_profs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `profs` int(11) DEFAULT NULL,
   `matiere` int(11) DEFAULT NULL,
+  `ets_nom` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_adresse` longtext COLLATE utf8_unicode_ci,
+  `ets_responsable` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_phone` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_email` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_logo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_B250034547E61F7F` (`profs`),
   KEY `IDX_B25003459014574A` (`matiere`),
@@ -377,6 +392,12 @@ CREATE TABLE `sk_retard` (
   `abs_motif` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `heure_deb` datetime DEFAULT NULL,
   `heure_fin` datetime DEFAULT NULL,
+  `ets_nom` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_adresse` longtext COLLATE utf8_unicode_ci,
+  `ets_responsable` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_phone` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_email` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_logo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_9A9DB2138D93D649` (`user`),
   CONSTRAINT `FK_9A9DB2138D93D649` FOREIGN KEY (`user`) REFERENCES `sk_user` (`id`) ON DELETE CASCADE
@@ -428,10 +449,16 @@ CREATE TABLE `sk_salle` (
   `salle_nom` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `salle_numero` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
   `is_reserve` tinyint(1) NOT NULL DEFAULT '0',
-  `etsNom` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `IDX_BB2162663741BC70` (`etsNom`),
-  CONSTRAINT `FK_BB2162663741BC70` FOREIGN KEY (`etsNom`) REFERENCES `ets` (`id`) ON DELETE CASCADE
+  `deb_reserve` datetime DEFAULT NULL,
+  `fin_reserve` datetime DEFAULT NULL,
+  `motifs` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_nom` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_adresse` longtext COLLATE utf8_unicode_ci,
+  `ets_responsable` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_phone` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_email` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_logo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -473,13 +500,19 @@ CREATE TABLE `sk_user` (
   `usr_phone` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `img_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `usr_is_valid` tinyint(1) NOT NULL,
+  `ets_nom` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_adresse` longtext COLLATE utf8_unicode_ci,
+  `ets_responsable` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_phone` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_email` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_logo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username_canonical_UNIQUE` (`username_canonical`),
   UNIQUE KEY `email_canonical_UNIQUE` (`email_canonical`),
   UNIQUE KEY `confirmation_token_UNIQUE` (`confirmation_token`),
   KEY `IDX_344BBB1EE7AB552C` (`sk_role_id`),
   CONSTRAINT `FK_344BBB1EE7AB552C` FOREIGN KEY (`sk_role_id`) REFERENCES `sk_role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -488,7 +521,7 @@ CREATE TABLE `sk_user` (
 
 LOCK TABLES `sk_user` WRITE;
 /*!40000 ALTER TABLE `sk_user` DISABLE KEYS */;
-INSERT INTO `sk_user` VALUES (1,1,'julien','julien','julienrajerison5@gmail.com','julienrajerison5@gmail.com',1,NULL,'$2y$13$CzOV8aI87NL0iqDviZz/SemLlKUhfRxLFpQ/s0c1pk2PcFPSCexxK','2019-02-26 16:12:23',NULL,NULL,'a:1:{i:0;s:15:\"ROLE_SUPERADMIN\";}','teste','teste','teste','2019-01-24 22:59:34','2019-01-24 23:03:28','0329473033',NULL,0),(9,3,'zaz','zaz','hello@gmail.com','hello@gmail.com',1,NULL,'$2y$13$FfJaLxavsDEhWnfZpWO4ZukyPPU9QY/n/c9aMNEaendTgKQr6fCaS',NULL,NULL,NULL,'a:1:{i:0;s:11:\"ROLE_MEMBER\";}','Hello','Hello','Hello','2019-02-14 16:07:01',NULL,'0365478954',NULL,0),(14,2,'bonbonzzzayyy','bonbonzzzayyy','julienrajerisonzzz5@gmail.azaza','julienrajerisonzzz5@gmail.azaza',1,NULL,'hello',NULL,NULL,NULL,'a:0:{}','testezzzzzzzazaza','testazzzazaz','testezzazaz','2019-02-26 01:27:52',NULL,'0329473033',NULL,0),(15,2,'bonbonzzzayyya','bonbonzzzayyya','julienrajerisonzzz5@gmail.azazazz','julienrajerisonzzz5@gmail.azazazz',1,NULL,'hello',NULL,NULL,NULL,'a:0:{}','testezzzzzzzazaza','testazzzazaz','testezzazaz','2019-02-26 01:29:19',NULL,'0329473033',NULL,0),(16,2,'bonoc','bonoc','julienrajerisonzzz5@ga.co','julienrajerisonzzz5@ga.co',1,NULL,'helloaz',NULL,NULL,NULL,'a:0:{}','testezzzzzzzazaza','testazzzazaz','testezzazaz','2019-02-26 01:34:40',NULL,'0329473033','/upload/image/61533f59dfb287e1fd1013236caccec9.png',0),(18,2,'bonocaz','bonocaz','julienrajerisonzzz5@ga.coza','julienrajerisonzzz5@ga.coza',1,NULL,'helloaz',NULL,NULL,NULL,'a:0:{}','testezzzzzzzazaza','testazzzazaz','testezzazaz','2019-02-26 01:40:36',NULL,'0329473033','/upload/image/abc6d01d8160de546b31821ddc73e862.png',0);
+INSERT INTO `sk_user` VALUES (1,1,'julien','julien','julienrajerison5@gmail.com','julienrajerison5@gmail.com',1,NULL,'$2y$13$CzOV8aI87NL0iqDviZz/SemLlKUhfRxLFpQ/s0c1pk2PcFPSCexxK','2019-03-27 00:48:17',NULL,NULL,'a:1:{i:0;s:15:\"ROLE_SUPERADMIN\";}','teste','teste','teste','2019-01-24 22:59:34','2019-01-24 23:03:28','0329473033',NULL,0,'Techzara',NULL,'',NULL,NULL,NULL),(21,3,'julienaz','julienaz','julienrajerison5@gmail.comza','julienrajerison5@gmail.comza',1,NULL,'$2y$13$.vQFMtnJOnxLnebDt4.WNeNWqXF5Ydx4Jfllli8pCpeZslqYmwrNO',NULL,NULL,NULL,'a:1:{i:0;s:13:\"ROLE_ETUDIANT\";}','za','dada','aza','2019-03-26 23:18:11',NULL,'0329473033',NULL,0,'',NULL,'',NULL,NULL,NULL),(22,3,'julienzaz','julienzaz','julienrajerison5@gmail.comz','julienrajerison5@gmail.comz',1,NULL,'$2y$13$pNZ9CNo6o41j44SRGplmj.y2sUIcko2UtmUzEoyrc7mpEmKwgBRBK',NULL,NULL,NULL,'a:1:{i:0;s:13:\"ROLE_ETUDIANT\";}','kotikota','dada','Tana','2019-03-27 00:52:38',NULL,'0329473033',NULL,0,NULL,NULL,NULL,NULL,NULL,NULL),(23,3,'julienazz','julienazz','b@b.com','b@b.com',1,NULL,'$2y$13$2d/Ssqq7Ul92kFgSOs1kd.mg4TT.zyUat.kjMxW.CJ.jERseLMPiq',NULL,NULL,NULL,'a:1:{i:0;s:13:\"ROLE_ETUDIANT\";}','biib','booba','bib','2019-03-27 01:24:25','2019-03-27 01:24:36','0329473033',NULL,0,'Techzara',NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `sk_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -505,4 +538,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-02-26 17:54:34
+-- Dump completed on 2019-03-27  3:22:17

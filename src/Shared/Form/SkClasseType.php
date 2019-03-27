@@ -17,13 +17,11 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ClasseFormType extends AbstractType
+class SkClasseType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('classeNom',TextType::class)
-                ->add('niveau',EntityType::class,array('class'=>SkNiveau::class))
-        ;
+        $builder->add('classeNom',TextType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

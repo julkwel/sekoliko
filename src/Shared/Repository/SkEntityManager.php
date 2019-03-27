@@ -42,9 +42,24 @@ class SkEntityManager
         return $this->_entity_manager->getRepository($_entity_name);
     }
 
+    /**
+     * @param $_entity_name
+     * @return array
+     */
     public function getAllList($_entity_name)
     {
         return $this->getRepository($_entity_name)->findBy(array(), array('id' => 'DESC'));
+    }
+
+    /**
+     * @param $_type
+     * @param $_message
+     * @return mixed
+     * @throws \Exception
+     */
+    public function setFlash($_type, $_message)
+    {
+        return $this->_container->get('session')->getFlashBag()->add($_type, $_message);
     }
 
     /**
@@ -159,7 +174,7 @@ class SkEntityManager
         if (count($_ids)) {
             foreach ($_ids as $_id) {
                 $_slide = $this->getEntityById($_entity_name, $_id);
-                $this->deleteEntity($_slide);
+                $this->deleteEntity($_slide,'');
                 $this->deleteImage($_slide);
             }
         }

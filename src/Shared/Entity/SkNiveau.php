@@ -66,4 +66,5 @@ class SkNiveau
     {
         $this->niveauNom = $niveauNom;
     }
+
 }

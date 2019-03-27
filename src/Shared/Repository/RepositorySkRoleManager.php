@@ -25,12 +25,10 @@ class RepositorySkRoleManager
     }
 
     /**
-     * Ajouter un message flash.
-     *
-     * @param string $_type
-     * @param string $_message
-     *
+     * @param $_type
+     * @param $_message
      * @return mixed
+     * @throws \Exception
      */
     public function setFlash($_type, $_message)
     {
@@ -38,9 +36,7 @@ class RepositorySkRoleManager
     }
 
     /**
-     * Récuperer le repository rôle.
-     *
-     * @return array
+     * @return \Doctrine\Common\Persistence\ObjectRepository|\Doctrine\ORM\EntityRepository
      */
     public function getRepository()
     {
@@ -58,11 +54,8 @@ class RepositorySkRoleManager
     }
 
     /**
-     * Récuperer un rôle par identifiant.
-     *
-     * @param int $_id
-     *
-     * @return array
+     * @param $_id
+     * @return null|object
      */
     public function getSkRoleById($_id)
     {
@@ -70,12 +63,11 @@ class RepositorySkRoleManager
     }
 
     /**
-     * Enregistrer un rôle.
-     *
-     * @param SkRole $_role
-     * @param string  $_action
-     *
+     * @param $_role
+     * @param $_action
      * @return bool
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function saveSkRole($_role, $_action)
     {
@@ -88,11 +80,10 @@ class RepositorySkRoleManager
     }
 
     /**
-     * Supprimer un rôle.
-     *
-     * @param SkRole $_role
-     *
+     * @param $_role
      * @return bool
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function deleteSkRole($_role)
     {
@@ -103,11 +94,10 @@ class RepositorySkRoleManager
     }
 
     /**
-     * Suppression multiple d'un rôle.
-     *
-     * @param array $_ids
-     *
+     * @param $_ids
      * @return bool
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function deleteGroupSkRole($_ids)
     {

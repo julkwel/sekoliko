@@ -5,3 +5,7 @@ tz_dashboard:
 tz_niveau:
     resource: "@AdminBundle/Resources/config/routing/niveau.yml"
     prefix:   /niveau
+
+tz_classe:
+    resource: "@AdminBundle/Resources/config/routing/classe.yml"
+    prefix:   /classe

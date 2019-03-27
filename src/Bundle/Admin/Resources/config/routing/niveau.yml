@@ -25,5 +25,5 @@ niveau_delete:
 
 niveau_delete_group:
     path:     /delete-group
-    defaults: { _controller: "UserBundle:User:deleteGroup" }
-    methods:  POST
+#    defaults: { _controller: "AdminBundle:SkNiveau:deleteGroupe" }
+#    methods:  POST

@@ -17,15 +17,15 @@
     {% endfor %}
 
     <div class="row">
-        <form action="{{ path('niveau_delete_group') }}" method="POST" class="form-search">
+        <form action="{{ path('classe_delete_group') }}" method="POST" class="form-search">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary text-center">Listes des utilisateurs</h6>
+                    <h6 class="m-0 font-weight-bold text-primary text-center">Listes des classes</h6>
                     {# Bouton création #}
                     {% if is_granted('ROLE_ADMIN') %}
                         <div class="row add-btn-top-list">
-                            <a href="{{ path('niveau_new') }}" class="btn btn-primary">
-                                Créer un niveau
+                            <a href="{{ path('classe_new') }}" class="btn btn-primary">
+                                Créer un classe
                             </a>
                         </div>
                     {% endif %}
@@ -41,25 +41,27 @@
                             <thead>
                             <tr>
                                 <th></th>
-                                <th>Nom</th>
+                                <th>Classe</th>
+                                <th>Niveau</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {% for niveau in niveaux %}
+                            {% for classe in class_list %}
                                 <tr>
                                     <td class="text-center">
-                                        <input type="checkbox" value="{{ niveau.id }}" name="delete[]"/>
+                                        <input type="checkbox" value="{{ classe.id }}" name="delete[]"/>
                                     </td>
-                                    <td>{{ niveau.niveauNom }}</td>
+                                    <td>{{ classe.classeNom }}</td>
+                                    <td>{{ classe.niveau ? classe.niveau.niveauNom : '' }}</td>
                                     <td class="kl-action-button-bloc">
                                         <a class="btn btn-primary" title="Modifier"
-                                           href="{{ path('niveau_edit', { 'id': niveau.id }) }}">
+                                           href="{{ path('classe_edit', { 'id': classe.id }) }}">
                                             <i class="fa fa-edit"></i>
                                         </a>
                                         {% if is_granted('ROLE_ADMIN') %}
                                             <a class="btn btn-danger remove-elt" title="Supprimer"
-                                               href="{{ path('niveau_delete', { 'id': niveau.id }) }}">
+                                               href="{{ path('classe_delete', { 'id': classe.id }) }}">
                                                 <i class="fa fa-trash"></i>
                                             </a>
                                         {% endif %}

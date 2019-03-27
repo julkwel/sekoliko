@@ -1,0 +1,29 @@
+classe_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:SkClass:index" }
+    methods:  GET
+
+classe_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:SkClass:new" }
+    methods:  [GET, POST]
+
+classe_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:SkClass:update" }
+    methods:  [GET, POST]
+
+#classe_update:
+#    path:     /{id}/update
+#    defaults: { _controller: "U" }
+#    methods:  [POST, PUT]
+
+classe_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:SkClass:delete" }
+    methods:  [GET, DELETE]
+
+classe_delete_group:
+    path:     /delete-group
+#    defaults: { _controller: "AdminBundle:SkClass:deleteGroupe" }
+#    methods:  POST
