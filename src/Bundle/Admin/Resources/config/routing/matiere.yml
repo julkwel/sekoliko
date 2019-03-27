@@ -1,0 +1,29 @@
+matiere_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:SkMatiere:index" }
+    methods:  GET
+
+matiere_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:SkMatiere:new" }
+    methods:  [GET, POST]
+
+matiere_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:SkMatiere:update" }
+    methods:  [GET, POST]
+
+#matiere_update:
+#    path:     /{id}/update
+#    defaults: { _controller: "U" }
+#    methods:  [POST, PUT]
+
+matiere_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:SkMatiere:delete" }
+    methods:  [GET, DELETE]
+
+matiere_delete_group:
+    path:     /delete-group
+#    defaults: { _controller: "AdminBundle:SkClass:deleteGroupe" }
+#    methods:  POST

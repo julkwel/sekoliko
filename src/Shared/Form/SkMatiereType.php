@@ -18,15 +18,17 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class MatiereFormType extends AbstractType
+class SkMatiereType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
             $builder
-                ->add('matNom',TextType::class)
-                ->add('etsNom',EntityType::class,array('class'=>SkEtablissement::class))
-                ->add('matCoeff',TextType::class)
-                ->add('matProf',EntityType::class,array('class'=>SkProfs::class))
+                ->add('matNom',TextType::class,array(
+                    'label' => 'Nom matiere'
+                ))
+                ->add('matCoeff',TextType::class,array(
+                    'label' => 'Coefficient Matiere'
+                ))
             ;
      }
 

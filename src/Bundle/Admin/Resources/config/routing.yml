@@ -9,3 +9,7 @@ tz_niveau:
 tz_classe:
     resource: "@AdminBundle/Resources/config/routing/classe.yml"
     prefix:   /classe
+
+tz_matiere:
+    resource: "@AdminBundle/Resources/config/routing/matiere.yml"
+    prefix:   /matiere
