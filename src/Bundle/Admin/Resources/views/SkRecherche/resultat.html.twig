@@ -3,7 +3,7 @@
 
 {% block title %}{{ parent() }} Tableau de bord {% endblock %}
 
-{% set menu_etd = true %}
+{% set menu_recherche = true %}
 
 {% block body %}
     {% for flashMessage in app.session.flashbag.get('success') %}
@@ -26,7 +26,6 @@
                 {{ form_row(form.prenom,{ 'value': '' }) }}
                 {{ form_row(form.nom,{ 'value': '' }) }}
                 <input type="submit" class="btn btn-primary btn-block" value="Chercher" name="find"/>
-                <a href="{{ path('user_new') }}" type="submit" class="btn btn-success btn-block" name="find">Nouveau</a>
                 {{ form_end(form) }}
             </div>
         </div>
@@ -46,12 +45,12 @@
                     <div class="table-responsive">
                         <table class="table" id="dataTable">
                             <thead>
-                                <tr>
-                                    <th>Role</th>
-                                    <th>Nom</th>
-                                    <th>Prenom</th>
-                                    <th>Action</th>
-                                </tr>
+                            <tr>
+                                <th>Role</th>
+                                <th>Nom</th>
+                                <th>Prenom</th>
+                                <th>Action</th>
+                            </tr>
                             </thead>
                             <tbody>
                             {% for user in users %}
@@ -60,8 +59,8 @@
                                     <td>{{ user.usrLastname }}</td>
                                     <td>{{ user.usrFirstname }}</td>
                                     <td>
-                                        <a href="{{ path('etudiant_new',{id:user.id}) }}" class="btn btn-circle btn-primary">
-                                            <i class="fa fa-plus"></i>
+                                        <a href="{{ path('search_details',{id:user.id}) }}" class="btn btn-circle btn-primary">
+                                            <i class="fa fa-eye"></i>
                                         </a>
                                     </td>
                                 </tr>

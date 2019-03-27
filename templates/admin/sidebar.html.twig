@@ -25,18 +25,19 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        Interface
+        Administration
     </div>
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#user" aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-cog"></i>
-            <span>Users</span>
+            <span>Utilisateurs</span>
         </a>
-        <div id="user" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="user" class="collapse {% if menu_user is defined or menu_recherche is defined or menu_etd is defined%}show{% endif %}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Action:</h6>
-                <a class="collapse-item" href="{{ path('user_index') }}">Liste</a>
+                <a class="collapse-item" href="{{ path('user_search') }}">Recherche utilisateur</a>
+                <a class="collapse-item" href="{{ path('user_index') }}">Liste des administrateur</a>
                 <a class="collapse-item" href="{{ path('user_new') }}">Nouveau Utilisateur</a>
                 <a class="collapse-item" href="{{ path('etudiant_search') }}">Nouveau Etudiant</a>
             </div>
@@ -48,7 +49,7 @@
             <i class="fas fa-fw fa-book"></i>
             <span>Niveau</span>
         </a>
-        <div id="niveau" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="niveau" class="collapse {% if menu_niveau is defined%}show{% endif %}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Action:</h6>
                 <a class="collapse-item" href="{{ path('niveau_index') }}">Liste des niveaux</a>
@@ -63,7 +64,7 @@
             <i class="fas fa-fw fa-book"></i>
             <span>Classe</span>
         </a>
-        <div id="classe" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="classe" class="collapse {% if menu_classe is defined%}show{% endif %}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Action:</h6>
                 <a class="collapse-item" href="{{ path('classe_index') }}">Liste des classes</a>
@@ -74,11 +75,11 @@
 
     <!-- Nav Item - Matiere Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#classe" aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#matiere" aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-book"></i>
             <span>Matieres</span>
         </a>
-        <div id="classe" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="matiere" class="collapse {% if menu_matiere is defined%}show{% endif %}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Action:</h6>
                 <a class="collapse-item" href="{{ path('matiere_index') }}">Liste des matieres</a>
@@ -93,7 +94,7 @@
             <i class="fas fa-fw fa-book"></i>
             <span>Salle</span>
         </a>
-        <div id="salle" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="salle" class="collapse  {% if menu_salle is defined%}show{% endif %}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Action:</h6>
                 <a class="collapse-item" href="{{ path('salle_index') }}">Liste salle</a>
