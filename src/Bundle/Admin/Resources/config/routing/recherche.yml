@@ -1,4 +1,0 @@
-niveau_new:
-    path:     /find
-    defaults: { _controller: "AdminBundle:SkEtudiant:search" }
-    methods:  [GET, POST]

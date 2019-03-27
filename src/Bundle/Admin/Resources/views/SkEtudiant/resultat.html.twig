@@ -36,7 +36,7 @@
                     <h6 class="m-0 font-weight-bold text-primary text-center">Resultats</h6>
                     <div class="box-header">
                         <div class="list-count">
-                            <span class="title-count-text"> TOTAL: {{ users ? users|length }} </span><span
+                            <span class="title-count-text"> {% if users %} TOTAL: {{ users ? users|length }} {% endif %}</span><span
                                     class="title-count"></span>
                         </div>
                     </div>
@@ -49,6 +49,7 @@
                                     <th>Role</th>
                                     <th>Nom</th>
                                     <th>Prenom</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -57,6 +58,11 @@
                                     <td>{{ user.skRole.rlName }}</td>
                                     <td>{{ user.usrLastname }}</td>
                                     <td>{{ user.usrFirstname }}</td>
+                                    <td>
+                                        <a href="{{ path('etudiant_new',{id:user.id}) }}">
+                                            <i class="fa fa-plus"></i>
+                                        </a>
+                                    </td>
                                 </tr>
                             {% endfor %}
                             </tbody>

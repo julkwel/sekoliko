@@ -10,6 +10,10 @@ namespace App\Bundle\Admin\Controller;
 
 
 use App\Bundle\User\Entity\User;
+use App\Shared\Entity\SkClasse;
+use App\Shared\Entity\SkEtudiant;
+use App\Shared\Form\SkEtudiantType;
+use App\Shared\Services\Utils\RoleName;
 use App\Shared\Services\Utils\ServiceName;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -52,18 +56,49 @@ class SkEtudiantController extends Controller
         $_user_ets = $this->container->get('security.token_storage')->getToken()->getUser()->getEtsNom();
 
         $_form->handleRequest($request);
-        $_nom           = $_form['nom']->getData();
-        $_usrFirstname  = $_form['prenom']->getData();
-        $_username      = $_form['username']->getData();
+        $_nom = $_form['nom']->getData();
+        $_usrFirstname = $_form['prenom']->getData();
+        $_username = $_form['username']->getData();
         $_list = '';
-        if ($_form->isSubmitted()){
+
+        $_array_type = array(
+            'skRole' => array(
+                RoleName::ID_ROLE_ETUDIANT,
+            ),
+        );
+
+        if ($_form->isSubmitted()) {
             if (!is_null($_nom)) {
-                $_list = $this->get(ServiceName::SRV_METIER_USER)->getUserByNom($_nom);
-            } elseif (!is_null($_usrFirstname)) {
-                $_list = $this->getDoctrine()->getRepository(User::class)->findBy(array('usrFirstname' => $_usrFirstname, 'etsNom' => $_user_ets));
-            } elseif (!is_null($_username)) {
-                $_list = $this->getDoctrine()->getRepository(User::class)->findBy(array('username' => $_username, 'etsNom' => $_user_ets));
+                $_list = $this->getDoctrine()->getRepository(User::class)->findBy(array(
+                    'usrLastname' => $_nom,
+                    'etsNom' => $_user_ets,
+                    'skRole' => array(
+                        RoleName::ID_ROLE_ETUDIANT
+                    )
+                ));
             }
+            elseif (!is_null($_usrFirstname)) {
+                $_list = $this->getDoctrine()->getRepository(User::class)->findBy(array(
+                    'usrFirstname' => $_usrFirstname,
+                    'etsNom' => $_user_ets,
+                    'skRole' => array(
+                        RoleName::ID_ROLE_ETUDIANT,
+                    )
+                ));
+            }
+            elseif (!is_null($_username)) {
+                $_list = $this->getDoctrine()->getRepository(User::class)->findBy(array(
+                    'username' => $_username,
+                    'etsNom' => $_user_ets,
+                    'skRole' => array(
+                        RoleName::ID_ROLE_ETUDIANT,
+                    )
+                ));
+            }
+            elseif ($_nom === null && $_usrFirstname === null && $_username === null) {
+                $_list = $this->getDoctrine()->getRepository(User::class)->findBy($_array_type, array('id' => 'DESC'));
+            }
+
             return $this->render('@Admin/SkEtudiant/resultat.html.twig', array(
                 'form' => $_form->createView(),
                 'users' => $_list
@@ -76,8 +111,35 @@ class SkEtudiantController extends Controller
         ));
     }
 
-    public function addEtudiant(Request $request)
+    public function newAction(Request $request, User $user)
     {
+        $_ets = $this->getUserConnected()->getEtsNom();
+        $_classe_list = $this->getDoctrine()->getRepository(SkClasse::class)->findBy(array('etsNom' => $_ets));
 
+        $_etudiant = new SkEtudiant();
+        $_form = $this->createForm(SkEtudiantType::class, $_etudiant);
+        $_form->handleRequest($request);
+
+        if ($_form->isSubmitted() && $_form->isValid()) {
+            $_class = $request->request->get('classe');
+            $_class = $this->getDoctrine()->getRepository(SkClasse::class)->find($_class);
+
+            $_etudiant->setClasse($_class);
+            $_etudiant->setEtudiant($user);
+            try {
+                $this->getEntityService()->saveEntity($_etudiant, 'new');
+                $this->getEntityService()->setFlash('success', 'Ajout etudiant avec success');
+            } catch (\Exception $exception) {
+                $exception->getMessage();
+            }
+            return $this->redirectToRoute('etudiant_search');
+        }
+
+        return $this->render('AdminBundle:SkEtudiant:add.html.twig', array(
+            'user' => $user,
+            'classe' => $_classe_list,
+            'form' => $_form->createView(),
+            'etudiant' => $_etudiant
+        ));
     }
 }

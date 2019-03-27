@@ -24,8 +24,8 @@
                     {# Bouton création #}
                     {% if is_granted('ROLE_ADMIN') %}
                         <div class="row add-btn-top-list">
-                            <a href="{{ path('classe_new') }}" class="btn btn-primary">
-                                Créer un classe
+                            <a href="{{ path('user_new') }}" class="btn btn-primary">
+                                Créer un étudiant
                             </a>
                         </div>
                     {% endif %}
@@ -41,31 +41,31 @@
                             <thead>
                             <tr>
                                 <th></th>
-                                <th>Classe</th>
-                                <th>Niveau</th>
+                                <th>Nom</th>
+                                <th>Prenom</th>
+                                <th>Contact</th>
+                                <th>Adresse</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {% for classe in class_list %}
+                            {% for etudiant in etudiant_liste %}
                                 <tr>
                                     <td class="text-center">
-                                        <input type="checkbox" value="{{ classe.id }}" name="delete[]"/>
+                                        <input type="checkbox" value="{{ etudiant.id }}" name="delete[]"/>
                                     </td>
-                                    <td>{{ classe.classeNom }}</td>
-                                    <td>{{ classe.niveau ? classe.niveau.niveauNom : '' }}</td>
+                                    <td>{{ etudiant.etudiant.usrFirstname }}</td>
+                                    <td>{{ etudiant.etudiant.usrLastname }}</td>
+                                    <td>{{ etudiant.etudiant.usrPhone }}</td>
+                                    <td>{{ etudiant.etudiant.usrAddress }}</td>
                                     <td class="kl-action-button-bloc">
                                         <a class="btn btn-primary" title="Modifier"
-                                           href="{{ path('classe_edit', { 'id': classe.id }) }}">
+                                           href="{{ path('user_edit', { 'id': etudiant.id }) }}">
                                             <i class="fa fa-edit"></i>
-                                        </a>
-                                        <a class="btn btn-primary" title="Modifier"
-                                           href="{{ path('etudiant_liste', { 'id': classe.id }) }}">
-                                            <i class="fa fa-eye"></i>
                                         </a>
                                         {% if is_granted('ROLE_ADMIN') %}
                                             <a class="btn btn-danger remove-elt" title="Supprimer"
-                                               href="{{ path('classe_delete', { 'id': classe.id }) }}">
+                                               href="{{ path('user_delete', { 'id': etudiant.id }) }}">
                                                 <i class="fa fa-trash"></i>
                                             </a>
                                         {% endif %}
@@ -74,14 +74,6 @@
                             {% endfor %}
                             </tbody>
                         </table>
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <a href="#">
-                                <button type="submit" name="_group_delete" class="btn btn-danger delete-btn">
-                                    <i class="fa fa-trash"></i>
-                                    Supprimer la sélection
-                                </button>
-                            </a>
-                        {% endif %}
                     </div>
                 </div>
             </div>

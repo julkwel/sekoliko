@@ -13,10 +13,10 @@ classe_edit:
     defaults: { _controller: "AdminBundle:SkClass:update" }
     methods:  [GET, POST]
 
-#classe_update:
-#    path:     /{id}/update
-#    defaults: { _controller: "U" }
-#    methods:  [POST, PUT]
+etudiant_liste:
+    path:     /{id}/etudiant
+    defaults: { _controller: "AdminBundle:SkClass:getListeEtudiant" }
+    methods:  [GET, POST]
 
 classe_delete:
     path:     /{id}/delete

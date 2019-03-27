@@ -1,0 +1,9 @@
+etudiant_search:
+    path:     /find
+    defaults: { _controller: "AdminBundle:SkEtudiant:search" }
+    methods:  [GET, POST]
+
+etudiant_new:
+    path:   /{id}/new
+    defaults: {_controller: 'AdminBundle:SkEtudiant:new'}
+    methods: [GET, POST]

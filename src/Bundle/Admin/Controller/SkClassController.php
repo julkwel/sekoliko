@@ -10,6 +10,7 @@ namespace App\Bundle\Admin\Controller;
 
 
 use App\Shared\Entity\SkClasse;
+use App\Shared\Entity\SkEtudiant;
 use App\Shared\Entity\SkNiveau;
 use App\Shared\Form\SkClasseType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -124,6 +125,21 @@ class SkClassController extends Controller
         $this->getEntityService()->setFlash('error', 'Un erreur se produite pendant la suppression niveau');
     }
 
+    /**
+     * @param Request $request
+     * @param SkClasse $skClasse
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getListeEtudiantAction(Request $request,SkClasse $skClasse)
+    {
+        $_etudiant_liste = $this->getDoctrine()->getRepository(SkEtudiant::class)->findBy(array(
+            'classe'=>$skClasse
+        ));
+
+        return $this->render('@Admin/SkClasse/etudiant.html.twig',array(
+            'etudiant_liste' => $_etudiant_liste
+        ));
+    }
     /**
      * @param Request $_request
      * @param SkClasse $skClasse

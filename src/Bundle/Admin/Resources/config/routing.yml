@@ -19,5 +19,5 @@ tz_salle:
     prefix:   /salle
 
 tz_recherche:
-    resource: "@AdminBundle/Resources/config/routing/recherche.yml"
+    resource: "@AdminBundle/Resources/config/routing/etudiant.yml"
     prefix:   /recherche
