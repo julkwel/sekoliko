@@ -48,7 +48,7 @@ class SkMatiere
      * @var User
      * @ORM\ManyToOne(targetEntity="App\Bundle\User\Entity\User")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="matProf", referencedColumnName="id", onDelete="CASCADE")
+     *   @ORM\JoinColumn(name="matProf", referencedColumnName="id", onDelete="CASCADE",nullable=true)
      * })
      */
     private $matProf;
