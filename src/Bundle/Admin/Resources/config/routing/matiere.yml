@@ -22,8 +22,3 @@ matiere_delete:
     path:     /{id}/delete
     defaults: { _controller: "AdminBundle:SkMatiere:delete" }
     methods:  [GET, DELETE]
-
-matiere_delete_group:
-    path:     /delete-group
-#    defaults: { _controller: "AdminBundle:SkClass:deleteGroupe" }
-#    methods:  POST
