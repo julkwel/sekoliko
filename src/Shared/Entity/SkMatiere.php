@@ -53,6 +53,15 @@ class SkMatiere
      */
     private $matProf;
 
+    /**
+     * @var SkClasse
+     * @ORM\ManyToOne(targetEntity="App\Shared\Entity\SkClasse")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="matClasse", referencedColumnName="id", onDelete="CASCADE",nullable=true)
+     * })
+     */
+    private $matClasse;
+
 
     /**
      * @return int
@@ -117,4 +126,22 @@ class SkMatiere
     {
         $this->matProf = $matProf;
     }
+
+    /**
+     * @return SkClasse
+     */
+    public function getMatClasse()
+    {
+        return $this->matClasse;
+    }
+
+    /**
+     * @param SkClasse $matClasse
+     */
+    public function setMatClasse($matClasse)
+    {
+        $this->matClasse = $matClasse;
+    }
+
+
 }

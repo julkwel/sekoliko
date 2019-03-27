@@ -21,3 +21,7 @@ tz_salle:
 tz_recherche:
     resource: "@AdminBundle/Resources/config/routing/etudiant.yml"
     prefix:   /recherche
+
+tz_note:
+    resource: "@AdminBundle/Resources/config/routing/note.yml"
+    prefix:   /note

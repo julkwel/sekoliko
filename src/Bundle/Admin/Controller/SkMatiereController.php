@@ -10,6 +10,7 @@ namespace App\Bundle\Admin\Controller;
 
 
 use App\Bundle\User\Entity\User;
+use App\Shared\Entity\SkClasse;
 use App\Shared\Entity\SkMatiere;
 use App\Shared\Entity\SkProfs;
 use App\Shared\Form\SkMatiereType;
@@ -73,15 +74,19 @@ class SkMatiereController extends Controller
     {
         $_user_ets = $this->getUserConected()->getEtsNom();
         $_profs_list = $this->getProfs();
+        $_classe_list = $this->getDoctrine()->getRepository(SkClasse::class)->findBy(array('etsNom'=>$_user_ets));
 
         $_matiere = new SkMatiere();
         $_form = $this->createForm(SkMatiereType::class, $_matiere);
         $_form->handleRequest($request);
         if ($_form->isSubmitted() && $_form->isValid()) {
             $_profs_user = $request->request->get('profs');
+            $_classe = $request->request->get('classe');
 
             $_profs_user = $this->getDoctrine()->getRepository(User::class)->find($_profs_user);
+            $_classe = $this->getDoctrine()->getRepository(SkClasse::class)->find($_classe);
             $_matiere->setMatProf($_profs_user);
+            $_matiere->setMatClasse($_classe);
             $_matiere->setEtsNom($_user_ets);
             $this->getEntityService()->saveEntity($_matiere, 'new');
             $this->getEntityService()->setFlash('success', 'Ajout Matiere avec success');
@@ -94,7 +99,8 @@ class SkMatiereController extends Controller
         return $this->render('@Admin/SkMatiere/add.html.twig', array(
             'form' => $_form->createView(),
             'profs' => $_profs_list,
-            'matiere' => $_matiere
+            'matiere' => $_matiere,
+            'classe'  => $_classe_list
         ));
     }
 
@@ -109,14 +115,20 @@ class SkMatiereController extends Controller
     public function updateAction(Request $request,SkMatiere $skMatiere)
     {
         $_profs_liste = $this->getProfs();
+        $_user_ets = $this->getUserConected()->getEtsNom();
+        $_classe_list = $this->getDoctrine()->getRepository(SkClasse::class)->findBy(array('etsNom'=>$_user_ets));
 
         $_form = $this->createForm(SkMatiereType::class,$skMatiere);
         $_form->handleRequest($request);
 
         if ($_form->isSubmitted() && $_form->isValid()){
             $_profs_user = $request->request->get('profs');
+            $_classe = $request->request->get('classe');
+
             $_profs_user = $this->getDoctrine()->getRepository(User::class)->find($_profs_user);
+            $_classe = $this->getDoctrine()->getRepository(SkClasse::class)->find($_classe);
             $skMatiere->setMatProf($_profs_user);
+            $skMatiere->setMatClasse($_classe);
             $this->getEntityService()->saveEntity($skMatiere,'update');
             $this->getEntityService()->setFlash('success','Mise a jour matiere réussie');
 
@@ -128,7 +140,8 @@ class SkMatiereController extends Controller
         return $this->render('@Admin/SkMatiere/edit.html.twig',array(
             'form' => $_form->createView(),
             'profs'=> $_profs_liste,
-            'matiere'=> $skMatiere
+            'matiere'=> $skMatiere,
+            'classe'  => $_classe_list
         ));
     }
 

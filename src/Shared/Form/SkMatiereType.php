@@ -9,6 +9,7 @@
 namespace App\Shared\Form;
 
 
+use App\Shared\Entity\SkClasse;
 use App\Shared\Entity\SkEtablissement;
 use App\Shared\Entity\SkMatiere;
 use App\Shared\Entity\SkProfs;

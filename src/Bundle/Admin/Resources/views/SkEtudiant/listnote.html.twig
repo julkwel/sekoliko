@@ -20,12 +20,12 @@
         <form action="{{ path('classe_delete_group') }}" method="POST" class="form-search">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary text-center">Listes des étudiants</h6>
+                    <h6 class="m-0 font-weight-bold text-primary text-center">Listes des classes</h6>
                     {# Bouton création #}
                     {% if is_granted('ROLE_ADMIN') %}
                         <div class="row add-btn-top-list">
-                            <a href="{{ path('user_new') }}" class="btn btn-primary">
-                                Créer un étudiant
+                            <a href="{{ path('classe_new') }}" class="btn btn-primary">
+                                Créer un classe
                             </a>
                         </div>
                     {% endif %}
@@ -41,39 +41,29 @@
                             <thead>
                             <tr>
                                 <th></th>
-                                <th>Nom</th>
-                                <th>Prenom</th>
-                                <th>Contact</th>
-                                <th>Adresse</th>
+                                <th>Matiere</th>
+                                <th>Note obténue</th>
+                                <th>Coefficient</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {% for etudiant in etudiant_liste %}
+                            {% for note in note_liste %}
                                 <tr>
                                     <td class="text-center">
-                                        <input type="checkbox" value="{{ etudiant.id }}" name="delete[]"/>
+                                        <input type="checkbox" value="{{ note.id }}" name="delete[]"/>
                                     </td>
-                                    <td>{{ etudiant.etudiant.usrFirstname }}</td>
-                                    <td>{{ etudiant.etudiant.usrLastname }}</td>
-                                    <td>{{ etudiant.etudiant.usrPhone }}</td>
-                                    <td>{{ etudiant.etudiant.usrAddress }}</td>
+                                    <td>{{ note.matNom.matNom }}</td>
+                                    <td>{{ note.noteVal }}</td>
+                                    <td>{{ note.matNom.matCoeff }}</td>
                                     <td class="kl-action-button-bloc">
                                         <a class="btn btn-primary" title="Modifier"
-                                           href="{{ path('user_edit', { 'id': etudiant.id }) }}">
+                                           href="{{ path('note_edit', { 'id': note.id }) }}">
                                             <i class="fa fa-edit"></i>
-                                        </a>
-                                        <a class="btn btn-primary" title="Ajout Note"
-                                           href="{{ path('note_new', { 'id': etudiant.id }) }}">
-                                            <i class="fa fa-book"></i>
-                                        </a>
-                                        <a class="btn btn-primary" title="Liste Note"
-                                           href="{{ path('etudiant_note', { 'id': etudiant.id }) }}">
-                                            <i class="fa fa-list"></i>
                                         </a>
                                         {% if is_granted('ROLE_ADMIN') %}
                                             <a class="btn btn-danger remove-elt" title="Supprimer"
-                                               href="{{ path('user_delete', { 'id': etudiant.id }) }}">
+                                               href="{{ path('note_delete', { 'id': note.id }) }}">
                                                 <i class="fa fa-trash"></i>
                                             </a>
                                         {% endif %}
@@ -82,6 +72,14 @@
                             {% endfor %}
                             </tbody>
                         </table>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="#">
+                                <button type="submit" name="_group_delete" class="btn btn-danger delete-btn">
+                                    <i class="fa fa-trash"></i>
+                                    Supprimer la sélection
+                                </button>
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
