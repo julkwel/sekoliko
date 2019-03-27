@@ -18,6 +18,7 @@
                     {{ form_row(form.matNom) }}
                     {{ form_row(form.matCoeff) }}
                     <div class="form-group ">
+                        <label for="">Selectionner un profs</label>
                         <select name="profs" id="" class="form-control">
                             {% for prof in profs  %}
                                 <option value="{{ prof.id }}" >{{ prof.usrFirstname }}</option>
@@ -25,6 +26,7 @@
                         </select>
                     </div>
                     <div class="form-group ">
+                        <label for="">Selectionner un classe</label>
                         <select name="classe" id="" class="form-control">
                             {% for classe in classe  %}
                                 <option value="{{ classe.id }}" >{{ classe.classeNom }}</option>

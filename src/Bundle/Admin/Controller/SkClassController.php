@@ -11,6 +11,7 @@ namespace App\Bundle\Admin\Controller;
 
 use App\Shared\Entity\SkClasse;
 use App\Shared\Entity\SkEtudiant;
+use App\Shared\Entity\SkMatiere;
 use App\Shared\Entity\SkNiveau;
 use App\Shared\Form\SkClasseType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -140,6 +141,20 @@ class SkClassController extends Controller
             'etudiant_liste' => $_etudiant_liste
         ));
     }
+
+    /**
+     * @param SkClasse $skClasse
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getMatiereAction(SkClasse $skClasse)
+    {
+        $_matiere_liste = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array('matClasse'=>$skClasse));
+
+        return $this->render('@Admin/SkClasse/class.mat.html.twig',array(
+            'liste_matiere' => $_matiere_liste
+        ));
+    }
+
     /**
      * @param Request $_request
      * @param SkClasse $skClasse
@@ -167,4 +182,5 @@ class SkClassController extends Controller
 
         return $this->redirect($this->generateUrl('classe_index'));
     }
+
 }

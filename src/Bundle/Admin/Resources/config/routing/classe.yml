@@ -22,3 +22,13 @@ classe_delete:
     path:     /{id}/delete
     defaults: { _controller: "AdminBundle:SkClass:delete" }
     methods:  [GET, DELETE]
+
+classe_matiere_liste:
+    path:     /{id}/matiere
+    defaults: { _controller: "AdminBundle:SkClass:getMatiere" }
+    methods:  [GET, POST]
+
+classe_edt:
+    path:     /{id}/edt
+    defaults: { _controller: "AdminBundle:SkEdt:index" }
+    methods:  [GET, POST]

@@ -39,6 +39,15 @@ class SkEdt
     private $matNom;
 
     /**
+     * @var SkClasse
+     * @ORM\ManyToOne(targetEntity="App\Shared\Entity\SkClasse")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="edtClasse", referencedColumnName="id", onDelete="CASCADE",nullable=true)
+     * })
+     */
+    private $edtClasse;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="etd_date_deb", type="datetime", nullable=true)
@@ -114,6 +123,22 @@ class SkEdt
     public function setEtdDateFin($etdDateFin)
     {
         $this->etdDateFin = $etdDateFin;
+    }
+
+    /**
+     * @return SkClasse
+     */
+    public function getEdtClasse()
+    {
+        return $this->edtClasse;
+    }
+
+    /**
+     * @param SkClasse $edtClasse
+     */
+    public function setEdtClasse($edtClasse)
+    {
+        $this->edtClasse = $edtClasse;
     }
 
 

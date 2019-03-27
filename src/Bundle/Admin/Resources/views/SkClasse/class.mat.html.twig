@@ -1,6 +1,6 @@
 {% extends 'admin/admin.html.twig' %}
 
-{% block title %}{{ parent() }} Classe {% endblock %}
+{% block title %}{{ parent() }} Tableau de bord {% endblock %}
 
 {% set menu_classe = true %}
 
@@ -20,12 +20,12 @@
         <form action="" method="POST" class="form-search">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary text-center">Listes des classes</h6>
+                    <h6 class="m-0 font-weight-bold text-primary text-center">Listes des matieres</h6>
                     {# Bouton création #}
                     {% if is_granted('ROLE_ADMIN') %}
                         <div class="row add-btn-top-list">
-                            <a href="{{ path('classe_new') }}" class="btn btn-primary">
-                                Créer un classe
+                            <a href="{{ path('matiere_new') }}" class="btn btn-primary">
+                                Créer un matiere
                             </a>
                         </div>
                     {% endif %}
@@ -41,39 +41,29 @@
                             <thead>
                             <tr>
                                 <th></th>
-                                <th>Classe</th>
-                                <th>Niveau</th>
+                                <th>Matiere</th>
+                                <th>Coefficient</th>
+                                <th>Profs</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {% for classe in class_list %}
+                            {% for matiere in liste_matiere %}
                                 <tr>
                                     <td class="text-center">
-                                        <input type="checkbox" value="{{ classe.id }}" name="delete[]"/>
+                                        <input type="checkbox" value="{{ matiere.id }}" name="delete[]"/>
                                     </td>
-                                    <td>{{ classe.classeNom }}</td>
-                                    <td>{{ classe.niveau ? classe.niveau.niveauNom : '' }}</td>
+                                    <td>{{ matiere.matNom }}</td>
+                                    <td>{{ matiere.matCoeff }}</td>
+                                    <td>{{ matiere.matProf ?  matiere.matProf.usrFirstname : '' }}</td>
                                     <td class="kl-action-button-bloc">
                                         <a class="btn btn-primary" title="Modifier"
-                                           href="{{ path('classe_edit', { 'id': classe.id }) }}">
+                                           href="{{ path('matiere_edit', { 'id': matiere.id }) }}">
                                             <i class="fa fa-edit"></i>
-                                        </a>
-                                        <a class="btn btn-primary" title="Etudiant liste"
-                                           href="{{ path('etudiant_liste', { 'id': classe.id }) }}">
-                                            <i class="fa fa-list"></i>
-                                        </a>
-                                        <a class="btn btn-primary" title="Matiere liste"
-                                           href="{{ path('classe_matiere_liste', { 'id': classe.id }) }}">
-                                            <i class="fa fa-book"></i>
-                                        </a>
-                                        <a class="btn btn-primary" title="Emploi du temps"
-                                           href="{{ path('classe_edt', { 'id': classe.id }) }}">
-                                            <i class="fa fa-calendar"></i>
                                         </a>
                                         {% if is_granted('ROLE_ADMIN') %}
                                             <a class="btn btn-danger remove-elt" title="Supprimer"
-                                               href="{{ path('classe_delete', { 'id': classe.id }) }}">
+                                               href="{{ path('matiere_delete', { 'id': matiere.id }) }}">
                                                 <i class="fa fa-trash"></i>
                                             </a>
                                         {% endif %}
@@ -94,7 +84,7 @@
 
     <script type="text/javascript">
         // Call the dataTables jQuery plugin
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#dataTable').DataTable();
         });
 
