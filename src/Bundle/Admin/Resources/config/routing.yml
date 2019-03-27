@@ -13,3 +13,7 @@ tz_classe:
 tz_matiere:
     resource: "@AdminBundle/Resources/config/routing/matiere.yml"
     prefix:   /matiere
+
+tz_salle:
+    resource: "@AdminBundle/Resources/config/routing/salle.yml"
+    prefix:   /salle
