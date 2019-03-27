@@ -1,7 +1,7 @@
 
-# Techzara Evenement Site
+# Sekoliko Application
 
-API setup with symfony 4
+Based on Symfony 4
 
-*Made for fun !!!*
+*Made for all Malagasy kids !!!*
 
