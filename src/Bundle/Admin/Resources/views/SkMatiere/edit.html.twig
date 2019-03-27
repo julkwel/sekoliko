@@ -24,6 +24,13 @@
                             {% endfor %}
                         </select>
                     </div>
+                    <div class="form-group ">
+                        <select name="classe" id="" class="form-control">
+                            {% for classe in classe  %}
+                                <option value="{{ classe.id }}" >{{ classe.classeNom }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
             </div>
             <div class="box-footer">

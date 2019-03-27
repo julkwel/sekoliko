@@ -31,10 +31,10 @@ class SkNote
     private $id;
 
     /**
-     * @var User
-     * @ORM\ManyToOne(targetEntity="App\Bundle\User\Entity\User")
+     * @var SkEtudiant
+     * @ORM\ManyToOne(targetEntity="App\Shared\Entity\SkEtudiant")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="matNom", referencedColumnName="id", onDelete="CASCADE")
+     *   @ORM\JoinColumn(name="etudiant", referencedColumnName="id", onDelete="CASCADE")
      * })
      */
     private $etudiant;
@@ -104,7 +104,7 @@ class SkNote
     }
 
     /**
-     * @return User
+     * @return SkEtudiant
      */
     public function getEtudiant()
     {
@@ -112,7 +112,7 @@ class SkNote
     }
 
     /**
-     * @param User $etudiant
+     * @param $etudiant
      */
     public function setEtudiant($etudiant)
     {
