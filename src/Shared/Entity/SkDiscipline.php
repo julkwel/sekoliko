@@ -73,33 +73,38 @@ class SkDiscipline
     /**
      * @return string
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
     /**
      * @param string $name
+     * @return SkDiscipline
      */
-    public function setName(string $name): void
+    public function setName(string $name): self
     {
         $this->name = $name;
+        return $this;
     }
 
     /**
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
     /**
      * @param string $description
+     * @return SkDiscipline
      */
-    public function setDescription(string $description): void
+    public function setDescription(string $description): self
     {
         $this->description = $description;
+        return $this;
+
     }
 
     /**
@@ -110,6 +115,10 @@ class SkDiscipline
         return $this->disciplineList;
     }
 
+    /**
+     * @param SkDisciplineList $disciplineList
+     * @return SkDiscipline
+     */
     public function addDisciplineList(SkDisciplineList $disciplineList): self
     {
         if (!$this->disciplineList->contains($disciplineList)) {
@@ -120,6 +129,10 @@ class SkDiscipline
         return $this;
     }
 
+    /**
+     * @param SkDisciplineList $disciplineList
+     * @return SkDiscipline
+     */
     public function removeDisciplineList(SkDisciplineList $disciplineList): self
     {
         if ($this->disciplineList->contains($disciplineList)) {
