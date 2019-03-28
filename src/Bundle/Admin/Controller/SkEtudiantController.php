@@ -114,27 +114,34 @@ class SkEtudiantController extends Controller
 
     public function newAction(Request $request, User $user)
     {
-        $_ets = $this->getUserConnected()->getEtsNom();
-        $_classe_list = $this->getDoctrine()->getRepository(SkClasse::class)->findBy(array('etsNom' => $_ets));
+        try {
+            $_ets = $this->getUserConnected()->getEtsNom();
+            $_classe_list = $this->getDoctrine()->getRepository(SkClasse::class)->findBy(array('etsNom' => $_ets));
 
-        $_etudiant = new SkEtudiant();
-        $_form = $this->createForm(SkEtudiantType::class, $_etudiant);
-        $_form->handleRequest($request);
+            $_etudiant = new SkEtudiant();
+            $_form = $this->createForm(SkEtudiantType::class, $_etudiant);
+            $_form->handleRequest($request);
 
-        if ($_form->isSubmitted() && $_form->isValid()) {
-            $_class = $request->request->get('classe');
-            $_class = $this->getDoctrine()->getRepository(SkClasse::class)->find($_class);
+            if ($_form->isSubmitted() && $_form->isValid()) {
+                $_class = $request->request->get('classe');
+                $_class = $this->getDoctrine()->getRepository(SkClasse::class)->find($_class);
 
-            $_etudiant->setClasse($_class);
-            $_etudiant->setEtudiant($user);
-            try {
-                $this->getEntityService()->saveEntity($_etudiant, 'new');
-                $this->getEntityService()->setFlash('success', 'Ajout etudiant avec success');
-            } catch (\Exception $exception) {
-                $exception->getMessage();
+                $_etudiant->setClasse($_class);
+                $_etudiant->setEtsNom($_ets);
+                $_etudiant->setEtudiant($user);
+                try {
+                    $this->getEntityService()->saveEntity($_etudiant, 'new');
+                    $this->getEntityService()->setFlash('success', 'Ajout etudiant avec success');
+                } catch (\Exception $exception) {
+                    $exception->getMessage();
+                }
+                return $this->redirectToRoute('etudiant_search');
             }
-            return $this->redirectToRoute('etudiant_search');
+        } catch (\Exception $exception)
+        {
+            $exception->getMessage();
         }
+
 
         return $this->render('AdminBundle:SkEtudiant:add.html.twig', array(
             'user' => $user,
