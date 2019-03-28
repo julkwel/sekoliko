@@ -17,8 +17,8 @@ class RoleName
 
     // Identifiant rôle
     const ID_ROLE_SUPERADMIN = 1;
-    const ID_ROLE_ADMIN = 2;
-    const ID_ROLE_ETUDIANT = 3;
+    const ID_ROLE_ADMIN = 3;
+    const ID_ROLE_ETUDIANT = 2;
     const ID_ROLE_PROFS = 4;
     const ID_ROLE_PERSONEL = 5;
     const ID_ROLE_PARENT = 6;

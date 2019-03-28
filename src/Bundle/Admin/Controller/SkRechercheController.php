@@ -59,7 +59,7 @@ class SkRechercheController extends Controller
                     'etsNom' => $_user_ets,
                 ));
             } elseif (null === $_nom && null === $_usrFirstname && null === $_username) {
-                $_list = $this->getDoctrine()->getRepository(User::class)->findBy($_array_type, array('id' => 'DESC'));
+                $_list = $this->getDoctrine()->getRepository(User::class)->findAll();
             }
 
             return $this->render('@Admin/SkRecherche/resultat.html.twig', array(
