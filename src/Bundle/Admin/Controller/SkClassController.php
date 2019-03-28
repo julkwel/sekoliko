@@ -120,7 +120,7 @@ class SkClassController extends Controller
     {
         $_del_classe = $this->getEntityService()->deleteEntity($skClasse, '');
         if ($_del_classe === true) {
-            $this->getEntityService()->setFlash('success', 'Niveau supprimée avec success');
+            $this->getEntityService()->setFlash('success', 'Classe supprimée avec success');
             return $this->redirectToRoute('classe_index');
         }
         $this->getEntityService()->setFlash('error', 'Un erreur se produite pendant la suppression niveau');
