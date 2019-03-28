@@ -79,7 +79,7 @@ class SkNoteController extends Controller
                 $exception->getMessage();
             }
 
-            return $this->redirect($this->generateUrl('etudiant_liste',array('id'=>$_etudiant_classe)));
+            return $this->redirect($this->generateUrl('etudiant_note',array('id'=>$etudiant->getId())));
         }
 
         return $this->render('@Admin/SkEtudiant/note.html.twig', array(
@@ -116,7 +116,7 @@ class SkNoteController extends Controller
                 $exception->getMessage();
             }
 
-            return $this->redirect($this->generateUrl('etudiant_liste',array('id'=>$_etudiant_classe)));
+            return $this->redirect($this->generateUrl('etudiant_note',array('id'=>$skNote->getEtudiant()->getId())));
         }
 
         return $this->render('@Admin/SkEtudiant/editnote.html.twig',array(
@@ -139,7 +139,7 @@ class SkNoteController extends Controller
         $_delete_note = $this->getEntityService()->deleteEntity($skNote,'');
         if ($_delete_note === true){
             $this->getEntityService()->setFlash('success','suppression avec success');
-            return $this->redirect($this->generateUrl('etudiant_liste',array('id'=>$_etudiant_classe)));
+            return $this->redirect($this->generateUrl('etudiant_note',array('id'=>$skNote->getEtudiant()->getId())));
         }
     }
 }
