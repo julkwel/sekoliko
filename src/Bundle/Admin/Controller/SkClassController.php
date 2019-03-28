@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: julkwel
  * Date: 3/27/19
- * Time: 2:01 AM
+ * Time: 2:01 AM.
  */
 
 namespace App\Bundle\Admin\Controller;
-
 
 use App\Bundle\User\Entity\User;
 use App\Bundle\User\Form\UserType;
@@ -33,6 +32,7 @@ class SkClassController extends Controller
 
     /**
      * @return \Symfony\Component\HttpFoundation\Response
+     *
      * @throws \Exception
      */
     public function indexAction()
@@ -40,13 +40,15 @@ class SkClassController extends Controller
         $_class_list = $this->getEntityService()->getAllListByEts(SkClasse::class);
 
         return $this->render('AdminBundle:SkClasse:index.html.twig', array(
-            'class_list' => $_class_list
+            'class_list' => $_class_list,
         ));
     }
 
     /**
      * @param Request $request
+     *
      * @return bool|\Symfony\Component\HttpFoundation\Response
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Exception
@@ -76,14 +78,16 @@ class SkClassController extends Controller
         return $this->render('AdminBundle:SkClasse:add.html.twig', array(
             'classe' => $_classe,
             'form' => $_form->createView(),
-            'niveau' => $_niveau_list
+            'niveau' => $_niveau_list,
         ));
     }
 
     /**
-     * @param Request $request
+     * @param Request  $request
      * @param SkClasse $skClasse
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Exception
@@ -109,13 +113,15 @@ class SkClassController extends Controller
         return $this->render('AdminBundle:SkClasse:edit.html.twig', array(
             'classe' => $skClasse,
             'form' => $_form->createView(),
-            'niveau' => $_niveau_list
+            'niveau' => $_niveau_list,
         ));
     }
 
     /**
      * @param SkClasse $skClasse
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Exception
@@ -123,32 +129,35 @@ class SkClassController extends Controller
     public function deleteAction(SkClasse $skClasse)
     {
         $_del_classe = $this->getEntityService()->deleteEntity($skClasse, '');
-        if ($_del_classe === true) {
+        if (true === $_del_classe) {
             $this->getEntityService()->setFlash('success', 'Classe supprimée avec success');
+
             return $this->redirectToRoute('classe_index');
         }
         $this->getEntityService()->setFlash('error', 'Un erreur se produite pendant la suppression niveau');
     }
 
     /**
-     * @param Request $request
+     * @param Request  $request
      * @param SkClasse $skClasse
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function getListeEtudiantAction(Request $request, SkClasse $skClasse)
     {
         $_etudiant_liste = $this->getDoctrine()->getRepository(SkEtudiant::class)->findBy(array(
-            'classe' => $skClasse
+            'classe' => $skClasse,
         ));
 
         return $this->render('@Admin/SkClasse/etudiant.html.twig', array(
             'etudiant_liste' => $_etudiant_liste,
-            'classe' => $skClasse
+            'classe' => $skClasse,
         ));
     }
 
     /**
      * @param SkClasse $skClasse
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function getMatiereAction(SkClasse $skClasse)
@@ -156,14 +165,16 @@ class SkClassController extends Controller
         $_matiere_liste = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array('matClasse' => $skClasse));
 
         return $this->render('@Admin/SkClasse/class.mat.html.twig', array(
-            'liste_matiere' => $_matiere_liste
+            'liste_matiere' => $_matiere_liste,
         ));
     }
 
     /**
-     * @param Request $_request
+     * @param Request  $_request
      * @param SkClasse $skClasse
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Exception
@@ -189,10 +200,11 @@ class SkClassController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param Request  $request
      * @param SkClasse $skClasse
+     *
      * @return \Symfony\Component\HttpFoundation\Response
-     * DONT TOUCH IF YOU DONT WANT TO DIE
+     *                                                    DONT TOUCH IF YOU DONT WANT TO DIE
      */
     public function createEtudianAction(Request $request, SkClasse $skClasse)
     {
@@ -200,7 +212,6 @@ class SkClassController extends Controller
         $_etudiant = new SkEtudiant();
         $_user_role = RoleName::ROLE_ETUDIANT;
         $_user_ets = $this->container->get('security.token_storage')->getToken()->getUser()->getEtsNom();
-
 
         $_form = $this->createForm(UserType::class, $_user);
         $_form_etd = $this->createForm(SkEtudiantType::class);
@@ -235,7 +246,7 @@ class SkClassController extends Controller
         return $this->render('@Admin/SkClasse/add.etudiant.html.twig', array(
             'form1' => $_form->createView(),
             'form2' => $_form_etd->createView(),
-            'classe' => $skClasse
+            'classe' => $skClasse,
         ));
     }
 }

@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: julkwel
  * Date: 2/25/19
- * Time: 6:13 PM
+ * Time: 6:13 PM.
  */
 
 namespace App\Shared\Repository;
-
 
 use App\Shared\Services\Utils\PathName;
 use Doctrine\ORM\EntityManager;
@@ -23,18 +22,19 @@ class SkEntityManager
      * ServiceMetierSkParticipants constructor.
      *
      * @param EntityManager $_entity_manager
-     * @param Container $_container
+     * @param Container     $_container
      * @param $_root_dir
      */
     public function __construct(EntityManager $_entity_manager, Container $_container, $_root_dir)
     {
         $this->_entity_manager = $_entity_manager;
         $this->_container = $_container;
-        $this->_web_root = realpath($_root_dir . '/../public');
+        $this->_web_root = realpath($_root_dir.'/../public');
     }
 
     /**
      * @param $_entity_name
+     *
      * @return \Doctrine\Common\Persistence\ObjectRepository|\Doctrine\ORM\EntityRepository
      */
     public function getRepository($_entity_name)
@@ -44,6 +44,7 @@ class SkEntityManager
 
     /**
      * @param $_entity_name
+     *
      * @return array
      */
     public function getAllList($_entity_name)
@@ -54,7 +55,9 @@ class SkEntityManager
     /**
      * @param $_type
      * @param $_message
+     *
      * @return mixed
+     *
      * @throws \Exception
      */
     public function setFlash($_type, $_message)
@@ -64,17 +67,21 @@ class SkEntityManager
 
     /**
      * @param $_entity_name
+     *
      * @return array
+     *
      * @throws \Exception
      */
     public function getAllListByEts($_entity_name)
     {
         $_user_ets = $this->_container->get('security.token_storage')->getToken()->getUser()->getEtsNom();
+
         return $this->getRepository($_entity_name)->findBy(array('etsNom' => $_user_ets), array('id' => 'DESC'));
     }
 
     /**
      * @param $_entity_name
+     *
      * @return array
      */
     public function getAllListASC($_entity_name)
@@ -96,7 +103,9 @@ class SkEntityManager
     /**
      * @param $_data
      * @param $_action
+     *
      * @return bool
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -113,6 +122,7 @@ class SkEntityManager
     /**
      * @param $_data
      * @param $_image
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -126,10 +136,10 @@ class SkEntityManager
         $this->saveEntity($_data, 'new');
     }
 
-
     /**
      * @param $_data
      * @param $_image
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -147,7 +157,9 @@ class SkEntityManager
     /**
      * @param $_data
      * @param $_image
+     *
      * @return bool
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -165,7 +177,9 @@ class SkEntityManager
     /**
      * @param $_entity_name
      * @param $_ids
+     *
      * @return bool
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -182,7 +196,6 @@ class SkEntityManager
         return true;
     }
 
-
     /**
      * @param $_data
      * @param $_image object
@@ -192,9 +205,9 @@ class SkEntityManager
         // Récupérer le répertoire image spécifique
         $_directory_image = PathName::UPLOAD_IMAGE;
         // Upload image
-        $_file_name_image = md5(uniqid()) . '.' . $_image->guessExtension();
-        $_uri_file = $_directory_image . $_file_name_image;
-        $_dir = $this->_web_root . $_directory_image;
+        $_file_name_image = md5(uniqid()).'.'.$_image->guessExtension();
+        $_uri_file = $_directory_image.$_file_name_image;
+        $_dir = $this->_web_root.$_directory_image;
         $_image->move(
             $_dir,
             $_file_name_image
@@ -203,15 +216,15 @@ class SkEntityManager
         $_data->setImgUrl($_uri_file);
     }
 
-
     /**
      * @param $_data
+     *
      * @return bool
      */
     public function deleteOnlyImage($_data)
     {
         if ($_data) {
-            $_path = $this->_web_root . $_data->getImgUrl();
+            $_path = $this->_web_root.$_data->getImgUrl();
 
             // Suppression du fichier
             @unlink($_path);
@@ -220,16 +233,16 @@ class SkEntityManager
         }
     }
 
-
     /**
      * @param $_data
+     *
      * @return array
      */
     public function deleteImage($_data)
     {
         if ($_data) {
             try {
-                $_path = $this->_web_root . $_data->getImgUrl();
+                $_path = $this->_web_root.$_data->getImgUrl();
 
                 // Suppression du fichier
                 @unlink($_path);
@@ -254,5 +267,4 @@ class SkEntityManager
             );
         }
     }
-
 }

@@ -8,7 +8,6 @@
 
 namespace App\Shared\Repository;
 
-use App\Shared\Entity\SkRole;
 use Doctrine\ORM\EntityManager;
 use App\Shared\Services\Utils\EntityName;
 use Symfony\Component\DependencyInjection\Container;
@@ -27,7 +26,9 @@ class RepositorySkRoleManager
     /**
      * @param $_type
      * @param $_message
+     *
      * @return mixed
+     *
      * @throws \Exception
      */
     public function setFlash($_type, $_message)
@@ -55,7 +56,8 @@ class RepositorySkRoleManager
 
     /**
      * @param $_id
-     * @return null|object
+     *
+     * @return object|null
      */
     public function getSkRoleById($_id)
     {
@@ -65,7 +67,9 @@ class RepositorySkRoleManager
     /**
      * @param $_role
      * @param $_action
+     *
      * @return bool
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -81,7 +85,9 @@ class RepositorySkRoleManager
 
     /**
      * @param $_role
+     *
      * @return bool
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -95,7 +101,9 @@ class RepositorySkRoleManager
 
     /**
      * @param $_ids
+     *
      * @return bool
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */

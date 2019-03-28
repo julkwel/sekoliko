@@ -8,7 +8,6 @@ use App\Shared\Services\Utils\EntityName;
 use App\Shared\Services\Utils\ServiceName;
 use App\Shared\Services\Utils\RoleName;
 use Symfony\Component\DependencyInjection\Container;
-use Symfony\Component\HttpFoundation\Request;
 
 class UserManager
 {
@@ -78,7 +77,9 @@ class UserManager
 
     /**
      * @param $_nom
+     *
      * @return array
+     *
      * @throws \Exception
      */
     public function getUserByNom($_nom)
@@ -86,15 +87,16 @@ class UserManager
         $_user_ets = $this->_container->get('security.token_storage')->getToken()->getUser()->getEtsNom();
 
         $_array_params = array(
-            'usrFirstname' => $_nom ,
-            'etsNom' => $_user_ets
+            'usrFirstname' => $_nom,
+            'etsNom' => $_user_ets,
         );
 
-        return $this->getRepository()->findBy($_array_params,array('id' => 'DESC'));
+        return $this->getRepository()->findBy($_array_params, array('id' => 'DESC'));
     }
 
     /**
      * @return array
+     *
      * @throws \Exception
      */
     public function getUserByEts()
@@ -118,7 +120,8 @@ class UserManager
 
     /**
      * @param $_id
-     * @return null|object
+     *
+     * @return object|null
      */
     public function getUserById($_id)
     {
@@ -162,6 +165,7 @@ class UserManager
     /**
      * @param $_user
      * @param $_form
+     *
      * @throws \Exception
      */
     public function addUser($_user, $_form)
@@ -187,6 +191,7 @@ class UserManager
     /**
      * @param $_user
      * @param $_form
+     *
      * @throws \Exception
      */
     public function updateUser($_user, $_form)
@@ -217,7 +222,9 @@ class UserManager
     /**
      * @param $_user
      * @param $_action
+     *
      * @return mixed
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -233,7 +240,9 @@ class UserManager
 
     /**
      * @param $_user
+     *
      * @return bool
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -247,7 +256,9 @@ class UserManager
 
     /**
      * @param $_ids
+     *
      * @return bool
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Exception
@@ -272,6 +283,7 @@ class UserManager
 
     /**
      * @param $_email
+     *
      * @return bool
      */
     public function getUserByEmail($_email)
@@ -287,6 +299,7 @@ class UserManager
 
     /**
      * @param $_email
+     *
      * @return bool
      */
     public function isUserNotClient($_email)
@@ -306,7 +319,9 @@ class UserManager
 
     /**
      * @param $_user_email
+     *
      * @return bool
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Twig\Error\Error
@@ -347,7 +362,9 @@ class UserManager
      * @param array $_data
      * @param $_mail_to
      * @param null $_user
+     *
      * @return bool
+     *
      * @throws \Twig\Error\Error
      * @throws \Exception
      */
@@ -372,9 +389,9 @@ class UserManager
         $_result = $this->_container->get('mailer')->send($_message);
 
         $_headers = $_message->getHeaders();
-        $_headers->addIdHeader('Message-ID', uniqid() . '@domain.com');
+        $_headers->addIdHeader('Message-ID', uniqid().'@domain.com');
         $_headers->addTextHeader('MIME-Version', '1.0');
-        $_headers->addTextHeader('X-Mailer', 'PHP v' . phpversion());
+        $_headers->addTextHeader('X-Mailer', 'PHP v'.phpversion());
         $_headers->addParameterizedHeader('Content-type', 'text/html', ['charset' => 'utf-8']);
 
         if ($_result) {
@@ -393,7 +410,7 @@ class UserManager
      */
     public function generatePassword($_length)
     {
-        $_caracter = str_split('abcdefghijklmnopqrstuvwxyz' . 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' . '0123456789');
+        $_caracter = str_split('abcdefghijklmnopqrstuvwxyz'.'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.'0123456789');
         $_special_caracter = str_split('!/\@#$^&*()?');
 
         shuffle($_caracter);

@@ -3,25 +3,22 @@
  * Created by PhpStorm.
  * User: julkwel
  * Date: 3/27/19
- * Time: 2:20 PM
+ * Time: 2:20 PM.
  */
 
 namespace App\Bundle\Admin\Controller;
-
 
 use App\Bundle\User\Entity\User;
 use App\Shared\Entity\SkClasse;
 use App\Shared\Entity\SkEtudiant;
 use App\Shared\Form\SkEtudiantType;
 use App\Shared\Services\Utils\RoleName;
-use App\Shared\Services\Utils\ServiceName;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class SkEtudiant
- * @package App\Bundle\Admin\Controller
+ * Class SkEtudiant.
  */
 class SkEtudiantController extends Controller
 {
@@ -43,7 +40,9 @@ class SkEtudiantController extends Controller
 
     /**
      * @param Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\Response
+     *
      * @throws \Exception
      */
     public function searchAction(Request $request)
@@ -65,7 +64,7 @@ class SkEtudiantController extends Controller
             'skRole' => array(
                 RoleName::ID_ROLE_ETUDIANT,
             ),
-            'etsNom' => $_user_ets
+            'etsNom' => $_user_ets,
         );
 
         if ($_form->isSubmitted()) {
@@ -74,8 +73,8 @@ class SkEtudiantController extends Controller
                     'usrLastname' => $_nom,
                     'etsNom' => $_user_ets,
                     'skRole' => array(
-                        RoleName::ID_ROLE_ETUDIANT
-                    )
+                        RoleName::ID_ROLE_ETUDIANT,
+                    ),
                 ));
             } elseif (!is_null($_usrFirstname)) {
                 $_list = $this->getDoctrine()->getRepository(User::class)->findBy(array(
@@ -83,7 +82,7 @@ class SkEtudiantController extends Controller
                     'etsNom' => $_user_ets,
                     'skRole' => array(
                         RoleName::ID_ROLE_ETUDIANT,
-                    )
+                    ),
                 ));
             } elseif (!is_null($_username)) {
                 $_list = $this->getDoctrine()->getRepository(User::class)->findBy(array(
@@ -91,27 +90,28 @@ class SkEtudiantController extends Controller
                     'etsNom' => $_user_ets,
                     'skRole' => array(
                         RoleName::ID_ROLE_ETUDIANT,
-                    )
+                    ),
                 ));
-            } elseif ($_nom === null && $_usrFirstname === null && $_username === null) {
+            } elseif (null === $_nom && null === $_usrFirstname && null === $_username) {
                 $_list = $this->getDoctrine()->getRepository(User::class)->findBy($_array_type, array('id' => 'DESC'));
             }
 
             return $this->render('@Admin/SkEtudiant/resultat.html.twig', array(
                 'form' => $_form->createView(),
-                'users' => $_list
+                'users' => $_list,
             ));
         }
 
         return $this->render('@Admin/SkEtudiant/resultat.html.twig', array(
             'form' => $_form->createView(),
-            'users' => $_list
+            'users' => $_list,
         ));
     }
 
     /**
      * @param Request $request
-     * @param User $user
+     * @param User    $user
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function newAction(Request $request, User $user)
@@ -137,24 +137,25 @@ class SkEtudiantController extends Controller
                 } catch (\Exception $exception) {
                     $exception->getMessage();
                 }
+
                 return $this->redirectToRoute('etudiant_search');
             }
         } catch (\Exception $exception) {
             $exception->getMessage();
         }
 
-
         return $this->render('AdminBundle:SkEtudiant:add.html.twig', array(
             'user' => $user,
             'classe' => $_classe_list,
             'form' => $_form->createView(),
-            'etudiant' => $_etudiant
+            'etudiant' => $_etudiant,
         ));
     }
 
     /**
-     * @param Request $request
+     * @param Request    $request
      * @param SkEtudiant $skEtudiant
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function updateAction(Request $request, SkEtudiant $skEtudiant)
@@ -177,14 +178,14 @@ class SkEtudiantController extends Controller
             } catch (\Exception $exception) {
                 $exception->getMessage();
             }
+
             return $this->redirect($this->generateUrl('etudiant_liste', array('id' => $skEtudiant->getClasse()->getId())));
         }
 
         return $this->render('@Admin/SkEtudiant/edit.etudiant.html.twig', array(
             'form' => $_form->createView(),
             'etudiant' => $skEtudiant,
-            'classe' => $_classe_list
+            'classe' => $_classe_list,
         ));
     }
-
 }

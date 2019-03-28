@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: julkwel
  * Date: 2/25/19
- * Time: 6:23 PM
+ * Time: 6:23 PM.
  */
 
 namespace App\Bundle\Api\ApiBundle\Controller;
-
 
 use App\Bundle\User\Entity\User;
 use App\Bundle\User\Form\UserType;
@@ -56,8 +55,10 @@ class UserApiController extends Controller
     }
 
     /**
-     * Get List User
+     * Get List User.
+     *
      * @return JsonResponse
+     *
      * @throws \Exception
      */
     public function indexAction()
@@ -70,9 +71,12 @@ class UserApiController extends Controller
     }
 
     /**
-     * Add user
+     * Add user.
+     *
      * @param Request $_request
+     *
      * @return JsonResponse
+     *
      * @throws ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -100,7 +104,7 @@ class UserApiController extends Controller
          * submit new user
          */
         $form->submit($_request->request->all());
-        $this->userManager()->addEntity($_user,$_image);
+        $this->userManager()->addEntity($_user, $_image);
 
         try {
             return $this->response('status', Response::HTTP_CREATED);
@@ -110,9 +114,12 @@ class UserApiController extends Controller
     }
 
     /**
-     * Update user
+     * Update user.
+     *
      * @param Request $request
-     * @return User|null|object|\Symfony\Component\Form\FormInterface|JsonResponse
+     *
+     * @return User|object|\Symfony\Component\Form\FormInterface|JsonResponse|null
+     *
      * @throws ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -134,15 +141,16 @@ class UserApiController extends Controller
         $user->setskRole($_role);
         $form->submit($request->request->all());
 
-        $this->userManager()->addEntity($user,$_image);
+        $this->userManager()->addEntity($user, $_image);
 
         return $this->response('status', Response::HTTP_ACCEPTED);
     }
 
-
     /**
      * @param Request $request
+     *
      * @return JsonResponse
+     *
      * @throws ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -157,17 +165,16 @@ class UserApiController extends Controller
             $em->deleteEntity($user);
 
             return $this->response('status', Response::HTTP_OK);
-        }else{
-
+        } else {
             return $this->response('status', Response::HTTP_ALREADY_REPORTED);
         }
-
     }
-
 
     /**
      * @param Request $_request
+     *
      * @return JsonResponse
+     *
      * @throws ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -183,7 +190,7 @@ class UserApiController extends Controller
             if (null === $_ids) {
                 return $this->response('status', Response::HTTP_BAD_REQUEST);
             }
-            $_user_manager->deleteEntityGroup($_user,$_ids);
+            $_user_manager->deleteEntityGroup($_user, $_ids);
         }
 
         return $this->response('status', Response::HTTP_OK);

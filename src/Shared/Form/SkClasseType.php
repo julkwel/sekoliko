@@ -3,15 +3,12 @@
  * Created by PhpStorm.
  * User: julkwel
  * Date: 3/10/19
- * Time: 8:43 PM
+ * Time: 8:43 PM.
  */
 
 namespace App\Shared\Form;
 
-
 use App\Shared\Entity\SkClasse;
-use App\Shared\Entity\SkNiveau;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,12 +18,12 @@ class SkClasseType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('classeNom',TextType::class);
+        $builder->add('classeNom', TextType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array('data_class'=>SkClasse::class));
+        $resolver->setDefaults(array('data_class' => SkClasse::class));
     }
 
     public function getBlockPrefix()

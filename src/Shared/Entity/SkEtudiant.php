@@ -3,23 +3,22 @@
  * Created by PhpStorm.
  * User: julkwel
  * Date: 2/25/19
- * Time: 4:37 PM
+ * Time: 4:37 PM.
  */
 
 namespace App\Shared\Entity;
+
 use App\Bundle\User\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * SkClasse
+ * SkClasse.
  *
  * @ORM\Table(name="sk_etudiant")
  * @ORM\Entity
  */
-
 class SkEtudiant
 {
-
     use SkEtablissement;
 
     /**
@@ -96,5 +95,4 @@ class SkEtudiant
     {
         $this->etudiant = $etudiant;
     }
-
 }

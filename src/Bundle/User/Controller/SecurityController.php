@@ -17,17 +17,19 @@ use FOS\UserBundle\Controller\SecurityController as BaseSecurityController;
 
 class SecurityController extends BaseSecurityController
 {
-
+    /**
+     * @return RedirectResponse
+     *                          Redirect User to login page
+     */
     public function redirectAction()
     {
         return $this->redirect($this->generateUrl('sk_login'));
     }
+
     /**
-     * Afficher la page d'authentification.
-     *
      * @param Request $request
      *
-     * @return Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function loginAction(Request $request)
     {

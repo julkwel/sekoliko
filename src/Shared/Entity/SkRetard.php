@@ -3,14 +3,12 @@
  * Created by PhpStorm.
  * User: julkwel
  * Date: 2/25/19
- * Time: 2:59 PM
+ * Time: 2:59 PM.
  */
 
 namespace App\Shared\Entity;
 
-
 use App\Bundle\User\Entity\User;
-
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -21,7 +19,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class SkRetard
 {
-
     use SkEtablissement;
 
     /**
@@ -142,5 +139,4 @@ class SkRetard
     {
         $this->heureFin = $heureFin;
     }
-
 }

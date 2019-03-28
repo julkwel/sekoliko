@@ -3,20 +3,19 @@
  * Created by PhpStorm.
  * User: chrys
  * Date: 27/03/19
- * Time: 21:16
+ * Time: 21:16.
  */
 
 namespace App\Shared\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+
 /**
- * SkDiscipline
+ * SkDiscipline.
+ *
  * @ORM\Table(name="sk_discipline")
  * @ORM\Entity
-*/
-
+ */
 class SkDiscipline
 {
     use SkEtablissement;
@@ -68,6 +67,4 @@ class SkDiscipline
     {
         $this->name = $name;
     }
-
-
 }

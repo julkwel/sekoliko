@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: julkwel
  * Date: 3/27/19
- * Time: 11:01 PM
+ * Time: 11:01 PM.
  */
 
 namespace App\Bundle\Admin\Controller;
-
 
 use App\Shared\Entity\SkClasse;
 use App\Shared\Entity\SkEdt;
@@ -30,32 +29,33 @@ class SkEdtController extends Controller
 
     /**
      * @param SkClasse $skClasse
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction(SkClasse $skClasse)
     {
         $_edt = $this->getDoctrine()->getRepository(SkEdt::class)->findBy(array('edtClasse' => $skClasse));
+
         return $this->render('@Admin/SkClasse/edt.html.twig', array(
             'classe' => $skClasse,
-            'edt' => $_edt
+            'edt' => $_edt,
         ));
     }
 
     /**
-     * @param Request $request
+     * @param Request  $request
      * @param SkClasse $skClasse
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function addEdtAction(Request $request, SkClasse $skClasse)
     {
-
         try {
             $_edt = new SkEdt();
             $_user_ets = $this->getUserConnected()->getEtsNom();
             $_form = $this->createForm(SkEdtType::class, $_edt);
             $_form->handleRequest($request);
             $_mat_list = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array('matClasse' => $skClasse));
-
 
             if ($_form->isSubmitted() && $_form->isValid()) {
                 try {
@@ -77,18 +77,18 @@ class SkEdtController extends Controller
                 } catch (\Exception $exception) {
                     $exception->getMessage();
                 }
+
                 return $this->redirect($this->generateUrl('classe_edt', array('id' => $skClasse->getId())));
             }
         } catch (\Exception $exception) {
             $exception->getMessage();
         }
 
-
         return $this->render('@Admin/SkClasse/template.html.twig', array(
             'matieres' => $_mat_list,
             'edt' => $_edt,
             'classe' => $skClasse,
-            'form' => $_form->createView()
+            'form' => $_form->createView(),
         ));
     }
 }

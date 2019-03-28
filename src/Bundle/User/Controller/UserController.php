@@ -68,10 +68,10 @@ class UserController extends Controller
                 RoleName::ID_ROLE_SUPERADMIN,
                 RoleName::ID_ROLE_ADMIN,
             ),
-            'etsNom'=> $_user_ets
+            'etsNom' => $_user_ets,
         );
 
-        $_users = $this->getDoctrine()->getRepository(User::class)->findBy($_array_type,array('id'=>'DESC'));
+        $_users = $this->getDoctrine()->getRepository(User::class)->findBy($_array_type, array('id' => 'DESC'));
 
         return $this->render('UserBundle:User:index.html.twig', array(
             'users' => $_users,
@@ -80,6 +80,7 @@ class UserController extends Controller
 
     /**
      * @param User $_user
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function editAction(User $_user)
@@ -127,7 +128,6 @@ class UserController extends Controller
         $_form->handleRequest($_request);
 
         if ($_form->isSubmitted() && $_form->isValid()) {
-
             $_user_ets = $this->container->get('security.token_storage')->getToken()->getUser()->getEtsNom();
             $_user->setEtsNom($_user_ets);
 
@@ -145,8 +145,10 @@ class UserController extends Controller
 
     /**
      * @param Request $_request
-     * @param User $_user
+     * @param User    $_user
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
      * @throws \Exception
      */
     public function updateAction(Request $_request, User $_user)
@@ -195,6 +197,7 @@ class UserController extends Controller
 
     /**
      * @param User $_user
+     *
      * @return \Symfony\Component\Form\FormInterface
      */
     private function createEditForm(User $_user)
@@ -212,7 +215,7 @@ class UserController extends Controller
 
     /**
      * @param Request $_request
-     * @param User $_user
+     * @param User    $_user
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *

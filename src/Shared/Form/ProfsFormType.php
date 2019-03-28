@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: julkwel
  * Date: 3/11/19
- * Time: 11:10 AM
+ * Time: 11:10 AM.
  */
 
 namespace App\Shared\Form;
-
 
 use App\Shared\Entity\SkClasse;
 use App\Shared\Entity\SkMatiere;
@@ -21,14 +20,14 @@ class ProfsFormType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('classe',EntityType::class,array('class'=>SkClasse::class))
-            ->add('matiere',EntityType::class,array('class'=>SkMatiere::class))
-            ->add('profs',EntityType::class,array('class'=>SkProfs::class))
+            ->add('classe', EntityType::class, array('class' => SkClasse::class))
+            ->add('matiere', EntityType::class, array('class' => SkMatiere::class))
+            ->add('profs', EntityType::class, array('class' => SkProfs::class))
             ;
     }
 
@@ -37,11 +36,11 @@ class ProfsFormType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array('data_class'=>SkProfs::class));
+        $resolver->setDefaults(array('data_class' => SkProfs::class));
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getBlockPrefix()
     {

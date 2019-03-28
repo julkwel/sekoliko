@@ -3,14 +3,15 @@
  * Created by PhpStorm.
  * User: julkwel
  * Date: 2/25/19
- * Time: 2:48 PM
+ * Time: 2:48 PM.
  */
 
 namespace App\Shared\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+
 /**
- * SkNiveau
+ * SkNiveau.
  *
  * @ORM\Table(name="sk_niveau")
  * @ORM\Entity
@@ -66,5 +67,4 @@ class SkNiveau
     {
         $this->niveauNom = $niveauNom;
     }
-
 }

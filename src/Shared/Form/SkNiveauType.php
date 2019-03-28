@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: julkwel
  * Date: 3/27/19
- * Time: 2:36 AM
+ * Time: 2:36 AM.
  */
 
 namespace App\Shared\Form;
-
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -19,9 +18,9 @@ class SkNiveauType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('niveauNom',TextType::class,array(
+            ->add('niveauNom', TextType::class, array(
                 'label' => 'Ajouter le nom du niveau',
-                'required' => true
+                'required' => true,
             ))
         ;
     }
@@ -29,7 +28,7 @@ class SkNiveauType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'App\Shared\Entity\SkNiveau'
+            'data_class' => 'App\Shared\Entity\SkNiveau',
         ));
     }
 }

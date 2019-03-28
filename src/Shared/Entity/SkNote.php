@@ -3,12 +3,11 @@
  * Created by PhpStorm.
  * User: julkwel
  * Date: 2/25/19
- * Time: 2:02 PM
+ * Time: 2:02 PM.
  */
 
 namespace App\Shared\Entity;
 
-use App\Bundle\User\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -118,7 +117,4 @@ class SkNote
     {
         $this->etudiant = $etudiant;
     }
-
-
-    
 }
