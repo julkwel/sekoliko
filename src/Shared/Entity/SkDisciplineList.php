@@ -36,7 +36,7 @@ class SkDisciplineList
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Shared\Entity\SkDiscipline", inversedBy="$disciplineList")
+     * @ORM\ManyToOne(targetEntity="App\Shared\Entity\SkDiscipline", inversedBy="disciplineList")
      * @ORM\JoinColumn(nullable=false)
      */
     private $discipline;

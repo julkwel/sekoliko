@@ -45,7 +45,7 @@ class SkDiscipline
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Shared\Entity\SkDisciplineList", mappedBy="$discipline", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Shared\Entity\SkDisciplineList", mappedBy="discipline", orphanRemoval=true)
      */
     private $disciplineList;
 
