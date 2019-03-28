@@ -29,3 +29,7 @@ tz_note:
 tz_recherche_global:
     resource: "@AdminBundle/Resources/config/routing/search.yml"
     prefix:   /search
+
+tz_discipline:
+    resource: "@AdminBundle/Resources/config/routing/discipline.yml"
+    prefix:   /discipline
