@@ -151,9 +151,9 @@ class SkEntityManager
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function deleteEntity($_data,$_image)
+    public function deleteEntity($_data, $_image)
     {
-        if (!'' === $_image){
+        if (!'' === $_image) {
             $this->deleteImage($_data);
         }
         $this->_entity_manager->remove($_data);
@@ -174,7 +174,7 @@ class SkEntityManager
         if (count($_ids)) {
             foreach ($_ids as $_id) {
                 $_slide = $this->getEntityById($_entity_name, $_id);
-                $this->deleteEntity($_slide,'');
+                $this->deleteEntity($_slide, '');
                 $this->deleteImage($_slide);
             }
         }

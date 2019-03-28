@@ -1,7 +1,7 @@
 {% extends 'admin/admin.html.twig' %}
 
 {% block title %}{{ parent() }} Tableau de bord {% endblock %}
-{% set menu_matiere = true %}
+{% set menu_classe = true %}
 
 {% block body %}
     {% for flashMessage in app.session.flashbag.get('success') %}
