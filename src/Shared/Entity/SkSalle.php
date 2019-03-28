@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: julkwel
  * Date: 2/25/19
- * Time: 1:16 PM
+ * Time: 1:16 PM.
  */
 
 namespace App\Shared\Entity;
@@ -16,7 +16,6 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="sk_salle")
  * @ORM\Entity
  */
-
 class SkSalle
 {
     use SkEtablissement;
@@ -43,7 +42,6 @@ class SkSalle
      * @ORM\Column(name="salle_numero", type="string", length=30, nullable=true)
      */
     private $salleNumero;
-
 
     /**
      * @var string
@@ -72,7 +70,6 @@ class SkSalle
      * @ORM\Column(name="motifs", type="string", length=200,nullable=true)
      */
     private $motifs;
-
 
     /**
      * @return int
@@ -185,7 +182,4 @@ class SkSalle
     {
         $this->motifs = $motifs;
     }
-    
-    
-    
 }

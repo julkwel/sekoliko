@@ -179,7 +179,6 @@ class User extends BaseUser
         $this->imgUrl = $imgUrl;
     }
 
-
     /**
      * @return SkRole
      */

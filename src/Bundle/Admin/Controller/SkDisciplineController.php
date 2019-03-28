@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: chrys
  * Date: 28/03/19
- * Time: 07:18
+ * Time: 07:18.
  */
 
 namespace App\Bundle\Admin\Controller;
@@ -35,6 +35,7 @@ class SkDisciplineController extends Controller
 
     /**
      * @return \Symfony\Component\HttpFoundation\Response
+     *
      * @throws \Exception
      */
     public function indexAction()
@@ -42,12 +43,13 @@ class SkDisciplineController extends Controller
         $discipline_list = $this->getEntityService()->getAllListByEts(SkDiscipline::class);
 
         return $this->render('@Admin/SkDiscipline/index.html.twig', array(
-            'discipline_list' => $discipline_list
+            'discipline_list' => $discipline_list,
         ));
     }
 
     /**
      * @param Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function newAction(Request $request)
@@ -72,14 +74,14 @@ class SkDisciplineController extends Controller
 
         return $this->render('@Admin/SkDiscipline/add.html.twig', array(
             'form' => $_form->createView(),
-            'discipline' => $_discipline
+            'discipline' => $_discipline,
         ));
-
     }
 
     /**
-     * @param Request $request
+     * @param Request      $request
      * @param SkDiscipline $_discipline
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function updateAction(Request $request, SkDiscipline $_discipline)
@@ -97,13 +99,15 @@ class SkDisciplineController extends Controller
 
             return $this->redirectToRoute('discipline_index');
         }
-        return $this->render('@Admin/SkDiscipline/edit.html.twig', array('form' => $_form->createView()));
 
+        return $this->render('@Admin/SkDiscipline/edit.html.twig', array('form' => $_form->createView()));
     }
 
     /**
      * @param SkDiscipline $_discipline
+     *
      * @return \Symfony\Component\HttpFoundation\Response
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Exception
@@ -111,7 +115,7 @@ class SkDisciplineController extends Controller
     public function deleteAction(SkDiscipline $_discipline)
     {
         $_discipline_delete = $this->getEntityService()->deleteEntity($_discipline, '');
-        if ($_discipline_delete === true) {
+        if (true === $_discipline_delete) {
             try {
                 $this->getEntityService()->setFlash('success', 'suppression discipline réussie');
             } catch (\Exception $exception) {
@@ -125,26 +129,28 @@ class SkDisciplineController extends Controller
 
     /**
      * @param SkDiscipline $skDiscipline
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexPunitionAction(SkDiscipline $skDiscipline)
     {
         $_user_ets = $this->getUserConnected()->getEtsNom();
         $_array_search = array(
-          'etsNom'=>$_user_ets,
-          'discipline' =>$skDiscipline
+          'etsNom' => $_user_ets,
+          'discipline' => $skDiscipline,
         );
-        $_punition_list = $this->getDoctrine()->getRepository(SkDisciplineList::class)->findBy($_array_search,array('id'=>'DESC'));
+        $_punition_list = $this->getDoctrine()->getRepository(SkDisciplineList::class)->findBy($_array_search, array('id' => 'DESC'));
 
         return $this->render('@Admin/SkDiscipline/punition.list.html.twig', array(
-            'punition_list'=>$_punition_list,
-            'discipline'=>$skDiscipline
+            'punition_list' => $_punition_list,
+            'discipline' => $skDiscipline,
         ));
     }
 
     /**
-     * @param Request $request
+     * @param Request      $request
      * @param SkDiscipline $skDiscipline
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function newPunitionAction(Request $request, SkDiscipline $skDiscipline)
@@ -154,69 +160,73 @@ class SkDisciplineController extends Controller
         $_form = $this->createForm(SkPunitionType::class, $_punition);
         $_form->handleRequest($request);
 
-        if ($_form->isSubmitted() && $_form->isValid()){
+        if ($_form->isSubmitted() && $_form->isValid()) {
             $_punition->setEtsNom($_user_ets);
             $_punition->setDiscipline($skDiscipline);
-            try{
-                $this->getEntityService()->saveEntity($_punition,'new');
-                $this->getEntityService()->setFlash('success','Ajout punition avec success');
-            } catch (\Exception $exception){
+            try {
+                $this->getEntityService()->saveEntity($_punition, 'new');
+                $this->getEntityService()->setFlash('success', 'Ajout punition avec success');
+            } catch (\Exception $exception) {
                 $exception->getMessage();
             }
 
-            return $this->redirect($this->generateUrl('punition_index',array('id'=>$skDiscipline->getId())));
+            return $this->redirect($this->generateUrl('punition_index', array('id' => $skDiscipline->getId())));
         }
 
         return $this->render('@Admin/SkDiscipline/punition.add.html.twig', array(
             'form' => $_form->createView(),
             'discipline' => $skDiscipline,
-            'punition' => $_punition
+            'punition' => $_punition,
         ));
     }
 
     /**
-     * @param Request $request
+     * @param Request          $request
      * @param SkDisciplineList $skDisciplineList
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function editPunitionAction(Request $request,SkDisciplineList $skDisciplineList)
+    public function editPunitionAction(Request $request, SkDisciplineList $skDisciplineList)
     {
         $_form = $this->createForm(SkPunitionType::class, $skDisciplineList);
         $_form->handleRequest($request);
 
-        if ($_form->isSubmitted() && $_form->isValid()){
+        if ($_form->isSubmitted() && $_form->isValid()) {
             $skDisciplineList->setDiscipline($skDisciplineList->getDiscipline());
-            try{
-                $this->getEntityService()->saveEntity($skDisciplineList,'update');
-                $this->getEntityService()->setFlash('success','Ajout punition avec success');
-            } catch (\Exception $exception){
+            try {
+                $this->getEntityService()->saveEntity($skDisciplineList, 'update');
+                $this->getEntityService()->setFlash('success', 'Ajout punition avec success');
+            } catch (\Exception $exception) {
                 $exception->getMessage();
             }
 
-            return $this->redirect($this->generateUrl('punition_index',array('id'=>$skDisciplineList->getDiscipline()->getId())));
+            return $this->redirect($this->generateUrl('punition_index', array('id' => $skDisciplineList->getDiscipline()->getId())));
         }
 
         return $this->render('@Admin/SkDiscipline/punition.edit.html.twig', array(
             'form' => $_form->createView(),
-            'punition' => $skDisciplineList
+            'punition' => $skDisciplineList,
         ));
     }
 
     /**
      * @param SkDisciplineList $skDisciplineList
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function deletePunitionAction(SkDisciplineList $skDisciplineList)
     {
-        $_punition_delete = $this->getEntityService()->deleteEntity($skDisciplineList,'');
-        try{
-            if ($_punition_delete===true){
-                $this->getEntityService()->setFlash('success','suppression punition réussie');
+        $_punition_delete = $this->getEntityService()->deleteEntity($skDisciplineList, '');
+        try {
+            if (true === $_punition_delete) {
+                $this->getEntityService()->setFlash('success', 'suppression punition réussie');
+
                 return $this->redirectToRoute('discipline_index');
             }
-        } catch (\Exception $exception){
+        } catch (\Exception $exception) {
             $exception->getMessage();
         }
     }

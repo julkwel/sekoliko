@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: julkwel
  * Date: 2/25/19
- * Time: 2:11 PM
+ * Time: 2:11 PM.
  */
 
 namespace App\Shared\Entity;
@@ -140,7 +140,4 @@ class SkEdt
     {
         $this->edtClasse = $edtClasse;
     }
-
-
-
 }

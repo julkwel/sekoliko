@@ -11,14 +11,13 @@ namespace App\Shared\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * SkEtablissement
+ * SkEtablissement.
  *
  * @ORM\Table(name="ets")
  * @ORM\Entity
  */
 trait SkEtablissement
 {
-
     /**
      * @var string
      *
@@ -60,7 +59,6 @@ trait SkEtablissement
      * @ORM\Column(name="ets_logo", type="string", length=255, nullable=true)
      */
     private $etsLogo;
-
 
     /**
      * @return string
@@ -157,7 +155,4 @@ trait SkEtablissement
     {
         $this->etsLogo = $etsLogo;
     }
-
-    
-
 }

@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: julkwel
  * Date: 3/27/19
- * Time: 5:14 PM
+ * Time: 5:14 PM.
  */
 
 namespace App\Bundle\Admin\Controller;
-
 
 use App\Shared\Entity\SkEtudiant;
 use App\Shared\Entity\SkMatiere;
@@ -35,23 +34,25 @@ class SkNoteController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param Request    $request
      * @param SkEtudiant $skEtudiant
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction(Request $request, SkEtudiant $skEtudiant)
     {
-        $_note_liste = $this->getDoctrine()->getRepository(SkNote::class)->findBy(array('etudiant'=>$skEtudiant));
+        $_note_liste = $this->getDoctrine()->getRepository(SkNote::class)->findBy(array('etudiant' => $skEtudiant));
 
-        return $this->render('@Admin/SkEtudiant/listnote.html.twig',array(
+        return $this->render('@Admin/SkEtudiant/listnote.html.twig', array(
             'note_liste' => $_note_liste,
-            'etudiant' =>$skEtudiant
+            'etudiant' => $skEtudiant,
         ));
     }
 
     /**
-     * @param Request $request
+     * @param Request    $request
      * @param SkEtudiant $etudiant
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function addNoteAction(Request $request, SkEtudiant $etudiant)
@@ -64,8 +65,7 @@ class SkNoteController extends Controller
         $_form = $this->createForm(SkNoteType::class, $_note);
         $_form->handleRequest($request);
 
-        if ($_form->isSubmitted() && $_form->isValid())
-        {
+        if ($_form->isSubmitted() && $_form->isValid()) {
             $_matiere = $request->request->get('matiere');
             $_valeur = $request->request->get('noteVal');
             $_matiere = $this->getDoctrine()->getRepository(SkMatiere::class)->find($_matiere);
@@ -73,37 +73,38 @@ class SkNoteController extends Controller
             $_note->setMatNom($_matiere);
             $_note->setNoteVal($_valeur);
             try {
-                $this->getEntityService()->saveEntity($_note,'new');
-                $this->getEntityService()->setFlash('success','Note ajouté avec success');
-            } catch (\Exception $exception){
+                $this->getEntityService()->saveEntity($_note, 'new');
+                $this->getEntityService()->setFlash('success', 'Note ajouté avec success');
+            } catch (\Exception $exception) {
                 $exception->getMessage();
             }
 
-            return $this->redirect($this->generateUrl('etudiant_note',array('id'=>$etudiant->getId())));
+            return $this->redirect($this->generateUrl('etudiant_note', array('id' => $etudiant->getId())));
         }
 
         return $this->render('@Admin/SkEtudiant/note.html.twig', array(
             'form' => $_form->createView(),
             'user' => $etudiant,
-            'matiere'=>$_matiere_liste,
-            'etudiant' => $etudiant
+            'matiere' => $_matiere_liste,
+            'etudiant' => $etudiant,
         ));
     }
 
     /**
      * @param Request $request
-     * @param SkNote $skNote
+     * @param SkNote  $skNote
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function editAction(Request $request , SkNote $skNote)
+    public function editAction(Request $request, SkNote $skNote)
     {
         $_ets_nom = $this->getUserConnected()->getEtsNom();
         $_etudiant_classe = $skNote->getEtudiant()->getClasse()->getId();
         $_matiere_liste = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array('etsNom' => $_ets_nom, 'matClasse' => $_etudiant_classe));
-        $_form = $this->createForm(SkNoteType::class,$skNote);
+        $_form = $this->createForm(SkNoteType::class, $skNote);
         $_form->handleRequest($request);
 
-        if ($_form->isSubmitted() && $_form->isValid()){
+        if ($_form->isSubmitted() && $_form->isValid()) {
             $_matiere = $request->request->get('matiere');
             $_valeur = $request->request->get('noteVal');
             $_matiere = $this->getDoctrine()->getRepository(SkMatiere::class)->find($_matiere);
@@ -111,24 +112,26 @@ class SkNoteController extends Controller
                 $skNote->setEtudiant($skNote->getEtudiant());
                 $skNote->setMatNom($_matiere);
                 $skNote->setNoteVal($_valeur);
-                $this->getEntityService()->saveEntity($skNote,'update');
-            } catch (\Exception $exception){
+                $this->getEntityService()->saveEntity($skNote, 'update');
+            } catch (\Exception $exception) {
                 $exception->getMessage();
             }
 
-            return $this->redirect($this->generateUrl('etudiant_note',array('id'=>$skNote->getEtudiant()->getId())));
+            return $this->redirect($this->generateUrl('etudiant_note', array('id' => $skNote->getEtudiant()->getId())));
         }
 
-        return $this->render('@Admin/SkEtudiant/editnote.html.twig',array(
+        return $this->render('@Admin/SkEtudiant/editnote.html.twig', array(
            'form' => $_form->createView(),
             'note' => $skNote,
-            'matiere' => $_matiere_liste
+            'matiere' => $_matiere_liste,
         ));
     }
 
     /**
      * @param SkNote $skNote
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Exception
@@ -136,10 +139,11 @@ class SkNoteController extends Controller
     public function deleteAction(SkNote $skNote)
     {
         $_etudiant_classe = $skNote->getEtudiant()->getClasse()->getId();
-        $_delete_note = $this->getEntityService()->deleteEntity($skNote,'');
-        if ($_delete_note === true){
-            $this->getEntityService()->setFlash('success','suppression avec success');
-            return $this->redirect($this->generateUrl('etudiant_note',array('id'=>$skNote->getEtudiant()->getId())));
+        $_delete_note = $this->getEntityService()->deleteEntity($skNote, '');
+        if (true === $_delete_note) {
+            $this->getEntityService()->setFlash('success', 'suppression avec success');
+
+            return $this->redirect($this->generateUrl('etudiant_note', array('id' => $skNote->getEtudiant()->getId())));
         }
     }
 }

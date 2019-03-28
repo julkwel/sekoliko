@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: julkwel
  * Date: 3/27/19
- * Time: 5:19 PM
+ * Time: 5:19 PM.
  */
 
 namespace App\Shared\Form;
-
 
 use App\Shared\Entity\SkNote;
 use Symfony\Component\Form\AbstractType;
@@ -23,7 +22,7 @@ class SkNoteType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class'=>SkNote::class
+            'data_class' => SkNote::class,
         ));
     }
 }

@@ -3,14 +3,16 @@
  * Created by PhpStorm.
  * User: chrys
  * Date: 27/03/19
- * Time: 21:24
+ * Time: 21:24.
  */
 
 namespace App\Shared\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+
 /**
- * SkDisciplineList
+ * SkDisciplineList.
+ *
  * @ORM\Table(name="sk_discipline_list")
  * @ORM\Entity
  */
@@ -25,7 +27,6 @@ class SkDisciplineList
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-
     private $id;
 
     /**
@@ -88,6 +89,4 @@ class SkDisciplineList
     {
         $this->discipline = $discipline;
     }
-
-
 }

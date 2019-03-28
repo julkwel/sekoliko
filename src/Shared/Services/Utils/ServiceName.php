@@ -3,8 +3,7 @@
 namespace App\Shared\Services\Utils;
 
 /**
- * Class ServiceName
- * @package App\Shared\Services\Utils
+ * Class ServiceName.
  */
 class ServiceName
 {

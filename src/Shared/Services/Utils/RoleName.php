@@ -3,8 +3,7 @@
 namespace App\Shared\Services\Utils;
 
 /**
- * Class RoleName
- * @package App\Shared\Services\Utils
+ * Class RoleName.
  */
 class RoleName
 {

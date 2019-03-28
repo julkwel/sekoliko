@@ -62,7 +62,6 @@ class SkMatiere
      */
     private $matClasse;
 
-
     /**
      * @return int
      */
@@ -142,6 +141,4 @@ class SkMatiere
     {
         $this->matClasse = $matClasse;
     }
-
-
 }

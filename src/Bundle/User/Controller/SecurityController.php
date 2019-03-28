@@ -19,7 +19,7 @@ class SecurityController extends BaseSecurityController
 {
     /**
      * @return RedirectResponse
-     * Redirect User to login page
+     *                          Redirect User to login page
      */
     public function redirectAction()
     {
@@ -28,6 +28,7 @@ class SecurityController extends BaseSecurityController
 
     /**
      * @param Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function loginAction(Request $request)
