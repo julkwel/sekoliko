@@ -5,8 +5,6 @@
 {% set menu_discipline = true %}
 
 {% block body %}
-    <h1>Touts les disciplines</h1>
-
     {% for flashMessage in app.session.flashbag.get('success') %}
         <div class="callout callout-success">
             {{ flashMessage }}

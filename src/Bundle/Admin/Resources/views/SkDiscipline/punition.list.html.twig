@@ -5,9 +5,6 @@
 {% set menu_discipline = true %}
 
 {% block body %}
-    <h1>Touts les disciplines</h1>
-    <small><a href="{{ path('discipline_new') }}">Nouveau</a></small>
-    <hr>
     {% for flashMessage in app.session.flashbag.get('success') %}
         <div class="callout callout-success">
             {{ flashMessage }}
@@ -23,7 +20,7 @@
         <form action="" method="POST" class="form-search">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary text-center">Listes des classes</h6>
+                    <h6 class="m-0 font-weight-bold text-primary text-center">Listes des punitions</h6>
                     {# Bouton création #}
                     {% if is_granted('ROLE_ADMIN') %}
                         <div class="row add-btn-top-list">
