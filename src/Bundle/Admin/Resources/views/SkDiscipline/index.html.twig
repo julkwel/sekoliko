@@ -1,0 +1,30 @@
+{% extends 'admin/admin.html.twig' %}
+{% block title %}{{ parent() }} Tableau de bord {% endblock %}
+{% set menu_salle = true %}
+{% block body %}
+    <h1>Liste des disciplines</h1>
+    <small><a href="{{ path('discipline_new') }}">Nouveau</a></small>
+    <hr>
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="callout callout-success">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <div class="callout callout-danger">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+
+    <div class="row">
+        {% for discipline in discipline_list %}
+            <div class="col-3">
+            <h3><a href="#">{{ discipline.name }}</a></h3>
+                <small><a href="{{ path('discipline_edit', {'id': discipline.id}) }}">Modifier</a></small>
+                <small><a href="{{ path('discipline_delete', {'id': discipline.id}) }}">Supprimer</a></small>
+                <p>{{ discipline.description }}</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
