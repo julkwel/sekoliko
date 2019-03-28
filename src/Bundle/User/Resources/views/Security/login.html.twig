@@ -1,7 +1,6 @@
 {% extends "UserBundle::layout.html.twig" %}
 
 {% block fos_user_content %}
-    {# S'il y a une erreur, on l'affiche dans un joli cadre #}
     {% if error is defined %}
         <div class="alert alert-danger">
             {{ error.messageKey|trans(error.messageData, 'security') }}
@@ -9,12 +8,14 @@
     {% endif %}
 
     <form class="user" action="{{ path('fos_user_security_check') }}" method="post" id="login-form">
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
         <div class="form-group">
-            <input type="text"  name="_username" id="username" class="form-control form-control-user"  aria-describedby="emailHelp" placeholder="Entrer votre addresse mail...">
+            <input type="text" name="_username" id="username" class="form-control form-control-user"
+                   aria-describedby="emailHelp" placeholder="Entrer votre addresse mail...">
         </div>
         <div class="form-group">
-            <input type="password" class="form-control form-control-user" name="_password" id="password" placeholder="Mot de passe">
+            <input type="password" class="form-control form-control-user" name="_password" id="password"
+                   placeholder="Mot de passe">
         </div>
         <div class="form-group">
             <div class="custom-control custom-checkbox small">
