@@ -105,5 +105,20 @@
         </div>
     </li>
 
+    <!-- Nav Item - Discipline Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#discipline" aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-book"></i>
+            <span>Discipline</span>
+        </a>
+        <div id="discipline" class="collapse  {% if menu_salle is defined%}show{% endif %}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Action:</h6>
+                <a class="collapse-item" href="{{ path('discipline_index') }}">Liste discipline</a>
+                <a class="collapse-item" href="{{ path('discipline_new') }}">Nouveau discipline</a>
+            </div>
+        </div>
+    </li>
+
 </ul>
 <!-- End of Sidebar -->
