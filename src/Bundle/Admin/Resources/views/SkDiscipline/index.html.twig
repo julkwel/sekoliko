@@ -2,7 +2,7 @@
 {% block title %}{{ parent() }} Tableau de bord {% endblock %}
 {% set menu_salle = true %}
 {% block body %}
-    <h1>Liste des disciplines</h1>
+    <h1>Touts les disciplines</h1>
     <small><a href="{{ path('discipline_new') }}">Nouveau</a></small>
     <hr>
     {% for flashMessage in app.session.flashbag.get('success') %}
