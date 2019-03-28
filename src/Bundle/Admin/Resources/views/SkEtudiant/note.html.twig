@@ -19,20 +19,22 @@
                         <input type="text" class="form-control" disabled value="{{ user.etudiant.usrLastname }}">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" name="noteVal">
-                    </div>
-                    <div class="form-group">
-                        <select name="matiere" id="" class="form-control">
+                        <label for="">Selectionner le matiere</label>
+                        <select name="matiere" id="" required class="form-control">
                             {% for matiere in matiere %}
-                                <option value="{{ matiere.id }}">{{ matiere.matNom }}</option>
+                                <option value="{{ matiere.id }}">{{ matiere.matNom }} Coefficient {{ matiere.matCoeff }}</option>
                             {% endfor %}
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Note</label>
+                        <input type="text" class="form-control" required name="noteVal">
                     </div>
                 </div>
             </div>
             <div class="box-footer">
                 <input type="submit" class="btn btn-primary btn-block" value="Enregistrer" name="new_niveau"/>
-                <a href="{{ path('niveau_index') }}"
+                <a href="{{ path('etudiant_note',{'id':etudiant.id}) }}"
                    class="btn btn-google btn-block">
                     Annuler
                 </a>

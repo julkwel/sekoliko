@@ -32,3 +32,8 @@ classe_edt:
     path:     edt/{id}
     defaults: { _controller: "AdminBundle:SkEdt:index" }
     methods:  [GET, POST]
+
+classe_etudiant_new:
+    path:     etudiant/{id}
+    defaults: { _controller: "AdminBundle:SkClass:createEtudian" }
+    methods:  [GET, POST]

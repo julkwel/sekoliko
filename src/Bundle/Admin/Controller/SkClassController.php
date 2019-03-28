@@ -9,11 +9,15 @@
 namespace App\Bundle\Admin\Controller;
 
 
+use App\Bundle\User\Entity\User;
+use App\Bundle\User\Form\UserType;
 use App\Shared\Entity\SkClasse;
 use App\Shared\Entity\SkEtudiant;
 use App\Shared\Entity\SkMatiere;
 use App\Shared\Entity\SkNiveau;
 use App\Shared\Form\SkClasseType;
+use App\Shared\Form\SkEtudiantType;
+use App\Shared\Services\Utils\RoleName;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -131,14 +135,15 @@ class SkClassController extends Controller
      * @param SkClasse $skClasse
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getListeEtudiantAction(Request $request,SkClasse $skClasse)
+    public function getListeEtudiantAction(Request $request, SkClasse $skClasse)
     {
         $_etudiant_liste = $this->getDoctrine()->getRepository(SkEtudiant::class)->findBy(array(
-            'classe'=>$skClasse
+            'classe' => $skClasse
         ));
 
-        return $this->render('@Admin/SkClasse/etudiant.html.twig',array(
-            'etudiant_liste' => $_etudiant_liste
+        return $this->render('@Admin/SkClasse/etudiant.html.twig', array(
+            'etudiant_liste' => $_etudiant_liste,
+            'classe' => $skClasse
         ));
     }
 
@@ -148,9 +153,9 @@ class SkClassController extends Controller
      */
     public function getMatiereAction(SkClasse $skClasse)
     {
-        $_matiere_liste = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array('matClasse'=>$skClasse));
+        $_matiere_liste = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array('matClasse' => $skClasse));
 
-        return $this->render('@Admin/SkClasse/class.mat.html.twig',array(
+        return $this->render('@Admin/SkClasse/class.mat.html.twig', array(
             'liste_matiere' => $_matiere_liste
         ));
     }
@@ -183,4 +188,54 @@ class SkClassController extends Controller
         return $this->redirect($this->generateUrl('classe_index'));
     }
 
+    /**
+     * @param Request $request
+     * @param SkClasse $skClasse
+     * @return \Symfony\Component\HttpFoundation\Response
+     * DONT TOUCH IF YOU DONT WANT TO DIE
+     */
+    public function createEtudianAction(Request $request, SkClasse $skClasse)
+    {
+        $_user = new User();
+        $_etudiant = new SkEtudiant();
+        $_user_role = RoleName::ROLE_ETUDIANT;
+        $_user_ets = $this->container->get('security.token_storage')->getToken()->getUser()->getEtsNom();
+
+
+        $_form = $this->createForm(UserType::class, $_user);
+        $_form_etd = $this->createForm(SkEtudiantType::class);
+
+        if ($request->isMethod('POST')) {
+            $_form->handleRequest($request);
+            $_form_etd->handleRequest($request);
+            if ($_form->isSubmitted()) {
+                $_user->setRoles(array($_user_role));
+                $_user->setEtsNom($_user_ets);
+
+                $_etudiant->setClasse($skClasse);
+                $_etudiant->setEtsNom($_user_ets);
+                $_etudiant->setClasse($skClasse);
+                $_etudiant->setEtudiant($_user);
+
+                try {
+                    $this->getEntityService()->saveEntity($_user, 'new');
+                } catch (\Exception $exception) {
+                    $exception->getMessage();
+                }
+                try {
+                    $this->getEntityService()->saveEntity($_etudiant, 'new');
+                } catch (\Exception $exception) {
+                    $exception->getMessage();
+                }
+
+                return $this->redirect($this->generateUrl('etudiant_liste', array('id' => $skClasse->getId())));
+            }
+        }
+
+        return $this->render('@Admin/SkClasse/add.etudiant.html.twig', array(
+            'form1' => $_form->createView(),
+            'form2' => $_form_etd->createView(),
+            'classe' => $skClasse
+        ));
+    }
 }

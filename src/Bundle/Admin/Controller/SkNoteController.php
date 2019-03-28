@@ -44,7 +44,8 @@ class SkNoteController extends Controller
         $_note_liste = $this->getDoctrine()->getRepository(SkNote::class)->findBy(array('etudiant'=>$skEtudiant));
 
         return $this->render('@Admin/SkEtudiant/listnote.html.twig',array(
-            'note_liste' => $_note_liste
+            'note_liste' => $_note_liste,
+            'etudiant' =>$skEtudiant
         ));
     }
 
@@ -84,7 +85,8 @@ class SkNoteController extends Controller
         return $this->render('@Admin/SkEtudiant/note.html.twig', array(
             'form' => $_form->createView(),
             'user' => $etudiant,
-            'matiere' => $_matiere_liste
+            'matiere'=>$_matiere_liste,
+            'etudiant' => $etudiant
         ));
     }
 
