@@ -1,0 +1,19 @@
+discipline_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:SkDiscipline:index" }
+    methods:  GET
+
+discipline_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:SkDiscipline:new" }
+    methods:  [GET, POST]
+
+discipline_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:SkDiscipline:update" }
+    methods:  [GET, POST]
+
+discipline_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:SkDiscipline:delete" }
+    methods:  [GET, DELETE]
