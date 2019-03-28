@@ -41,6 +41,8 @@ class SkDisciplineController extends Controller
     /**
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function newAction(Request $request)
     {
@@ -51,27 +53,16 @@ class SkDisciplineController extends Controller
         $_form->handleRequest($request);
 
         if ($_form->isSubmitted() && $_form->isValid()) {
-
-            $_name = $request->request->get("sk_discipline_form")["name"];
-            $_description = $request->request->get("sk_discipline_form")["description"];
-
-            $_discipline->setName($_name)
-                ->setDescription($_description)
-                ->setEtsNom($_user_connected->getEtsNom())
-                //->setEtsAdresse($_user_connected->getEtsAddresse())
-                //->setEtsResponsable($_user_connected->getEtsResponsable())
-                //->setEtsPhone($_user_connected->getEtsPhone())
-                //->setEtsEmail($_user_connected->getEtsEmail())
-                //->setEtsLogo($_user_connected->getEtsLogo())
-                ;
-
-            // Afaka decommentena rehefa tsy null intsony ireo
-
-            try {
-                $this->getEntityService()->saveEntity($_discipline, 'new');
-                $this->getEntityService()->setFlash('success', 'Ajout discipline avec success');
-            } catch (\Exception $exception) {
-                $exception->getMessage();
+            $_discipline->setEtsNom($_user_connected);
+            $_new_discipline = $this->getEntityService()->saveEntity($_discipline, 'new');
+            if ($_new_discipline == true) {
+                try {
+                    $this->getEntityService()->saveEntity($_discipline, 'new');
+                    $this->getEntityService()->setFlash('success', 'ajout discipline avec success');
+                } catch (\Exception $exception) {
+                    $this->getEntityService()->setFlash('error', "Un erreur s'est produite");
+                    $exception->getMessage();
+                }
             }
 
             return $this->redirectToRoute('discipline_index');
@@ -84,6 +75,8 @@ class SkDisciplineController extends Controller
      * @param Request $request
      * @param SkDiscipline $_discipline
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function updateAction(Request $request, SkDiscipline $_discipline)
     {
@@ -92,19 +85,15 @@ class SkDisciplineController extends Controller
 
         if ($_form->isSubmitted() && $_form->isValid()) {
 
-            $_name = $request->request->get("sk_discipline_form")["name"];
-            $_description = $request->request->get("sk_discipline_form")["description"];
-
-            $_discipline->setName($_name)
-                ->setDescription($_description);
-
-            try {
-                $this->getEntityService()->saveEntity($_discipline, 'new');
-                $this->getEntityService()->setFlash('success', 'Discipline modifié avec succes');
-            } catch (\Exception $exception) {
-                $exception->getMessage();
+            $_update_discipline = $this->getEntityService()->saveEntity($_discipline, 'update');
+            if ($_update_discipline === true) {
+                try {
+                    $this->getEntityService()->saveEntity($_discipline, 'new');
+                    $this->getEntityService()->setFlash('success', 'Discipline modifié avec succes');
+                } catch (\Exception $exception) {
+                    $exception->getMessage();
+                }
             }
-
             return $this->redirectToRoute('discipline_index');
         }
         return $this->render('@Admin/SkDiscipline/edit.html.twig', array('form'=>$_form->createView()));
