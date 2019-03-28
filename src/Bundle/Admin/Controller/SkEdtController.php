@@ -35,7 +35,6 @@ class SkEdtController extends Controller
     public function indexAction(SkClasse $skClasse)
     {
         $_edt = $this->getDoctrine()->getRepository(SkEdt::class)->findBy(array('edtClasse' => $skClasse));
-//        dump($_edt);die();
         return $this->render('@Admin/SkClasse/edt.html.twig', array(
             'classe' => $skClasse,
             'edt' => $_edt

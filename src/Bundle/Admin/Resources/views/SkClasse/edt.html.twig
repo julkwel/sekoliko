@@ -1,7 +1,6 @@
 {% extends 'admin/admin.html.twig' %}
 
 {% block title %}{{ parent() }} Tableau de bord {% endblock %}
-{#{% form_theme form 'form/custom_fields.html.twig' %}#}
 {% set menu_matiere = true %}
 
 {% block body %}
@@ -28,15 +27,12 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <h5 class="modal-title text-center" id="exampleModalLabel">Emploi du temps</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <div class="row">
-                                {#{{ render(controller('AdminBundle:SkEdt:addEdt')) }}#}
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -116,23 +112,16 @@
                     });
                 },
                 editable: true,
-                eventDrop: function (event, dayDelta, minuteDelta, allDay, revertFunc) {
-                    alert(
-                        event.title + " was moved " +
-                        dayDelta + " days and " +
-                        minuteDelta + " minutes."
-                    );
-
-                    if (allDay) {
-                        alert("Event is now all-day");
-                    } else {
-                        alert("Event has a time-of-day");
-                    }
-
-                    if (!confirm("Are you sure about this change?")) {
-                        revertFunc();
-                    }
-
+                selectable: true,
+                selectHelper: true,
+                select: function () {
+                    $('.modal').modal('show');
+                },
+                eventClick: function () {
+                    $('.modal').modal('show');
+                },
+                eventDrop: function () {
+                    $('.modal').modal('show');
                 }
             });
         });
