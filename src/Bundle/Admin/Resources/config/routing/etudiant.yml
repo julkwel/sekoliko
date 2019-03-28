@@ -12,3 +12,8 @@ etudiant_edit:
     path:   /{id}/edit
     defaults: {_controller: 'AdminBundle:SkEtudiant:update'}
     methods: [GET, POST]
+
+etudiant_collegue:
+    path:   /collegue
+    defaults: {_controller: 'AdminBundle:SkEtudiant:myCollegue'}
+    methods: [GET, POST]

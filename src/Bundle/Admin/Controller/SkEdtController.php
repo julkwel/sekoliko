@@ -10,6 +10,7 @@ namespace App\Bundle\Admin\Controller;
 
 use App\Shared\Entity\SkClasse;
 use App\Shared\Entity\SkEdt;
+use App\Shared\Entity\SkEtudiant;
 use App\Shared\Entity\SkMatiere;
 use App\Shared\Form\SkEdtType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -35,7 +36,6 @@ class SkEdtController extends Controller
     public function indexAction(SkClasse $skClasse)
     {
         $_edt = $this->getDoctrine()->getRepository(SkEdt::class)->findBy(array('edtClasse' => $skClasse));
-
         return $this->render('@Admin/SkClasse/edt.html.twig', array(
             'classe' => $skClasse,
             'edt' => $_edt,
@@ -43,7 +43,25 @@ class SkEdtController extends Controller
     }
 
     /**
-     * @param Request  $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function etudiantEdtAction()
+    {
+        $_user_classe = $this->getDoctrine()->getRepository(SkEtudiant::class)->findBy(array(
+            'etsNom' => $this->getUserConnected()->getEtsNom(),
+            'etudiant' => $this->getUserConnected()
+        ));
+
+        $_edt = $this->getDoctrine()->getRepository(SkEdt::class)->findBy(array('edtClasse' => $_user_classe[0]->getClasse()->getId()));
+
+        return $this->render('@Admin/SkClasse/etudiant.edt.html.twig', array(
+            'classe' => $_user_classe,
+            'edt' => $_edt,
+        ));
+    }
+
+    /**
+     * @param Request $request
      * @param SkClasse $skClasse
      *
      * @return \Symfony\Component\HttpFoundation\Response

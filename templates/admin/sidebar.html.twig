@@ -36,15 +36,22 @@
         <div id="user" class="collapse {% if menu_user is defined or menu_recherche is defined or menu_etd is defined%}show{% endif %}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Action:</h6>
-                <a class="collapse-item" href="{{ path('user_search') }}">Recherche utilisateur</a>
-                <a class="collapse-item" href="{{ path('user_index') }}">Liste des administrateur</a>
-                <a class="collapse-item" href="{{ path('user_new') }}">Nouveau Utilisateur</a>
-                <a class="collapse-item" href="{{ path('etudiant_search') }}">Nouveau Etudiant</a>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a class="collapse-item" href="{{ path('user_search') }}">Recherche utilisateur</a>
+                    <a class="collapse-item" href="{{ path('user_index') }}">Liste des administrateur</a>
+                    <a class="collapse-item" href="{{ path('user_new') }}">Nouveau Utilisateur</a>
+                    <a class="collapse-item" href="{{ path('etudiant_search') }}">Nouveau Etudiant</a>
+                {% endif %}
+                {% if is_granted('ROLE_ETUDIANT') %}
+                    <a class="collapse-item" href="{{ path('user_search') }}">Chercher une personne</a>
+                {% endif %}
             </div>
         </div>
     </li>
 
     <!-- Heading -->
+
+    {% if is_granted('ROLE_ADMIN') %}
     <div class="sidebar-heading">
         Administration
     </div>
@@ -62,7 +69,27 @@
             </div>
         </div>
     </li>
+    {% endif %}
 
+    {% if is_granted('ROLE_ETUDIANT') %}
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#classe" aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-book"></i>
+                <span>Mes Classe</span>
+            </a>
+            <div id="classe" class="collapse {% if menu_classe is defined%}show{% endif %}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Action:</h6>
+                    <a class="collapse-item" href="{{ path('edt_etudiant') }}">Emploi du temps</a>
+                    <a class="collapse-item" href="{{ path('etudiant_collegue') }}">Mes collegues</a>
+                    <a class="collapse-item" href="{{ path('matiere_etudiant') }}">Mes matieres</a>
+                    <a class="collapse-item" href="{{ path('note_etudiant') }}">Mes notes</a>
+                </div>
+            </div>
+        </li>
+    {% endif %}
+
+    {% if is_granted('ROLE_ADMIN') %}
     <!-- Nav Item - Classe Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#classe" aria-expanded="true" aria-controls="collapseTwo">
@@ -77,7 +104,8 @@
             </div>
         </div>
     </li>
-
+    {% endif %}
+    {% if is_granted('ROLE_ADMIN') %}
     <!-- Nav Item - Matiere Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#matiere" aria-expanded="true" aria-controls="collapseTwo">
@@ -94,6 +122,7 @@
             </div>
         </div>
     </li>
+    {% endif %}
 
     <!-- Nav Item - Salle Collapse Menu -->
     <li class="nav-item">
@@ -105,7 +134,9 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Action:</h6>
                 <a class="collapse-item" href="{{ path('salle_index') }}">Liste salle</a>
-                <a class="collapse-item" href="{{ path('salle_new') }}">Nouveau salle</a>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a class="collapse-item" href="{{ path('salle_new') }}">Nouveau salle</a>
+                {% endif %}
             </div>
         </div>
     </li>
@@ -120,7 +151,9 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Action:</h6>
                 <a class="collapse-item" href="{{ path('discipline_index') }}">Liste discipline</a>
-                <a class="collapse-item" href="{{ path('discipline_new') }}">Nouveau discipline</a>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a class="collapse-item" href="{{ path('discipline_new') }}">Nouveau discipline</a>
+                {% endif %}
             </div>
         </div>
     </li>

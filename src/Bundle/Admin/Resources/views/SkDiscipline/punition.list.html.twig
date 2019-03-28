@@ -42,7 +42,9 @@
                             <tr>
                                 <th></th>
                                 <th>punition</th>
-                                <th>Action</th>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <th>Action</th>
+                                {% endif %}
                             </tr>
                             </thead>
                             <tbody>
@@ -52,16 +54,18 @@
                                         <input type="checkbox" value="{{ punition.id }}" name="delete[]"/>
                                     </td>
                                     <td>{{ punition.name }}</td>
-                                    <td>
-                                        <a class="btn btn-primary" title="Modifier"
-                                           href="{{ path('punition_edit', { 'id': punition.id }) }}">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
-                                        <a class="btn btn-primary btn btn-danger remove-elt" title="Modifier"
-                                           href="{{ path('punition_delete', { 'id': punition.id }) }}">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                    </td>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <td>
+                                            <a class="btn btn-primary" title="Modifier"
+                                               href="{{ path('punition_edit', { 'id': punition.id }) }}">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                            <a class="btn btn-primary btn btn-danger remove-elt" title="Modifier"
+                                               href="{{ path('punition_delete', { 'id': punition.id }) }}">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </td>
+                                    {% endif %}
                                 </tr>
                             {% endfor %}
                             </tbody>
@@ -79,7 +83,7 @@
 
     <script type="text/javascript">
         // Call the dataTables jQuery plugin
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#dataTable').DataTable();
         });
 

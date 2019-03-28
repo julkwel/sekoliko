@@ -165,8 +165,8 @@ class UserManager
     /**
      * @param $_user
      * @param $_form
-     *
-     * @throws \Exception
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function addUser($_user, $_form)
     {
