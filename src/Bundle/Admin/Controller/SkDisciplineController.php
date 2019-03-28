@@ -25,6 +25,9 @@ class SkDisciplineController extends Controller
         return $this->get('sk.repository.entity');
     }
 
+    /**
+     * @return mixed
+     */
     public function getUserConnected()
     {
         return $this->get('security.token_storage')->getToken()->getUser();
@@ -120,6 +123,10 @@ class SkDisciplineController extends Controller
         return $this->redirectToRoute('discipline_index');
     }
 
+    /**
+     * @param SkDiscipline $skDiscipline
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function indexPunitionAction(SkDiscipline $skDiscipline)
     {
         $_user_ets = $this->getUserConnected()->getEtsNom();

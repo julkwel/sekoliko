@@ -20,11 +20,11 @@
         <form action="" method="POST" class="form-search">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary text-center">Listes des étudiants</h6>
+                    <h6 class="m-0 font-weight-bold text-primary text-center">Listes des étudiants en {{ classe.classeNom }}</h6>
                     {# Bouton création #}
                     {% if is_granted('ROLE_ADMIN') %}
                         <div class="row add-btn-top-list">
-                            <a href="{{ path('user_new') }}" class="btn btn-primary">
+                            <a href="{{ path('classe_etudiant_new',{'id':classe.id}) }}" class="btn btn-primary">
                                 Créer un étudiant
                             </a>
                         </div>

@@ -1,0 +1,50 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% form_theme form1 'form/custom_fields.html.twig' %}
+
+{% block title %}{{ parent() }} Ajout Utilisateur {% endblock %}
+
+{% set menu_classe        = true %}
+
+{% block body %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary text-center">Créer un étudiane en {{ classe.classeNom }}</h6>
+        </div>
+        <div class="card-body">
+            {{ form_start(form1) }}
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(form1.usrLastname) }}
+                    {{ form_row(form1.usrFirstname) }}
+                    {{ form_row(form1.usrAddress) }}
+                    {{ form_row(form1.email) }}
+                    {{ form_row(form1.usrPhone) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_row(form1.imgUrl) }}
+                    <div class="hide" style="display: none">
+                        {{ form_row(form1.skRole) }}
+                        {{ form_row(form1.enabled) }}
+                    </div>
+                    {{ form_row(form1.username) }}
+                    {{ form_row(form1.plainPassword.first) }}
+                    {{ form_row(form1.plainPassword.second) }}
+                    <div class="form-group">
+                        <label for="">Classe</label>
+                        <input type="text" disabled class="form-control" value="{{ classe.classeNom }}" readonly>
+                    </div>
+                </div>
+            </div>
+            <input type="submit" class="btn btn-primary btn-block" value="Enregistrer" name="new_user"/>
+            <a href="{{ path('etudiant_liste',{'id':classe.id}) }}"
+               class="btn btn-google btn-block">
+                Annuler
+            </a>
+            {{ form_end(form1) }}
+        </div>
+    </div>
+    <script>
+        $('#sk_userbundle_user_skRole').style.display = 'none'
+    </script>
+{% endblock %}

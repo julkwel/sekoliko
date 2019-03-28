@@ -30,13 +30,14 @@
                             </a>
                         </div>
                     {% endif %}
-                    <div class="box-header">
-                        <div class="list-count">
-                            <span class="title-count-text"> TOTAL: </span><span class="title-count"></span>
-                        </div>
-                    </div>
+
                 </div>
                 <div class="card-body">
+                    <div class="box-header">
+                        <div class="list-count">
+                            <span class="title-count-text"> TOTAL: {{ discipline_list|length }} </span><span class="title-count"></span>
+                        </div>
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
@@ -58,11 +59,11 @@
                                            href="{{ path('discipline_edit', { 'id': discipline.id }) }}">
                                             <i class="fa fa-edit"></i>
                                         </a>
-                                        <a class="btn btn-primary" title="Punition liste"
+                                        <a class="btn btn-secondary" title="Punition liste"
                                            href="{{ path('punition_index', { 'id': discipline.id }) }}">
                                             <i class="fa fa-list"></i>
                                         </a>
-                                        <a class="btn btn-primary" title="Ajouter punition"
+                                        <a class="btn btn-success" title="Ajouter punition"
                                            href="{{ path('punition_new', { 'id': discipline.id }) }}">
                                             <i class="fa fa-plus"></i>
                                         </a>

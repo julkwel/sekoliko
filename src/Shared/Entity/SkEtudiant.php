@@ -49,15 +49,6 @@ class SkEtudiant
      */
     private $etudiant;
 
-//    /**
-//     * @var SkNote
-//     * @ORM\OneToMany(targetEntity="App\Shared\Entity\SkNote",mappedBy="etudiant")
-//     * @ORM\JoinColumns({
-//     *   @ORM\JoinColumn(name="note", referencedColumnName="id", onDelete="SET NULL")
-//     * })
-//     */
-//    private $note;
-
     /**
      * @return int
      */
@@ -105,22 +96,5 @@ class SkEtudiant
     {
         $this->etudiant = $etudiant;
     }
-
-//    /**
-//     * @return SkNote
-//     */
-//    public function getNote()
-//    {
-//        return $this->note;
-//    }
-//
-//    /**
-//     * @param SkNote $note
-//     */
-//    public function setNote($note)
-//    {
-//        $this->note = $note;
-//    }
-
 
 }
