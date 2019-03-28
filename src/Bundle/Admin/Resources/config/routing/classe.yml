@@ -29,6 +29,6 @@ classe_matiere_liste:
     methods:  [GET, POST]
 
 classe_edt:
-    path:     /{id}/edt
+    path:     edt/{id}
     defaults: { _controller: "AdminBundle:SkEdt:index" }
     methods:  [GET, POST]
