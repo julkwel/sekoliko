@@ -1,0 +1,42 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% form_theme form 'form/custom_fields.html.twig' %}
+
+{% block title %}{{ parent() }} Ajout Utilisateur {% endblock %}
+
+{% set menu_user        = true %}
+
+{% block body %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary text-center">Créer un étudiant</h6>
+        </div>
+        <div class="card-body">
+            {{ form_start(form) }}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="" >Nom</label>
+                        <input type="text" class="form-control" disabled value="{{ etudiant.etudiant.usrLastname }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Classe</label>
+                        <select name="classe" id="" class="form-control">
+                            {% for classe in classe %}
+                                <option value="{{ classe.id }}">{{ classe.classeNom }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer">
+                <input type="submit" class="btn btn-primary btn-block" value="Enregistrer" name="new_niveau"/>
+                <a href="{{ path('classe_index') }}"
+                   class="btn btn-google btn-block">
+                    Annuler
+                </a>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

@@ -7,3 +7,8 @@ etudiant_new:
     path:   /{id}/new
     defaults: {_controller: 'AdminBundle:SkEtudiant:new'}
     methods: [GET, POST]
+
+etudiant_edit:
+    path:   /{id}/edit
+    defaults: {_controller: 'AdminBundle:SkEtudiant:update'}
+    methods: [GET, POST]
