@@ -77,8 +77,7 @@ class SkEtudiantController extends Controller
                         RoleName::ID_ROLE_ETUDIANT
                     )
                 ));
-            }
-            elseif (!is_null($_usrFirstname)) {
+            } elseif (!is_null($_usrFirstname)) {
                 $_list = $this->getDoctrine()->getRepository(User::class)->findBy(array(
                     'usrFirstname' => $_usrFirstname,
                     'etsNom' => $_user_ets,
@@ -86,8 +85,7 @@ class SkEtudiantController extends Controller
                         RoleName::ID_ROLE_ETUDIANT,
                     )
                 ));
-            }
-            elseif (!is_null($_username)) {
+            } elseif (!is_null($_username)) {
                 $_list = $this->getDoctrine()->getRepository(User::class)->findBy(array(
                     'username' => $_username,
                     'etsNom' => $_user_ets,
@@ -95,8 +93,7 @@ class SkEtudiantController extends Controller
                         RoleName::ID_ROLE_ETUDIANT,
                     )
                 ));
-            }
-            elseif ($_nom === null && $_usrFirstname === null && $_username === null) {
+            } elseif ($_nom === null && $_usrFirstname === null && $_username === null) {
                 $_list = $this->getDoctrine()->getRepository(User::class)->findBy($_array_type, array('id' => 'DESC'));
             }
 
@@ -112,6 +109,11 @@ class SkEtudiantController extends Controller
         ));
     }
 
+    /**
+     * @param Request $request
+     * @param User $user
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function newAction(Request $request, User $user)
     {
         try {
@@ -137,8 +139,7 @@ class SkEtudiantController extends Controller
                 }
                 return $this->redirectToRoute('etudiant_search');
             }
-        } catch (\Exception $exception)
-        {
+        } catch (\Exception $exception) {
             $exception->getMessage();
         }
 
@@ -150,4 +151,40 @@ class SkEtudiantController extends Controller
             'etudiant' => $_etudiant
         ));
     }
+
+    /**
+     * @param Request $request
+     * @param SkEtudiant $skEtudiant
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function updateAction(Request $request, SkEtudiant $skEtudiant)
+    {
+        $_ets = $this->getUserConnected()->getEtsNom();
+        $_classe_list = $this->getDoctrine()->getRepository(SkClasse::class)->findBy(array('etsNom' => $_ets));
+
+        $_form = $this->createForm(SkEtudiantType::class, $skEtudiant);
+        $_form->handleRequest($request);
+
+        if ($_form->isSubmitted() && $_form->isValid()) {
+            $_class = $request->request->get('classe');
+            $_class = $this->getDoctrine()->getRepository(SkClasse::class)->find($_class);
+
+            $skEtudiant->setClasse($_class);
+            $skEtudiant->setEtsNom($_ets);
+            try {
+                $this->getEntityService()->saveEntity($skEtudiant, 'update');
+                $this->getEntityService()->setFlash('success', 'Modification etudiant avec success');
+            } catch (\Exception $exception) {
+                $exception->getMessage();
+            }
+            return $this->redirect($this->generateUrl('etudiant_liste', array('id' => $skEtudiant->getClasse()->getId())));
+        }
+
+        return $this->render('@Admin/SkEtudiant/edit.etudiant.html.twig', array(
+            'form' => $_form->createView(),
+            'etudiant' => $skEtudiant,
+            'classe' => $_classe_list
+        ));
+    }
+
 }
