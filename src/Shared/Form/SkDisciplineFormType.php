@@ -26,9 +26,6 @@ class SkDisciplineFormType extends AbstractType
             ->add('name',TextType::class,array(
                 'label' => 'Nom discipline'
             ))
-            ->add('description',TextareaType::class,array(
-                'label' => 'Déscritpion de la discipline'
-            ))
         ;
     }
 

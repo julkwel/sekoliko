@@ -17,3 +17,23 @@ discipline_delete:
     path:     /{id}/delete
     defaults: { _controller: "AdminBundle:SkDiscipline:delete" }
     methods:  [GET, DELETE]
+
+punition_index:
+    path:     /{id}/list
+    defaults: { _controller: "AdminBundle:SkDiscipline:indexPunition" }
+    methods:  GET
+
+punition_new:
+    path:     /punition/{id}/new
+    defaults: { _controller: "AdminBundle:SkDiscipline:newPunition" }
+    methods:  [GET, POST]
+
+punition_edit:
+    path:     /punition/{id}/edit
+    defaults: { _controller: "AdminBundle:SkDiscipline:editPunition" }
+    methods:  [GET, POST]
+
+punition_delete:
+    path:     /punition/{id}/delete
+    defaults: { _controller: "AdminBundle:SkDiscipline:deletePunition" }
+    methods:  [GET, DELETE]

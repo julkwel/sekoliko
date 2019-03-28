@@ -36,15 +36,15 @@ class SkDisciplineList
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Shared\Entity\SkDiscipline", inversedBy="$disciplineList")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Shared\Entity\SkDiscipline")
+     * @ORM\JoinColumn(nullable=false,onDelete="CASCADE")
      */
     private $discipline;
 
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
@@ -52,7 +52,7 @@ class SkDisciplineList
     /**
      * @param int $id
      */
-    public function setId(int $id): void
+    public function setId($id)
     {
         $this->id = $id;
     }
@@ -60,7 +60,7 @@ class SkDisciplineList
     /**
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }
@@ -68,21 +68,26 @@ class SkDisciplineList
     /**
      * @param string $name
      */
-    public function setName(string $name): void
+    public function setName($name)
     {
         $this->name = $name;
     }
 
-    public function getSkDiscipline(): ?SkDiscipline
+    /**
+     * @return mixed
+     */
+    public function getDiscipline()
     {
         return $this->discipline;
     }
 
-    public function setSkDiscipline(?SkDiscipline $discipline): self
+    /**
+     * @param mixed $discipline
+     */
+    public function setDiscipline($discipline)
     {
         $this->discipline = $discipline;
-
-        return $this;
     }
+
 
 }

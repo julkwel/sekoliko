@@ -9,6 +9,8 @@
 namespace App\Bundle\Admin\Controller;
 
 use App\Shared\Entity\SkDiscipline;
+use App\Shared\Entity\SkDisciplineList;
+use App\Shared\Form\SkPunitionType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use App\Shared\Form\SkDisciplineFormType;
@@ -34,8 +36,11 @@ class SkDisciplineController extends Controller
      */
     public function indexAction()
     {
-        $discipline_list =  $this->getEntityService()->getAllList(SkDiscipline::class);
-        return $this->render('@Admin/SkDiscipline/index.html.twig', array('discipline_list'=>$discipline_list));
+        $discipline_list = $this->getEntityService()->getAllListByEts(SkDiscipline::class);
+
+        return $this->render('@Admin/SkDiscipline/index.html.twig', array(
+            'discipline_list' => $discipline_list
+        ));
     }
 
     /**
@@ -44,30 +49,15 @@ class SkDisciplineController extends Controller
      */
     public function newAction(Request $request)
     {
-        $_user_connected = $this->getUserConnected();
+        $_user_ets = $this->getUserConnected()->getEtsNom();
 
         $_discipline = new SkDiscipline();
         $_form = $this->createForm(SkDisciplineFormType::class, $_discipline);
         $_form->handleRequest($request);
 
         if ($_form->isSubmitted() && $_form->isValid()) {
-
-            $_name = $request->request->get("sk_discipline_form")["name"];
-            $_description = $request->request->get("sk_discipline_form")["description"];
-
-            $_discipline->setName($_name)
-                ->setDescription($_description)
-                ->setEtsNom($_user_connected->getEtsNom())
-                //->setEtsAdresse($_user_connected->getEtsAddresse())
-                //->setEtsResponsable($_user_connected->getEtsResponsable())
-                //->setEtsPhone($_user_connected->getEtsPhone())
-                //->setEtsEmail($_user_connected->getEtsEmail())
-                //->setEtsLogo($_user_connected->getEtsLogo())
-                ;
-
-            // Afaka decommentena rehefa tsy null intsony ireo
-
             try {
+                $_discipline->setEtsNom($_user_ets);
                 $this->getEntityService()->saveEntity($_discipline, 'new');
                 $this->getEntityService()->setFlash('success', 'Ajout discipline avec success');
             } catch (\Exception $exception) {
@@ -76,7 +66,11 @@ class SkDisciplineController extends Controller
 
             return $this->redirectToRoute('discipline_index');
         }
-        return $this->render('@Admin/SkDiscipline/add.html.twig', array('form'=>$_form->createView()));
+
+        return $this->render('@Admin/SkDiscipline/add.html.twig', array(
+            'form' => $_form->createView(),
+            'discipline' => $_discipline
+        ));
 
     }
 
@@ -91,15 +85,8 @@ class SkDisciplineController extends Controller
         $_form->handleRequest($request);
 
         if ($_form->isSubmitted() && $_form->isValid()) {
-
-            $_name = $request->request->get("sk_discipline_form")["name"];
-            $_description = $request->request->get("sk_discipline_form")["description"];
-
-            $_discipline->setName($_name)
-                ->setDescription($_description);
-
             try {
-                $this->getEntityService()->saveEntity($_discipline, 'new');
+                $this->getEntityService()->saveEntity($_discipline, 'update');
                 $this->getEntityService()->setFlash('success', 'Discipline modifié avec succes');
             } catch (\Exception $exception) {
                 $exception->getMessage();
@@ -107,7 +94,7 @@ class SkDisciplineController extends Controller
 
             return $this->redirectToRoute('discipline_index');
         }
-        return $this->render('@Admin/SkDiscipline/edit.html.twig', array('form'=>$_form->createView()));
+        return $this->render('@Admin/SkDiscipline/edit.html.twig', array('form' => $_form->createView()));
 
     }
 
@@ -131,5 +118,99 @@ class SkDisciplineController extends Controller
         }
 
         return $this->redirectToRoute('discipline_index');
+    }
+
+    public function indexPunitionAction(SkDiscipline $skDiscipline)
+    {
+        $_user_ets = $this->getUserConnected()->getEtsNom();
+        $_array_search = array(
+          'etsNom'=>$_user_ets,
+          'discipline' =>$skDiscipline
+        );
+        $_punition_list = $this->getDoctrine()->getRepository(SkDisciplineList::class)->findBy($_array_search,array('id'=>'DESC'));
+
+        return $this->render('@Admin/SkDiscipline/punition.list.html.twig', array(
+            'punition_list'=>$_punition_list,
+            'discipline'=>$skDiscipline
+        ));
+    }
+
+    /**
+     * @param Request $request
+     * @param SkDiscipline $skDiscipline
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function newPunitionAction(Request $request, SkDiscipline $skDiscipline)
+    {
+        $_user_ets = $this->getUserConnected()->getEtsNom();
+        $_punition = new SkDisciplineList();
+        $_form = $this->createForm(SkPunitionType::class, $_punition);
+        $_form->handleRequest($request);
+
+        if ($_form->isSubmitted() && $_form->isValid()){
+            $_punition->setEtsNom($_user_ets);
+            $_punition->setDiscipline($skDiscipline);
+            try{
+                $this->getEntityService()->saveEntity($_punition,'new');
+                $this->getEntityService()->setFlash('success','Ajout punition avec success');
+            } catch (\Exception $exception){
+                $exception->getMessage();
+            }
+
+            return $this->redirect($this->generateUrl('punition_index',array('id'=>$skDiscipline->getId())));
+        }
+
+        return $this->render('@Admin/SkDiscipline/punition.add.html.twig', array(
+            'form' => $_form->createView(),
+            'discipline' => $skDiscipline,
+            'punition' => $_punition
+        ));
+    }
+
+    /**
+     * @param Request $request
+     * @param SkDisciplineList $skDisciplineList
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function editPunitionAction(Request $request,SkDisciplineList $skDisciplineList)
+    {
+        $_form = $this->createForm(SkPunitionType::class, $skDisciplineList);
+        $_form->handleRequest($request);
+
+        if ($_form->isSubmitted() && $_form->isValid()){
+            $skDisciplineList->setDiscipline($skDisciplineList->getDiscipline());
+            try{
+                $this->getEntityService()->saveEntity($skDisciplineList,'update');
+                $this->getEntityService()->setFlash('success','Ajout punition avec success');
+            } catch (\Exception $exception){
+                $exception->getMessage();
+            }
+
+            return $this->redirect($this->generateUrl('punition_index',array('id'=>$skDisciplineList->getDiscipline()->getId())));
+        }
+
+        return $this->render('@Admin/SkDiscipline/punition.edit.html.twig', array(
+            'form' => $_form->createView(),
+            'punition' => $skDisciplineList
+        ));
+    }
+
+    /**
+     * @param SkDisciplineList $skDisciplineList
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function deletePunitionAction(SkDisciplineList $skDisciplineList)
+    {
+        $_punition_delete = $this->getEntityService()->deleteEntity($skDisciplineList,'');
+        try{
+            if ($_punition_delete===true){
+                $this->getEntityService()->setFlash('success','suppression punition réussie');
+                return $this->redirectToRoute('discipline_index');
+            }
+        } catch (\Exception $exception){
+            $exception->getMessage();
+        }
     }
 }
