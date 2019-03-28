@@ -29,3 +29,7 @@ tz_note:
 tz_recherche_global:
     resource: "@AdminBundle/Resources/config/routing/search.yml"
     prefix:   /search
+
+tz_edt:
+    resource: "@AdminBundle/Resources/config/routing/edt.yml"
+    prefix:   /edt

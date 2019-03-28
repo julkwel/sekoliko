@@ -1,0 +1,38 @@
+<div class="col-md-12">
+
+    {{ form_start(form, {'attr': {'id': 'edt'}}) }}
+    <div class="form-group">
+        <label for="">Date début</label>
+        <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+            <input type="text" name="debut" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
+            <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="">Date fin</label>
+        <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
+            <input type="text" name="fin" class="form-control datetimepicker-input" data-target="#datetimepicker2"/>
+            <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group ">
+        <label for="">Selectionner la matiere</label>
+        <select name="matiere" id="" class="form-control">
+            {% for matiere in matieres %}
+                <option value="{{ matiere.id }}">{{ matiere.matNom }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="box-footer">
+        <input type="submit" class="btn btn-primary btn-block" id="addedt" value="Enregistrer"
+               name="new_classe"/>
+        <button class="btn btn-google btn-block" data-dismiss="modal" aria-label="Close">
+            Annuler
+        </button>
+    </div>
+    {{ form_end(form) }}
+</div>

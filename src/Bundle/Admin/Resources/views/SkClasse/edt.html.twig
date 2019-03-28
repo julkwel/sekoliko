@@ -1,7 +1,7 @@
 {% extends 'admin/admin.html.twig' %}
 
 {% block title %}{{ parent() }} Tableau de bord {% endblock %}
-
+{#{% form_theme form 'form/custom_fields.html.twig' %}#}
 {% set menu_matiere = true %}
 
 {% block body %}
@@ -16,7 +16,31 @@
         </div>
     {% endfor %}
     <div class="card shadow mb-4">
+
         <div class="p-2">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Nouveau emploi du temps
+            </button>
+            <div class="mt-2"></div>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                {#{{ render(controller('AdminBundle:SkEdt:addEdt')) }}#}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div id='calendar'></div>
         </div>
     </div>
@@ -24,9 +48,46 @@
 
 {% block javascripts %}
     {{ parent() }}
+
     <script src="{{ asset('js/fullcalendar.min.js') }}"></script>
+    <script src="{{ asset('js/tooltip.js') }}"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker1').datetimepicker();
+            $('#datetimepicker2').datetimepicker();
+        });
+    </script>
     <script>
-        $(function() {
+
+        $('#exampleModal').on('shown.bs.modal', function () {
+            var modal = $(this);
+            $.ajax('{{ path('edt_new',{id:classe.id}) }}', {
+                success: function (data) {
+                    modal.find('.modal-body').html(data);
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).on('click', '#addedt', function (e) {
+            $.ajax({
+                type: 'POST',
+                url: '{{ path('edt_new',{id:classe.id}) }}',
+                data: $('#edt').serialize(),
+                dataType: "json"
+            })
+                .done(function (response) {
+                    window.location.reload();
+                })
+                .fail(function () {
+                    alert("an error occured");
+                });
+
+        });
+    </script>
+    <script>
+        $(function () {
+
             $('#calendar').fullCalendar({
                 themeSystem: 'bootstrap4',
                 header: {
@@ -34,12 +95,28 @@
                     center: 'title',
                     right: 'month,agendaWeek,agendaDay,listMonth'
                 },
-                weekNumbers: true,
-                eventLimit: true, // allow "more" link when too many events
-                events: 'https://fullcalendar.io/demo-events.json',
-                editable: true,
-                eventDrop: function(event,dayDelta,minuteDelta,allDay,revertFunc) {
 
+                weekNumbers: true,
+                eventLimit: true,
+                events: [
+                    {% for edt in edt %}
+                    {
+                        title: '{{ edt.matNom.matNom }}',
+                        start: '{{ edt.etdDateDeb | date('Y-m-d H:i:s') }}',
+                        end: '{{ edt.etdDateFin | date('Y-m-d H:i:s') }}'
+                    }
+                    {% if not loop.last %},
+                    {% endif %}
+                    {% endfor %}
+                ],
+                eventAfterRender: function (event, element) {
+                    $(element).tooltip({
+                        title: event.title,
+                        container: "body"
+                    });
+                },
+                editable: true,
+                eventDrop: function (event, dayDelta, minuteDelta, allDay, revertFunc) {
                     alert(
                         event.title + " was moved " +
                         dayDelta + " days and " +
@@ -48,7 +125,7 @@
 
                     if (allDay) {
                         alert("Event is now all-day");
-                    }else{
+                    } else {
                         alert("Event has a time-of-day");
                     }
 
