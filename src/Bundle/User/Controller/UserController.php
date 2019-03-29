@@ -128,7 +128,12 @@ class UserController extends Controller
 
         if ($_form->isSubmitted() && $_form->isValid()) {
             $_user_ets = $this->container->get('security.token_storage')->getToken()->getUser()->getEtsNom();
-            $_user->setEtsNom($_user_ets);
+            if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
+                $_ets_nom = $_request->request->get('etsNom');
+                $_user->setEtsNom($_ets_nom);
+            }else{
+                $_user->setEtsNom($_user_ets);
+            }
 
             $_user_manager->addUser($_user, $_form);
             $_user_manager->setFlash('success', 'Utilisateur ajouté');
