@@ -2,5 +2,6 @@
  * Traduction et correction des textes
  */
 $(document).ready(function(){    
-    $("input[placeholder='Search for...']").attr("placeholder","Tapez ici votre recherche");
+    $("label[for='form_prenom']").text("Prénom");
+    $("label[for='form_username']").text("Nom d' utilisateur");
 });
