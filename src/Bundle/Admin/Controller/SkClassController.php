@@ -237,7 +237,8 @@ class SkClassController extends Controller
                             $this->getEntityService()->setFlash('success', 'success add user');
                         } catch (\Exception $exception) {
                             $this->getEntityService()->setFlash('error', 'Utilisateur existe déjà email ou nom d\'utilisateur existe');
-                            return $this->redirect($this->generateUrl('classe_etudiant_new',array('id'=>$skClasse->getId())));
+
+                            return $this->redirect($this->generateUrl('classe_etudiant_new', array('id' => $skClasse->getId())));
                         }
                         try {
                             $this->getEntityService()->saveEntity($_etudiant, 'new');

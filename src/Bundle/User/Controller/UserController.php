@@ -131,7 +131,7 @@ class UserController extends Controller
             if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
                 $_ets_nom = $_request->request->get('etsNom');
                 $_user->setEtsNom($_ets_nom);
-            }else{
+            } else {
                 $_user->setEtsNom($_user_ets);
             }
 
@@ -153,7 +153,9 @@ class UserController extends Controller
 
     /**
      * @param Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Exception
@@ -184,7 +186,7 @@ class UserController extends Controller
 
     /**
      * @param Request $_request
-     * @param User $_user
+     * @param User    $_user
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      *
@@ -210,6 +212,7 @@ class UserController extends Controller
             if (RoleName::ID_ROLE_ETUDIANT === $_user_role) {
                 return $this->redirectToRoute('dashboard_index');
             }
+
             return $this->redirect($this->generateUrl('user_index'));
         }
 
@@ -257,7 +260,7 @@ class UserController extends Controller
 
     /**
      * @param Request $_request
-     * @param User $_user
+     * @param User    $_user
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *

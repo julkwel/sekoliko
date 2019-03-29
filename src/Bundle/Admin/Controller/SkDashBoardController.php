@@ -21,6 +21,7 @@ class SkDashBoardController extends Controller
 {
     /**
      * @return \Symfony\Component\HttpFoundation\Response
+     *
      * @throws \Exception
      */
     public function indexAction()
@@ -32,7 +33,7 @@ class SkDashBoardController extends Controller
 
             return $this->render('@Admin/SkDashboard/superadmin.html.twig', array(
                 'nombre_user' => $_nombre_user,
-                'ets_liste' => $_ets_count
+                'ets_liste' => $_ets_count,
             ));
         } elseif ($this->get('security.authorization_checker')->isGranted('ROLE_ETUDIANT')) {
             $_user_ets = $this->get('security.token_storage')->getToken()->getUser()->getEtsNom();
@@ -44,9 +45,8 @@ class SkDashBoardController extends Controller
 
             return $this->render('@Admin/SkDashboard/etudiant.dashboard.html.twig', array(
                 'mat_liste' => $_matiere_liste,
-                'liste_etudiant' => $_etudiant_liste
+                'liste_etudiant' => $_etudiant_liste,
             ));
-
         } else {
             $_user_ets = $this->get('security.token_storage')->getToken()->getUser()->getEtsNom();
 
@@ -82,6 +82,5 @@ class SkDashBoardController extends Controller
                 'hello' => 'Hello',
             ));
         }
-
     }
 }

@@ -165,6 +165,7 @@ class UserManager
     /**
      * @param $_user
      * @param $_form
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -432,7 +433,9 @@ class UserManager
 
     /**
      * @param $str
+     *
      * @return mixed
+     *
      * @throws \Exception
      */
     public function findEntitiesByString($str)
