@@ -6,13 +6,13 @@
 
 {% block body %}
 
-    <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Bienvenue sur le tableau de bord du {{ ets }}</h1>
+    <div class="card bg-info text-white shadow">
+        <div class="card-body">
+            <h1 class="h3 mb-0 text-white">Bienvenue sur le tableau de bord du {{ ets }}</h1>
+        </div>
     </div>
-
+<div class="pb-2"></div>
     <div class="row">
-
         <!-- Earnings (Monthly) Card Example -->
         <a href="{{ path('etudiant_search') }}" class="col-xl-3 col-md-6 mb-4" style="text-decoration: none">
             <div class="card border-left-primary shadow h-100 py-2">
