@@ -188,4 +188,25 @@ class SkEtudiantController extends Controller
             'classe' => $_classe_list,
         ));
     }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function myCollegueAction()
+    {
+        $_user_classe = $this->getDoctrine()->getRepository(SkEtudiant::class)->findBy(array(
+            'etsNom' => $this->getUserConnected()->getEtsNom(),
+            'etudiant' => $this->getUserConnected(),
+        ));
+
+        $_user_col = $this->getDoctrine()->getRepository(SkEtudiant::class)->findBy(array(
+            'etsNom' => $this->getUserConnected()->getEtsNom(),
+            'classe' => $_user_classe[0]->getClasse(),
+        ));
+
+        return $this->render('@Admin/SkEtudiant/collegue.html.twig', array(
+            'user' => $_user_col,
+            'classe' => $_user_classe[0]->getClasse(),
+        ));
+    }
 }

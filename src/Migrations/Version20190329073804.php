@@ -10,15 +10,14 @@ use Doctrine\DBAL\Schema\Schema;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-class Version20190328145337 extends AbstractMigration
+class Version20190329073804 extends AbstractMigration
 {
     public function up(Schema $schema)
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE sk_discipline_list DROP FOREIGN KEY FK_824EA63CA5522701');
-        $this->addSql('ALTER TABLE sk_discipline_list ADD CONSTRAINT FK_824EA63CA5522701 FOREIGN KEY (discipline_id) REFERENCES sk_discipline (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE sk_book CHANGE is_reserved is_reserved TINYINT(1) DEFAULT \'0\'');
     }
 
     public function down(Schema $schema)
@@ -26,7 +25,6 @@ class Version20190328145337 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE sk_discipline_list DROP FOREIGN KEY FK_824EA63CA5522701');
-        $this->addSql('ALTER TABLE sk_discipline_list ADD CONSTRAINT FK_824EA63CA5522701 FOREIGN KEY (discipline_id) REFERENCES sk_discipline (id)');
+        $this->addSql('ALTER TABLE sk_book CHANGE is_reserved is_reserved TINYINT(1) DEFAULT NULL');
     }
 }

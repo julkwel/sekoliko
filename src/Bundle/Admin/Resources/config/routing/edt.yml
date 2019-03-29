@@ -3,6 +3,11 @@ edt_classe:
     defaults: { _controller: "AdminBundle:SkEdt:index" }
     methods:  [GET, POST]
 
+edt_etudiant:
+    path:     /edt
+    defaults: { _controller: "AdminBundle:SkEdt:etudiantEdt" }
+    methods:  [GET, POST]
+
 edt_new:
     path:     /{id}/new
     defaults: { _controller: "AdminBundle:SkEdt:addEdt" }

@@ -38,3 +38,11 @@ tz_discipline:
 tz_edt:
     resource: "@AdminBundle/Resources/config/routing/edt.yml"
     prefix:   /edt
+
+tz_bibliotheque:
+    resource: "@AdminBundle/Resources/config/routing/bibliotheque.yml"
+    prefix:   /bibliotheque
+
+tz_book:
+    resource: "@AdminBundle/Resources/config/routing/book.yml"
+    prefix:   /book

@@ -13,10 +13,10 @@ matiere_edit:
     defaults: { _controller: "AdminBundle:SkMatiere:update" }
     methods:  [GET, POST]
 
-#matiere_update:
-#    path:     /{id}/update
-#    defaults: { _controller: "U" }
-#    methods:  [POST, PUT]
+matiere_etudiant:
+    path:     /classe/mat
+    defaults: { _controller: "AdminBundle:SkMatiere:matiereEtudiant" }
+    methods:  [GET, POST]
 
 matiere_delete:
     path:     /{id}/delete

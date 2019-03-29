@@ -59,18 +59,24 @@
                                     <td>{{ salle.isReserve ? 'oui' : 'Non' }}</td>
                                     <td>{{ salle.motifs ? salle.motifs : 'Non reservé' }}</td>
                                     <td class="kl-action-button-bloc">
+
+                                        {% if is_granted('ROLE_ADMIN') %}
                                         <a class="btn btn-success" title="Modifier"
                                            href="{{ path('salle_edit', { 'id': salle.id }) }}">
                                             <i class="fa fa-edit"></i>
                                         </a>
+                                        {% endif %}
+
                                         <a class="btn btn-primary" title="reserver"
                                            href="{{ path('salle_reservation', { 'id': salle.id }) }}">
                                             <i class="fa fa-restroom"></i>
                                         </a>
-                                        <a class="btn btn-primary" title="annuler la reservation"
-                                           href="{{ path('salle_annule', { 'id': salle.id }) }}">
-                                            <i class="fa fa-check"></i>
-                                        </a>
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                            <a class="btn btn-primary" title="annuler la reservation"
+                                               href="{{ path('salle_annule', { 'id': salle.id }) }}">
+                                                <i class="fa fa-check"></i>
+                                            </a>
+                                        {% endif %}
                                         {% if is_granted('ROLE_ADMIN') %}
                                             <a class="btn btn-danger remove-elt" title="Supprimer"
                                                href="{{ path('salle_delete', { 'id': salle.id }) }}">
@@ -94,7 +100,7 @@
 
     <script type="text/javascript">
         // Call the dataTables jQuery plugin
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#dataTable').DataTable();
         });
 

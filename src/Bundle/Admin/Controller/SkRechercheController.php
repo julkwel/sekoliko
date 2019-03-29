@@ -9,7 +9,6 @@
 namespace App\Bundle\Admin\Controller;
 
 use App\Bundle\User\Entity\User;
-use App\Shared\Services\Utils\RoleName;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -47,28 +46,19 @@ class SkRechercheController extends Controller
                 $_list = $this->getDoctrine()->getRepository(User::class)->findBy(array(
                     'usrLastname' => $_nom,
                     'etsNom' => $_user_ets,
-                    'skRole' => array(
-                        RoleName::ID_ROLE_ETUDIANT,
-                    ),
                 ));
             } elseif (!is_null($_usrFirstname)) {
                 $_list = $this->getDoctrine()->getRepository(User::class)->findBy(array(
                     'usrFirstname' => $_usrFirstname,
                     'etsNom' => $_user_ets,
-                    'skRole' => array(
-                        RoleName::ID_ROLE_ETUDIANT,
-                    ),
                 ));
             } elseif (!is_null($_username)) {
                 $_list = $this->getDoctrine()->getRepository(User::class)->findBy(array(
                     'username' => $_username,
                     'etsNom' => $_user_ets,
-                    'skRole' => array(
-                        RoleName::ID_ROLE_ETUDIANT,
-                    ),
                 ));
             } elseif (null === $_nom && null === $_usrFirstname && null === $_username) {
-                $_list = $this->getDoctrine()->getRepository(User::class)->findBy($_array_type, array('id' => 'DESC'));
+                $_list = $this->getDoctrine()->getRepository(User::class)->findAll();
             }
 
             return $this->render('@Admin/SkRecherche/resultat.html.twig', array(
