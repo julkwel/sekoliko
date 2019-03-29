@@ -139,26 +139,32 @@ class SkSalleController extends Controller
 
     public function reservationAction(Request $request, SkSalle $skSalle)
     {
-        $_form = $this->createForm(SkSalleType::class, $skSalle);
-        $_form->handleRequest($request);
-
-        if ($_form->isSubmitted() && $_form->isValid()) {
-            $debut_reservation = $request->request->get('debut');
-            $fin_reservation = $request->request->get('fin');
-            $motif_reservation = $request->request->get('motif');
-            $skSalle->setIsReserve(true);
-            $skSalle->setDebReserve(new \DateTime($debut_reservation));
-            $skSalle->setFinReserve(new \DateTime($fin_reservation));
-            $skSalle->setMotifs($motif_reservation);
-            try {
-                $this->getEntityService()->saveEntity($skSalle, 'update');
-                $this->getEntityService()->setFlash('success', 'reservation ajouté');
-            } catch (\Exception $exception) {
-                $exception->getMessage();
-            }
-
+        if ($skSalle->getisReserve() === true) {
+            $this->getEntityService()->setFlash('error', 'Ce salle et déja réservé');
             return $this->redirectToRoute('salle_index');
+        } else {
+            $_form = $this->createForm(SkSalleType::class, $skSalle);
+            $_form->handleRequest($request);
+
+            if ($_form->isSubmitted() && $_form->isValid()) {
+                $debut_reservation = $request->request->get('debut');
+                $fin_reservation = $request->request->get('fin');
+                $motif_reservation = $request->request->get('motif');
+                $skSalle->setIsReserve(true);
+                $skSalle->setDebReserve(new \DateTime($debut_reservation));
+                $skSalle->setFinReserve(new \DateTime($fin_reservation));
+                $skSalle->setMotifs($motif_reservation);
+                try {
+                    $this->getEntityService()->saveEntity($skSalle, 'update');
+                    $this->getEntityService()->setFlash('success', 'reservation ajouté');
+                } catch (\Exception $exception) {
+                    $exception->getMessage();
+                }
+
+                return $this->redirectToRoute('salle_index');
+            }
         }
+
 
         return $this->render('@Admin/SkSalle/reservation.html.twig', array(
             'form' => $_form->createView(),
