@@ -55,7 +55,7 @@
                                     </td>
                                     <td>{{ discipline.name }}</td>
                                     <td>
-                                        <a class="btn btn-primary" title="Modifier"
+                                        <a class="btn btn-success" title="Modifier"
                                            href="{{ path('discipline_edit', { 'id': discipline.id }) }}">
                                             <i class="fa fa-edit"></i>
                                         </a>
@@ -67,7 +67,7 @@
                                            href="{{ path('punition_new', { 'id': discipline.id }) }}">
                                             <i class="fa fa-plus"></i>
                                         </a>
-                                        <a class="btn btn-primary btn btn-danger remove-elt" title="Modifier"
+                                        <a class="btn btn-danger remove-elt" title="Supprimer"
                                            href="{{ path('discipline_delete', { 'id': discipline.id }) }}">
                                             <i class="fa fa-trash"></i>
                                         </a>
