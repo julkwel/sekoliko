@@ -429,4 +429,12 @@ class UserManager
 
         return $_rand;
     }
+
+    public function findEntitiesByString($str){
+        return $this->_entity_manager->createQuery(
+                'SELECT e FROM UserBundle:User e WHERE e.usrFirstname LIKE :str'
+            )
+            ->setParameter('str', '%'.$str.'%')
+            ->getResult();
+    }
 }
