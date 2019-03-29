@@ -9,7 +9,6 @@
 namespace App\Bundle\Admin\Controller;
 
 use App\Bundle\User\Entity\User;
-use App\Shared\Services\Utils\RoleName;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\TextType;

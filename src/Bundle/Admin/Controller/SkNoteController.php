@@ -61,7 +61,7 @@ class SkNoteController extends Controller
         $_etudiant_classe = $etudiant->getClasse()->getId();
         $_matiere_liste = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array(
             'etsNom' => $_ets_nom,
-            'matClasse' => $_etudiant_classe
+            'matClasse' => $_etudiant_classe,
         ));
         $_note = new SkNote();
 
@@ -106,7 +106,7 @@ class SkNoteController extends Controller
         $_etudiant_classe = $skNote->getEtudiant()->getClasse()->getId();
         $_matiere_liste = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array(
             'etsNom' => $_ets_nom,
-            'matClasse' => $_etudiant_classe
+            'matClasse' => $_etudiant_classe,
         ));
         $_form = $this->createForm(SkNoteType::class, $skNote);
         $_form->handleRequest($request);
@@ -161,17 +161,17 @@ class SkNoteController extends Controller
     {
         $_user_classe = $this->getDoctrine()->getRepository(SkEtudiant::class)->findBy(array(
             'etsNom' => $this->getUserConnected()->getEtsNom(),
-            'etudiant' => $this->getUserConnected()
+            'etudiant' => $this->getUserConnected(),
         ));
 
         $_note_liste = $this->getDoctrine()->getRepository(SkNote::class)->findBy(array(
-           'etudiant' => $_user_classe[0]
+           'etudiant' => $_user_classe[0],
         ));
 
 //        dump($_note_liste);die();
 
-        return $this->render('@Admin/SkEtudiant/etudiant.note.html.twig',array(
-            'note_liste' => $_note_liste
+        return $this->render('@Admin/SkEtudiant/etudiant.note.html.twig', array(
+            'note_liste' => $_note_liste,
         ));
     }
 }

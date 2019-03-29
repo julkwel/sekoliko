@@ -165,6 +165,7 @@ class UserManager
     /**
      * @param $_user
      * @param $_form
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -430,7 +431,8 @@ class UserManager
         return $_rand;
     }
 
-    public function findEntitiesByString($str){
+    public function findEntitiesByString($str)
+    {
         return $this->_entity_manager->createQuery(
                 'SELECT e FROM UserBundle:User e WHERE e.username LIKE :str'
             )

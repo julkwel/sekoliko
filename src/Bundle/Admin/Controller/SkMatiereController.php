@@ -54,17 +54,17 @@ class SkMatiereController extends Controller
     {
         $_user_classe = $this->getDoctrine()->getRepository(SkEtudiant::class)->findBy(array(
             'etsNom' => $this->getUserConnected()->getEtsNom(),
-            'etudiant' => $this->getUserConnected()
+            'etudiant' => $this->getUserConnected(),
         ));
 
         $_matiere_list = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array(
             'etsNom' => $this->getUserConnected()->getEtsNom(),
-            'matClasse' => $_user_classe[0]->getClasse()
+            'matClasse' => $_user_classe[0]->getClasse(),
         ));
 
-        return $this->render('@Admin/SkMatiere/etudiant.matiere.html.twig',array(
+        return $this->render('@Admin/SkMatiere/etudiant.matiere.html.twig', array(
             'classe' => $_user_classe[0]->getClasse(),
-            'matiere_liste' => $_matiere_list
+            'matiere_liste' => $_matiere_list,
         ));
     }
 

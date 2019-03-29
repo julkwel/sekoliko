@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: julkwel
  * Date: 3/29/19
- * Time: 10:41 AM
+ * Time: 10:41 AM.
  */
 
 namespace App\Shared\Form;
-
 
 use App\Shared\Entity\SkBook;
 use Symfony\Component\Form\AbstractType;
@@ -20,15 +19,15 @@ class SkBookType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('bookName',TextType::class,array(
-                'label'=>'Nom du livre',
-                'required'=>true
+            ->add('bookName', TextType::class, array(
+                'label' => 'Nom du livre',
+                'required' => true,
             ))
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array('data_class'=>SkBook::class));
+        $resolver->setDefaults(array('data_class' => SkBook::class));
     }
 }

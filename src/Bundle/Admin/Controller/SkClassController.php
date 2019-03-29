@@ -17,7 +17,6 @@ use App\Shared\Entity\SkNiveau;
 use App\Shared\Form\SkClasseType;
 use App\Shared\Form\SkEtudiantType;
 use App\Shared\Services\Utils\RoleName;
-use App\Shared\Services\Utils\ServiceName;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -84,7 +83,7 @@ class SkClassController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param Request  $request
      * @param SkClasse $skClasse
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -139,7 +138,7 @@ class SkClassController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param Request  $request
      * @param SkClasse $skClasse
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -171,7 +170,7 @@ class SkClassController extends Controller
     }
 
     /**
-     * @param Request $_request
+     * @param Request  $_request
      * @param SkClasse $skClasse
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -201,7 +200,7 @@ class SkClassController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param Request  $request
      * @param SkClasse $skClasse
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -238,14 +237,14 @@ class SkClassController extends Controller
                             $this->getEntityService()->setFlash('success', 'success add user');
                         } catch (\Exception $exception) {
                             $exception->getMessage();
-                            $this->getEntityService()->setFlash('error', 'error' . $exception->getMessage());
+                            $this->getEntityService()->setFlash('error', 'error'.$exception->getMessage());
                         }
                         try {
                             $this->getEntityService()->saveEntity($_etudiant, 'new');
                             $this->getEntityService()->setFlash('success', 'success add etudiant');
                         } catch (\Exception $exception) {
                             $exception->getMessage();
-                            $this->getEntityService()->setFlash('error', 'error' . $exception->getMessage());
+                            $this->getEntityService()->setFlash('error', 'error'.$exception->getMessage());
                         }
                     } catch (\Exception $exception) {
                         $exception->getMessage();

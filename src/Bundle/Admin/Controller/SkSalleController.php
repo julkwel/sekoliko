@@ -137,10 +137,20 @@ class SkSalleController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @param SkSalle $skSalle
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function reservationAction(Request $request, SkSalle $skSalle)
     {
-        if ($skSalle->getisReserve() === true) {
-            $this->getEntityService()->setFlash('error', 'Ce salle et déja réservé');
+        if (true === $skSalle->getisReserve()) {
+            try {
+                $this->getEntityService()->setFlash('error', 'Ce salle et déja réservé');
+            } catch (\Exception $e) {
+            }
+
             return $this->redirectToRoute('salle_index');
         } else {
             $_form = $this->createForm(SkSalleType::class, $skSalle);
@@ -164,7 +174,6 @@ class SkSalleController extends Controller
                 return $this->redirectToRoute('salle_index');
             }
         }
-
 
         return $this->render('@Admin/SkSalle/reservation.html.twig', array(
             'form' => $_form->createView(),
