@@ -46,3 +46,7 @@ tz_bibliotheque:
 tz_book:
     resource: "@AdminBundle/Resources/config/routing/book.yml"
     prefix:   /book
+
+tz_guide:
+    resource: "@AdminBundle/Resources/config/routing/guide.yml"
+    prefix:   /guide

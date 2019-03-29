@@ -3,12 +3,13 @@
  * Created by PhpStorm.
  * User: julkwel
  * Date: 3/29/19
- * Time: 1:59 AM
+ * Time: 1:59 AM.
  */
 
 namespace App\Shared\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+
 /**
  * SkBibliotheque.
  *

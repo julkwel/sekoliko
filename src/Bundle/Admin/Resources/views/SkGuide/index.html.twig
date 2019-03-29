@@ -2,7 +2,7 @@
 
 {% block title %}{{ parent() }} Tableau de bord {% endblock %}
 
-{% set menu_matiere = true %}
+{% set menu_guide = true %}
 
 {% block body %}
     {% for flashMessage in app.session.flashbag.get('success') %}
@@ -20,54 +20,31 @@
         <form action="" method="POST" class="form-search">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary text-center">Listes des matieres</h6>
+                    <h6 class="m-0 font-weight-bold text-primary text-center">Listes des guides</h6>
                     {# Bouton création #}
                     {% if is_granted('ROLE_ADMIN') %}
                         <div class="row add-btn-top-list">
-                            <a href="{{ path('matiere_new') }}" class="btn btn-primary">
-                                Créer un matiere
+                            <a href="{{ path('guide_new') }}" class="btn btn-primary">
+                                Créer un guidee
                             </a>
                         </div>
                     {% endif %}
-                    <div class="box-header">
-                        <div class="list-count">
-                            <span class="title-count-text"> TOTAL: </span><span class="title-count"></span>
-                        </div>
-                    </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                            <tr>
-                                <th></th>
-                                <th>Matiere</th>
-                                <th>Coefficient</th>
-                                <th>Profs</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
+                        <table class="table">
                             <tbody>
-                            {% for matiere in matiere_liste %}
+                            {% for guide in listguide %}
                                 <tr>
-                                    <td class="text-center">
-                                        <input type="checkbox" value="{{ matiere.id }}" name="delete[]"/>
+                                    <td>{{ guide.description }}</td>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                    <td>
+                                        <a href="{{ path('guide_edit',{"id":guide.id}) }}"
+                                           class="btn btn-circle btn-primary"><i class="fa fa-edit"></i></a>
+                                        <a href="{{ path('guide_delete',{"id":guide.id}) }}"
+                                           class="btn btn-circle btn-warning"><i class="fa fa-trash"></i></a>
                                     </td>
-                                    <td>{{ matiere.matNom }}</td>
-                                    <td>{{ matiere.matCoeff }}</td>
-                                    <td>{{ matiere.matProf ?  matiere.matProf.usrFirstname : '' }}</td>
-                                    <td class="kl-action-button-bloc">
-                                        <a class="btn btn-success" title="Modifier"
-                                           href="{{ path('matiere_edit', { 'id': matiere.id }) }}">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
-                                        {% if is_granted('ROLE_ADMIN') %}
-                                            <a class="btn btn-danger remove-elt" title="Supprimer"
-                                               href="{{ path('matiere_delete', { 'id': matiere.id }) }}">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        {% endif %}
-                                    </td>
+                                    {% endif %}
                                 </tr>
                             {% endfor %}
                             </tbody>

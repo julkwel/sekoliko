@@ -36,6 +36,7 @@ class SkEdtController extends Controller
     public function indexAction(SkClasse $skClasse)
     {
         $_edt = $this->getDoctrine()->getRepository(SkEdt::class)->findBy(array('edtClasse' => $skClasse));
+
         return $this->render('@Admin/SkClasse/edt.html.twig', array(
             'classe' => $skClasse,
             'edt' => $_edt,
@@ -49,7 +50,7 @@ class SkEdtController extends Controller
     {
         $_user_classe = $this->getDoctrine()->getRepository(SkEtudiant::class)->findBy(array(
             'etsNom' => $this->getUserConnected()->getEtsNom(),
-            'etudiant' => $this->getUserConnected()
+            'etudiant' => $this->getUserConnected(),
         ));
 
         $_edt = $this->getDoctrine()->getRepository(SkEdt::class)->findBy(array('edtClasse' => $_user_classe[0]->getClasse()->getId()));
@@ -61,7 +62,7 @@ class SkEdtController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param Request  $request
      * @param SkClasse $skClasse
      *
      * @return \Symfony\Component\HttpFoundation\Response

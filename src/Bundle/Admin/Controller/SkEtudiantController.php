@@ -110,7 +110,7 @@ class SkEtudiantController extends Controller
 
     /**
      * @param Request $request
-     * @param User $user
+     * @param User    $user
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
@@ -153,7 +153,7 @@ class SkEtudiantController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param Request    $request
      * @param SkEtudiant $skEtudiant
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -196,17 +196,17 @@ class SkEtudiantController extends Controller
     {
         $_user_classe = $this->getDoctrine()->getRepository(SkEtudiant::class)->findBy(array(
             'etsNom' => $this->getUserConnected()->getEtsNom(),
-            'etudiant' => $this->getUserConnected()
+            'etudiant' => $this->getUserConnected(),
         ));
 
         $_user_col = $this->getDoctrine()->getRepository(SkEtudiant::class)->findBy(array(
             'etsNom' => $this->getUserConnected()->getEtsNom(),
-            'classe' => $_user_classe[0]->getClasse()
+            'classe' => $_user_classe[0]->getClasse(),
         ));
 
         return $this->render('@Admin/SkEtudiant/collegue.html.twig', array(
             'user' => $_user_col,
-            'classe' => $_user_classe[0]->getClasse()
+            'classe' => $_user_classe[0]->getClasse(),
         ));
     }
 }

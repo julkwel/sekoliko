@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: julkwel
  * Date: 3/29/19
- * Time: 10:19 AM
+ * Time: 10:19 AM.
  */
 
 namespace App\Shared\Entity;
-
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -17,7 +16,6 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="sk_book")
  * @ORM\Entity
  */
-
 class SkBook
 {
     use SkEtablissement;
@@ -31,7 +29,6 @@ class SkBook
      */
     private $id;
 
-
     /**
      * @var string
      *
@@ -39,13 +36,11 @@ class SkBook
      */
     private $bookName;
 
-
     /**
      * @ORM\ManyToOne(targetEntity="App\Bundle\User\Entity\User")
      * @ORM\JoinColumn(nullable=true,onDelete="SET NULL")
      */
     private $user;
-
 
     /**
      * @var string
@@ -163,6 +158,4 @@ class SkBook
     {
         $this->dateFin = $dateFin;
     }
-    
-    
 }

@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: julkwel
  * Date: 3/29/19
- * Time: 3:15 AM
+ * Time: 3:15 AM.
  */
 
 namespace App\Bundle\Admin\Controller;
-
 
 use App\Shared\Services\Utils\ServiceName;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -16,7 +15,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SkBibiothequeController extends Controller
 {
-
     /**
      * @return Response
      */
@@ -27,6 +25,7 @@ class SkBibiothequeController extends Controller
 
     /**
      * @param Request $request
+     *
      * @return Response
      */
     public function searchAction(Request $request)
@@ -34,7 +33,7 @@ class SkBibiothequeController extends Controller
         $requestString = $request->get('q');
         $entities = $this->get(ServiceName::SRV_METIER_USER)->findEntitiesByString($requestString);
         if (!$entities) {
-            $result['entities']['error'] = "Aucun correspondance";
+            $result['entities']['error'] = 'Aucun correspondance';
         } else {
             $result['entities'] = $this->getRealEntities($entities);
         }
@@ -44,6 +43,7 @@ class SkBibiothequeController extends Controller
 
     /**
      * @param $entities
+     *
      * @return mixed
      */
     public function getRealEntities($entities)
@@ -51,6 +51,7 @@ class SkBibiothequeController extends Controller
         foreach ($entities as $entity) {
             $realEntities[$entity->getId()] = $entity->getUserName();
         }
+
         return $realEntities;
     }
 }
