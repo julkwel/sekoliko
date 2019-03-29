@@ -165,7 +165,6 @@ class UserManager
     /**
      * @param $_user
      * @param $_form
-     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -445,5 +444,13 @@ class UserManager
             )
             ->setParameter('str', '%'.$str.'%')
             ->getResult();
+    }
+
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function findEtsList()
+    {
+        return $this->getRepository()->createQueryBuilder('q')->select('DISTINCT(q.etsNom)');
     }
 }

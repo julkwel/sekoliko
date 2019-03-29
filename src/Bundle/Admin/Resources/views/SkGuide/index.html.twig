@@ -27,7 +27,7 @@
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary text-center">Listes des guides</h6>
                     {# Bouton création #}
-                    {% if is_granted('ROLE_ADMIN') %}
+                    {% if is_granted('ROLE_SUPERADMIN') %}
                         <div class="row add-btn-top-list">
                             <a href="{{ path('guide_new') }}" class="btn btn-primary">
                                 Créer un guidee
@@ -42,7 +42,7 @@
                             {% for guide in listguide %}
                                 <tr>
                                     <td>{{ guide.description }}</td>
-                                    {% if is_granted('ROLE_ADMIN') %}
+                                    {% if is_granted('ROLE_SUPERADMIN') %}
                                     <td>
                                         <a href="{{ path('guide_edit',{"id":guide.id}) }}"
                                            class="btn btn-circle btn-primary"><i class="fa fa-edit"></i></a>

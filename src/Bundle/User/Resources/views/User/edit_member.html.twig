@@ -1,4 +1,4 @@
-{% extends '@Admin/base.html.twig' %}
+{% extends 'admin/admin.html.twig' %}
 
 {% form_theme esk_form 'form/member_fields.html.twig' %}
 
@@ -8,43 +8,47 @@
 {% set menu_user_create = true %}
 
 {% block body %}
-    <div class="row kl-box-profile">
-        <div class="col-md-3">
-            <div class="kl-photo-edit">
-                {% set photo_profil = app.user.usrPhoto %}
-                {% if photo_profil is null %}
-                    {% set photo_profil = asset('img/no-image-available-user.png') %}
-                {% endif %}
-                <img src="{{ photo_profil|imagine_filter('photo_user_profil_member_edit') }}"
-                     class="user-image img-circle" alt="{{ app.user.username }}">
-            </div>
-        </div>
-        <div class="col-md-6">
-            {% for flashMessage in app.session.flashbag.get('success') %}
-                <div class="alert alert-success">
-                    {{ flashMessage }}
+    <div class="card shadow">
+        <div class="card-body">
+            <div class="row kl-box-profile">
+                <div class="col-md-3">
+                    <div class="kl-photo-edit">
+                        {% set photo_profil = app.user.imgUrl %}
+                        {% if photo_profil is null %}
+                            {% set photo_profil = asset('img/images.jpeg') %}
+                        {% endif %}
+                        <img src="{{ photo_profil|imagine_filter('photo_user_profil_member_edit') }}"
+                             class="user-image img-circle" alt="{{ app.user.username }}">
+                    </div>
                 </div>
-            {% endfor %}
-            {% for flashMessage in app.session.flashbag.get('error') %}
-                <div class="alert alert-danger">
-                    {{ flashMessage }}
-                </div>
-            {% endfor %}
+                <div class="col-md-6">
+                    {% for flashMessage in app.session.flashbag.get('success') %}
+                        <div class="alert alert-success">
+                            {{ flashMessage }}
+                        </div>
+                    {% endfor %}
+                    {% for flashMessage in app.session.flashbag.get('error') %}
+                        <div class="alert alert-danger">
+                            {{ flashMessage }}
+                        </div>
+                    {% endfor %}
 
-            <div class="box box-primary">
-                {{ form_start(esk_form) }}
-                    <div class="box-body">
-                        {{ form_row(esk_form.usrNomEntreprise) }}
-                        {{ form_row(esk_form.usrLastname) }}
-                        {{ form_row(esk_form.usrFirstname) }}
-                        {{ form_row(esk_form.usrAddress) }}
-                        {{ form_row(esk_form.email) }}
-                        {{ form_row(esk_form.usrPhone) }}
-                        {{ form_row(esk_form.usrPhoto) }}
+                    <div class="box box-primary">
+                        {{ form_start(esk_form) }}
                         <div class="row">
-                            <div class="form-group kl-pp">
-                                {% if user.usrPhoto %}
-                                    <div class="col-md-2 col-lg-2 col-xs-2 blc-image">
+                            <div class="col-md-6">
+                                {{ form_row(esk_form.usrLastname) }}
+                                {{ form_row(esk_form.usrFirstname) }}
+                                {{ form_row(esk_form.usrAddress) }}
+                                {{ form_row(esk_form.email) }}
+                                {{ form_row(esk_form.usrPhone) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(esk_form.imgUrl) }}
+                                <div class="row">
+                                    <div class="form-group kl-pp">
+                                        {% if user.imgUrl %}
+                                            <div class="col-md-2 col-lg-2 col-xs-2 blc-image">
                                     <span class="delete-image pull-right">
                                         <a href="javascript:void(0);" id="file-{{ user.id }}"
                                            onClick="deleteFile({{ user.id }}, $(this));" class="btn_effacer"
@@ -54,29 +58,32 @@
                                             </span>
                                         </a>
                                     </span>
-                                        <div class="image-container-block">
-                                            <img class="img-vignette img-responsive img-circle" src="{{ user.usrPhoto }}" />
-                                        </div>
+                                                <div class="image-container-block">
+                                                    <img class="img-vignette img-responsive img-circle"  style="width: 100px;height: 100px" src="{{ user.imgUrl }}" />
+                                                </div>
+                                            </div>
+                                        {% endif %}
                                     </div>
-                                {% endif %}
+                                </div>
+                                <div class="{% if not is_granted('ROLE_ADMIN') %}hidden{% endif %}" {% if not is_granted('ROLE_ADMIN') %}style="display: none" {% endif %}>
+                                    {{ form_row(esk_form.skRole) }}
+                                </div>
+                                {{ form_row(esk_form.enabled) }}
+                                {{ form_row(esk_form.username) }}
+                                {{ form_row(esk_form.plainPassword.first) }}
+                                {{ form_row(esk_form.plainPassword.second) }}
                             </div>
                         </div>
-                        <div class="{% if not is_granted('ROLE_ADMIN') %}hidden{% endif %}">
-                            {{ form_row(esk_form.tzeRole) }}
+                        <div class="box-footer">
+                            <input type="submit" class="btn btn-primary btn-block" value="Enregistrer" name="new_salle"/>
+                            <a href="{{ path('dashboard_index') }}"
+                               class="btn btn-google btn-block">
+                                Annuler
+                            </a>
                         </div>
-                        {{ form_row(esk_form.enabled) }}
-                        {{ form_row(esk_form.username) }}
-                        {{ form_row(esk_form.plainPassword.first) }}
-                        {{ form_row(esk_form.plainPassword.second) }}
+                        {{ form_end(esk_form) }}
                     </div>
-                    <div class="box-footer">
-                        <input type="submit" class="btn btn-primary kl-done" value="Enregistrer" name="update_user"/>
-                        <a href="{{ path('service_client_list') }}"
-                           class="btn btn-default pull-left btn-mini-rectif" >
-                            <i class="fa fa-reply-all" aria-hidden="true"></i> Retour à la liste
-                        </a>
-                    </div>
-                {{ form_end(esk_form) }}
+                </div>
             </div>
         </div>
     </div>
@@ -85,7 +92,8 @@
 {% block javascripts %}
     {{ parent() }}
     <!-- Delete file -->
-    <script src="{{ asset('backoffice/js/delete.file.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/bootbox.min.js') }}"></script>
+    <script src="{{ asset('js/ajax.js') }}" type="text/javascript"></script>
 
     <script type="text/javascript">
         $(function () {
