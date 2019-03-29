@@ -200,7 +200,7 @@ class SkBookController extends Controller
             return $this->redirectToRoute('book_index');
         } else {
             try {
-                $this->getEntityService()->setFlash('error', 'Book is not reserved');
+                $this->getEntityService()->setFlash('error', 'Book is already reserved');
             } catch (\Exception $e) {
                 $e->getMessage();
             }
