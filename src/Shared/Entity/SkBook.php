@@ -3,19 +3,22 @@
  * Created by PhpStorm.
  * User: julkwel
  * Date: 3/29/19
- * Time: 1:59 AM
+ * Time: 10:19 AM
  */
 
 namespace App\Shared\Entity;
 
+
 use Doctrine\ORM\Mapping as ORM;
+
 /**
- * SkBibliotheque.
+ * SkBook.
  *
- * @ORM\Table(name="sk_bibliotheque")
+ * @ORM\Table(name="sk_book")
  * @ORM\Entity
  */
-class SkBibliotheque
+
+class SkBook
 {
     use SkEtablissement;
 
@@ -28,22 +31,26 @@ class SkBibliotheque
      */
     private $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Bundle\User\Entity\User")
-     * @ORM\JoinColumn(nullable=false,onDelete="CASCADE")
-     */
-    private $user;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Shared\Entity\SkBook")
-     * @ORM\JoinColumn(nullable=false,onDelete="CASCADE")
-     */
-    private $bookName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="date_debut", type="datetime",nullable=false)
+     * @ORM\Column(name="book_name", type="string", length=200, nullable=false)
+     */
+    private $bookName;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Bundle\User\Entity\User")
+     * @ORM\JoinColumn(nullable=true,onDelete="SET NULL")
+     */
+    private $user;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="date_debut", type="datetime",nullable=true)
      */
     private $dateDebut;
 
@@ -53,6 +60,13 @@ class SkBibliotheque
      * @ORM\Column(name="date_fin", type="datetime",nullable=true)
      */
     private $dateFin;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="is_reserved", type="boolean", options={"default":"0"}, nullable=true)
+     */
+    private $isReserved;
 
     /**
      * @return int
@@ -71,22 +85,6 @@ class SkBibliotheque
     }
 
     /**
-     * @return mixed
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-     * @param mixed $user
-     */
-    public function setUser($user)
-    {
-        $this->user = $user;
-    }
-
-    /**
      * @return string
      */
     public function getBookName()
@@ -100,6 +98,38 @@ class SkBibliotheque
     public function setBookName($bookName)
     {
         $this->bookName = $bookName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getisReserved()
+    {
+        return $this->isReserved;
+    }
+
+    /**
+     * @param string $isReserved
+     */
+    public function setIsReserved($isReserved)
+    {
+        $this->isReserved = $isReserved;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
     }
 
     /**
@@ -133,4 +163,6 @@ class SkBibliotheque
     {
         $this->dateFin = $dateFin;
     }
+    
+    
 }

@@ -1,0 +1,105 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}{{ parent() }} Liste des utilisateurs {% endblock %}
+
+{% set menu_bibliotheque = true %}
+
+{% block body %}
+    <div class="card  shadow mb-4">
+        <div class="card-body">
+            {{ form_start(form) }}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="" style="display: none">
+                        {{ form_row(form.bookName) }}
+                    </div>
+                    <div class="form-group">
+                        <label for="">Nom du livre</label>
+                        <input type="text" value="{{ book.bookName }}" class="form-control" readonly disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Identifiant de l'utilisateur</label>
+                        <select class="form-control" id="_userbook" name="user">
+                            <option value="AL">selectionner un utilisateur</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Date début réservation</label>
+                        <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                            <input type="text" name="debut" class="form-control datetimepicker-input"
+                                   data-target="#datetimepicker1"/>
+                            <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Date fin réservation</label>
+                        <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
+                            <input type="text" name="fin" class="form-control datetimepicker-input"
+                                   data-target="#datetimepicker2"/>
+                            <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer">
+                <input type="submit" class="btn btn-primary btn-block" value="Enregistrer" name="new_reservation"/>
+                <a href="{{ path('book_index') }}"
+                   class="btn btn-google btn-block">
+                    Annuler
+                </a>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker1').datetimepicker();
+            $('#datetimepicker2').datetimepicker();
+        });
+    </script>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <link href="{{ asset('css/select2.css') }}" rel="stylesheet"/>
+    <script src="{{ asset('js/select2.min.js') }}"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            $('#_userbook').select2({
+                ajax: {
+                    type: "GET",
+                    url: "{{ path('user_search_us') }}",
+                    dataType: "text",
+                    data: function (params) {
+                        var query = {
+                            'q': params.term,
+                        }
+                        return query;
+                    },
+                    escapeMarkup: function (text) {
+                        return text;
+                    },
+                    dropdownCssClass: "bigdrop",
+                    processResults: function (data) {
+                        var result = JSON.parse(data);
+                        $.each(result, function (key, arr) {
+                            $.each(arr, function (id, value) {
+                                if (typeof  value == undefined) {
+                                    return value = 'Loading...'
+                                }
+                                $('#_userbook').append("<option value='" + id + "' selected> " + value + " </option>");
+                            });
+                        });
+                    },
+                    cache: true
+                }
+            });
+        })
+    </script>
+{% endblock %}

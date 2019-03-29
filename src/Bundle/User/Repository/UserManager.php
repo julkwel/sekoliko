@@ -432,7 +432,7 @@ class UserManager
 
     public function findEntitiesByString($str){
         return $this->_entity_manager->createQuery(
-                'SELECT e FROM UserBundle:User e WHERE e.usrFirstname LIKE :str'
+                'SELECT e FROM UserBundle:User e WHERE e.username LIKE :str'
             )
             ->setParameter('str', '%'.$str.'%')
             ->getResult();

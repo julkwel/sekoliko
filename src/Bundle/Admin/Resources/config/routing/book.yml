@@ -1,0 +1,34 @@
+book_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:SkBook:index" }
+    methods:  GET
+
+book_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:SkBook:new" }
+    methods:  [GET, POST]
+
+book_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:SkBook:edit" }
+    methods:  [GET, POST]
+
+book_reservation:
+    path:     /{id}/reservation
+    defaults: { _controller: "AdminBundle:SkBook:reservation" }
+    methods:  [GET, POST]
+
+book_reservation_details:
+    path:     /{id}/details
+    defaults: { _controller: "AdminBundle:SkBook:findReservation" }
+    methods:  [GET, POST]
+
+book_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:SkBook:delete" }
+    methods:  [GET, DELETE]
+
+book_unreserve:
+    path:     /{id}/unreserve
+    defaults: { _controller: "AdminBundle:SkBook:deleteReservation" }
+    methods:  [GET, POST]

@@ -22,7 +22,7 @@ class SkBibiothequeController extends Controller
      */
     public function searchUserAction()
     {
-        return $this->render('AdminBundle:SkBibiotheque:search.html.twig', array());
+        return $this->render('AdminBundle:SkBook:reservation.html.twig', array());
     }
 
     /**
@@ -49,7 +49,7 @@ class SkBibiothequeController extends Controller
     public function getRealEntities($entities)
     {
         foreach ($entities as $entity) {
-            $realEntities[$entity->getId()] = $entity->getUsrFirstname();
+            $realEntities[$entity->getId()] = $entity->getUserName();
         }
         return $realEntities;
     }

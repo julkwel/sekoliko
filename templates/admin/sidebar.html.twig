@@ -29,11 +29,14 @@
     </div>
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#user" aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#user" aria-expanded="true"
+           aria-controls="collapseTwo">
             <i class="fas fa-fw fa-cog"></i>
             <span>Utilisateurs</span>
         </a>
-        <div id="user" class="collapse {% if menu_user is defined or menu_recherche is defined or menu_etd is defined%}show{% endif %}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="user"
+             class="collapse {% if menu_user is defined or menu_recherche is defined or menu_etd is defined %}show{% endif %}"
+             aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Action:</h6>
                 {% if is_granted('ROLE_ADMIN') %}
@@ -52,32 +55,36 @@
     <!-- Heading -->
 
     {% if is_granted('ROLE_ADMIN') %}
-    <div class="sidebar-heading">
-        Administration
-    </div>
-    <!-- Nav Item - Niveau Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#niveau" aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-book"></i>
-            <span>Niveau</span>
-        </a>
-        <div id="niveau" class="collapse {% if menu_niveau is defined%}show{% endif %}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Action:</h6>
-                <a class="collapse-item" href="{{ path('niveau_index') }}">Liste des niveaux</a>
-                <a class="collapse-item" href="{{ path('niveau_new') }}">Nouveau niveau</a>
-            </div>
+        <div class="sidebar-heading">
+            Administration
         </div>
-    </li>
+        <!-- Nav Item - Niveau Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#niveau" aria-expanded="true"
+               aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-book"></i>
+                <span>Niveau</span>
+            </a>
+            <div id="niveau" class="collapse {% if menu_niveau is defined %}show{% endif %}"
+                 aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Action:</h6>
+                    <a class="collapse-item" href="{{ path('niveau_index') }}">Liste des niveaux</a>
+                    <a class="collapse-item" href="{{ path('niveau_new') }}">Nouveau niveau</a>
+                </div>
+            </div>
+        </li>
     {% endif %}
 
     {% if is_granted('ROLE_ETUDIANT') %}
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#classe" aria-expanded="true" aria-controls="collapseTwo">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#classe" aria-expanded="true"
+               aria-controls="collapseTwo">
                 <i class="fas fa-fw fa-book"></i>
                 <span>Mes Classe</span>
             </a>
-            <div id="classe" class="collapse {% if menu_classe is defined%}show{% endif %}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div id="classe" class="collapse {% if menu_classe is defined %}show{% endif %}"
+                 aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Action:</h6>
                     <a class="collapse-item" href="{{ path('edt_etudiant') }}">Emploi du temps</a>
@@ -90,46 +97,52 @@
     {% endif %}
 
     {% if is_granted('ROLE_ADMIN') %}
-    <!-- Nav Item - Classe Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#classe" aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-book"></i>
-            <span>Classe</span>
-        </a>
-        <div id="classe" class="collapse {% if menu_classe is defined%}show{% endif %}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Action:</h6>
-                <a class="collapse-item" href="{{ path('classe_index') }}">Liste des classes</a>
-                <a class="collapse-item" href="{{ path('classe_new') }}">Nouveau classes</a>
+        <!-- Nav Item - Classe Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#classe" aria-expanded="true"
+               aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-book"></i>
+                <span>Classe</span>
+            </a>
+            <div id="classe" class="collapse {% if menu_classe is defined %}show{% endif %}"
+                 aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Action:</h6>
+                    <a class="collapse-item" href="{{ path('classe_index') }}">Liste des classes</a>
+                    <a class="collapse-item" href="{{ path('classe_new') }}">Nouveau classes</a>
+                </div>
             </div>
-        </div>
-    </li>
+        </li>
     {% endif %}
     {% if is_granted('ROLE_ADMIN') %}
-    <!-- Nav Item - Matiere Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#matiere" aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-book"></i>
-            <span>Matières</span>
-        </a>
-        <div id="matiere" class="collapse {% if menu_matiere is defined%}show{% endif %}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Action:</h6>
-                <a class="collapse-item" href="{{ path('matiere_index') }}">Liste des matières</a>
-                <a class="collapse-item" href="{{ path('matiere_new') }}">Nouveau</a>
-                <a class="collapse-item" href="{{ path('matiere_new') }}">Nouveau matiere</a>
+        <!-- Nav Item - Matiere Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#matiere" aria-expanded="true"
+               aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-book"></i>
+                <span>Matières</span>
+            </a>
+            <div id="matiere" class="collapse {% if menu_matiere is defined %}show{% endif %}"
+                 aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Action:</h6>
+                    <a class="collapse-item" href="{{ path('matiere_index') }}">Liste des matières</a>
+                    <a class="collapse-item" href="{{ path('matiere_new') }}">Nouveau</a>
+                    <a class="collapse-item" href="{{ path('matiere_new') }}">Nouveau matiere</a>
+                </div>
             </div>
-        </div>
-    </li>
+        </li>
     {% endif %}
 
     <!-- Nav Item - Salle Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#salle" aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#salle" aria-expanded="true"
+           aria-controls="collapseTwo">
             <i class="fas fa-fw fa-book"></i>
             <span>Salle</span>
         </a>
-        <div id="salle" class="collapse  {% if menu_salle is defined%}show{% endif %}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="salle" class="collapse  {% if menu_salle is defined %}show{% endif %}" aria-labelledby="headingTwo"
+             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Action:</h6>
                 <a class="collapse-item" href="{{ path('salle_index') }}">Liste salle</a>
@@ -142,11 +155,13 @@
 
     <!-- Nav Item - Discipline Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#discipline" aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#discipline" aria-expanded="true"
+           aria-controls="collapseTwo">
             <i class="fas fa-fw fa-book"></i>
             <span>Discipline</span>
         </a>
-        <div id="discipline" class="collapse  {% if menu_discipline is defined%}show{% endif %}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="discipline" class="collapse  {% if menu_discipline is defined %}show{% endif %}"
+             aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Action:</h6>
                 <a class="collapse-item" href="{{ path('discipline_index') }}">Liste discipline</a>
@@ -159,14 +174,16 @@
 
     <!-- Nav Item - Discipline Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#bibliotheque" aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#bibliotheque" aria-expanded="true"
+           aria-controls="collapseTwo">
             <i class="fas fa-fw fa-book"></i>
             <span>Bibliothèque</span>
         </a>
-        <div id="bibliotheque" class="collapse  {% if menu_bibliotheque is defined%}show{% endif %}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="bibliotheque" class="collapse  {% if menu_bibliotheque is defined %}show{% endif %}"
+             aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Action:</h6>
-                <a class="collapse-item" href="{{ path('user_search_user') }}">Réservations livres livres</a>
+                <a class="collapse-item" href="{{ path('book_index') }}">Bibliothèque</a>
             </div>
         </div>
     </li>
