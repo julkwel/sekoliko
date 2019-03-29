@@ -1,8 +1,8 @@
 {% extends 'admin/admin.html.twig' %}
 
-{% block title %}{{ parent() }} Discipline {% endblock %}
+{% block title %}{{ parent() }} Tableau de bord {% endblock %}
 
-{% set menu_discipline = true %}
+{% set menu_classe = true %}
 
 {% block body %}
     {% for flashMessage in app.session.flashbag.get('success') %}
@@ -10,7 +10,6 @@
             {{ flashMessage }}
         </div>
     {% endfor %}
-
     {% for flashMessage in app.session.flashbag.get('error') %}
         <div class="callout callout-danger">
             {{ flashMessage }}
@@ -21,62 +20,37 @@
         <form action="" method="POST" class="form-search">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary text-center">Listes des disciplines</h6>
+                    <h6 class="m-0 font-weight-bold text-primary text-center">Listes des matieres</h6>
                     {# Bouton création #}
                     {% if is_granted('ROLE_ADMIN') %}
                         <div class="row add-btn-top-list">
-                            <a href="{{ path('discipline_new') }}" class="btn btn-primary">
-                                Créer un discipline
+                            <a href="{{ path('matiere_new') }}" class="btn btn-primary">
+                                Créer un matiere
                             </a>
                         </div>
                     {% endif %}
-
-                </div>
-                <div class="card-body">
                     <div class="box-header">
                         <div class="list-count">
-                            <span class="title-count-text"> TOTAL: {{ discipline_list|length }} </span><span
-                                    class="title-count"></span>
+                            <span class="title-count-text"> TOTAL: </span><span class="title-count"></span>
                         </div>
                     </div>
+                </div>
+                <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                             <tr>
-                                <th></th>
-                                <th>Classe</th>
-                                <th>Action</th>
+                                <th>Matiere</th>
+                                <th>Coefficient</th>
+                                <th>Profs</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {% for discipline in discipline_list %}
+                            {% for matiere in matiere_liste %}
                                 <tr>
-                                    <td class="text-center">
-                                        <input type="checkbox" value="{{ discipline.id }}" name="delete[]"/>
-                                    </td>
-                                    <td>{{ discipline.name }}</td>
-                                    <td>
-                                        {% if is_granted('ROLE_ADMIN') %}
-                                            <a class="btn btn-primary" title="Modifier"
-                                               href="{{ path('discipline_edit', { 'id': discipline.id }) }}">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                        {% endif %}
-                                        <a class="btn btn-secondary" title="Punition liste"
-                                           href="{{ path('punition_index', { 'id': discipline.id }) }}">
-                                            <i class="fa fa-list"></i>
-                                        </a>
-                                        {% if is_granted('ROLE_ADMIN') %}
-                                            <a class="btn btn-success" title="Ajouter punition"
-                                               href="{{ path('punition_new', { 'id': discipline.id }) }}">
-                                                <i class="fa fa-plus"></i>
-                                            </a>
-                                            <a class="btn btn-primary btn btn-danger remove-elt" title="Modifier"
-                                               href="{{ path('discipline_delete', { 'id': discipline.id }) }}">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        {% endif %}
-                                    </td>
+                                    <td>{{ matiere.matNom }}</td>
+                                    <td>{{ matiere.matCoeff }}</td>
+                                    <td>{{ matiere.matProf ?  matiere.matProf.usrFirstname : '' }}</td>
                                 </tr>
                             {% endfor %}
                             </tbody>
@@ -87,7 +61,6 @@
         </form>
     </div>
 {% endblock %}
-
 
 {% block javascripts %}
     {{ parent() }}

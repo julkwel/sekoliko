@@ -1,9 +1,8 @@
 {% extends 'admin/admin.html.twig' %}
-{% form_theme form 'form/custom_fields.html.twig' %}
 
 {% block title %}{{ parent() }} Tableau de bord {% endblock %}
 
-{% set menu_etd = true %}
+{% set menu_classe = true %}
 
 {% block body %}
     {% for flashMessage in app.session.flashbag.get('success') %}
@@ -18,54 +17,34 @@
     {% endfor %}
 
     <div class="row">
-        <div class="card shadow mb-4 p-2">
-            <h4>Rechercher un utilisateur</h4>
-            <div class="col-md-12">
-                {{ form_start(form) }}
-                {{ form_row(form.username,{ 'value': '' }) }}
-                {{ form_row(form.prenom,{ 'value': '' }) }}
-                {{ form_row(form.nom,{ 'value': '' }) }}
-                <input type="submit" class="btn btn-primary btn-block" value="Chercher" name="find"/>
-                {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('user_new') }}" type="submit" class="btn btn-success btn-block" name="find">Nouveau</a>
-                {% endif %}
-                {{ form_end(form) }}
-            </div>
-        </div>
-
         <form action="" method="POST" class="form-search">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary text-center">Resultats</h6>
+                    <h6 class="m-0 font-weight-bold text-primary text-center">Mes collegues  en {{ classe.classeNom }}</h6>
                     <div class="box-header">
                         <div class="list-count">
-                            <span class="title-count-text"> {% if users %} TOTAL: {{ users ? users|length }} {% endif %}</span><span
-                                    class="title-count"></span>
+                            <span class="title-count-text"> TOTAL: {{ user |length }}</span><span class="title-count"></span>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table" id="dataTable">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
-                                <tr>
-                                    <th>Role</th>
-                                    <th>Nom</th>
-                                    <th>Prénom</th>
-                                    <th>Action</th>
-                                </tr>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Prénom</th>
+                                <th>Contact</th>
+                                <th>Adresse</th>
+                            </tr>
                             </thead>
                             <tbody>
-                            {% for user in users %}
+                            {% for etudiant in user %}
                                 <tr>
-                                    <td>{{ user.skRole.rlName }}</td>
-                                    <td>{{ user.usrLastname }}</td>
-                                    <td>{{ user.usrFirstname }}</td>
-                                    <td>
-                                        <a href="{{ path('etudiant_new',{id:user.id}) }}" class="btn btn-circle btn-primary">
-                                            <i class="fa fa-plus"></i>
-                                        </a>
-                                    </td>
+                                    <td>{{ etudiant.etudiant.usrFirstname }}</td>
+                                    <td>{{ etudiant.etudiant.usrLastname }}</td>
+                                    <td>{{ etudiant.etudiant.usrPhone }}</td>
+                                    <td>{{ etudiant.etudiant.usrAddress }}</td>
                                 </tr>
                             {% endfor %}
                             </tbody>
@@ -82,7 +61,7 @@
 
     <script type="text/javascript">
         // Call the dataTables jQuery plugin
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('#dataTable').DataTable();
         });
 

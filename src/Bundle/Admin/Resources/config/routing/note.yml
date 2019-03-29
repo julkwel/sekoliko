@@ -17,3 +17,8 @@ note_delete:
     path:     /{id}/delete
     defaults: { _controller: "AdminBundle:SkNote:delete" }
     methods:  [GET, DELETE]
+
+note_etudiant:
+    path:     /my
+    defaults: { _controller: "AdminBundle:SkNote:etudiantNote" }
+    methods:  [GET, POST]

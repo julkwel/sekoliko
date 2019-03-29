@@ -5,9 +5,10 @@ security:
     access_denied_url: /login
 
     role_hierarchy:
-        ROLE_MEMBER: ROLE_USER
-        ROLE_ADMIN: ROLE_USER
-        ROLE_SUPERADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_PROFS: ROLE_PROFS
+        ROLE_ADMIN: ROLE_ADMIN
+        ROLE_ETUDIANT: ROLE_ETUDIANT
+        ROLE_SUPERADMIN: [ROLE_USER,ROLE_PROFS,ROLE_ADMIN,ROLE_ALLOWED_TO_SWITCH]
 
     providers:
         fos_userbundle:

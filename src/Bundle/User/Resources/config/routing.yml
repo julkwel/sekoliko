@@ -13,6 +13,7 @@ sk_login:
 api_login_check:
     path: /api/login_check
 
+
 sk_resetting_password:
     path: /{_locale}/resetting-password
     defaults: { _controller: "UserBundle:User:resettingPassword", _locale : fr }

@@ -17,6 +17,7 @@ use App\Shared\Entity\SkNiveau;
 use App\Shared\Form\SkClasseType;
 use App\Shared\Form\SkEtudiantType;
 use App\Shared\Services\Utils\RoleName;
+use App\Shared\Services\Utils\ServiceName;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -83,7 +84,7 @@ class SkClassController extends Controller
     }
 
     /**
-     * @param Request  $request
+     * @param Request $request
      * @param SkClasse $skClasse
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -138,7 +139,7 @@ class SkClassController extends Controller
     }
 
     /**
-     * @param Request  $request
+     * @param Request $request
      * @param SkClasse $skClasse
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -170,7 +171,7 @@ class SkClassController extends Controller
     }
 
     /**
-     * @param Request  $_request
+     * @param Request $_request
      * @param SkClasse $skClasse
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -200,11 +201,12 @@ class SkClassController extends Controller
     }
 
     /**
-     * @param Request  $request
+     * @param Request $request
      * @param SkClasse $skClasse
      *
      * @return \Symfony\Component\HttpFoundation\Response
-     *                                                    DONT TOUCH IF YOU DONT WANT TO DIE
+     *
+     * DONT TOUCH IF YOU DONT WANT TO DIE
      */
     public function createEtudianAction(Request $request, SkClasse $skClasse)
     {
@@ -217,29 +219,42 @@ class SkClassController extends Controller
         $_form_etd = $this->createForm(SkEtudiantType::class);
 
         if ($request->isMethod('POST')) {
-            $_form->handleRequest($request);
-            $_form_etd->handleRequest($request);
-            if ($_form->isSubmitted()) {
-                $_user->setRoles(array($_user_role));
-                $_user->setEtsNom($_user_ets);
+            try {
+                $_form->handleRequest($request);
+                $_form_etd->handleRequest($request);
+                if ($_form->isSubmitted()) {
+                    try {
+                        $_user->setRoles(array($_user_role));
+                        $_user->setEtsNom($_user_ets);
+                        $_user->setEnabled(1);
 
-                $_etudiant->setClasse($skClasse);
-                $_etudiant->setEtsNom($_user_ets);
-                $_etudiant->setClasse($skClasse);
-                $_etudiant->setEtudiant($_user);
+                        $_etudiant->setClasse($skClasse);
+                        $_etudiant->setEtsNom($_user_ets);
+                        $_etudiant->setClasse($skClasse);
+                        $_etudiant->setEtudiant($_user);
 
-                try {
-                    $this->getEntityService()->saveEntity($_user, 'new');
-                } catch (\Exception $exception) {
-                    $exception->getMessage();
+                        try {
+                            $this->getEntityService()->saveEntity($_user, 'new');
+                            $this->getEntityService()->setFlash('success', 'success add user');
+                        } catch (\Exception $exception) {
+                            $exception->getMessage();
+                            $this->getEntityService()->setFlash('error', 'error' . $exception->getMessage());
+                        }
+                        try {
+                            $this->getEntityService()->saveEntity($_etudiant, 'new');
+                            $this->getEntityService()->setFlash('success', 'success add etudiant');
+                        } catch (\Exception $exception) {
+                            $exception->getMessage();
+                            $this->getEntityService()->setFlash('error', 'error' . $exception->getMessage());
+                        }
+                    } catch (\Exception $exception) {
+                        $exception->getMessage();
+                    }
+
+                    return $this->redirect($this->generateUrl('etudiant_liste', array('id' => $skClasse->getId())));
                 }
-                try {
-                    $this->getEntityService()->saveEntity($_etudiant, 'new');
-                } catch (\Exception $exception) {
-                    $exception->getMessage();
-                }
-
-                return $this->redirect($this->generateUrl('etudiant_liste', array('id' => $skClasse->getId())));
+            } catch (\Exception $exception) {
+                $exception->getMessage();
             }
         }
 

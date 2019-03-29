@@ -32,7 +32,7 @@ class SkEtudiant
 
     /**
      * @var SkClasse
-     * @ORM\OneToOne(targetEntity="App\Shared\Entity\SkClasse")
+     * @ORM\ManyToOne(targetEntity="App\Shared\Entity\SkClasse")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="niveau", referencedColumnName="id", onDelete="SET NULL")
      * })

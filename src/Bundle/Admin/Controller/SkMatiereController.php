@@ -10,6 +10,7 @@ namespace App\Bundle\Admin\Controller;
 
 use App\Bundle\User\Entity\User;
 use App\Shared\Entity\SkClasse;
+use App\Shared\Entity\SkEtudiant;
 use App\Shared\Entity\SkMatiere;
 use App\Shared\Form\SkMatiereType;
 use App\Shared\Services\Utils\RoleName;
@@ -27,6 +28,14 @@ class SkMatiereController extends Controller
     }
 
     /**
+     * @return mixed
+     */
+    public function getUserConnected()
+    {
+        return $this->get('security.token_storage')->getToken()->getUser();
+    }
+
+    /**
      * @throws \Exception
      */
     public function indexAction()
@@ -35,6 +44,27 @@ class SkMatiereController extends Controller
 
         return $this->render('AdminBundle:SkMatiere:index.html.twig', array(
             'matiere_liste' => $_matier_liste,
+        ));
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function matiereEtudiantAction()
+    {
+        $_user_classe = $this->getDoctrine()->getRepository(SkEtudiant::class)->findBy(array(
+            'etsNom' => $this->getUserConnected()->getEtsNom(),
+            'etudiant' => $this->getUserConnected()
+        ));
+
+        $_matiere_list = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array(
+            'etsNom' => $this->getUserConnected()->getEtsNom(),
+            'matClasse' => $_user_classe[0]->getClasse()
+        ));
+
+        return $this->render('@Admin/SkMatiere/etudiant.matiere.html.twig',array(
+            'classe' => $_user_classe[0]->getClasse(),
+            'matiere_liste' => $_matiere_list
         ));
     }
 

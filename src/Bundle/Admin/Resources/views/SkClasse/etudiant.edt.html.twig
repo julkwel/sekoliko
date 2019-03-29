@@ -47,39 +47,6 @@
 
     <script src="{{ asset('js/fullcalendar.min.js') }}"></script>
     <script src="{{ asset('js/tooltip.js') }}"></script>
-    <script type="text/javascript">
-        $(function () {
-            $('#datetimepicker1').datetimepicker();
-            $('#datetimepicker2').datetimepicker();
-        });
-    </script>
-    <script>
-        $('#exampleModal').on('shown.bs.modal', function () {
-            var modal = $(this);
-            $.ajax('{{ path('edt_new',{id:classe.id}) }}', {
-                success: function (data) {
-                    modal.find('.modal-body').html(data);
-                }
-            });
-        });
-    </script>
-    <script>
-        $(document).on('click', '#addedt', function (e) {
-            $.ajax({
-                type: 'POST',
-                url: '{{ path('edt_new',{id:classe.id}) }}',
-                data: $('#edt').serialize(),
-                dataType: "json"
-            })
-                .done(function (response) {
-                    window.location.reload();
-                })
-                .fail(function () {
-                    alert("an error occured");
-                });
-
-        });
-    </script>
     <script>
         $(function () {
 
@@ -109,18 +76,6 @@
                         title: event.title,
                         container: "body"
                     });
-                },
-                editable: true,
-                selectable: true,
-                selectHelper: true,
-                select: function () {
-                    $('.modal').modal('show');
-                },
-                eventClick: function () {
-                    $('.modal').modal('show');
-                },
-                eventDrop: function () {
-                    $('.modal').modal('show');
                 }
             });
         });

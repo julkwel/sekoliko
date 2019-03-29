@@ -59,7 +59,10 @@ class SkNoteController extends Controller
     {
         $_ets_nom = $this->getUserConnected()->getEtsNom();
         $_etudiant_classe = $etudiant->getClasse()->getId();
-        $_matiere_liste = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array('etsNom' => $_ets_nom, 'matClasse' => $_etudiant_classe));
+        $_matiere_liste = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array(
+            'etsNom' => $_ets_nom,
+            'matClasse' => $_etudiant_classe
+        ));
         $_note = new SkNote();
 
         $_form = $this->createForm(SkNoteType::class, $_note);
@@ -71,6 +74,7 @@ class SkNoteController extends Controller
             $_matiere = $this->getDoctrine()->getRepository(SkMatiere::class)->find($_matiere);
             $_note->setEtudiant($etudiant);
             $_note->setMatNom($_matiere);
+            $_note->setEtsNom($_ets_nom);
             $_note->setNoteVal($_valeur);
             try {
                 $this->getEntityService()->saveEntity($_note, 'new');
@@ -100,7 +104,10 @@ class SkNoteController extends Controller
     {
         $_ets_nom = $this->getUserConnected()->getEtsNom();
         $_etudiant_classe = $skNote->getEtudiant()->getClasse()->getId();
-        $_matiere_liste = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array('etsNom' => $_ets_nom, 'matClasse' => $_etudiant_classe));
+        $_matiere_liste = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array(
+            'etsNom' => $_ets_nom,
+            'matClasse' => $_etudiant_classe
+        ));
         $_form = $this->createForm(SkNoteType::class, $skNote);
         $_form->handleRequest($request);
 
@@ -145,5 +152,26 @@ class SkNoteController extends Controller
 
             return $this->redirect($this->generateUrl('etudiant_note', array('id' => $skNote->getEtudiant()->getId())));
         }
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function etudiantNoteAction()
+    {
+        $_user_classe = $this->getDoctrine()->getRepository(SkEtudiant::class)->findBy(array(
+            'etsNom' => $this->getUserConnected()->getEtsNom(),
+            'etudiant' => $this->getUserConnected()
+        ));
+
+        $_note_liste = $this->getDoctrine()->getRepository(SkNote::class)->findBy(array(
+           'etudiant' => $_user_classe[0]
+        ));
+
+//        dump($_note_liste);die();
+
+        return $this->render('@Admin/SkEtudiant/etudiant.note.html.twig',array(
+            'note_liste' => $_note_liste
+        ));
     }
 }
