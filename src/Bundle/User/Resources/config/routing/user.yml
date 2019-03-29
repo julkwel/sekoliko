@@ -27,6 +27,7 @@ user_delete_group:
     path:     /delete-group
     defaults: { _controller: "UserBundle:User:deleteGroup" }
     methods:  POST
+
 user_ets_new:
     path:     /ets/new
     defaults: { _controller: "UserBundle:User:newUserEts" }

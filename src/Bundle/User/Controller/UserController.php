@@ -133,6 +133,10 @@ class UserController extends Controller
             $_user_manager->addUser($_user, $_form);
             $_user_manager->setFlash('success', 'Utilisateur ajouté');
 
+            if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
+                return $this->redirect($this->generateUrl('dashboard_index'));
+            }
+
             return $this->redirect($this->generateUrl('user_index'));
         }
 
@@ -151,9 +155,8 @@ class UserController extends Controller
      */
     public function newUserEtsAction(Request $request)
     {
-        if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')){
-            $_user_manager = $this->getUserMetier();
-
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
+            $_srv_entity = $this->get('sk.repository.entity');
             $_user = new User();
             $_form = $this->createCreateForm($_user);
             $_form->handleRequest($request);
@@ -161,9 +164,8 @@ class UserController extends Controller
             if ($_form->isSubmitted() && $_form->isValid()) {
                 $_ets_nom = $request->request->get('etsNom');
                 $_user->setEtsNom($_ets_nom);
-
-                $_user_manager->addUser($_user, $_form);
-                $_user_manager->setFlash('success', 'Utilisateur et établissement ajouté');
+                $_srv_entity->saveEntity($_user, 'new');
+                $_srv_entity->setFlash('success', 'Utilisateur et établissement ajouté');
 
                 return $this->redirectToRoute('dashboard_index');
             }
@@ -200,7 +202,7 @@ class UserController extends Controller
             $_user_manager->updateUser($_user, $_esk_form);
 
             $_user_manager->setFlash('success', 'Utilisateur modifié');
-            if (RoleName::ID_ROLE_ETUDIANT ===$_user_role){
+            if (RoleName::ID_ROLE_ETUDIANT === $_user_role) {
                 return $this->redirectToRoute('dashboard_index');
             }
             return $this->redirect($this->generateUrl('user_index'));
