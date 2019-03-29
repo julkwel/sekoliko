@@ -431,10 +431,17 @@ class UserManager
         return $_rand;
     }
 
+    /**
+     * @param $str
+     * @return mixed
+     * @throws \Exception
+     */
     public function findEntitiesByString($str)
     {
+        $_user_ets = $this->_container->get('security.token_storage')->getToken()->getUser()->getEtsNom();
+
         return $this->_entity_manager->createQuery(
-                'SELECT e FROM UserBundle:User e WHERE e.username LIKE :str'
+                "SELECT e FROM UserBundle:User e WHERE e.username LIKE :str AND e.etsNom='".$_user_ets."'"
             )
             ->setParameter('str', '%'.$str.'%')
             ->getResult();
