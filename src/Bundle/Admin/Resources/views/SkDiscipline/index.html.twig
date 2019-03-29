@@ -56,11 +56,6 @@
                                     </td>
                                     <td>{{ discipline.name }}</td>
                                     <td>
-                                        <a class="btn btn-success" title="Modifier"
-                                           href="{{ path('discipline_edit', { 'id': discipline.id }) }}">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
-
                                         {% if is_granted('ROLE_ADMIN') %}
                                             <a class="btn btn-primary" title="Modifier"
                                                href="{{ path('discipline_edit', { 'id': discipline.id }) }}">
@@ -73,21 +68,12 @@
                                             <i class="fa fa-list"></i>
                                         </a>
 
-                                        <a class="btn btn-success" title="Ajouter punition"
-                                           href="{{ path('punition_new', { 'id': discipline.id }) }}">
-                                            <i class="fa fa-plus"></i>
-                                        </a>
-                                        <a class="btn btn-danger remove-elt" title="Supprimer"
-                                           href="{{ path('discipline_delete', { 'id': discipline.id }) }}">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-
                                         {% if is_granted('ROLE_ADMIN') %}
-                                            <a class="btn btn-success" title="Ajouter punition"
+                                            <a class="btn btn-success" title="Ajouter des punitions pour {{ discipline.name }}"
                                                href="{{ path('punition_new', { 'id': discipline.id }) }}">
                                                 <i class="fa fa-plus"></i>
                                             </a>
-                                            <a class="btn btn-primary btn btn-danger remove-elt" title="Modifier"
+                                            <a class="btn btn-primary btn btn-danger remove-elt" title="Supprimer {{ discipline.name }}"
                                                href="{{ path('discipline_delete', { 'id': discipline.id }) }}">
                                                 <i class="fa fa-trash"></i>
                                             </a>

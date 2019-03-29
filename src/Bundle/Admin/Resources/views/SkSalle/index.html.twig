@@ -67,12 +67,12 @@
                                         </a>
                                         {% endif %}
 
-                                        <a class="btn btn-primary" title="reserver"
+                                        <a class="btn btn-secondary" title="reserver ce salle"
                                            href="{{ path('salle_reservation', { 'id': salle.id }) }}">
                                             <i class="fa fa-restroom"></i>
                                         </a>
                                         {% if is_granted('ROLE_ADMIN') %}
-                                            <a class="btn btn-primary" title="annuler la reservation"
+                                            <a class="btn btn-warning" title="annuler la reservation"
                                                href="{{ path('salle_annule', { 'id': salle.id }) }}">
                                                 <i class="fa fa-check"></i>
                                             </a>

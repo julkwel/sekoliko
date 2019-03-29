@@ -20,7 +20,7 @@
         <form action="" method="POST" class="form-search">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary text-center">Listes des classes</h6>
+                    <h6 class="m-0 font-weight-bold text-primary text-center">Classes Etudiant Matieres Emploi du temps</h6>
                     {# Bouton création #}
                     {% if is_granted('ROLE_ADMIN') %}
                         <div class="row add-btn-top-list">
@@ -31,7 +31,7 @@
                     {% endif %}
                     <div class="box-header">
                         <div class="list-count">
-                            <span class="title-count-text"> TOTAL: </span><span class="title-count"></span>
+                            <span class="title-count-text"> TOTAL: {{ class_list|length }} </span><span class="title-count"></span>
                         </div>
                     </div>
                 </div>
@@ -55,19 +55,19 @@
                                     <td>{{ classe.classeNom }}</td>
                                     <td>{{ classe.niveau ? classe.niveau.niveauNom : '' }}</td>
                                     <td class="kl-action-button-bloc">
-                                        <a class="btn btn-success" title="Modifier"
+                                        <a class="btn btn-success" title="Modifier ce classe"
                                            href="{{ path('classe_edit', { 'id': classe.id }) }}">
                                             <i class="fa fa-edit"></i>
                                         </a>
-                                        <a class="btn btn-primary" title="Etudiant liste"
+                                        <a class="btn btn-secondary" title="Liste des étudiants"
                                            href="{{ path('etudiant_liste', { 'id': classe.id }) }}">
                                             <i class="fa fa-list"></i>
                                         </a>
-                                        <a class="btn btn-primary" title="Matiere liste"
+                                        <a class="btn btn-info" title="Matiere liste"
                                            href="{{ path('classe_matiere_liste', { 'id': classe.id }) }}">
                                             <i class="fa fa-book"></i>
                                         </a>
-                                        <a class="btn btn-primary" title="Emploi du temps"
+                                        <a class="btn btn-warning" title="Emploi du temps"
                                            href="{{ path('classe_edt', { 'id': classe.id }) }}">
                                             <i class="fa fa-calendar"></i>
                                         </a>
