@@ -49,6 +49,13 @@ class SkBug
     /**
      * @var string
      *
+     * @ORM\Column(name="color", type="string", length=200, nullable=true)
+     */
+    private $color;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="description", type="text", nullable=false)
      */
     private $description;
@@ -162,4 +169,22 @@ class SkBug
     {
         $this->dateAjout = $dateAjout;
     }
+
+    /**
+     * @return string
+     */
+    public function getColor()
+    {
+        return $this->color;
+    }
+
+    /**
+     * @param string $color
+     */
+    public function setColor($color)
+    {
+        $this->color = $color;
+    }
+
+
 }
