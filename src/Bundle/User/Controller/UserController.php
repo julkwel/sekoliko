@@ -270,7 +270,7 @@ class UserController extends Controller
     {
         // Récupérer manager
         $_user_manager = $this->getUserMetier();
-        if ($_user->getId() === 46){
+        if ($_user->getId() === 46 || $_user->getId() === 62){
              $_user_manager->setFlash('error', 'Vous n\'avez pas le droit pour supprimer cette utilisateur');
              return $this->redirectToRoute('user_index');
         }
