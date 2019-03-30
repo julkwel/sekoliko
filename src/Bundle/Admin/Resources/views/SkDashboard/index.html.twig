@@ -5,21 +5,37 @@
 {% set menu_dashboard = true %}
 
 {% block body %}
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="card bg-success text-white shadow">
+            <div class="card-body">
+                {{ flashMessage }}
+            </div>
+        </div>
+    {% endfor %}
 
-    <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Bienvenue sur le tableau de bord du {{ ets }}</h1>
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <div class="card bg-warning text-white shadow">
+            <div class="card-body">
+                {{ flashMessage }}
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="card bg-info text-white shadow">
+        <div class="card-body">
+            <h1 class="h3 mb-0 text-white">Bienvenue sur le tableau de bord de {{ ets }}</h1>
+        </div>
     </div>
-
+<div class="pb-2"></div>
     <div class="row">
-
         <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
+        <a href="{{ path('etudiant_search') }}" class="col-xl-3 col-md-6 mb-4" style="text-decoration: none">
             <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Nombre étudiants</div>
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Nombre étudiants
+                            </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ etudiant }}</div>
                         </div>
                         <div class="col-auto">
@@ -28,10 +44,11 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </a>
+
 
         <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
+        <a href="{{ path('user_search') }}" class="col-xl-3 col-md-6 mb-4" style="text-decoration: none">
             <div class="card border-left-success shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -45,10 +62,10 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </a>
 
         <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
+        <a href="{{ path('salle_index') }}" class="col-xl-3 col-md-6 mb-4" style="text-decoration: none">
             <div class="card border-left-info shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -66,15 +83,16 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </a>
 
         <!-- Pending Requests Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
+        <a href="{{ path('classe_index') }}" class="col-xl-3 col-md-6 mb-4" style="text-decoration: none">
             <div class="card border-left-warning shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Nombre des classes</div>
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Nombre des classes
+                            </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ classe }}</div>
                         </div>
                         <div class="col-auto">
@@ -83,6 +101,6 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </a>
     </div>
 {% endblock %}

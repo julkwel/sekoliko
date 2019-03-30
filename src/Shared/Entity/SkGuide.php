@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: julkwel
  * Date: 3/29/19
- * Time: 2:10 PM
+ * Time: 2:10 PM.
  */
 
 namespace App\Shared\Entity;
@@ -67,6 +67,4 @@ class SkGuide
     {
         $this->description = $description;
     }
-    
-    
 }

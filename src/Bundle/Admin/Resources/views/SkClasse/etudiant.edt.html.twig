@@ -5,15 +5,21 @@
 
 {% block body %}
     {% for flashMessage in app.session.flashbag.get('success') %}
-        <div class="callout callout-success">
-            {{ flashMessage }}
+        <div class="card bg-success text-white shadow">
+            <div class="card-body">
+                {{ flashMessage }}
+            </div>
         </div>
     {% endfor %}
+
     {% for flashMessage in app.session.flashbag.get('error') %}
-        <div class="callout callout-danger">
-            {{ flashMessage }}
+        <div class="card bg-warning text-white shadow">
+            <div class="card-body">
+                {{ flashMessage }}
+            </div>
         </div>
     {% endfor %}
+
     <div class="card shadow mb-4">
 
         <div class="p-2">

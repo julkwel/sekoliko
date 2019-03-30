@@ -28,6 +28,11 @@ user_delete_group:
     defaults: { _controller: "UserBundle:User:deleteGroup" }
     methods:  POST
 
+user_ets_new:
+    path:     /ets/new
+    defaults: { _controller: "UserBundle:User:newUserEts" }
+    methods:  [GET, POST]
+
 user_delete_image_ajax:
     path:     /delete-image
     defaults: { _controller: "UserBundle:User:deleteImageAjax" }

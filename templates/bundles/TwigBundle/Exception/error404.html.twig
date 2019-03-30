@@ -1,14 +1,15 @@
-{% extends 'frontoffice/base_front.html.twig' %}
+{% extends 'admin/admin.html.twig' %}
 
 {% block title %} {{ parent() }} Erreur 404 {% endblock %}
 
 {% block body %}
     <div class="container">
         <div class="list-count text-center kl-title-bloc">
-            <img src="{{ asset('frontoffice/images/page_404.png') }}" alt="page erreur">
+            <h1 class="display-1"> 404 </h1>
         </div>
         <div class="text-center">
-            <p>Désolé, l'URL demandée n'a pas été trouvée</p>
+            <p>Désolé, l'URL demandée n'a pas été trouvée <a href="{{ path('dashboard_index') }}"></a></p>
+            <p>Ce n'est pas normal? envoyer un issues une issues vers <a href="https://github.com/julkwel/sekoliko/issues" target="_blank">Sekoliko</a></p>
         </div>
     </div>
 {% endblock %}

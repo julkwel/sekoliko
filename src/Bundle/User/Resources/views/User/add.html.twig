@@ -23,9 +23,19 @@
                     {{ form_row(form.usrPhone) }}
                 </div>
                 <div class="col-md-6">
-                    {{ form_row(form.imgUrl) }}
+                    {% if is_granted('ROLE_SUPERADMIN') %}
+                        <div class="form-group">
+                            <label for="">Nom de l'établissement</label>
+                            <input type="text" name="etsNom" class="form-control">
+                        </div>
+                    {% endif %}
+
+                        <div class="hide" {% if is_granted('ROLE_SUPERADMIN') %} style="display: none"{% endif %}>
+                            {{ form_row(form.imgUrl) }}
+                        </div>
+
                     {{ form_row(form.skRole) }}
-                    <div class="hide">
+                    <div class="hide" style="display: none;">
                         {{ form_row(form.enabled) }}
                     </div>
                     {{ form_row(form.username) }}
@@ -36,10 +46,12 @@
 
             <div class="box-footer">
                 <input type="submit" class="btn btn-primary btn-block" value="Enregistrer" name="new_user"/>
-                <a href="{{ path('user_index') }}"
-                   class="btn btn-google btn-block">
-                    Annuler
-                </a>
+                {% if not is_granted('ROLE_SUPERADMIN') %}
+                    <a href="{{ path('user_index') }}"
+                       class="btn btn-google btn-block">
+                        Annuler
+                    </a>
+                {% endif %}
             </div>
             {{ form_end(form) }}
         </div>

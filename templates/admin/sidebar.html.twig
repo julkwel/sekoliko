@@ -24,10 +24,17 @@
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span> User Guide</span></a>
     </li>
+    {% if is_granted('ROLE_SUPERADMIN')  %}
+        <li class="nav-item active">
+            <a class="nav-link" href="{{ path('user_ets_new') }}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span> Nouveau établissement</span></a>
+        </li>
+    {% endif %}
 
+    {% if is_granted('ROLE_SUPERADMIN') == false %}
     <!-- Divider -->
     <hr class="sidebar-divider">
-
     <!-- Heading -->
     <div class="sidebar-heading">
         RH
@@ -56,9 +63,7 @@
             </div>
         </div>
     </li>
-
     <!-- Heading -->
-
     {% if is_granted('ROLE_ADMIN') %}
         <div class="sidebar-heading">
             Administration
@@ -80,7 +85,6 @@
             </div>
         </li>
     {% endif %}
-
     {% if is_granted('ROLE_ETUDIANT') %}
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#classe" aria-expanded="true"
@@ -100,7 +104,6 @@
             </div>
         </li>
     {% endif %}
-
     {% if is_granted('ROLE_ADMIN') %}
         <!-- Nav Item - Classe Collapse Menu -->
         <li class="nav-item">
@@ -132,13 +135,11 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Action:</h6>
                     <a class="collapse-item" href="{{ path('matiere_index') }}">Liste des matières</a>
-                    <a class="collapse-item" href="{{ path('matiere_new') }}">Nouveau</a>
                     <a class="collapse-item" href="{{ path('matiere_new') }}">Nouveau matiere</a>
                 </div>
             </div>
         </li>
     {% endif %}
-
     <!-- Nav Item - Salle Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#salle" aria-expanded="true"
@@ -157,7 +158,6 @@
             </div>
         </div>
     </li>
-
     <!-- Nav Item - Discipline Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#discipline" aria-expanded="true"
@@ -176,7 +176,6 @@
             </div>
         </div>
     </li>
-
     <!-- Nav Item - Discipline Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#bibliotheque" aria-expanded="true"
@@ -192,6 +191,7 @@
             </div>
         </div>
     </li>
+    {% endif %}
 
 </ul>
 <!-- End of Sidebar -->

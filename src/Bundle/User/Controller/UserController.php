@@ -65,7 +65,6 @@ class UserController extends Controller
 
         $_array_type = array(
             'skRole' => array(
-                RoleName::ID_ROLE_SUPERADMIN,
                 RoleName::ID_ROLE_ADMIN,
             ),
             'etsNom' => $_user_ets,
@@ -103,7 +102,7 @@ class UserController extends Controller
 
         $_template = 'UserBundle:User:edit.html.twig';
         if (RoleName::ID_ROLE_ETUDIANT === $_user_role) {
-            $_template = 'UserBundle:User:esk_member.html.twig';
+            $_template = 'UserBundle:User:edit_member.html.twig';
         }
 
         return $this->render($_template, array(
@@ -129,10 +128,19 @@ class UserController extends Controller
 
         if ($_form->isSubmitted() && $_form->isValid()) {
             $_user_ets = $this->container->get('security.token_storage')->getToken()->getUser()->getEtsNom();
-            $_user->setEtsNom($_user_ets);
+            if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
+                $_ets_nom = $_request->request->get('etsNom');
+                $_user->setEtsNom($_ets_nom);
+            } else {
+                $_user->setEtsNom($_user_ets);
+            }
 
             $_user_manager->addUser($_user, $_form);
             $_user_manager->setFlash('success', 'Utilisateur ajouté');
+
+            if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
+                return $this->redirect($this->generateUrl('dashboard_index'));
+            }
 
             return $this->redirect($this->generateUrl('user_index'));
         }
@@ -141,6 +149,39 @@ class UserController extends Controller
             'user' => $_user,
             'form' => $_form->createView(),
         ));
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Exception
+     */
+    public function newUserEtsAction(Request $request)
+    {
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
+            $_srv_entity = $this->get('sk.repository.entity');
+            $_user = new User();
+            $_form = $this->createCreateForm($_user);
+            $_form->handleRequest($request);
+
+            if ($_form->isSubmitted() && $_form->isValid()) {
+                $_ets_nom = $request->request->get('etsNom');
+                $_user->setEtsNom($_ets_nom);
+                $_srv_entity->saveEntity($_user, 'new');
+                $_srv_entity->setFlash('success', 'Utilisateur et établissement ajouté');
+
+                return $this->redirectToRoute('dashboard_index');
+            }
+
+            return $this->render('UserBundle:User:add.html.twig', array(
+                'user' => $_user,
+                'form' => $_form->createView(),
+            ));
+        }
     }
 
     /**
@@ -153,6 +194,7 @@ class UserController extends Controller
      */
     public function updateAction(Request $_request, User $_user)
     {
+        $_user_role = $this->getUserRole();
         $_user_manager = $this->getUserMetier();
 
         if (!$_user) {
@@ -167,6 +209,9 @@ class UserController extends Controller
             $_user_manager->updateUser($_user, $_esk_form);
 
             $_user_manager->setFlash('success', 'Utilisateur modifié');
+            if (RoleName::ID_ROLE_ETUDIANT === $_user_role) {
+                return $this->redirectToRoute('dashboard_index');
+            }
 
             return $this->redirect($this->generateUrl('user_index'));
         }
