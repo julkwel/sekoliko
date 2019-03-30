@@ -1,6 +1,6 @@
 {% extends 'admin/admin.html.twig' %}
 
-{% block title %}{{ parent() }} Liste des utilisateurs {% endblock %}
+{% block title %}{{ parent() }} Réservation de livre {% endblock %}
 
 {% set menu_bibliotheque = true %}
 
@@ -14,7 +14,7 @@
                         {{ form_row(form.bookName) }}
                     </div>
                     <div class="form-group">
-                        <label for="">Nom du livre</label>
+                        <label for="">Titre du livre</label>
                         <input type="text" value="{{ book.bookName }}" class="form-control" readonly disabled>
                     </div>
                     <div class="form-group">
@@ -24,7 +24,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="">Date début réservation</label>
+                        <label for="">Début du prêt</label>
                         <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
                             <input type="text" name="debut" class="form-control datetimepicker-input"
                                    data-target="#datetimepicker1"/>
@@ -34,7 +34,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="">Date fin réservation</label>
+                        <label for="">Fin du prêt</label>
                         <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
                             <input type="text" name="fin" class="form-control datetimepicker-input"
                                    data-target="#datetimepicker2"/>

@@ -2,7 +2,7 @@
 
 {% form_theme form1 'form/custom_fields.html.twig' %}
 
-{% block title %}{{ parent() }} Ajout Utilisateur {% endblock %}
+{% block title %}{{ parent() }} Ajout étudiant(e) {% endblock %}
 
 {% set menu_classe        = true %}
 
@@ -19,7 +19,7 @@
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary text-center">Créer un étudiane en {{ classe.classeNom }}</h6>
+            <h6 class="m-0 font-weight-bold text-primary text-center">Ajouter un(e) étudiant(e) en {{ classe.classeNom }}</h6>
         </div>
         <div class="card-body">
             {{ form_start(form1) }}

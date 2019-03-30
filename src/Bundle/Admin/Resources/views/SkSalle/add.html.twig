@@ -2,14 +2,14 @@
 
 {% form_theme form 'form/custom_fields.html.twig' %}
 
-{% block title %}{{ parent() }} Ajout salle {% endblock %}
+{% block title %}{{ parent() }} Ajouts salles {% endblock %}
 
 {% set menu_salle       = true %}
 
 {% block body %}
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary text-center">Créer un salle</h6>
+            <h6 class="m-0 font-weight-bold text-primary text-center">Ajouter une salle</h6>
         </div>
         <div class="card-body">
             {{ form_start(form) }}

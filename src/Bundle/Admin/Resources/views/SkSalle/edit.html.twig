@@ -2,14 +2,14 @@
 
 {% form_theme form 'form/custom_fields.html.twig' %}
 
-{% block title %}{{ parent() }} Ajout salle {% endblock %}
+{% block title %}{{ parent() }} Modifications salles {% endblock %}
 
 {% set menu_salle       = true %}
 
 {% block body %}
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary text-center">Créer un niveau</h6>
+            <h6 class="m-0 font-weight-bold text-primary text-center">Modifier le salle</h6>
         </div>
         <div class="card-body">
             {{ form_start(form) }}
@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="box-footer">
-                <input type="submit" class="btn btn-primary btn-block" value="Enregistrer" name="new_salle"/>
+                <input type="submit" class="btn btn-primary btn-block" value="Modifier" name="new_salle"/>
                 <a href="{{ path('salle_index') }}"
                    class="btn btn-google btn-block">
                     Annuler

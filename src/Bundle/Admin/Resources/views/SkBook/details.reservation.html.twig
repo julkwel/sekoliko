@@ -10,8 +10,8 @@
         </div>
         <div class="card-body">
             <ul>
-                <li>NOM : {{ book.bookName }}</li>
-                <li>Prenant : {{ book.user.usrFirstname }}</li>
+                <li>Titre : {{ book.bookName }}</li>
+                <li>Prénom : {{ book.user.usrFirstname }}</li>
                 <li>Début : {{ book.dateDebut | date('Y-m-d') }}</li>
                 <li>Fin : {{ book.dateFin | date('Y-m-d') }}</li>
             </ul>

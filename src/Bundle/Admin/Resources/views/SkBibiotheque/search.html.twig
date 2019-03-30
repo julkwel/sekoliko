@@ -1,6 +1,6 @@
 {% extends 'admin/admin.html.twig' %}
 
-{% block title %}{{ parent() }} Liste des utilisateurs {% endblock %}
+{% block title %}{{ parent() }}Recherches livres {% endblock %}
 
 {% set menu_bibliotheque = true %}
 
@@ -8,8 +8,8 @@
     <div class="card shadow p-2">
         <div class="sidebar-search">
             <div class="form-group">
-                <label for="">Utilisateur prénom</label>
-                <input type="text" id="search" class="form-control" placeholder="Suche...">
+                <label for="">Prénom de l'utilisateur</label>
+                <input type="text" id="search" class="form-control" placeholder="Prénom...">
             </div>
         </div>
         <ul class="nav" id="side-menu">
@@ -21,7 +21,7 @@
         </ul>
     </div>
     <div class="form-group">
-        <label for="">Book nom</label>
+        <label for="">Titre du livre</label>
         <select class="form-control" id="_userbook" name="state">
             <option value="AL">selectionner un utilisateur</option>
         </select>

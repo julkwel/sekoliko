@@ -25,12 +25,12 @@
         <form action="" method="POST" class="form-search">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary text-center">Listes des informations</h6>
+                    <h6 class="m-0 font-weight-bold text-primary text-center">Liste des informations</h6>
                     {# Bouton création #}
                     {% if is_granted('ROLE_ADMIN') %}
                         <div class="row add-btn-top-list">
                             <a href="{{ path('info_new') }}" class="btn btn-primary">
-                                Ajouter un information
+                                Ajouter une/des information(s)
                             </a>
                         </div>
                     {% endif %}

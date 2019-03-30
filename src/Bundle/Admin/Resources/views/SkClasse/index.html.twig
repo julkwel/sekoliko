@@ -25,12 +25,12 @@
         <form action="" method="POST" class="form-search">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary text-center">Classes Etudiant Matieres Emploi du temps</h6>
+                    <h6 class="m-0 font-weight-bold text-primary text-center">Classes Étudiants Matières Emplois du temps</h6>
                     {# Bouton création #}
                     {% if is_granted('ROLE_ADMIN') %}
                         <div class="row add-btn-top-list">
                             <a href="{{ path('classe_new') }}" class="btn btn-primary">
-                                Créer un classe
+                                Créer une classe
                             </a>
                         </div>
                     {% endif %}
@@ -48,7 +48,7 @@
                                 <th></th>
                                 <th>Classe</th>
                                 <th>Niveau</th>
-                                <th>Action</th>
+                                <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>

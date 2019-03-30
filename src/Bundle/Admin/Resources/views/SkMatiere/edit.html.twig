@@ -2,14 +2,14 @@
 
 {% form_theme form 'form/custom_fields.html.twig' %}
 
-{% block title %}{{ parent() }} Ajout Utilisateur {% endblock %}
+{% block title %}{{ parent() }} Modifications matières {% endblock %}
 
 {% set menu_matiere        = true %}
 
 {% block body %}
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary text-center">Créer un classe</h6>
+            <h6 class="m-0 font-weight-bold text-primary text-center">Modifier le matière</h6>
         </div>
         <div class="card-body">
             {{ form_start(form) }}
@@ -18,7 +18,7 @@
                     {{ form_row(form.matNom) }}
                     {{ form_row(form.matCoeff) }}
                     <div class="form-group ">
-                        <label for="">Selectionner un profs</label>
+                        <label for="">Selectionner le profs</label>
                         <select name="profs" id="" class="form-control">
                             {% for prof in profs  %}
                                 <option value="{{ prof.id }}" >{{ prof.usrFirstname }}</option>
@@ -26,7 +26,7 @@
                         </select>
                     </div>
                     <div class="form-group ">
-                        <label for="">Selectionner un classe</label>
+                        <label for="">Selectionner la classe</label>
                         <select name="classe" id="" class="form-control">
                             {% for classe in classe  %}
                                 <option value="{{ classe.id }}" >{{ classe.classeNom }}</option>

@@ -25,12 +25,12 @@
         <form action="" method="POST" class="form-search">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary text-center">Listes des salles</h6>
+                    <h6 class="m-0 font-weight-bold text-primary text-center">Liste des salles</h6>
                     {# Bouton création #}
                     {% if is_granted('ROLE_ADMIN') %}
                         <div class="row add-btn-top-list">
                             <a href="{{ path('salle_new') }}" class="btn btn-primary">
-                                Créer un salle
+                                Ajouter une salle
                             </a>
                         </div>
                     {% endif %}
@@ -47,10 +47,10 @@
                             <tr>
                                 <th></th>
                                 <th>Nom</th>
-                                <th>Numero</th>
+                                <th>Numéro</th>
                                 <th>Réservation</th>
                                 <th>Motifs</th>
-                                <th>Action</th>
+                                <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>

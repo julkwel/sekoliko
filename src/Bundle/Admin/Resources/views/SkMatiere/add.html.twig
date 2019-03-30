@@ -2,14 +2,14 @@
 
 {% form_theme form 'form/custom_fields.html.twig' %}
 
-{% block title %}{{ parent() }} Ajout Utilisateur {% endblock %}
+{% block title %}{{ parent() }} Ajouts matières {% endblock %}
 
 {% set menu_matiere        = true %}
 
 {% block body %}
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary text-center">Créer un matiere</h6>
+            <h6 class="m-0 font-weight-bold text-primary text-center">Ajouter une matière</h6>
         </div>
         <div class="card-body">
             {{ form_start(form) }}

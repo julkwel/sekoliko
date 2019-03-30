@@ -25,12 +25,12 @@
         <form action="" method="POST" class="form-search">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary text-center">Listes des matieres</h6>
+                    <h6 class="m-0 font-weight-bold text-primary text-center">Liste des matieres</h6>
                     {# Bouton création #}
                     {% if is_granted('ROLE_ADMIN') %}
                         <div class="row add-btn-top-list">
                             <a href="{{ path('matiere_new') }}" class="btn btn-primary">
-                                Créer un matiere
+                                Ajouter une matière
                             </a>
                         </div>
                     {% endif %}
@@ -46,10 +46,10 @@
                             <thead>
                             <tr>
                                 <th></th>
-                                <th>Matiere</th>
-                                <th>Coefficient</th>
+                                <th>Matières</th>
+                                <th>Coefficients</th>
                                 <th>Profs</th>
-                                <th>Action</th>
+                                <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>
