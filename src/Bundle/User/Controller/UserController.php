@@ -194,8 +194,14 @@ class UserController extends Controller
      */
     public function updateAction(Request $_request, User $_user)
     {
+
         $_user_role = $this->getUserRole();
         $_user_manager = $this->getUserMetier();
+
+        if ($_user->getId() === 46 || $_user->getId() === 62){
+            $_user_manager->setFlash('error', 'Vous n\'avez pas le droit pour modifier cette utilisateur test');
+            return $this->redirectToRoute('user_index');
+        }
 
         if (!$_user) {
             throw $this->createNotFoundException('Unable to find User entity.');
@@ -270,7 +276,10 @@ class UserController extends Controller
     {
         // Récupérer manager
         $_user_manager = $this->getUserMetier();
-
+        if ($_user->getId() === 46 || $_user->getId() === 62){
+             $_user_manager->setFlash('error', 'Vous n\'avez pas le droit pour supprimer cette utilisateur');
+             return $this->redirectToRoute('user_index');
+        }
         $_form = $this->createDeleteForm($_user);
         $_form->handleRequest($_request);
 
