@@ -27,7 +27,7 @@
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary text-center">Listes des bugs</h6>
                     {# Bouton création #}
-                    {% if is_granted('ROLE_ADMIN') %}
+                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPERADMIN') %}
                         <div class="row add-btn-top-list">
                             <a href="{{ path('bug_new') }}" class="btn btn-primary">
                                 Ajouter bug ou amelioration
