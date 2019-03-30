@@ -1,0 +1,24 @@
+info_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:SkInformation:index" }
+    methods:  GET
+
+info_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:SkInformation:new" }
+    methods:  [GET, POST]
+
+info_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:SkInformation:update" }
+    methods:  [GET, POST]
+
+#info_liste:
+#    path:     /{id}/etudiant
+#    defaults: { _controller: "AdminBundle:SkInformation:index" }
+#    methods:  [GET, POST]
+
+info_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:SkInformation:delete" }
+    methods:  [GET, DELETE]

@@ -24,6 +24,7 @@
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span> User Guide</span></a>
     </li>
+
     {% if is_granted('ROLE_SUPERADMIN')  %}
         <li class="nav-item active">
             <a class="nav-link" href="{{ path('user_ets_new') }}">
@@ -36,6 +37,11 @@
     <!-- Divider -->
     <hr class="sidebar-divider">
     <!-- Heading -->
+    <li class="nav-item active">
+        <a class="nav-link" href="{{ path('info_index') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span> Information </span></a>
+    </li>
     <div class="sidebar-heading">
         RH
     </div>
