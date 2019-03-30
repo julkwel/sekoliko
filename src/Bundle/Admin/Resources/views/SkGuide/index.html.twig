@@ -47,6 +47,7 @@
                                         <a href="{{ path('guide_edit',{"id":guide.id}) }}"
                                            class="btn btn-circle btn-primary"><i class="fa fa-edit"></i></a>
                                         <a href="{{ path('guide_delete',{"id":guide.id}) }}"
+                                           onclick="confirm('Voulez vous vraiment supprimer?')"
                                            class="btn btn-circle btn-warning"><i class="fa fa-trash"></i></a>
                                     </td>
                                     {% endif %}

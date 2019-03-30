@@ -40,7 +40,7 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <div class="row">
-                                <h1>{{ info.titre }}</h1>
+                                <b>{{ info.titre }}</b> &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
                                 {{ info.dateAjout|date('Y-m-d H:m') }}
                                 {% if is_granted('ROLE_ADMIN') %}
                                     <div class="text-right">
@@ -48,6 +48,7 @@
                                         <a href="{{ path('info_edit',{"id":info.id}) }}"
                                            class="btn btn-circle btn-primary"><i class="fa fa-edit"></i></a>
                                         <a href="{{ path('info_delete',{"id":info.id}) }}"
+                                           onclick="confirm('Voulez vous vraiment supprimer?')"
                                            class="btn btn-circle btn-warning"><i class="fa fa-trash"></i></a>
                                     </span>
                                     </div>

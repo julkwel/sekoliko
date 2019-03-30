@@ -77,7 +77,8 @@
                                                href="{{ path('punition_new', { 'id': discipline.id }) }}">
                                                 <i class="fa fa-plus"></i>
                                             </a>
-                                            <a class="btn btn-primary btn btn-danger remove-elt" title="Supprimer {{ discipline.name }}"
+                                            <a class="btn btn-primary btn btn-danger remove-elt"
+                                               onclick="confirm('Voulez vous vraiment supprimer?')" title="Supprimer {{ discipline.name }}"
                                                href="{{ path('discipline_delete', { 'id': discipline.id }) }}">
                                                 <i class="fa fa-trash"></i>
                                             </a>

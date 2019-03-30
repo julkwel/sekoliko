@@ -67,6 +67,7 @@
                                             <i class="fa fa-edit"></i>
                                         </a>
                                         <a class="btn btn-danger remove-elt" title="Supprimer"
+                                           onclick="confirm('Voulez vous vraiment supprimer?')"
                                            href="{{ path('punition_delete', { 'id': punition.id }) }}">
                                             <i class="fa fa-trash"></i>
                                         </a>

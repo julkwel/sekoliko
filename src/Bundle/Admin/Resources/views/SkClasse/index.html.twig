@@ -78,6 +78,7 @@
                                         </a>
                                         {% if is_granted('ROLE_ADMIN') %}
                                             <a class="btn btn-danger remove-elt" title="Supprimer"
+                                               onclick="confirm('Voulez vous vraiment supprimer?')"
                                                href="{{ path('classe_delete', { 'id': classe.id }) }}">
                                                 <i class="fa fa-trash"></i>
                                             </a>
