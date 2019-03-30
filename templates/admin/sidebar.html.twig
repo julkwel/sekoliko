@@ -24,6 +24,13 @@
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span> User Guide</span></a>
     </li>
+    {% if is_granted('ROLE_SUPERADMIN') or  is_granted('ROLE_ADMIN') %}
+        <li class="nav-item active">
+            <a class="nav-link" href="{{ path('bug_index') }}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span> Bug ou amelioration</span></a>
+        </li>
+    {% endif %}
 
     {% if is_granted('ROLE_SUPERADMIN')  %}
         <li class="nav-item active">

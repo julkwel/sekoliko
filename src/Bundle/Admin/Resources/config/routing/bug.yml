@@ -1,0 +1,24 @@
+bug_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:SkBug:index" }
+    methods:  GET
+
+bug_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:SkBug:new" }
+    methods:  [GET, POST]
+
+bug_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:SkBug:update" }
+    methods:  [GET, POST]
+
+#bug_liste:
+#    path:     /{id}/etudiant
+#    defaults: { _controller: "AdminBundle:SkInformation:index" }
+#    methods:  [GET, POST]
+
+bug_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:SkBug:delete" }
+    methods:  [GET, DELETE]

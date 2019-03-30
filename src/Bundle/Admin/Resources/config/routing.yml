@@ -51,7 +51,10 @@ tz_guide:
     resource: "@AdminBundle/Resources/config/routing/guide.yml"
     prefix:   /guide
 
-
 tz_info:
     resource: "@AdminBundle/Resources/config/routing/info.yml"
     prefix:   /info
+
+tz_bug:
+    resource: "@AdminBundle/Resources/config/routing/bug.yml"
+    prefix:   /bug

@@ -1,0 +1,56 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}{{ parent() }} Tableau de bord {% endblock %}
+
+{% set menu_info = true %}
+
+{% block body %}
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="card bg-success text-white shadow">
+            <div class="card-body">
+                {{ flashMessage }}
+            </div>
+        </div>
+    {% endfor %}
+
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <div class="card bg-warning text-white shadow">
+            <div class="card-body">
+                {{ flashMessage }}
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="row">
+        <form action="" method="POST" class="form-search">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary text-center">Listes des bugs</h6>
+                    {# Bouton création #}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <div class="row add-btn-top-list">
+                            <a href="{{ path('bug_new') }}" class="btn btn-primary">
+                                Ajouter bug ou amelioration
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    {% for bug in bug %}
+                        <ul>{{ bug.titre }}
+                            <li>{{ bug.description }}</li>
+                            <li>{{ bug.dateAjout|date('Y-m-d H:m')  }}</li>
+                            <li>{{ bug.user.usrLastname }}</li>
+                            <li>{{ bug.status }}</li>
+                        </ul>
+                        {% if is_granted('ROLE_SUPERADMIN') %}
+                            <a href="{{ path('bug_edit',{"id":bug.id}) }}"
+                               class="btn btn-circle btn-primary"><i class="fa fa-edit"></i></a>
+                            <a href="{{ path('bug_delete',{"id":bug.id}) }}" class="btn btn-circle btn-warning"><i class="fa fa-trash"></i></a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
