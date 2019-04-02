@@ -9,6 +9,7 @@
 namespace App\Shared\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * SkGuide.
@@ -35,6 +36,14 @@ class SkGuide
      * @ORM\Column(name="desciption", type="string",length=200, nullable=false)
      */
     private $description;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="attachment", type="text", nullable=true)
+     * @Assert\File(mimeTypes={ "image/png","image/jpg", "image/jpeg" },maxSize="1M")
+     */
+    private $attachment;
 
     /**
      * @return int
@@ -66,5 +75,21 @@ class SkGuide
     public function setDescription($description)
     {
         $this->description = $description;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAttachment(): ?string
+    {
+        return $this->attachment;
+    }
+
+    /**
+     * @param string $attachment
+     */
+    public function setAttachment($attachment): void
+    {
+        $this->attachment = $attachment;
     }
 }
