@@ -7,7 +7,7 @@ Based on Symfony 4
 
 - Fork this repository in your branch
 
-- Clone and run `composer install --prefe-dist`
+- Clone and run `composer install --prefer-dist`
 
 - Configure your database connection in `.env`
 
