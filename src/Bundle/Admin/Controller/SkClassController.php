@@ -87,7 +87,7 @@ class SkClassController extends Controller
             $_classe->setNiveau($_new_niveau);
 
             $this->getEntityService()->saveEntity($_classe, 'new');
-            $this->getEntityService()->setFlash('success', 'Classe ajouté avec success');
+            $this->getEntityService()->setFlash('success', 'Classe ajoutée avec succès');
 
             return $this->redirectToRoute('classe_index');
         }
@@ -129,7 +129,7 @@ class SkClassController extends Controller
             $_new_niveau = $this->getDoctrine()->getRepository(SkNiveau::class)->find($_niveau);
             $skClasse->setNiveau($_new_niveau);
             $this->getEntityService()->saveEntity($skClasse, 'update');
-            $this->getEntityService()->setFlash('success', 'Classe maj avec success');
+            $this->getEntityService()->setFlash('success', 'Mise à jour du classe efféctuée');
 
             return $this->redirectToRoute('classe_index');
         }
@@ -161,11 +161,11 @@ class SkClassController extends Controller
 
         $_del_classe = $this->getEntityService()->deleteEntity($skClasse, '');
         if (true === $_del_classe) {
-            $this->getEntityService()->setFlash('success', 'Classe supprimée avec success');
+            $this->getEntityService()->setFlash('success', 'Classe supprimée avec succès');
 
             return $this->redirectToRoute('classe_index');
         }
-        $this->getEntityService()->setFlash('error', 'Un erreur se produite pendant la suppression niveau');
+        $this->getEntityService()->setFlash('error', "Une erreur s'est produite, veuillez réessayer ultérieurement");
     }
 
     /**
@@ -266,13 +266,13 @@ class SkClassController extends Controller
                     $_etudiant_data->setEtsNom($_user_ets);
                     $_etudiant_data->setRoles(array($_user_role));
                     $_etudiant_data->setskRole($_role);
-                    $_etudiant_data->setUsrLastname($value[0]);
+                    $_etudiant_data->setUsrLastname($value[0] ? $value[0] : 'Null');
                     $_etudiant_data->setEnabled(true);
-                    $_etudiant_data->setUsrFirstname($value[1]);
-                    $_etudiant_data->setEmail($value[2]);
+                    $_etudiant_data->setUsrFirstname($value[1] ? $value[1] : 'Null');
+                    $_etudiant_data->setEmail($value[2] ? $value[2] : 'Null');
                     $_etudiant_data->setUsername($value[3]);
-                    $_etudiant_data->setUsrAddress($value[4]);
-                    $_etudiant_data->setUsrPhone($value[5]);
+                    $_etudiant_data->setUsrAddress($value[4] ? $value[4] : 'Null');
+                    $_etudiant_data->setUsrPhone($value[5] ? $value[5] : 'Null');
                     $_etudiant_data->setPassword($_pass);
 
                     $_etudiant->setClasse($skClasse);
@@ -290,11 +290,11 @@ class SkClassController extends Controller
                             $this->getEntityService()->saveEntity($_etudiant, 'new');
                         } catch (\Exception $exception) {
                             $exception->getMessage();
-                            $this->getEntityService()->setFlash('error', 'error' . $exception->getMessage());
+                            $this->getEntityService()->setFlash('error', 'Une erreur s\'est produite, veuiller réessayez ultérieurement' . $exception->getMessage());
                         }
                     }
                 }
-                $this->getEntityService()->setFlash('success', 'ajout étudiant dans la classe ' . $skClasse->getClasseNom() . ' términée');
+                $this->getEntityService()->setFlash('success', 'Ajout de l\'étudiant(e) dans la classe ' . $skClasse->getClasseNom() . ' effectuée');
                 return $this->redirect($this->generateUrl('etudiant_liste', array('id' => $skClasse->getId())));
             }
         } else {
@@ -328,7 +328,7 @@ class SkClassController extends Controller
                             try {
                                 $this->getEntityService()->saveEntity($_user, 'new');
                             } catch (\Exception $exception) {
-                                $this->getEntityService()->setFlash('error', 'Utilisateur existe déjà email ou nom d\'utilisateur existe');
+                                $this->getEntityService()->setFlash('error', 'Email ou nom d\'utilisateur déjà prise');
                                 return $this->redirect($this->generateUrl('classe_etudiant_new', array('id' => $skClasse->getId())));
                             }
                             try {
@@ -341,7 +341,7 @@ class SkClassController extends Controller
                             $exception->getMessage();
                         }
 
-                        $this->getEntityService()->setFlash('success', 'Ajout étudiant dans ' . $skClasse->getClasseNom() . 'términée');
+                        $this->getEntityService()->setFlash('success', 'Ajout de l\'étudiant(e) dans la classe ' . $skClasse->getClasseNom() . ' effectuée');
                         return $this->redirect($this->generateUrl('etudiant_liste', array('id' => $skClasse->getId())));
                     }
                 } catch (\Exception $exception) {

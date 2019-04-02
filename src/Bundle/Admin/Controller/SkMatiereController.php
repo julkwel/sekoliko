@@ -136,7 +136,7 @@ class SkMatiereController extends Controller
             $_matiere->setMatClasse($_classe);
             $_matiere->setEtsNom($_user_ets);
             $this->getEntityService()->saveEntity($_matiere, 'new');
-            $this->getEntityService()->setFlash('success', 'Ajout Matiere avec success');
+            $this->getEntityService()->setFlash('success', 'Ajout du matière effectuée');
 
             return $this->redirectToRoute('matiere_index');
         } else {
@@ -186,7 +186,7 @@ class SkMatiereController extends Controller
             $skMatiere->setMatProf($_profs_user);
             $skMatiere->setMatClasse($_classe);
             $this->getEntityService()->saveEntity($skMatiere, 'update');
-            $this->getEntityService()->setFlash('success', 'Mise a jour matiere réussie');
+            $this->getEntityService()->setFlash('success', 'Matière mis à jour');
 
             return $this->redirectToRoute('matiere_index');
         } else {
@@ -222,11 +222,11 @@ class SkMatiereController extends Controller
         $_del_matiere = $this->getEntityService()->deleteEntity($skMatiere, '');
 
         if (true === $_del_matiere) {
-            $this->getEntityService()->setFlash('success', 'suppression matiere réussie');
+            $this->getEntityService()->setFlash('success', 'Suppression du matière effectuée');
 
             return $this->redirectToRoute('matiere_index');
         } else {
-            $this->getEntityService()->setFlash('error', 'un erreur se produite');
+            $this->getEntityService()->setFlash('error', 'Une erreur s\'est produite, veuiller réessayez ultérieurement');
         }
     }
 }

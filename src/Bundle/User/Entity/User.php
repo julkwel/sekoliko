@@ -5,15 +5,30 @@ namespace App\Bundle\User\Entity;
 use App\Shared\Entity\SkEtablissement;
 use App\Shared\Entity\SkRole;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\AttributeOverride;
+use Doctrine\ORM\Mapping\AttributeOverrides;
 use FOS\UserBundle\Model\User as BaseUser;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Users.
  *
- * @ORM\Table(name="sk_user", uniqueConstraints={@ORM\UniqueConstraint(name="username_canonical_UNIQUE", columns={"username_canonical"}), @ORM\UniqueConstraint(name="email_canonical_UNIQUE", columns={"email_canonical"}), @ORM\UniqueConstraint(name="confirmation_token_UNIQUE", columns={"confirmation_token"})})
+ * @ORM\Table(name="sk_user", uniqueConstraints={@ORM\UniqueConstraint(name="username_canonical_UNIQUE", columns={"username_canonical"}), @ORM\UniqueConstraint(name="confirmation_token_UNIQUE", columns={"confirmation_token"})})
  * @UniqueEntity(fields="username", message="Nom d'utilisateur déjà existant")
- * @UniqueEntity(fields="email", message="Email déjà existant")
+ * @ORM\AttributeOverrides({
+ *     @ORM\AttributeOverride(name="email",
+ *          column=@ORM\Column(
+ *              nullable = true
+ *          )
+ *      ),
+ *     @ORM\AttributeOverride(name="emailCanonical",
+ *          column=@ORM\Column(
+ *              name = "email_canonical",
+ *              nullable = true
+ *          )
+ *      )
+ * })
+ *
  * @ORM\Entity
  */
 class User extends BaseUser
