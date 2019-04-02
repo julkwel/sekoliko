@@ -11,6 +11,7 @@ namespace App\Bundle\Admin\Controller;
 use App\Shared\Entity\SkBug;
 use App\Shared\Form\SkBugType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 
 class SkBugController extends Controller
@@ -80,6 +81,21 @@ class SkBugController extends Controller
             $_bug->setStatus($_status);
             $_bug->setDateAjout(new \DateTime('now'));
             $_bug->setUser($_user);
+
+            $_file = $_form['attachment']->getData();
+            if ($_file) {
+                $_extension = $_file->guessExtension();
+                $_fileName = $this->generateUniqueFileName() . '.' . $_extension;
+                try {
+                    $_file->move($this->getParameter('bug_images_upload_directory'), $_fileName);
+                    $_bug->setAttachment($_fileName);
+                } catch (FileException $e) {
+                    $this->getEntityService()->setFlash('error', 'Une erreur est survenue, veuillez réessayer');
+                }
+            }else{
+                $_bug->setAttachment(null);
+            }
+
             try {
                 $this->getEntityService()->saveEntity($_bug, 'new');
                 $this->getEntityService()->setFlash('success', 'Bug reporté avec succès');
@@ -97,7 +113,7 @@ class SkBugController extends Controller
 
     /**
      * @param Request $request
-     * @param SkBug $bug
+     * @param SkBug $_bug
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
@@ -127,6 +143,20 @@ class SkBugController extends Controller
                 $_bug->setColor("red");
             }
             $_bug->setStatus($_status);
+
+            $_file = $_form['attachment']->getData();
+
+            if ($_file) {
+                $_extension = $_file->guessExtension();
+                $_fileName = $this->generateUniqueFileName() . '.' . $_extension;
+                try {
+                    $_file->move($this->getParameter('bug_images_upload_directory'), $_fileName);
+                    $_bug->setAttachment($_fileName);
+                } catch (FileException $e) {
+                    $this->getEntityService()->setFlash('error', 'Une erreur est survenue, veuillez réessayer');
+                }
+            }
+
             try {
                 $this->getEntityService()->saveEntity($_bug, 'update');
                 $this->getEntityService()->setFlash('success', 'Rapport du Bug mis à jour');
@@ -157,4 +187,14 @@ class SkBugController extends Controller
             return $this->redirectToRoute('bug_index');
         }
     }
+
+
+    /**
+     * @return string
+     */
+    private function generateUniqueFileName()
+    {
+        return md5(uniqid());
+    }
+
 }
