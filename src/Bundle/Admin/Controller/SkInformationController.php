@@ -67,9 +67,9 @@ class SkInformationController extends Controller
             $_new_info->setEtsNom($_user_ets);
             try {
                 $this->getEntityService()->saveEntity($_new_info, 'new');
-                $this->getEntityService()->setFlash('success', 'add information avec success');
+                $this->getEntityService()->setFlash('success', 'Ajout d\'information effectuée');
             } catch (\Exception $exception) {
-                $this->getEntityService()->setFlash('error', 'un erreur se produite');
+                $this->getEntityService()->setFlash('error', 'Une erreur s\'est produite, veuillez réessayez');
             }
             return $this->redirectToRoute('info_index');
         }
@@ -99,9 +99,9 @@ class SkInformationController extends Controller
         if ($_form->isSubmitted() && $_form->isValid()) {
             try {
                 $this->getEntityService()->saveEntity($information, 'update');
-                $this->getEntityService()->setFlash('success', 'Information modifier avec success');
+                $this->getEntityService()->setFlash('success', 'Information mis à jour');
             } catch (\Exception $exception) {
-                $this->getEntityService()->setFlash('error', 'Un erreur se produite'.$exception->getMessage());
+                $this->getEntityService()->setFlash('error', 'Une erreur s\'est produite, veuillez réessayez'.$exception->getMessage());
             }
 
             return $this->redirectToRoute('info_index');

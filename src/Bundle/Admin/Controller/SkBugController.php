@@ -45,6 +45,7 @@ class SkBugController extends Controller
 
     /**
      * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
     public function newAction(Request $request)
@@ -81,9 +82,9 @@ class SkBugController extends Controller
             $_bug->setUser($_user);
             try {
                 $this->getEntityService()->saveEntity($_bug, 'new');
-                $this->getEntityService()->setFlash('success', 'Bug reporte avec success');
+                $this->getEntityService()->setFlash('success', 'Bug reporté avec succès');
             } catch (\Exception $exception) {
-                $this->getEntityService()->setFlash('error', 'Un erreur se produite lors du reportation bug');
+                $this->getEntityService()->setFlash('error', 'Une erreur s\'est produite, veuiller réessayez ultérieurement');
             }
 
             return $this->redirectToRoute('bug_index');
@@ -128,9 +129,9 @@ class SkBugController extends Controller
             $_bug->setStatus($_status);
             try {
                 $this->getEntityService()->saveEntity($_bug, 'update');
-                $this->getEntityService()->setFlash('success', 'Bug reporte avec success');
+                $this->getEntityService()->setFlash('success', 'Rapport du Bug mis à jour');
             } catch (\Exception $exception) {
-                $this->getEntityService()->setFlash('error', 'Un erreur se produite lors du reportation bug');
+                $this->getEntityService()->setFlash('error', 'Une erreur s\'est produite, veuillez réessayer ultérieurement');
             }
 
             return $this->redirectToRoute('bug_index');
@@ -152,7 +153,7 @@ class SkBugController extends Controller
     public function deleteAction(SkBug $skBug)
     {
         if (true === $this->getEntityService()->deleteEntity($skBug, '')) {
-            $this->getEntityService()->setFlash('success', 'Suppression Bug avec success');
+            $this->getEntityService()->setFlash('success', 'Suppression du Bug effectuée');
             return $this->redirectToRoute('bug_index');
         }
     }
