@@ -306,6 +306,7 @@ class SkClassController extends Controller
 
             $_form = $this->createForm(UserType::class, $_user);
             $_form_etd = $this->createForm(SkEtudiantType::class);
+            $_role = $this->getDoctrine()->getRepository(SkRole::class)->find(2);
 
             if ($request->isMethod('POST')) {
                 try {
@@ -313,6 +314,8 @@ class SkClassController extends Controller
                     $_form_etd->handleRequest($request);
                     if ($_form->isSubmitted()) {
                         try {
+
+                            $_user->setskRole($_role);
                             $_user->setRoles(array($_user_role));
                             $_user->setEtsNom($_user_ets);
                             $_user->setEnabled(1);
@@ -324,23 +327,21 @@ class SkClassController extends Controller
 
                             try {
                                 $this->getEntityService()->saveEntity($_user, 'new');
-                                $this->getEntityService()->setFlash('success', 'success add user');
                             } catch (\Exception $exception) {
                                 $this->getEntityService()->setFlash('error', 'Utilisateur existe déjà email ou nom d\'utilisateur existe');
-
                                 return $this->redirect($this->generateUrl('classe_etudiant_new', array('id' => $skClasse->getId())));
                             }
                             try {
                                 $this->getEntityService()->saveEntity($_etudiant, 'new');
-                                $this->getEntityService()->setFlash('success', 'success add etudiant');
                             } catch (\Exception $exception) {
-                                $exception->getMessage();
                                 $this->getEntityService()->setFlash('error', 'error' . $exception->getMessage());
+                                return $this->redirect($this->generateUrl('classe_etudiant_new', array('id' => $skClasse->getId())));
                             }
                         } catch (\Exception $exception) {
                             $exception->getMessage();
                         }
 
+                        $this->getEntityService()->setFlash('success', 'Ajout étudiant dans ' . $skClasse->getClasseNom() . 'términée');
                         return $this->redirect($this->generateUrl('etudiant_liste', array('id' => $skClasse->getId())));
                     }
                 } catch (\Exception $exception) {
