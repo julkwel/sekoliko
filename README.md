@@ -1,13 +1,13 @@
 
 # Sekoliko Application
 
-Based on Symfony 4
+Based on Symfony 4.0
 
 ## Contribution Setup
 
 - Fork this repository in your branch
 
-- Clone and run `composer install --prefe-dist`
+- Clone and run `composer install --prefer-dist`
 
 - Configure your database connection in `.env`
 
