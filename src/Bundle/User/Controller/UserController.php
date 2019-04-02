@@ -8,8 +8,10 @@
 
 namespace App\Bundle\User\Controller;
 
+use App\Shared\Entity\SkRole;
 use App\Shared\Services\Utils\RoleName;
 use App\Shared\Services\Utils\ServiceName;
+use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,6 +38,11 @@ class UserController extends Controller
     public function getUserRole()
     {
         return $this->getUserConnected()->getSkRole()->getId();
+    }
+
+    public function getEntityService()
+    {
+        return $this->get('sk.repository.entity');
     }
 
     /**
@@ -139,39 +146,42 @@ class UserController extends Controller
         $_user = new User();
         $_form = $this->createCreateForm($_user);
         $_form->handleRequest($_request);
-        $_form_upload = $this->createFormBuilder()->add('file',FileType::class)->getForm();
-
-        $_form_upload->handleRequest($_request);
-        if($_form_upload->isSubmitted() && $_form_upload->isValid()){
-            $_user_ets = $this->container->get('security.token_storage')->getToken()->getUser()->getEtsNom();
-            $_file = $_form_upload['file']->getData();
-            $the_big_array = [];
-            if (($h = fopen("{$_file}", "r")) !== FALSE)
-            {
-                while (($data = fgetcsv($h, 1000, ",")) !== FALSE)
-                {
-                    $the_big_array[] = $data;
-                }
-
-                $_user_role = RoleName::ROLE_ETUDIANT;
-                array_shift($the_big_array);
-                foreach ($the_big_array as $value){
-                    $_user->setEtsNom($_user_ets);
-                    $_user->setRoles(array($_user_role));
-                    $_user->setUsrLastname($value[1]);
-                    $_user->setEnabled(true);
-                    $_user->setUsrFirstname($value[2]);
-                    $_user->setEtsEmail($value[3]);
-                    var_dump($value[0]);
-                    var_dump($value[1]);
-                    var_dump($value[2]);
-                    var_dump($value[3]);
-                    var_dump($value[4]);
-                    var_dump($value[5]);
-                }
-            }
-        }
-        elseif ($_form->isSubmitted() && $_form->isValid()) {
+//        $_form_upload = $this->createFormBuilder()->add('file', FileType::class)->getForm();
+//
+//        $_form_upload->handleRequest($_request);
+//        if ($_form_upload->isSubmitted() && $_form_upload->isValid()) {
+//            $_user_ets = $this->container->get('security.token_storage')->getToken()->getUser()->getEtsNom();
+//            $_file = $_form_upload['file']->getData();
+//            $the_big_array = [];
+//            if (($h = fopen("{$_file}", "r")) !== FALSE) {
+//                while (($data = fgetcsv($h, 1000, ",")) !== FALSE) {
+//                    $the_big_array[] = $data;
+//                }
+//
+//                array_shift($the_big_array);
+//                foreach ($the_big_array as $value) {
+//                    $_etudiant_data = new User();
+//                    $_user_role = RoleName::ROLE_ETUDIANT;
+//                    $_role = $this->getDoctrine()->getRepository(SkRole::class)->find(2);
+//                    $_pass = $_user->setPlainPassword('123456');
+//                    $_etudiant_data->setEtsNom($_user_ets);
+//                    $_etudiant_data->setRoles(array($_user_role));
+//                    $_etudiant_data->setskRole($_role);
+//                    $_etudiant_data->setUsrLastname($value[0]);
+//                    $_etudiant_data->setEnabled(true);
+//                    $_etudiant_data->setUsrFirstname($value[1]);
+//                    $_etudiant_data->setEmail($value[2]);
+//                    $_etudiant_data->setUsername($value[3]);
+//                    $_etudiant_data->setUsrAddress($value[4]);
+//                    $_etudiant_data->setUsrPhone($value[5]);
+//                    $_etudiant_data->setPassword($_pass);
+//                    for ($a = 0; $a < count($the_big_array); $a++) {
+//                        $this->getEntityService()->saveEntity($_etudiant_data, 'new');
+//                    }
+//                }
+//            }
+//        } else
+        if ($_form->isSubmitted() && $_form->isValid()) {
             $_user_ets = $this->container->get('security.token_storage')->getToken()->getUser()->getEtsNom();
             if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
                 $_ets_nom = $_request->request->get('etsNom');
@@ -191,8 +201,7 @@ class UserController extends Controller
 
         return $this->render('UserBundle:User:add.html.twig', array(
             'user' => $_user,
-            'form' => $_form->createView(),
-            'form_upload'=>$_form_upload->createView()
+            'form' => $_form->createView()
         ));
     }
 

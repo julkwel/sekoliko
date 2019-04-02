@@ -12,15 +12,26 @@
     {% for flashMessage in app.session.flashbag.get('error') %}
         <div class="card bg-warning text-white shadow">
             <div class="card-body">
-                {{ flashMessage }}  <a href="{{ path('etudiant_search') }}">rechercher</a>
+                {{ flashMessage }} <a href="{{ path('etudiant_search') }}">rechercher</a>
             </div>
         </div>
     {% endfor %}
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary text-center">Ajouter un(e) étudiant(e) en {{ classe.classeNom }}</h6>
+            <h6 class="m-0 font-weight-bold text-primary text-center">Ajouter un(e) étudiant(e)
+                en {{ classe.classeNom }}</h6>
         </div>
+        <div class="card-body">
+            {{ form_start(form_upload) }}
+            <div class="form-group">
+                <label>Import etudiant via csv file</label>
+                {{ form_row(form_upload.file) }}
+            </div>
+            <input type="submit" class="btn btn-primary btn-block" value="Importer" name="new_user"/>
+            {{ form_end(form_upload) }}
+        </div>
+
         <div class="card-body">
             {{ form_start(form1) }}
             <div class="row">

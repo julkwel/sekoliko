@@ -14,10 +14,12 @@ use App\Shared\Entity\SkClasse;
 use App\Shared\Entity\SkEtudiant;
 use App\Shared\Entity\SkMatiere;
 use App\Shared\Entity\SkNiveau;
+use App\Shared\Entity\SkRole;
 use App\Shared\Form\SkClasseType;
 use App\Shared\Form\SkEtudiantType;
 use App\Shared\Services\Utils\RoleName;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\HttpFoundation\Request;
 
 class SkClassController extends Controller
@@ -98,7 +100,7 @@ class SkClassController extends Controller
     }
 
     /**
-     * @param Request  $request
+     * @param Request $request
      * @param SkClasse $skClasse
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -167,7 +169,7 @@ class SkClassController extends Controller
     }
 
     /**
-     * @param Request  $request
+     * @param Request $request
      * @param SkClasse $skClasse
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -199,7 +201,7 @@ class SkClassController extends Controller
     }
 
     /**
-     * @param Request  $_request
+     * @param Request $_request
      * @param SkClasse $skClasse
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -229,61 +231,121 @@ class SkClassController extends Controller
     }
 
     /**
-     * @param Request  $request
+     * @param Request $request
      * @param SkClasse $skClasse
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * DONT TOUCH IF YOU DONT WANT TO DIE
+     *
+     * @throws \Exception
      */
     public function createEtudianAction(Request $request, SkClasse $skClasse)
     {
-        $_user = new User();
-        $_etudiant = new SkEtudiant();
-        $_user_role = RoleName::ROLE_ETUDIANT;
-        $_user_ets = $this->container->get('security.token_storage')->getToken()->getUser()->getEtsNom();
+        $_form_upload = $this->createFormBuilder()->add('file', FileType::class)->getForm();
 
-        $_form = $this->createForm(UserType::class, $_user);
-        $_form_etd = $this->createForm(SkEtudiantType::class);
+        $_form_upload->handleRequest($request);
+        if ($_form_upload->isSubmitted() && $_form_upload->isValid()) {
+            $_user_ets = $this->container->get('security.token_storage')->getToken()->getUser()->getEtsNom();
 
-        if ($request->isMethod('POST')) {
-            try {
-                $_form->handleRequest($request);
-                $_form_etd->handleRequest($request);
-                if ($_form->isSubmitted()) {
-                    try {
-                        $_user->setRoles(array($_user_role));
-                        $_user->setEtsNom($_user_ets);
-                        $_user->setEnabled(1);
+            $_file = $_form_upload['file']->getData();
+            $the_big_array = [];
+            if (($h = fopen("{$_file}", "r")) !== FALSE) {
+                while (($data = fgetcsv($h, 1000, ",")) !== FALSE) {
+                    $the_big_array[] = $data;
+                }
 
-                        $_etudiant->setClasse($skClasse);
-                        $_etudiant->setEtsNom($_user_ets);
-                        $_etudiant->setClasse($skClasse);
-                        $_etudiant->setEtudiant($_user);
+                array_shift($the_big_array);
+                foreach ($the_big_array as $value) {
+                    $_etudiant_data = new User();
+                    $_etudiant = new SkEtudiant();
 
+                    $_user_role = RoleName::ROLE_ETUDIANT;
+                    $_role = $this->getDoctrine()->getRepository(SkRole::class)->find(2);
+                    $_pass = $_etudiant_data->setPlainPassword('123456');
+                    $_etudiant_data->setEtsNom($_user_ets);
+                    $_etudiant_data->setRoles(array($_user_role));
+                    $_etudiant_data->setskRole($_role);
+                    $_etudiant_data->setUsrLastname($value[0]);
+                    $_etudiant_data->setEnabled(true);
+                    $_etudiant_data->setUsrFirstname($value[1]);
+                    $_etudiant_data->setEmail($value[2]);
+                    $_etudiant_data->setUsername($value[3]);
+                    $_etudiant_data->setUsrAddress($value[4]);
+                    $_etudiant_data->setUsrPhone($value[5]);
+                    $_etudiant_data->setPassword($_pass);
+
+                    $_etudiant->setClasse($skClasse);
+                    $_etudiant->setEtsNom($_user_ets);
+                    $_etudiant->setClasse($skClasse);
+                    $_etudiant->setEtudiant($_etudiant_data);
+
+                    for ($a = 0; $a < count($the_big_array); $a++) {
                         try {
-                            $this->getEntityService()->saveEntity($_user, 'new');
-                            $this->getEntityService()->setFlash('success', 'success add user');
+                            $this->getEntityService()->saveEntity($_etudiant_data, 'new');
                         } catch (\Exception $exception) {
-                            $this->getEntityService()->setFlash('error', 'Utilisateur existe déjà email ou nom d\'utilisateur existe');
-
                             return $this->redirect($this->generateUrl('classe_etudiant_new', array('id' => $skClasse->getId())));
                         }
                         try {
                             $this->getEntityService()->saveEntity($_etudiant, 'new');
-                            $this->getEntityService()->setFlash('success', 'success add etudiant');
                         } catch (\Exception $exception) {
                             $exception->getMessage();
-                            $this->getEntityService()->setFlash('error', 'error'.$exception->getMessage());
+                            $this->getEntityService()->setFlash('error', 'error' . $exception->getMessage());
                         }
-                    } catch (\Exception $exception) {
-                        $exception->getMessage();
                     }
-
-                    return $this->redirect($this->generateUrl('etudiant_liste', array('id' => $skClasse->getId())));
                 }
-            } catch (\Exception $exception) {
-                $exception->getMessage();
+                $this->getEntityService()->setFlash('success', 'ajout étudiant dans la classe ' . $skClasse->getClasseNom() . ' términée');
+                return $this->redirect($this->generateUrl('etudiant_liste', array('id' => $skClasse->getId())));
+            }
+        } else {
+
+            $_user = new User();
+            $_etudiant = new SkEtudiant();
+            $_user_role = RoleName::ROLE_ETUDIANT;
+            $_user_ets = $this->container->get('security.token_storage')->getToken()->getUser()->getEtsNom();
+
+            $_form = $this->createForm(UserType::class, $_user);
+            $_form_etd = $this->createForm(SkEtudiantType::class);
+
+            if ($request->isMethod('POST')) {
+                try {
+                    $_form->handleRequest($request);
+                    $_form_etd->handleRequest($request);
+                    if ($_form->isSubmitted()) {
+                        try {
+                            $_user->setRoles(array($_user_role));
+                            $_user->setEtsNom($_user_ets);
+                            $_user->setEnabled(1);
+
+                            $_etudiant->setClasse($skClasse);
+                            $_etudiant->setEtsNom($_user_ets);
+                            $_etudiant->setClasse($skClasse);
+                            $_etudiant->setEtudiant($_user);
+
+                            try {
+                                $this->getEntityService()->saveEntity($_user, 'new');
+                                $this->getEntityService()->setFlash('success', 'success add user');
+                            } catch (\Exception $exception) {
+                                $this->getEntityService()->setFlash('error', 'Utilisateur existe déjà email ou nom d\'utilisateur existe');
+
+                                return $this->redirect($this->generateUrl('classe_etudiant_new', array('id' => $skClasse->getId())));
+                            }
+                            try {
+                                $this->getEntityService()->saveEntity($_etudiant, 'new');
+                                $this->getEntityService()->setFlash('success', 'success add etudiant');
+                            } catch (\Exception $exception) {
+                                $exception->getMessage();
+                                $this->getEntityService()->setFlash('error', 'error' . $exception->getMessage());
+                            }
+                        } catch (\Exception $exception) {
+                            $exception->getMessage();
+                        }
+
+                        return $this->redirect($this->generateUrl('etudiant_liste', array('id' => $skClasse->getId())));
+                    }
+                } catch (\Exception $exception) {
+                    $exception->getMessage();
+                }
             }
         }
 
@@ -291,6 +353,7 @@ class SkClassController extends Controller
             'form1' => $_form->createView(),
             'form2' => $_form_etd->createView(),
             'classe' => $skClasse,
+            'form_upload' => $_form_upload->createView()
         ));
     }
 }

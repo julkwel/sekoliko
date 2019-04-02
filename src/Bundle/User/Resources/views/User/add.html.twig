@@ -8,15 +8,27 @@
 {% set menu_user_create = true %}
 
 {% block body %}
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="card bg-success text-white shadow">
+            <div class="card-body">
+                {{ flashMessage }}
+            </div>
+        </div>
+    {% endfor %}
+
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <div class="card bg-warning text-white shadow">
+            <div class="card-body">
+                {{ flashMessage }}
+            </div>
+        </div>
+    {% endfor %}
+
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary text-center">Créer un utilisateur</h6>
         </div>
         <div class="card-body">
-            {{ form_start(form_upload) }}
-                {{ form_row(form_upload.file) }}
-            <input type="submit" name="submit">
-            {{ form_end(form_upload) }}
             {{ form_start(form) }}
             <div class="row">
                 <div class="col-md-6">
