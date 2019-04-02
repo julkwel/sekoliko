@@ -9,6 +9,7 @@
 namespace App\Shared\Form;
 
 use App\Shared\Entity\SkBug;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -25,8 +26,9 @@ class SkBugType extends AbstractType
                 'required'=>true
             ))
             ->add('description', TextareaType::class, array(
-                'label'=>'Description de bug',
+                'label'=>'Description de bug'
             ))
+            ->add('attachment', FileType::class, array('data_class' => null,'required'=>false))
             ;
     }
 
