@@ -266,13 +266,13 @@ class SkClassController extends Controller
                     $_etudiant_data->setEtsNom($_user_ets);
                     $_etudiant_data->setRoles(array($_user_role));
                     $_etudiant_data->setskRole($_role);
-                    $_etudiant_data->setUsrLastname($value[0]);
+                    $_etudiant_data->setUsrLastname($value[0] ? $value[0] : 'Null');
                     $_etudiant_data->setEnabled(true);
-                    $_etudiant_data->setUsrFirstname($value[1]);
-                    $_etudiant_data->setEmail($value[2]);
+                    $_etudiant_data->setUsrFirstname($value[1] ? $value[1] : 'Null');
+                    $_etudiant_data->setEmail($value[2] ? $value[2] : 'Null');
                     $_etudiant_data->setUsername($value[3]);
-                    $_etudiant_data->setUsrAddress($value[4]);
-                    $_etudiant_data->setUsrPhone($value[5]);
+                    $_etudiant_data->setUsrAddress($value[4] ? $value[4] : 'Null');
+                    $_etudiant_data->setUsrPhone($value[5] ? $value[5] : 'Null');
                     $_etudiant_data->setPassword($_pass);
 
                     $_etudiant->setClasse($skClasse);
@@ -284,6 +284,7 @@ class SkClassController extends Controller
                         try {
                             $this->getEntityService()->saveEntity($_etudiant_data, 'new');
                         } catch (\Exception $exception) {
+                            $exception->getMessage();
                             return $this->redirect($this->generateUrl('classe_etudiant_new', array('id' => $skClasse->getId())));
                         }
                         try {
