@@ -284,6 +284,7 @@ class SkClassController extends Controller
                         try {
                             $this->getEntityService()->saveEntity($_etudiant_data, 'new');
                         } catch (\Exception $exception) {
+                            $exception->getMessage();
                             return $this->redirect($this->generateUrl('classe_etudiant_new', array('id' => $skClasse->getId())));
                         }
                         try {
