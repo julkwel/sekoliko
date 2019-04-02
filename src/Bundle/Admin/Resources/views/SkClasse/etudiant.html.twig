@@ -82,7 +82,7 @@
                                         </a>
                                         {% if is_granted('ROLE_ADMIN') %}
                                             <a class="btn btn-danger remove-elt"
-                                               onclick="supprimer('{{ path('user_delete', { 'id': etudiant.id }) }}')">
+                                               onclick="supprimer('{{ path('user_delete', { 'id': etudiant.etudiant.id }) }}')">
                                                 <i class="fa fa-trash"></i>
                                             </a>
                                         {% endif %}
