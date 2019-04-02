@@ -63,9 +63,9 @@ class SkSalleController extends Controller
             $_salle->setEtsNom($_user_connected);
             $this->getEntityService()->saveEntity($_salle, 'new');
             try {
-                $this->getEntityService()->setFlash('success', 'salle ajouter avec success');
+                $this->getEntityService()->setFlash('success', 'Ajout du salle effectuée');
             } catch (\Exception $exception) {
-                $this->getEntityService()->setFlash('error', 'Un erreur se produite');
+                $this->getEntityService()->setFlash('error', 'Une erreur s\'est produite, veuiller réessayez ultérieurement');
                 $exception->getMessage();
             }
 
@@ -97,9 +97,9 @@ class SkSalleController extends Controller
             $_add_salle = $this->getEntityService()->saveEntity($salle, 'update');
             if (true === $_add_salle) {
                 try {
-                    $this->getEntityService()->setFlash('success', 'modification salle avec success');
+                    $this->getEntityService()->setFlash('success', 'Salle mis à jour');
                 } catch (\Exception $exception) {
-                    $this->getEntityService()->setFlash('success', 'modification salle avec success');
+                    $this->getEntityService()->setFlash('error', 'Une erreur s\'est produite, veuiller réessayez ultérieurement');
                     $exception->getMessage();
                 }
             }
@@ -127,9 +127,9 @@ class SkSalleController extends Controller
         $_delete_salle = $this->getEntityService()->deleteEntity($skSalle, '');
         if (true === $_delete_salle) {
             try {
-                $this->getEntityService()->setFlash('success', 'suppression salle réussie');
+                $this->getEntityService()->setFlash('success', 'Suppression du salle effectuée');
             } catch (\Exception $exception) {
-                $this->getEntityService()->setFlash('error', 'un erreur se produite');
+                $this->getEntityService()->setFlash('error', 'Une erreur s\'est produite, veuiller réessayez ultérieurement');
                 $exception->getMessage();
             }
 
@@ -142,6 +142,7 @@ class SkSalleController extends Controller
      * @param SkSalle $skSalle
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
      */
     public function reservationAction(Request $request, SkSalle $skSalle)
     {

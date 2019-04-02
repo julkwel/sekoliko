@@ -140,7 +140,7 @@ class SkEtudiantController extends Controller
                 $_etudiant->setEtudiant($user);
                 try {
                     $this->getEntityService()->saveEntity($_etudiant, 'new');
-                    $this->getEntityService()->setFlash('success', 'Ajout etudiant avec success');
+                    $this->getEntityService()->setFlash('success', 'Ajout de l\'etudiant(e) effectué(e)');
                 } catch (\Exception $exception) {
                     $exception->getMessage();
                 }
@@ -188,7 +188,7 @@ class SkEtudiantController extends Controller
             $skEtudiant->setEtsNom($_ets);
             try {
                 $this->getEntityService()->saveEntity($skEtudiant, 'update');
-                $this->getEntityService()->setFlash('success', 'Modification etudiant avec success');
+                $this->getEntityService()->setFlash('success', 'Etudiant(e) mis à jour');
             } catch (\Exception $exception) {
                 $exception->getMessage();
             }

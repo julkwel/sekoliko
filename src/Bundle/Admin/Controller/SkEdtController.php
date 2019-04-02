@@ -89,7 +89,7 @@ class SkEdtController extends Controller
                     $_date_debut = $request->request->get('debut');
                     $_date_fin = $request->request->get('fin');
                     if (new \DateTime($_date_debut) > new \DateTime($_date_fin)) {
-                        $this->getEntityService()->setFlash('error', 'Date debut > Date Fin');
+                        $this->getEntityService()->setFlash('error', 'Date début > Date Fin');
                         return $this->redirect($this->generateUrl('edt_new', array('id'=>$skClasse->getId())));
                     }
                     $_mat = $this->getDoctrine()->getRepository(SkMatiere::class)->find($_mat);
@@ -103,7 +103,7 @@ class SkEdtController extends Controller
                     } catch (\Exception $exception) {
                         $exception->getMessage();
                     }
-                    $this->getEntityService()->setFlash('success', 'Emploi du temps ajouté avec success');
+                    $this->getEntityService()->setFlash('success', 'Ajout de l\'emplois du temps effectué');
                 } catch (\Exception $exception) {
                     $exception->getMessage();
                 }

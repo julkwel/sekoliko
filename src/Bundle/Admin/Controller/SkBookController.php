@@ -61,10 +61,10 @@ class SkBookController extends Controller
             try {
                 $_book->setEtsNom($_ets_nom);
                 $this->getEntityService()->saveEntity($_book, 'new');
-                $this->getEntityService()->setFlash('success', 'Ajout livre avec succes');
+                $this->getEntityService()->setFlash('success', 'Ajout du livre effectuée');
             } catch (\Exception $exception) {
                 try {
-                    $this->getEntityService()->setFlash('error', 'Un erreur se produite'.$exception->getMessage());
+                    $this->getEntityService()->setFlash('error', 'Une erreur s\'est produite, veuiller réessayez ultérieurement'.$exception->getMessage());
                 } catch (\Exception $e) {
                 }
             }
@@ -97,10 +97,10 @@ class SkBookController extends Controller
         if ($_form->isSubmitted() && $_form->isValid()) {
             try {
                 $this->getEntityService()->saveEntity($skBook, 'update');
-                $this->getEntityService()->setFlash('success', 'Ajout livre avec succes');
+                $this->getEntityService()->setFlash('success', 'Modification du livre effectueé');
             } catch (\Exception $exception) {
                 try {
-                    $this->getEntityService()->setFlash('error', 'Un erreur se produite'.$exception->getMessage());
+                    $this->getEntityService()->setFlash('error', 'Une erreur s\'est produite, veuiller réessayez ultérieurement'.$exception->getMessage());
                 } catch (\Exception $e) {
                 }
             }
@@ -134,7 +134,7 @@ class SkBookController extends Controller
 
         $_delete_book = $this->getEntityService()->deleteEntity($skBook, '');
         if (true === $_delete_book) {
-            $this->getEntityService()->setFlash('success', 'Ajout livre avec succes');
+            $this->getEntityService()->setFlash('success', 'Suppression du livre effectuée');
         } else {
             try {
                 $this->getEntityService()->deleteEntity($skBook, '');
@@ -157,7 +157,7 @@ class SkBookController extends Controller
     public function reservationAction(Request $request, SkBook $skBook)
     {
         if (true === $skBook->getisReserved()) {
-            $this->getEntityService()->setFlash('error', 'Ce livre et déjà réservée');
+            $this->getEntityService()->setFlash('error', 'Ce livre est déjà réservé');
 
             return $this->redirectToRoute('book_index');
         } else {
@@ -170,7 +170,7 @@ class SkBookController extends Controller
 
             if ($_form->isSubmitted() && $_form->isValid()) {
                 if (new \DateTime($_date_debut) > new \DateTime($_date_fin)) {
-                    $this->getEntityService()->setFlash('error', 'Date debut > Date Fin');
+                    $this->getEntityService()->setFlash('error', 'Date début > Date Fin');
                     return $this->redirect($this->generateUrl('book_reservation', array('id'=>$skBook->getId())));
                 }
                 $skBook->setIsReserved(true);
@@ -180,9 +180,9 @@ class SkBookController extends Controller
                 $skBook->setDateFin(new \DateTime($_date_fin));
                 try {
                     $this->getEntityService()->saveEntity($skBook, 'update');
-                    $this->getEntityService()->setFlash('success', 'reservation ajouté avec success');
+                    $this->getEntityService()->setFlash('success', 'Réservation effectuée');
                 } catch (\Exception $exception) {
-                    $this->getEntityService()->setFlash('error', 'un erreur se produite'.$exception->getMessage());
+                    $this->getEntityService()->setFlash('error', 'Une erreur s\'est produite, veuiller réessayez ultérieurement'.$exception->getMessage());
                 }
 
                 return $this->redirectToRoute('book_index');
@@ -222,7 +222,7 @@ class SkBookController extends Controller
                 $this->getEntityService()->saveEntity($skBook, 'update');
             } catch (\Exception $exception) {
                 try {
-                    $this->getEntityService()->setFlash('error', 'un erreur se produite'.$exception->getMessage());
+                    $this->getEntityService()->setFlash('error', 'Une erreur s\'est produite, veuiller réessayez ultérieurement'.$exception->getMessage());
                 } catch (\Exception $e) {
                 }
             }
@@ -230,7 +230,7 @@ class SkBookController extends Controller
             return $this->redirectToRoute('book_index');
         } else {
             try {
-                $this->getEntityService()->setFlash('error', 'Book is already reserved');
+                $this->getEntityService()->setFlash('error', 'Ce livre est déjà réservée');
             } catch (\Exception $e) {
                 $e->getMessage();
             }

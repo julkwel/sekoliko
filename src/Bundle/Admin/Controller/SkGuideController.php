@@ -59,7 +59,7 @@ class SkGuideController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getEntityService()->saveEntity($guide, 'new');
-            $this->getEntityService()->setFlash('success', 'Ajouter avec succes');
+            $this->getEntityService()->setFlash('success', 'Ajout de guide effectué');
 
             return $this->redirectToRoute('guide_index');
         }
@@ -85,7 +85,7 @@ class SkGuideController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getEntityService()->saveEntity($skGuide, 'update');
-            $this->getEntityService()->setFlash('success', 'Modifier avec succes');
+            $this->getEntityService()->setFlash('success', 'Guide mis à jour');
 
             return $this->redirectToRoute('guide_index');
         }
@@ -108,7 +108,7 @@ class SkGuideController extends Controller
     public function deleteAction(SkGuide $skGuide)
     {
         if (!$skGuide) {
-            $this->getEntityService()->setFlash('error', 'guide not found');
+            $this->getEntityService()->setFlash('error', 'Guide non trouvé');
 
             return $this->redirectToRoute('guide_index');
         }

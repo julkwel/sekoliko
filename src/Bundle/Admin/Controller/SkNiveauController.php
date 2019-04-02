@@ -59,9 +59,9 @@ class SkNiveauController extends Controller
             $_niveau->setEtsNom($_user_ets);
             try {
                 $this->getEntityService()->saveEntity($_niveau, 'new');
-                $this->getEntityService()->setFlash('success', 'niveau ajouté avec success');
+                $this->getEntityService()->setFlash('success', 'Ajout de niveau effectué');
             } catch (\Exception $exception) {
-                $this->getEntityService()->setFlash('error', 'une erreur se produite');
+                $this->getEntityService()->setFlash('error', 'Une erreur s\'est produite, veuiller réessayez ultérieurement');
                 $exception->getMessage();
             }
 
@@ -97,9 +97,9 @@ class SkNiveauController extends Controller
         if ($_form->isSubmitted() && $_form->isSubmitted()) {
             try {
                 $this->getEntityService()->saveEntity($skNiveau, 'new');
-                $this->getEntityService()->setFlash('success', 'niveau ajouté avec success');
+                $this->getEntityService()->setFlash('success', 'Niveau mis à jour');
             } catch (\Exception $exception) {
-                $this->getEntityService()->setFlash('error', 'une erreur se produite');
+                $this->getEntityService()->setFlash('error', 'Une erreur s\'est produite, veuiller réessayez ultérieurement');
                 $exception->getMessage();
             }
 
@@ -132,11 +132,11 @@ class SkNiveauController extends Controller
 
         $_del_niveau = $this->getEntityService()->deleteEntity($skNiveau, '');
         if (true === $_del_niveau) {
-            $this->getEntityService()->setFlash('success', 'Niveau supprimée avec success');
+            $this->getEntityService()->setFlash('success', 'Suppression de niveau effectué');
 
             return $this->redirectToRoute('niveau_index');
         }
-        $this->getEntityService()->setFlash('error', 'Un erreur se produite pendant la suppression niveau');
+        $this->getEntityService()->setFlash('error', 'Une erreur s\'est produite, veuiller réessayez ultérieurement');
     }
 
     /**
