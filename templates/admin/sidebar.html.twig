@@ -17,7 +17,7 @@
     <li class="nav-item active">
         <a class="nav-link" href="{{ path('dashboard_index') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span> Tableaux de bord</span></a>
+            <span> Tableau de bord</span></a>
     </li>
     <li class="nav-item active">
         <a class="nav-link" href="{{ path('guide_index') }}">
@@ -193,7 +193,7 @@
                     <h6 class="collapse-header">Actions:</h6>
                     <a class="collapse-item" href="{{ path('discipline_index') }}">Liste des disciplines</a>
                     {% if is_granted('ROLE_ADMIN') %}
-                        <a class="collapse-item" href="{{ path('discipline_new') }}">Nouveau discipline</a>
+                        <a class="collapse-item" href="{{ path('discipline_new') }}">Nouvelle Discipline</a>
                     {% endif %}
                 </div>
             </div>
