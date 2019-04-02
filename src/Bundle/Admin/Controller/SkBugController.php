@@ -87,7 +87,7 @@ class SkBugController extends Controller
                 $_extension = $_file->guessExtension();
                 $_fileName = $this->generateUniqueFileName() . '.' . $_extension;
                 try {
-                    $_file->move($this->getParameter('images_upload_directory'), $_fileName);
+                    $_file->move($this->getParameter('bug_images_upload_directory'), $_fileName);
                     $_bug->setAttachment($_fileName);
                 } catch (FileException $e) {
                     $this->getEntityService()->setFlash('error', 'Une erreur est survenue, veuillez réessayer');
@@ -150,7 +150,7 @@ class SkBugController extends Controller
                 $_extension = $_file->guessExtension();
                 $_fileName = $this->generateUniqueFileName() . '.' . $_extension;
                 try {
-                    $_file->move($this->getParameter('images_upload_directory'), $_fileName);
+                    $_file->move($this->getParameter('bug_images_upload_directory'), $_fileName);
                     $_bug->setAttachment($_fileName);
                 } catch (FileException $e) {
                     $this->getEntityService()->setFlash('error', 'Une erreur est survenue, veuillez réessayer');
