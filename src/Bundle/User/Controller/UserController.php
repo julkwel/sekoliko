@@ -143,6 +143,7 @@ class UserController extends Controller
 
         $_form_upload->handleRequest($_request);
         if($_form_upload->isSubmitted() && $_form_upload->isValid()){
+            $_user_ets = $this->container->get('security.token_storage')->getToken()->getUser()->getEtsNom();
             $_file = $_form_upload['file']->getData();
             $the_big_array = [];
             if (($h = fopen("{$_file}", "r")) !== FALSE)
@@ -151,7 +152,23 @@ class UserController extends Controller
                 {
                     $the_big_array[] = $data;
                 }
-//                dump($the_big_array);die();
+
+                $_user_role = RoleName::ROLE_ETUDIANT;
+                array_shift($the_big_array);
+                foreach ($the_big_array as $value){
+                    $_user->setEtsNom($_user_ets);
+                    $_user->setRoles(array($_user_role));
+                    $_user->setUsrLastname($value[1]);
+                    $_user->setEnabled(true);
+                    $_user->setUsrFirstname($value[2]);
+                    $_user->setEtsEmail($value[3]);
+                    var_dump($value[0]);
+                    var_dump($value[1]);
+                    var_dump($value[2]);
+                    var_dump($value[3]);
+                    var_dump($value[4]);
+                    var_dump($value[5]);
+                }
             }
         }
         elseif ($_form->isSubmitted() && $_form->isValid()) {
