@@ -10,7 +10,7 @@ namespace App\Shared\Entity;
 
 use App\Bundle\User\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * SkBug.
  *
@@ -73,6 +73,15 @@ class SkBug
      */
     private $status;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="attachment", type="text", nullable=true)
+     * @Assert\File(mimeTypes={ "image/png","image/jpg", "image/jpeg" },maxSize="1M")
+     */
+    private $attachment;
+
+    /**
     /**
      * @return int
      */
@@ -183,5 +192,21 @@ class SkBug
     public function setColor($color)
     {
         $this->color = $color;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAttachment(): ?string
+    {
+        return $this->attachment;
+    }
+
+    /**
+     * @param string $attachment
+     */
+    public function setAttachment($attachment): void
+    {
+        $this->attachment = $attachment;
     }
 }
