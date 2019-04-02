@@ -69,6 +69,7 @@ class SkNoteController extends Controller
          */
         if ($this->get('security.authorization_checker')->isGranted('ROLE_PROFS')) {
             $_profs = $this->getUserConnected();
+            $_ets_nom = $this->getUserConnected()->getEtsNom();
             $_matiere_liste = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array(
                 'matProf'=>$_profs,
                 'etsNom' => $_ets_nom,
@@ -97,7 +98,7 @@ class SkNoteController extends Controller
             $_note->setNoteVal($_valeur);
             try {
                 $this->getEntityService()->saveEntity($_note, 'new');
-                $this->getEntityService()->setFlash('success', 'Note ajouté avec success');
+                $this->getEntityService()->setFlash('success', 'Ajout du note éffectuée');
             } catch (\Exception $exception) {
                 $exception->getMessage();
             }
@@ -194,7 +195,7 @@ class SkNoteController extends Controller
         $_etudiant_classe = $skNote->getEtudiant()->getClasse()->getId();
         $_delete_note = $this->getEntityService()->deleteEntity($skNote, '');
         if (true === $_delete_note) {
-            $this->getEntityService()->setFlash('success', 'suppression avec success');
+            $this->getEntityService()->setFlash('success', 'Suppression du note effectuée');
 
             return $this->redirect($this->generateUrl('etudiant_note', array('id' => $skNote->getEtudiant()->getId())));
         }
