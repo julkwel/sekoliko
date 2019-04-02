@@ -1,0 +1,193 @@
+#Contact
+contact.title : Contact form
+contact.standard : Standard contact
+contact.professional : Contact professional
+contact.us : Contact Us
+contact.firstname : Firstname
+contact.lastname : Lastname
+contact.phone : Phone
+contact.address : Address
+contact.message : Your message
+contact.send : Send
+contact.mail.sent : Email has been sent
+contact.mail.not.sent : Email was not sent
+contact.devis.firstname : Firstname
+contact.devis.lastname : Lastname
+contact.devis.phone : Phone
+contact.devis.address : Address
+contact.devis.message : Your message
+contact.devis.send : Send
+contact.devis.title.form  : Quotation request
+contact.devis.text.link : Quotation request
+contact.devis.email : Email
+contact.devis.society : Society
+contact.devis.url : Project link
+contact.devis.title: Quote request
+contact.devis.mail.sent : Your quotation request has been sent
+contact.devis.mail.not.sent : Your quotation request was not sent
+
+#Footer
+footer.link.follow : Follow us !
+footer.link.usefullinks : Usefull links
+footer.link.contactus : Contact us
+footer.newsletter.success: Your email has been saved
+footer.newsletter.failure: This email already exists
+footer.newsletter.email.required: Please fill out this field.
+footer.newsletter.email.typemismatch: Please enter an email address.
+footer.newsletter.email.patternmismatch: Please match the requested format.
+
+#Confirmation reservation
+payment.confirm.error : Sorry! An error is produced during the payment
+payment.confirm.success : Your information is saved! A confirmation email has been sent to you with the summary of your booking. Thank you !
+payment.title: PAYMENT
+payment.code.postal: Postal code
+payment.city: City
+payment.confirmation: Payment confirmation
+email.content: Here is the content of the mail
+
+#Email
+email.objet : Payment confirmation
+email.bonjour : Hello
+email.resume : Below is the summary of your demand you made
+email.resume.admin : Below is the summary of customer demand
+email.inscription : Below is a information of your account after register
+email.merci : Thanks
+
+#Newsletter
+newsletter.confirmation.unsubscriber: You are now unsubscribed from the newsletter
+
+#Header
+header.menu.home: Home
+header.menu.fonctionnement: Operation
+header.menu.services: Our services
+header.menu.achievements: Achievements
+header.menu.contact: Contact
+header.menu.rappel: Immediate recall
+header.menu.member: Member area
+header.menu.confiance: They trust us
+header.menu.ccm: How it works
+header.menu.tzevent: Back to Skvent website
+
+#Home
+home.title.agence: Your integration agency 100% online
+home.title.rembourse: 100% SATISFIED OR REFUNDED
+home.title.clients: More than 50 satisfied customers . Customer reviews
+home.title.integration: Integration
+home.high.quality: High quality
+home.title.psdto: YOUR PSD TO
+home.title.norm: IN ANY TIME WHILE RESPECTING THE STANDARD
+home.title.at.your.service: At your service!
+home.psd.to: PSD to
+home.from: From
+home.advantages: Advantages
+home.livraison: Delivery within 4 business days
+home.unbeatable.price: Unbeatable price
+home.quality.w3c: Quality w3c
+home.text.advantages.first: We realize that you have to deliver your projects on time with an
+home.text.advantages.second: optimal quality. We promise to deliver your boards within 4 working days.
+home.process: Process
+home.send.design: Send your design
+home.verify.file: We check your files
+home.development: Developement
+home.humanoid: Humanoid Tests
+home.recup.file: Recovering file
+home.client: Customers
+home.programmers: Programers
+home.project: Projects
+home.technology: Technologies
+home.reference: Our References
+
+#Footer
+footer.facebook: FOLLOW US ON FACEBOOK
+footer.right: All rights reserved
+footer.mentions: Legal Notice
+footer.placeholder.email: Your email address
+
+#Fonctionnement
+fonctionnement.title: Operation
+fonctionnement.convert: file conversion
+fonctionnement.to: in the desired web format
+fonctionnement.format: But also in many other Web formats!
+fonctionnement.dev.process:  We offer the conversion of your Photoshop files in the following formats:
+fonctionnement.dev.process.one: PSD to HTML / CSS, PSD to HTML5 / CSS3, PSD to WORDPRESS, PSD to PRESTASHOP,
+fonctionnement.dev.process.two: PSD TO EMAIL.
+fonctionnement.dev.process.three: Completely simplified our integration process consists of 4 steps, and to streamline exchanges, as well as
+fonctionnement.dev.process.four: that communication, we guarantee you a single interlocutor.
+fonctionnement.send.design: Sending the design
+fonctionnement.content.step.second: Upon receipt of your order, one of our project managers will check that nothing is missing and that everything is in compliance.
+fonctionnement.content.step.second.one: If this is not the case, we will contact you to receive the missing files or to modify your order.
+fonctionnement.content.step.second.two: You can be refunded at any time.
+fonctionnement.content.step.first: When sending your PSD files, do not forget to incorporate in your order all that will be necessary for the integration (special fonts, notes, images, animations, etc).
+fonctionnement.content.step.first.one: A deposit of 30% will be required when ordering.
+fonctionnement.button.learnmore: Learn more
+fonctionnement.check.files: Checking the files
+fonctionnement.begin: Development
+fonctionnement.conception: The stage where we program your cut. A visualization link is sent to you so that you can follow your project in real time. Our technicians remain available during office hours, on skype, email or via a direct line.
+fonctionnement.decoupe: Cutout sent
+fonctionnement.receive.email: After having been carefully checked on all browsers, your project is delivered to you.
+fonctionnement.receive.email.one: The delivery is made by email via a download link or via the Skvent W3C platform.
+fonctionnement.need.for.integration:  Whether through our online ordering tool or after contacting us, simply send us your files, making sure to provide us all we need for integration (special fonts, notes, images, animations, etc.).
+fonctionnement.proposition: We propose the conversion of your PSD in the following formats:PSD to HTML5 / CSS3, PSD to WORDPRESS, PSD to PRESTASHOP.
+fonctionnement.verification: After placing your order, one of our project manager will verify that they are complete and comply with the order basket. If this is not the case, we will ask you to modify them according to the basket or to change the order.
+fonctionnement.refund: You can be refunded at any time.
+fonctionnement.programmation: It's up to us to play! We program your cut. A visualization link sent you so that you can follow your project in real time. Our technicians are always available during office hours, on skype, email or via a direct line.
+fonctionnement.final: After having been carefully checked on all browsers, your project is delivered to you. The delivery is made by email via a download link or via the Skvent W3C platform. Yes, it's as simple as that!
+
+#Réalisation
+realisation.title: Production
+realisation.html.css: Find some HTML / CSS integrations
+realisation.realized: done by our team
+realisation.percentage: 95% of the projects realized by Skvent W3C are made in white label
+realisation.types: All types
+
+#Order
+order.title: Order
+order.title.main: Order
+order.your.project: Your project
+order.choose: You choose
+order.change.mind: Change one's mind?
+order.page.integrate: Number of pages to integrate <br>(in total)
+order.page.declined: Number of pages declined
+order.page.declined.error: Must not be greater than or equal to the total
+order.import.files: Import files
+order.import.files.error: Maximum filesize (1MO)
+order.reduction: discount for declined pages
+order.project.link: or put the link of your project
+order.complementary.informations: Further Information
+order.previous: Previous
+order.next: Next
+order.element: The following items are already included in the option
+order.choose.options: Do you want options?
+order.form.placeholder.name: Name,first name or company
+order.form.placeholder.email.address: Email address
+order.form.placeholder.password: Password
+order.form.placeholder.number: Phone number
+order.form.placeholder.address: Address
+order.recapitulatif: Order Summary
+order.paiement: Proceed to paiement
+order.convert: Our team convert your
+order.valid: valid
+order.list.codecss: Valid code html / css w3c
+order.list.site: Website fully coded by hand
+order.list.seo: SEO
+order.list.time: Optimized site loading time
+
+#Partial Recapitulatif
+recap.link: Project link to integrate
+recap.options: Additional options
+recap.quantite: Quantity
+recap.description: Description
+recap.price: Price
+
+#Désabonnement
+unsubscribe.confirmation: Confirmation of unsubscription
+
+#Mail service client
+mail.message.bon.commande: Order form sent, already in place, design to improve
+mail.message.analyse: Your files and your project is being analyzed. We are coming back to you as soon as possible!
+mail.message.ajustement.panier.commande: Your shopping cart is not compliant with the files. You will receive an email with an adjusted order basket.
+mail.message.fichier.non.conforme: Your files are not usable or the quality is not optimal.
+mail.message.developpement: Your order basket and your files are validated by our team. We start the development!
+mail.message.test: The development of your project is finished. We test it on 4 different browsers and 10 screen formats.
+mail.message.lien.livre: The visualization link of your project is available! You have 72 hours to send your feedback and improvements.
+mail.message.finalise: Your project is finalized! Your source code is available at this link

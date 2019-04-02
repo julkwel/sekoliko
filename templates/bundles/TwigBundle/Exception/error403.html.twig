@@ -1,0 +1,15 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %} {{ parent() }} Erreur 403 {% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="list-count text-center kl-title-bloc">
+            <h1 class="display-1">403</h1>
+        </div>
+        <div class="text-center">
+            <p>Accès non autorisé retour vers <a href="{{ path('dashboard_index') }}">Dashboard</a></p>
+            <p>Ce n'est pas normal? envoyer un issues une issues vers <a href="https://github.com/julkwel/sekoliko/issues" target="_blank">Sekoliko</a></p>
+        </div>
+    </div>
+{% endblock %}

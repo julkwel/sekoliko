@@ -1,0 +1,86 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}{{ parent() }} Tableau de bord {% endblock %}
+{% set menu_classe = true %}
+
+{% block body %}
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="card bg-success text-white shadow">
+            <div class="card-body">
+                {{ flashMessage }}
+            </div>
+        </div>
+    {% endfor %}
+
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <div class="card bg-warning text-white shadow">
+            <div class="card-body">
+                {{ flashMessage }}
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="card shadow mb-4">
+
+        <div class="p-2">
+            <div class="mt-2"></div>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-center" id="exampleModalLabel">Emplois du temps</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id='calendar'></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('js/fullcalendar.min.js') }}"></script>
+    <script src="{{ asset('js/tooltip.js') }}"></script>
+    <script>
+        $(function () {
+
+            $('#calendar').fullCalendar({
+                themeSystem: 'bootstrap4',
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay,listMonth'
+                },
+
+                weekNumbers: true,
+                eventLimit: true,
+                events: [
+                    {% for edt in edt %}
+                    {
+                        title: '{{ edt.matNom.matNom }}',
+                        start: '{{ edt.etdDateDeb | date('Y-m-d H:i:s') }}',
+                        end: '{{ edt.etdDateFin | date('Y-m-d H:i:s') }}'
+                    }
+                    {% if not loop.last %},
+                    {% endif %}
+                    {% endfor %}
+                ],
+                eventAfterRender: function (event, element) {
+                    $(element).tooltip({
+                        title: event.title,
+                        container: "body"
+                    });
+                }
+            });
+        });
+    </script>
+{% endblock %}

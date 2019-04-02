@@ -1,0 +1,60 @@
+tz_dashboard:
+    resource: "@AdminBundle/Resources/config/routing/dashboard.yml"
+    prefix:   /
+
+tz_niveau:
+    resource: "@AdminBundle/Resources/config/routing/niveau.yml"
+    prefix:   /niveau
+
+tz_classe:
+    resource: "@AdminBundle/Resources/config/routing/classe.yml"
+    prefix:   /classe
+
+tz_matiere:
+    resource: "@AdminBundle/Resources/config/routing/matiere.yml"
+    prefix:   /matiere
+
+tz_salle:
+    resource: "@AdminBundle/Resources/config/routing/salle.yml"
+    prefix:   /salle
+
+tz_recherche:
+    resource: "@AdminBundle/Resources/config/routing/etudiant.yml"
+    prefix:   /recherche
+
+tz_note:
+    resource: "@AdminBundle/Resources/config/routing/note.yml"
+    prefix:   /note
+
+tz_recherche_global:
+    resource: "@AdminBundle/Resources/config/routing/search.yml"
+    prefix:   /search
+
+
+tz_discipline:
+    resource: "@AdminBundle/Resources/config/routing/discipline.yml"
+    prefix:   /discipline
+
+tz_edt:
+    resource: "@AdminBundle/Resources/config/routing/edt.yml"
+    prefix:   /edt
+
+tz_bibliotheque:
+    resource: "@AdminBundle/Resources/config/routing/bibliotheque.yml"
+    prefix:   /bibliotheque
+
+tz_book:
+    resource: "@AdminBundle/Resources/config/routing/book.yml"
+    prefix:   /book
+
+tz_guide:
+    resource: "@AdminBundle/Resources/config/routing/guide.yml"
+    prefix:   /guide
+
+tz_info:
+    resource: "@AdminBundle/Resources/config/routing/info.yml"
+    prefix:   /info
+
+tz_bug:
+    resource: "@AdminBundle/Resources/config/routing/bug.yml"
+    prefix:   /bug

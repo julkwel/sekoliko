@@ -1,0 +1,66 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}{{ parent() }} Tableau de bord {% endblock %}
+
+{% set menu_info = true %}
+
+{% block body %}
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="card bg-success text-white shadow">
+            <div class="card-body">
+                {{ flashMessage }}
+            </div>
+        </div>
+    {% endfor %}
+
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <div class="card bg-warning text-white shadow">
+            <div class="card-body">
+                {{ flashMessage }}
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="row">
+        <form action="" method="POST" class="form-search">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary text-center">Liste des informations</h6>
+                    {# Bouton création #}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <div class="row add-btn-top-list">
+                            <a href="{{ path('info_new') }}" class="btn btn-primary">
+                                Ajouter une/des information(s)
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    {% for info in information %}
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <div class="row">
+                                <b>{{ info.titre }}</b> &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+                                {{ info.dateAjout|date('Y-m-d H:m') }}
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <div class="text-right">
+                                    <span>
+                                        <a href="{{ path('info_edit',{"id":info.id}) }}"
+                                           class="btn btn-circle btn-primary"><i class="fa fa-edit"></i></a>
+                                        <a onclick="supprimer('{{ path('info_delete',{"id":info.id}) }}')"
+                                           class="btn btn-circle btn-warning"><i class="fa fa-trash"></i></a>
+                                    </span>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            {{ info.description }}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% form_theme form 'form/custom_fields.html.twig' %}
+
+{% block title %}{{ parent() }} Ajout Utilisateur {% endblock %}
+
+{% set menu_user        = true %}
+{% set menu_user_create = true %}
+
+{% block body %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary text-center">Créer un utilisateur</h6>
+        </div>
+        <div class="card-body">
+            {{ form_start(form_upload) }}
+                {{ form_row(form_upload.file) }}
+            <input type="submit" name="submit">
+            {{ form_end(form_upload) }}
+            {{ form_start(form) }}
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(form.usrLastname) }}
+                    {{ form_row(form.usrFirstname) }}
+                    {{ form_row(form.usrAddress) }}
+                    {{ form_row(form.email) }}
+                    {{ form_row(form.usrPhone) }}
+                </div>
+                <div class="col-md-6">
+                    {% if is_granted('ROLE_SUPERADMIN') %}
+                        <div class="form-group">
+                            <label for="">Nom de l'établissement</label>
+                            <input type="text" name="etsNom" class="form-control">
+                        </div>
+                    {% endif %}
+
+                        <div class="hide" {% if is_granted('ROLE_SUPERADMIN') %} style="display: none"{% endif %}>
+                            {{ form_row(form.imgUrl) }}
+                        </div>
+
+                    {{ form_row(form.skRole) }}
+                    <div class="hide" style="display: none;">
+                        {{ form_row(form.enabled) }}
+                    </div>
+                    {{ form_row(form.username) }}
+                    {{ form_row(form.plainPassword.first) }}
+                    {{ form_row(form.plainPassword.second) }}
+                </div>
+            </div>
+
+            <div class="box-footer">
+                <input type="submit" class="btn btn-primary btn-block" value="Enregistrer" name="new_user"/>
+                {% if not is_granted('ROLE_SUPERADMIN') %}
+                    <a href="{{ path('user_index') }}"
+                       class="btn btn-google btn-block">
+                        Annuler
+                    </a>
+                {% endif %}
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

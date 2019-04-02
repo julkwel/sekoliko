@@ -1,0 +1,37 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% form_theme form 'form/custom_fields.html.twig' %}
+
+{% set menu_discipline = true %}
+
+{% block title %}{{ parent() }} Ajouts punitions {% endblock %}
+
+{% block body %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary text-center">Ajouter une/des punitions</h6>
+        </div>
+        <div class="card-body">
+            {{ form_start(form) }}
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_row(form.name) }}
+                    <div class="form-group ">
+                        <label for="">Selectionner le discipline</label>
+                        <select name="niveau" id="" disabled class="form-control">
+                                <option value="{{ discipline.id }}" >{{ discipline.name }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer">
+                <input type="submit" class="btn btn-primary btn-block" value="Ajouter" name="edit_discipline"/>
+                <a href="{{ path('punition_index',{'id': discipline.id }) }}"
+                   class="btn btn-google btn-block">
+                    Annuler
+                </a>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

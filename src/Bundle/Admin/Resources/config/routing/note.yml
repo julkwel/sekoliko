@@ -1,0 +1,24 @@
+etudiant_note:
+    path:     /{id}/note
+    defaults: { _controller: "AdminBundle:SkNote:index" }
+    methods:  [GET, POST]
+
+note_new:
+    path:     /{id}/new
+    defaults: { _controller: "AdminBundle:SkNote:addNote" }
+    methods:  [GET, POST]
+
+note_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:SkNote:edit" }
+    methods:  [GET, POST]
+
+note_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:SkNote:delete" }
+    methods:  [GET, DELETE]
+
+note_etudiant:
+    path:     /my
+    defaults: { _controller: "AdminBundle:SkNote:etudiantNote" }
+    methods:  [GET, POST]

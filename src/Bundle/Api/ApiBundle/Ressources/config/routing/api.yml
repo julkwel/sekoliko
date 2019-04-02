@@ -1,0 +1,3 @@
+sk_user:
+    resource: "@ApiBundle/Ressources/config/routing/user.yml"
+    prefix:   /user

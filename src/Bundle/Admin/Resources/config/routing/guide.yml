@@ -1,0 +1,24 @@
+guide_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:SkGuide:index" }
+    methods:  GET
+
+guide_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:SkGuide:new" }
+    methods:  [GET, POST]
+
+guide_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:SkGuide:edit" }
+    methods:  [GET, POST]
+
+etudiant_liste:
+    path:     /{id}/etudiant
+    defaults: { _controller: "AdminBundle:SkClass:getListeEtudiant" }
+    methods:  [GET, POST]
+
+guide_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:SkGuide:delete" }
+    methods:  [GET, DELETE]

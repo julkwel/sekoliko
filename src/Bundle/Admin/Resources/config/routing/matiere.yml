@@ -1,0 +1,24 @@
+matiere_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:SkMatiere:index" }
+    methods:  GET
+
+matiere_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:SkMatiere:new" }
+    methods:  [GET, POST]
+
+matiere_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:SkMatiere:update" }
+    methods:  [GET, POST]
+
+matiere_etudiant:
+    path:     /classe/mat
+    defaults: { _controller: "AdminBundle:SkMatiere:matiereEtudiant" }
+    methods:  [GET, POST]
+
+matiere_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:SkMatiere:delete" }
+    methods:  [GET, DELETE]

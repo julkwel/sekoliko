@@ -1,0 +1,22 @@
+sk_redirect:
+    path: /
+    defaults: { _controller: UserBundle:Security:redirect }
+
+sk_user:
+    resource: "@UserBundle/Resources/config/routing/user.yml"
+    prefix:   /admin/user
+
+sk_login:
+    path: /login
+    defaults: { _controller: UserBundle:Security:login }
+
+api_login_check:
+    path: /api/login_check
+
+
+sk_resetting_password:
+    path: /{_locale}/resetting-password
+    defaults: { _controller: "UserBundle:User:resettingPassword", _locale : fr }
+    methods: [GET, POST]
+    requirements:
+        _locale: en|fr

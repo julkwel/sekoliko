@@ -1,0 +1,73 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}{{ parent() }} Tableau de bord {% endblock %}
+
+{% set menu_info = true %}
+
+{% block body %}
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="card bg-success text-white shadow">
+            <div class="card-body">
+                {{ flashMessage }}
+            </div>
+        </div>
+    {% endfor %}
+
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <div class="card bg-warning text-white shadow">
+            <div class="card-body">
+                {{ flashMessage }}
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="row">
+        <form action="" method="POST" class="form-search">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary text-center">Liste des bugs</h6>
+                    {# Bouton création #}
+                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPERADMIN') %}
+                        <div class="row add-btn-top-list">
+                            <a href="{{ path('bug_new') }}" class="btn btn-primary">
+                                Signaler un bug ou amélioration(s)
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="card-body table-responsive">
+                    {% for bug in bug %}
+                        <h4>{{ bug.titre }}</h4>
+                        <table class="table">
+                            <tr>
+                                <td style="width: 200px">{{ bug.description }}</td>
+                                <td style="width: 200px">{{ bug.dateAjout|date('Y-m-d H:m') }}</td>
+                                {% if is_granted('ROLE_SUPERADMIN') %}
+                                    <td style="width: 200px">{{ bug.user.usrLastname }}</td>
+                                {% endif %}
+                                <td class="status" style="color: {{ bug.color }};width: 100px">{{ bug.status }}</td>
+                                {% if is_granted('ROLE_SUPERADMIN') %}
+                                    <td style="width: 200px">
+                                        <a href="{{ path('bug_edit',{"id":bug.id}) }}"
+                                           class="btn btn-circle btn-primary"><i class="fa fa-edit"></i></a>
+                                        <a href="{{ path('bug_delete',{"id":bug.id}) }}"
+                                           class="btn btn-circle btn-warning"><i
+                                                    class="fa fa-trash"></i></a>
+                                    </td>
+                                {% endif %}
+                            </tr>
+                        </table>
+                    {% endfor %}
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+    <script>
+    </script>
+{% endblock %}

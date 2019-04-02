@@ -1,0 +1,9 @@
+user_search_user:
+    path:     /search
+    defaults: { _controller: "AdminBundle:SkBibiotheque:searchUser" }
+    methods:  [GET, POST]
+
+user_search_us:
+    path:     /query
+    defaults: { _controller: "AdminBundle:SkBibiotheque:search" }
+    methods:  [GET, POST]

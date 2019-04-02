@@ -1,0 +1,112 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}{{ parent() }}Recherches livres {% endblock %}
+
+{% set menu_bibliotheque = true %}
+
+{% block body %}
+    <div class="card shadow p-2">
+        <div class="sidebar-search">
+            <div class="form-group">
+                <label for="">Prénom de l'utilisateur</label>
+                <input type="text" id="search" class="form-control" placeholder="Prénom...">
+            </div>
+        </div>
+        <ul class="nav" id="side-menu">
+            <li>
+                <a href="#"> Entities<span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level" id="entitiesNav">
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="form-group">
+        <label for="">Titre du livre</label>
+        <select class="form-control" id="_userbook" name="state">
+            <option value="AL">selectionner un utilisateur</option>
+        </select>
+    </div>
+
+    <div class="card shadow">
+        <div class="form-group" id="userget">
+            <input type="text" class="form-control" id="user">
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <link href="{{ asset('css/select2.css') }}" rel="stylesheet"/>
+    <script src="{{ asset('js/select2.min.js') }}"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            $('#_userbook').select2({
+                ajax: {
+                    type: "GET",
+                    url: "{{ path('user_search_us') }}",
+                    dataType: "text",
+                    data: function (params) {
+                        var query = {
+                            'q': params.term,
+                        }
+                        return query;
+                    },
+                    escapeMarkup: function (text) {
+                        return text;
+                    },
+                    dropdownCssClass: "bigdrop",
+                    processResults: function (data) {
+                        var result = JSON.parse(data);
+                        $.each(result, function (key, arr) {
+                            $.each(arr, function (id, value) {
+                                if(typeof  value == undefined) {
+                                    return value = 'Loading...'
+                                }
+                                $('#_userbook').append("<option value='" + id + "' selected> " + value + " </option>");
+                            });
+                        });
+                    },
+                    cache: true
+                }
+            });
+
+            var searchRequest = null;
+            $("#search").keyup(function () {
+                var minlength = 3;
+                var that = this;
+                var value = $(this).val();
+                var entitySelector = $("#entitiesNav").html('');
+                if (value.length >= minlength) {
+                    if (searchRequest != null)
+                        searchRequest.abort();
+                    searchRequest = $.ajax({
+                        type: "GET",
+                        url: "{{ path('user_search_us') }}",
+                        data: {
+                            'q': value
+                        },
+                        dataType: "text",
+                        success: function (msg) {
+                            if (value == $(that).val()) {
+                                var result = JSON.parse(msg);
+                                $.each(result, function (key, arr) {
+                                    $.each(arr, function (id, value) {
+                                        if (key == 'entities') {
+                                            if (id != 'error') {
+                                                entitySelector.append('<li><a href="/admin/search/' + id + '/show">' + value + '</a></li>');
+                                                $('#userget').val($('#user').val() + value);
+                                            } else {
+                                                entitySelector.append('<li class="errorLi">' + value + '</li>');
+                                            }
+                                        }
+                                    });
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+{% endblock %}

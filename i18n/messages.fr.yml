@@ -1,0 +1,197 @@
+#Contact
+contact.title : Formulaire de contact
+contact.standard : Contact standard
+contact.professional : Contact professionnel
+contact.us : Contactez-nous
+contact.firstname : Prénom(s)
+contact.lastname : Nom
+contact.phone : Téléphone
+contact.address : Adresse
+contact.message : Votre message
+contact.send : Envoyer
+contact.mail.sent : Email a été bien envoyé
+contact.mail.not.sent : Email n'a pas été envoyé
+contact.devis.firstname : Prénom(s)
+contact.devis.lastname : Nom
+contact.devis.phone : Téléphone
+contact.devis.address : Adresse
+contact.devis.message : Votre message
+contact.devis.send : Envoyer
+contact.devis.title.form : Devis rapide
+contact.devis.text.link : Devis rapide
+contact.devis.email : Email
+contact.devis.mail.sent : Votre demande de devis a été bien envoyé
+contact.devis.mail.not.sent : Votre demande de devis n'a pas été envoyé
+contact.devis.society : Société
+contact.devis.url : Lien du projet
+contact.devis.title: Demande de devis
+contact.info.part1: Les informations recueillies à partir de ce formulaire sont enregistrées et transmises aux agents de Skvent chargés du traitement de votre message.
+contact.info.part2: Vous disposez d'un droit d'accès, de rectification et d'opposition aux données vous concernant, que vous pouvez exercer en contactant commercial@tzevent.fr
+
+
+#Footer
+footer.link.follow : Suivez-nous !
+footer.link.usefullinks : Liens utiles
+footer.link.contactus : Nous contacter
+footer.newsletter.success: Votre email est bien enregistré
+footer.newsletter.failure: Cet email existe déjà
+footer.newsletter.email.required: Veuillez remplir ce champ.
+footer.newsletter.email.typemismatch: Veuillez entrer une adresse mail.
+footer.newsletter.email.patternmismatch: Veuillez correspondre au format demandé.
+
+#Confirmation reservation libre
+payment.confirm.error : Désolé ! Une erreur s'est produite lors du paiement
+payment.confirm.success : Vos informations sont bien enregistrées! Un e-mail de confirmation vous à été envoyé avec le résumé de votre réservation. Merci !
+payment.title: PAIEMENT
+payment.code.postal: Code postal
+payment.city: Ville
+payment.confirmation: Confirmation paiement
+
+#Email
+email.objet : Confirmation paiement
+email.bonjour : Bonjour
+email.resume : Ci-dessous le résumé de la demande que vous avez fait
+email.resume.admin : Ci-dessous le résumé de la demande du client
+email.inscription : Ci-dessous les informations de votre compte après inscription
+email.merci : Merci
+email.content: Voici le contenu du mail
+
+#Newsletter
+newsletter.confirmation.unsubscriber: Vous êtes maintenant désabonné du newsletter
+
+#Header
+header.menu.home: Accueil
+header.menu.fonctionnement: Fonctionnement
+header.menu.services: Nos services
+header.menu.achievements: Réalisations
+header.menu.contact: Contact
+header.menu.rappel: Rappel immédiat
+header.menu.member: Espace membre
+header.menu.confiance: Ils nous font confiance
+header.menu.ccm: Comment ça marche
+header.menu.tzevent: Revenir au site Skvent
+
+#Home
+home.title.agence: Votre agence d'intégration 100% en ligne
+home.title.rembourse: 100% SATISFAIT OU REMBOURSE
+home.title.clients: Plus de 50 clients satisfaits . Avis client
+home.title.integration: Intégration
+home.high.quality: de haute qualité
+home.title.psdto: VOS PSD VERS
+home.title.norm: EN UN RIEN DE TEMPS TOUT EN RESPECTANT LA NORME
+home.title.at.your.service: A votre service!
+home.psd.to: PSD vers
+home.from: A partir de
+home.advantages: Avantages
+home.livraison: Livraison sous 4 jours ouvrés
+home.unbeatable.price: Prix imbattable
+home.quality.w3c: Qualité w3c
+home.text.advantages.first: Nous avons conscience que vous devez livrer vos projets à temps avec une
+home.text.advantages.second: qualité optimale. Nous nous engageons à livrer vos planches sous 4 jours ouvrés.
+home.process: Processus
+home.send.design: Envoyez votre design
+home.verify.file: Nous vérifions vos fichiers
+home.development: Développement
+home.humanoid: Tests humanoides
+home.recup.file: Récupérations des fichiers
+home.client: Clients
+home.programmers: Programmeurs
+home.project: Projets
+home.technology: Technologies
+home.reference: Nos références
+
+#Footer
+footer.facebook: SUIVEZ-NOUS SUR FACEBOOK
+footer.right: Tous droits réservés
+footer.mentions: Mentions légales
+footer.placeholder.email: Votre adresse email
+
+#Fonctionnement
+fonctionnement.title: Fonctionnement
+fonctionnement.convert: conversion de fichiers
+fonctionnement.to: au format web désiré
+fonctionnement.format: Mais également dans pleins d'autres formats Web !
+fonctionnement.dev.process:  Nous vous proposons la conversion de vos fichiers Photoshop dans les formats suivants :
+fonctionnement.dev.process.one: PSD vers HTML/CSS, PSD vers HTML5/CSS3, PSD vers WORDPRESS, PSD VERS PRESTASHOP,
+fonctionnement.dev.process.two: PSD VERS EMAIL.
+fonctionnement.dev.process.three: Entièrement simplifié notre process d’intégration se compose de 4 étapes, et pour fluidifier les échanges, ainsi
+fonctionnement.dev.process.four: que la communication, nous vous garantissons un unique interlocuteur.
+fonctionnement.send.design: Envoi du design
+fonctionnement.content.step.first: Lors de l’envoi de vos fichiers PSD, n’oubliez pas d’incorporer à votre commande tout ce qui sera nécessaire pour l’intégration (polices spéciales, notes, images, animations, etc).
+fonctionnement.content.step.first.one: Un acompte de 30% vous sera demandé lors de votre commande.
+fonctionnement.content.step.second: Dès la réception de votre commande, l’un de nos chefs de projet vérifiera qu’il ne manque rien et que tout est conforme.
+fonctionnement.content.step.second.one: Si ce n'est pas le cas, nous vous contacterons pour réceptionner les fichiers manquants ou pour modifier votre commande.
+fonctionnement.content.step.second.two: Vous pouvez être remboursé à tout moment.
+fonctionnement.button.learnmore: En savoir plus
+fonctionnement.check.files: Vérification des fichiers
+fonctionnement.begin: Développement
+fonctionnement.conception: L’étape où nous programmons votre découpe. Un lien de visualisation vous est envoyé pour que vous puissiez suivre votre projet avancer en temps réel.
+fonctionnement.conception.one: Nos techniciens restent disponibles en heures de bureau , sur skype, email ou via une ligne directe.
+fonctionnement.decoupe: Découpe envoyée
+fonctionnement.receive.email: Après avoir été soigneusement vérifié sur tous les navigateurs, votre projet vous est livré.
+fonctionnement.receive.email.one: La livraison est faite par email grâce à un lien de téléchargement ou bien via la plateforme de Skvent W3C.
+fonctionnement.need.for.integration:  Que ce soit à travers notre outil de commande en ligne ou après nous avoir contactés, il faut simplement nous envoyer vos fichiers en veillant bien à nous fournir tout ce que nous avons besoin pour l'intégration (polices spéciales, notes, images, animations, etc).
+fonctionnement.proposition: Nous vous proposons la conversion de vos PSD dans les formats suivants:PSD vers HTML5/CSS3, PSD vers WORDPRESS, PSD VERS PRESTASHOP.
+fonctionnement.verification: Après avoir passé votre commande, l'un de nos chef de projet va vérifier qu'ils sont complets et conformes au panier de commande. Si ce n'est pas le cas, nous vous demanderons de les modifier en fonction du panier ou de changer la commande.
+fonctionnement.refund: Vous pouvez être remboursé à tout moment
+fonctionnement.programmation: C'est à nous de jouer ! Nous programmons votre découpe. Un lien de visualisation vous est envoyé pour que vous puissiez suivre votre projet avancer en temps réel. Nos techniciens sont toujours disponibles en heures de bureau, sur skype, email ou via une ligne directe.
+fonctionnement.final: Après avoir été soigneusement vérifié sur tous les navigateurs, votre projet vous est livré. La livraison est faite par email grâce à un lien de téléchargement ou bien via la plateforme de Skvent W3C. Eh oui, c'est aussi simple que ça !
+
+#Réalisation
+realisation.title: Réalisations
+realisation.html.css: Retrouvez quelques intégrations HTML/CSS
+realisation.realized: réalisé par notre équipe
+realisation.percentage: 95 % des projets réalisés par Skvent W3C sont effectués en marque blanche
+realisation.types: Tous les types
+
+#Order
+order.title: Passer commande
+order.title.main: Commande
+order.your.project: Votre projet
+order.choose: Vous avez choisi
+order.change.mind: Changer d'avis?
+order.page.integrate: Nombre de pages à intégrer <br>(au total)
+order.page.declined: Nombre de pages déclinées
+order.page.declined.error: Ne doit pas être supérieur ou égal au total
+order.import.files: Importer des fichiers
+order.import.files.error: Taille fichier maximum (1MO)
+order.reduction: de réduction pour les pages déclinées
+order.project.link: ou mettez le lien de votre projet
+order.complementary.informations: Informations complémentaires
+order.previous: Précédent
+order.next: Suivant
+order.element: Les éléments suivants sont déjà inclus dans l’option
+order.choose.options: Désirez-vous des options?
+order.form.placeholder.name: Nom, prénom ou entreprise
+order.form.placeholder.email.address: Adresse Email
+order.form.placeholder.password: Mot de passe
+order.form.placeholder.number: Numéro de téléphone
+order.form.placeholder.address: Adresse
+order.recapitulatif: Récapitulatif de la commande
+order.paiement: Procéder au paiement
+order.convert: Notre équipe convertissent vos
+order.valid: valide
+order.list.codecss: Code html / css valide w3c
+order.list.site: Site entièrement codé à la main
+order.list.seo: Référencement naturel
+order.list.time: Temps de chargement du site optimisé
+
+#Partial Recapitulatif
+recap.link: Lien du projet à intégrer
+recap.options: Options supplémentaires
+recap.quantite: Quantité
+recap.description: Description
+recap.price: Prix
+
+#Désabonnement
+unsubscribe.confirmation: Confirmation désabonnement
+
+#Mail service client
+mail.message.bon.commande: Bon de commande envoyé, déjà en place, design à améliorer
+mail.message.analyse: Vos fichiers et votre projet est en cours d'analyse. Nous revenons vers vous au plus vite !
+mail.message.ajustement.panier.commande: Votre panier de commande n'est pas conforme aux fichiers. Vous recevrez un email avec un le panier de commande ajusté.
+mail.message.fichier.non.conforme: Vos fichiers ne sont pas exploitables ou la qualité n'est pas optimale.
+mail.message.developpement: Votre panier de commande et vos fichiers sont validés par notre équipe. Nous commençons le développement !
+mail.message.test: Le développement de votre projet est terminé. Nous le testons sur 4 navigateurs différents et 10 formats d'écrans.
+mail.message.lien.livre: Le lien de visualisation de votre projet est disponible !  Vous avez 72 heures afin d'envoyer vos retours et améliorations.
+mail.message.finalise: Votre projet est finalisé !  Votre code source est disponible sur ce lien

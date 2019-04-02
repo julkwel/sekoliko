@@ -1,0 +1,96 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}{{ parent() }} Tableau de bord {% endblock %}
+
+{% set menu_guide = true %}
+
+{% block body %}
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="card bg-success text-white shadow">
+            <div class="card-body">
+                {{ flashMessage }}
+            </div>
+        </div>
+    {% endfor %}
+
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <div class="card bg-warning text-white shadow">
+            <div class="card-body">
+                {{ flashMessage }}
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="row">
+        <form action="" method="POST" class="form-search">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary text-center">Liste des guides</h6>
+                    {# Bouton création #}
+                    {% if is_granted('ROLE_SUPERADMIN') %}
+                        <div class="row add-btn-top-list">
+                            <a href="{{ path('guide_new') }}" class="btn btn-primary">
+                                Ajouter un guide
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
+                            {% for guide in listguide %}
+                                <tr>
+                                    <td>{{ guide.description }}</td>
+                                    {% if is_granted('ROLE_SUPERADMIN') %}
+                                    <td>
+                                        <a href="{{ path('guide_edit',{"id":guide.id}) }}"
+                                           class="btn btn-circle btn-primary"><i class="fa fa-edit"></i></a>
+                                        <a onclick="supprimer('{{ path('guide_delete',{"id":guide.id}) }}')"
+                                           class="btn btn-circle btn-warning"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        // Call the dataTables jQuery plugin
+        $(document).ready(function () {
+            $('#dataTable').DataTable();
+        });
+
+        $(function () {
+            $('#list-user').DataTable(
+                {
+                    "order": [[0, "desc"]],
+                    "bProcessing": true,
+                    "bFilter": true,
+                    "oLanguage": {
+                        "sProcessing": "Traitement...",
+                        "oPaginate": {
+                            "sPrevious": "Précédente", // This is the link to the previous page
+                            "sNext": "Suivante", // This is the link to the next page
+                        },
+                        "sSearch": "Filtrer: ",
+                        "sLengthMenu": "Afficher _MENU_ enregistrement par page",
+                        "sEmptyTable": "Aucun utilisateur trouvé",
+                        "sInfo": "Voir _TOTAL_ de _PAGE_ pour _PAGES_ entrées",
+                    },
+                    "footerCallback": function (row, data, start, end, display) {
+                        $('.title-count').html(display.length);
+                    }
+                });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,39 @@
+classe_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:SkClass:index" }
+    methods:  GET
+
+classe_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:SkClass:new" }
+    methods:  [GET, POST]
+
+classe_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:SkClass:update" }
+    methods:  [GET, POST]
+
+etudiant_liste:
+    path:     /{id}/etudiant
+    defaults: { _controller: "AdminBundle:SkClass:getListeEtudiant" }
+    methods:  [GET, POST]
+
+classe_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:SkClass:delete" }
+    methods:  [GET, DELETE]
+
+classe_matiere_liste:
+    path:     /{id}/matiere
+    defaults: { _controller: "AdminBundle:SkClass:getMatiere" }
+    methods:  [GET, POST]
+
+classe_edt:
+    path:     edt/{id}
+    defaults: { _controller: "AdminBundle:SkEdt:index" }
+    methods:  [GET, POST]
+
+classe_etudiant_new:
+    path:     etudiant/{id}
+    defaults: { _controller: "AdminBundle:SkClass:createEtudian" }
+    methods:  [GET, POST]

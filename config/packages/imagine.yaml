@@ -1,0 +1,61 @@
+liip_imagine :
+    resolvers :
+        default :
+            web_path : ~
+
+    filter_sets :
+        cache : ~
+
+        photo_user_profil :
+            quality : 100
+            filters :
+                upscale:
+                    min: [128, 128]
+                thumbnail:
+                    size: [128, 128]
+                    mode: outbound
+
+        photo_user_profil_member_top :
+            quality : 100
+            filters :
+                upscale:
+                    min: [51, 51]
+                thumbnail:
+                    size: [51, 51]
+                    mode: outbound
+
+        photo_user_profil_member_sub :
+            quality : 100
+            filters :
+                upscale:
+                    min: [125, 125]
+                thumbnail:
+                    size: [125, 125]
+                    mode: outbound
+
+        photo_user_profil_member_edit :
+            quality : 100
+            filters :
+                upscale:
+                    min: [234, 234]
+                thumbnail:
+                    size: [234, 234]
+                    mode: outbound
+
+        image_slide :
+            quality : 100
+            filters :
+                upscale:
+                    min: [1599, 816]
+                thumbnail:
+                    size: [1599, 816]
+                    mode: outbound
+
+        image_portfolio :
+            quality : 100
+            filters :
+                upscale:
+                    min: [534, 356]
+                thumbnail:
+                    size: [534, 356]
+                    mode: outbound

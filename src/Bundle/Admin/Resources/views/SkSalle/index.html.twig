@@ -1,0 +1,135 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}{{ parent() }} Tableau de bord {% endblock %}
+
+{% set menu_salle = true %}
+
+{% block body %}
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="card bg-success text-white shadow">
+            <div class="card-body">
+                {{ flashMessage }}
+            </div>
+        </div>
+    {% endfor %}
+
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <div class="card bg-warning text-white shadow">
+            <div class="card-body">
+                {{ flashMessage }}
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="row">
+        <form action="" method="POST" class="form-search">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary text-center">Liste des salles</h6>
+                    {# Bouton création #}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <div class="row add-btn-top-list">
+                            <a href="{{ path('salle_new') }}" class="btn btn-primary">
+                                Ajouter une salle
+                            </a>
+                        </div>
+                    {% endif %}
+                    <div class="box-header">
+                        <div class="list-count">
+                            <span class="title-count-text"> TOTAL: </span><span class="title-count"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>Nom</th>
+                                <th>Numéro</th>
+                                <th>Réservation</th>
+                                <th>Motifs</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for salle in salle_list %}
+                                <tr>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="{{ salle.id }}" name="delete[]"/>
+                                    </td>
+                                    <td>{{ salle.salleNom }}</td>
+                                    <td>{{ salle.salleNumero }}</td>
+                                    <td>{{ salle.isReserve ? 'oui' : 'Non' }}</td>
+                                    <td>{{ salle.motifs ? salle.motifs : 'Non reservé' }}</td>
+                                    <td class="kl-action-button-bloc">
+
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                        <a class="btn btn-success" title="Modifier"
+                                           href="{{ path('salle_edit', { 'id': salle.id }) }}">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        {% endif %}
+
+                                        <a class="btn btn-secondary" title="reserver ce salle"
+                                           href="{{ path('salle_reservation', { 'id': salle.id }) }}">
+                                            <i class="fa fa-restroom"></i>
+                                        </a>
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                            <a class="btn btn-warning" title="annuler la reservation"
+                                               href="{{ path('salle_annule', { 'id': salle.id }) }}">
+                                                <i class="fa fa-check"></i>
+                                            </a>
+                                        {% endif %}
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                            <a class="btn btn-danger remove-elt" title="Supprimer"
+                                               onclick="supprimer('{{ path('salle_delete', { 'id': salle.id }) }}')">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        // Call the dataTables jQuery plugin
+        $(document).ready(function () {
+            $('#dataTable').DataTable();
+        });
+
+        $(function () {
+            $('#list-user').DataTable(
+                {
+                    "order": [[0, "desc"]],
+                    "bProcessing": true,
+                    "bFilter": true,
+                    "oLanguage": {
+                        "sProcessing": "Traitement...",
+                        "oPaginate": {
+                            "sPrevious": "Précédente", // This is the link to the previous page
+                            "sNext": "Suivante", // This is the link to the next page
+                        },
+                        "sSearch": "Filtrer: ",
+                        "sLengthMenu": "Afficher _MENU_ enregistrement par page",
+                        "sEmptyTable": "Aucun utilisateur trouvé",
+                        "sInfo": "Voir _TOTAL_ de _PAGE_ pour _PAGES_ entrées",
+                    },
+                    "footerCallback": function (row, data, start, end, display) {
+                        $('.title-count').html(display.length);
+                    }
+                });
+        });
+    </script>
+{% endblock %}

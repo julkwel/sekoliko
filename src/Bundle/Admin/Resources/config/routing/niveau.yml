@@ -1,0 +1,24 @@
+niveau_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:SkNiveau:index" }
+    methods:  GET
+
+niveau_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:SkNiveau:new" }
+    methods:  [GET, POST]
+    
+niveau_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:SkNiveau:update" }
+    methods:  [GET, POST]
+
+#niveau_update:
+#    path:     /{id}/update
+#    defaults: { _controller: "U" }
+#    methods:  [POST, PUT]
+
+niveau_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:SkNiveau:delete" }
+    methods:  [GET, DELETE]

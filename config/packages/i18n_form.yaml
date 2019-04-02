@@ -1,0 +1,5 @@
+i18n_form:
+    locales: [en, fr]
+    required_locales: [fr]
+    excluded_fields: ['id', 'locale', 'translatable']
+    form_theme: 'bootstrap_3'

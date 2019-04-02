@@ -1,0 +1,39 @@
+salle_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:SkSalle:index" }
+    methods:  GET
+
+salle_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:SkSalle:new" }
+    methods:  [GET, POST]
+
+salle_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:SkSalle:update" }
+    methods:  [GET, POST]
+
+salle_reservation:
+    path:     /{id}/reservation
+    defaults: { _controller: "AdminBundle:SkSalle:reservation" }
+    methods:  [GET, POST]
+
+salle_annule:
+    path:     /{id}/annule
+    defaults: { _controller: "AdminBundle:SkSalle:annule" }
+    methods:  [GET, POST]
+
+#salle_update:
+#    path:     /{id}/update
+#    defaults: { _controller: "U" }
+#    methods:  [POST, PUT]
+
+salle_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:SkSalle:delete" }
+    methods:  [GET, DELETE]
+
+salle_delete_group:
+    path:     /delete-group
+#    defaults: { _controller: "AdminBundle:SkNiveau:deleteGroupe" }
+#    methods:  POST

@@ -1,0 +1,34 @@
+api_participants:
+  path:     /list
+  defaults: { _controller: "ApiBundle:UserApi:index" }
+  methods:  GET
+
+user_api_new:
+    path:     /new
+    defaults: { _controller: "ApiBundle:UserApi:newUser" }
+    methods:  [GET, POST]
+
+#user_api_edit:
+#    path:     /{id}/edit
+#    defaults: { _controller: "UserBundle:User:edit" }
+#    methods:  [GET, POST]
+#
+user_api_update:
+    path:     /{id}/update
+    defaults: { _controller: "ApiBundle:UserApi:update" }
+    methods:  [POST, PUT]
+#
+user_api_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "ApiBundle:UserApi:remove" }
+    methods:  [GET, DELETE]
+#
+#user_api_delete_group:
+#    path:     /delete-group
+#    defaults: { _controller: "UserBundle:User:deleteGroup" }
+#    methods:  POST
+#
+#user_api_delete_image_ajax:
+#    path:     /delete-image
+#    defaults: { _controller: "UserBundle:User:deleteImageAjax" }
+#    methods:  POST
