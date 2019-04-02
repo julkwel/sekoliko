@@ -11,6 +11,7 @@ namespace App\Bundle\Admin\Controller;
 use App\Shared\Entity\SkGuide;
 use App\Shared\Form\SkGuideType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 
 class SkGuideController extends Controller
