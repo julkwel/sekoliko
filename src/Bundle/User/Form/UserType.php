@@ -28,32 +28,47 @@ class UserType extends AbstractType
         $builder
             ->add('usrLastname', TextType::class, array(
                 'label' => 'Nom',
-                'attr' => array('placeholder' => 'Nom'),
+                'attr' => array(
+                    'placeholder' => 'Nom',
+                    'min'=>1,
+                    'max'=>100,
+                    'pattern'=>'^[^@&"()!_$*€£`+=\/;?#]+$'
+                ),
                 'required' => true,
             ))
 
             ->add('usrFirstname', TextType::class, array(
                 'label' => 'Prénom',
-                'attr' => array('placeholder' => 'Prénom'),
+                'attr' => array(
+                    'placeholder' => 'Prénom',
+                    'min'=>1,
+                    'max'=>100,
+                    'pattern'=>'^[^@&"()!_$*€£`+=\/;?#]+$'
+                ),
                 'required' => true,
             ))
 
             ->add('usrAddress', TextType::class, array(
                 'label' => 'Adresse',
-                'attr' => array('placeholder' => 'Adresse'),
+                'attr' => array(
+                    'placeholder' => 'Adresse'
+                ),
                 'required' => false,
             ))
 
             ->add('usrPhone', TextType::class, array(
                 'label' => 'Téléphone',
-                'attr' => array('placeholder' => 'Téléphone'),
+                'attr' => array(
+                    'placeholder' => 'Téléphone',
+                    'pattern'=>'(\+)?[0-9]{9,18}'
+                ),
                 'required' => false,
             ))
 
             ->add('email', EmailType::class, array(
                 'label' => 'Adresse email',
                 'attr' => array(
-                    'pattern' => "[^@]+@[^@]+\.[a-zA-Z]{2,}",
+                    'pattern' => "[^@]+@[^@]+\.[a-zA-Z]{2,4}",
                     'placeholder' => 'Adresse email',
                 ),
                 'required' => true,
