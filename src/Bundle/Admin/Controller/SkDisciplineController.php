@@ -71,7 +71,7 @@ class SkDisciplineController extends Controller
             try {
                 $_discipline->setEtsNom($_user_ets);
                 $this->getEntityService()->saveEntity($_discipline, 'new');
-                $this->getEntityService()->setFlash('success', 'Ajout discipline avec success');
+                $this->getEntityService()->setFlash('success', 'Ajout du discipline effectuée');
             } catch (\Exception $exception) {
                 $exception->getMessage();
             }
@@ -106,7 +106,7 @@ class SkDisciplineController extends Controller
         if ($_form->isSubmitted() && $_form->isValid()) {
             try {
                 $this->getEntityService()->saveEntity($_discipline, 'update');
-                $this->getEntityService()->setFlash('success', 'Discipline modifié avec succes');
+                $this->getEntityService()->setFlash('success', 'Discipline modifiée avec succès');
             } catch (\Exception $exception) {
                 $exception->getMessage();
             }
@@ -138,9 +138,9 @@ class SkDisciplineController extends Controller
         $_discipline_delete = $this->getEntityService()->deleteEntity($_discipline, '');
         if (true === $_discipline_delete) {
             try {
-                $this->getEntityService()->setFlash('success', 'suppression discipline réussie');
+                $this->getEntityService()->setFlash('success', 'Suppression du discipline effectuée');
             } catch (\Exception $exception) {
-                $this->getEntityService()->setFlash('error', 'un erreur se produite');
+                $this->getEntityService()->setFlash('error', 'Une erreur s\'est produite, veuillez réessayez ultérieurement');
                 $exception->getMessage();
             }
         }
@@ -186,7 +186,7 @@ class SkDisciplineController extends Controller
             $_punition->setDiscipline($skDiscipline);
             try {
                 $this->getEntityService()->saveEntity($_punition, 'new');
-                $this->getEntityService()->setFlash('success', 'Ajout punition avec success');
+                $this->getEntityService()->setFlash('success', 'Ajout du punition effectuée');
             } catch (\Exception $exception) {
                 $exception->getMessage();
             }
@@ -216,7 +216,7 @@ class SkDisciplineController extends Controller
             $skDisciplineList->setDiscipline($skDisciplineList->getDiscipline());
             try {
                 $this->getEntityService()->saveEntity($skDisciplineList, 'update');
-                $this->getEntityService()->setFlash('success', 'Ajout punition avec success');
+                $this->getEntityService()->setFlash('success', 'Punition mis à jour');
             } catch (\Exception $exception) {
                 $exception->getMessage();
             }
@@ -243,7 +243,7 @@ class SkDisciplineController extends Controller
         $_punition_delete = $this->getEntityService()->deleteEntity($skDisciplineList, '');
         try {
             if (true === $_punition_delete) {
-                $this->getEntityService()->setFlash('success', 'suppression punition réussie');
+                $this->getEntityService()->setFlash('success', 'Suppression du punition effectuée');
 
                 return $this->redirectToRoute('discipline_index');
             }
