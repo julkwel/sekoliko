@@ -1,7 +1,7 @@
 
 # Sekoliko Application
 
-Based on Symfony 4
+Based on Symfony 4.0
 
 ## Contribution Setup
 
