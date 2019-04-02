@@ -22,7 +22,9 @@ parameters:
     paypal_client_secret: '%env(resolve:PAYPAL_CLIENT_SECRET)%'
     id_klikandpay: '%env(resolve:ID_KLIKANDPAY)%'
     reporting_template_directory: '%kernel.project_dir%/public/reporting/'
-    images_upload_directory: '%kernel.project_dir%/public/uploads/images'
+    bug_images_upload_directory: '%kernel.project_dir%/public/uploads/images/bug'
+    guide_images_upload_directory: '%kernel.project_dir%/public/uploads/images/guide'
+
 
 services:
     # makes classes in src/ available to be used as services

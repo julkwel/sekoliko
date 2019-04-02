@@ -58,6 +58,20 @@ class SkGuideController extends Controller
         $form = $this->createForm(SkGuideType::class, $guide);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $_file = $form['attachment']->getData();
+            if ($_file) {
+                $_extension = $_file->guessExtension();
+                $_fileName = $this->generateUniqueFileName() . '.' . $_extension;
+                try {
+                    $_file->move($this->getParameter('guide_images_upload_directory'), $_fileName);
+                    $guide->setAttachment($_fileName);
+                } catch (FileException $e) {
+                    $this->getEntityService()->setFlash('error', 'Une erreur est survenue, veuillez réessayer');
+                }
+            }else{
+                $guide->setAttachment(null);
+            }
             $this->getEntityService()->saveEntity($guide, 'new');
             $this->getEntityService()->setFlash('success', 'Ajout de guide effectué');
 
@@ -84,6 +98,18 @@ class SkGuideController extends Controller
         $form = $this->createForm(SkGuideType::class, $skGuide);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $_file = $form['attachment']->getData();
+            if ($_file) {
+                $_extension = $_file->guessExtension();
+                $_fileName = $this->generateUniqueFileName() . '.' . $_extension;
+                try {
+                    $_file->move($this->getParameter('guide_images_upload_directory'), $_fileName);
+                    $skGuide->setAttachment($_fileName);
+                } catch (FileException $e) {
+                    $this->getEntityService()->setFlash('error', 'Une erreur est survenue, veuillez réessayer');
+                }
+            }
             $this->getEntityService()->saveEntity($skGuide, 'update');
             $this->getEntityService()->setFlash('success', 'Guide mis à jour');
 
@@ -117,5 +143,13 @@ class SkGuideController extends Controller
         if (true === $_delete_guide) {
             return $this->redirectToRoute('guide_index');
         }
+    }
+
+    /**
+     * @return string
+     */
+    private function generateUniqueFileName()
+    {
+        return md5(uniqid());
     }
 }
