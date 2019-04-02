@@ -30,8 +30,6 @@ class UserType extends AbstractType
                 'label' => 'Nom',
                 'attr' => array(
                     'placeholder' => 'Nom',
-                    'min'=>1,
-                    'max'=>100,
                     'pattern'=>'^[^@&"()!_$*€£`+=\/;?#]+$'
                 ),
                 'required' => true,
@@ -41,8 +39,6 @@ class UserType extends AbstractType
                 'label' => 'Prénom',
                 'attr' => array(
                     'placeholder' => 'Prénom',
-                    'min'=>1,
-                    'max'=>100,
                     'pattern'=>'^[^@&"()!_$*€£`+=\/;?#]+$'
                 ),
                 'required' => true,
