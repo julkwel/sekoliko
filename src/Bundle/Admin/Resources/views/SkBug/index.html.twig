@@ -46,6 +46,7 @@
                                     <td style="width: 200px">{{ bug.user.usrLastname }}</td>
                                 {% endif %}
                                 <td class="status" style="color: {{ bug.color }};width: 100px">{{ bug.status }}</td>
+                                <td class="status" style="width: 100px"><img src="{{ bug.attachment ? bug.attachment : 'null' }}" alt=""></td>
                                 {% if is_granted('ROLE_SUPERADMIN') %}
                                     <td style="width: 200px">
                                         <a href="{{ path('bug_edit',{"id":bug.id}) }}"
