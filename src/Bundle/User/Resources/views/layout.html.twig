@@ -29,7 +29,7 @@
                 <div class="card-body p-0">
                     <!-- Nested Row within Card Body -->
                     <div class="row">
-                        <div class="col-lg-6 d-none d-lg-block bg-login-image">
+                        <div class="col-lg-6 d-none d-lg-block bg-login-image p-0" >
                             <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
@@ -67,12 +67,7 @@
         </div>
     </div>
 </div>
-<script>
-    $('.carousel').carousel({
-        interval: 500
-    });
-    
-</script>
+
 <!-- Bootstrap core JavaScript-->
 <script src="{{ asset('decoupe/vendor/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('decoupe/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -80,5 +75,10 @@
 <script src="{{ asset('decoupe/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 <!-- Custom scripts for all pages-->
 <script src="{{ asset('decoupe/js/sb-admin-2.min.js') }}"></script>
+<script>
+    $('.carousel').carousel({
+        interval: 2000
+    });
+</script>
 </body>
 </html>
