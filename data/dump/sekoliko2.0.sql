@@ -34,7 +34,7 @@ CREATE TABLE `migration_versions` (
 
 LOCK TABLES `migration_versions` WRITE;
 /*!40000 ALTER TABLE `migration_versions` DISABLE KEYS */;
-INSERT INTO `migration_versions` VALUES ('20190124205803'),('20190128053150'),('20190128102308'),('20190214103107'),('20190215100015'),('20190215101315'),('20190215102505'),('20190215133951'),('20190215134050'),('20190216125744'),('20190216191316'),('20190216201504'),('20190216220041'),('20190225081452'),('20190225084907'),('20190225093858'),('20190225122151'),('20190225122345'),('20190225140546'),('20190225191533'),('20190326223059'),('20190326224726'),('20190326225217'),('20190327111917'),('20190327143100'),('20190327153313'),('20190327154526'),('20190327185220'),('20190327191540'),('20190327195948'),('20190327204237'),('20190328103239'),('20190328145337'),('20190328210856'),('20190328230553'),('20190329073616'),('20190329073804'),('20190329082422');
+INSERT INTO `migration_versions` VALUES ('20190124205803'),('20190128053150'),('20190128102308'),('20190214103107'),('20190215100015'),('20190215101315'),('20190215102505'),('20190215133951'),('20190215134050'),('20190216125744'),('20190216191316'),('20190216201504'),('20190216220041'),('20190225081452'),('20190225084907'),('20190225093858'),('20190225122151'),('20190225122345'),('20190225140546'),('20190225191533'),('20190326223059'),('20190326224726'),('20190326225217'),('20190327111917'),('20190327143100'),('20190327153313'),('20190327154526'),('20190327185220'),('20190327191540'),('20190327195948'),('20190327204237'),('20190328103239'),('20190328145337'),('20190328210856'),('20190328230553'),('20190329073616'),('20190329073804'),('20190329082422'),('20190329115851'),('20190330112025'),('20190330112252'),('20190330113211'),('20190330132055'),('20190330132349'),('20190330145355'),('20190331000557'),('20190401145232'),('20190401151451'),('20190402182126'),('20190402183215'),('20190402183521'),('20190402212743');
 /*!40000 ALTER TABLE `migration_versions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -155,7 +155,7 @@ CREATE TABLE `sk_book` (
   PRIMARY KEY (`id`),
   KEY `IDX_723DCE66A76ED395` (`user_id`),
   CONSTRAINT `FK_723DCE66A76ED395` FOREIGN KEY (`user_id`) REFERENCES `sk_user` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -164,8 +164,39 @@ CREATE TABLE `sk_book` (
 
 LOCK TABLES `sk_book` WRITE;
 /*!40000 ALTER TABLE `sk_book` DISABLE KEYS */;
-INSERT INTO `sk_book` VALUES (2,'Boobaoooaaaaaaaaaa',1,'Techzara',NULL,NULL,NULL,NULL,NULL,1,'2019-03-29 11:52:00','2019-03-29 11:52:00'),(4,'Boobo',1,'Techzara',NULL,NULL,NULL,NULL,NULL,1,'2019-03-29 12:04:00','2019-03-29 12:04:00');
+INSERT INTO `sk_book` VALUES (2,'Boobaoooaaaaaaaaaa',1,'Techzara',NULL,NULL,NULL,NULL,NULL,1,'2019-03-29 11:52:00','2019-03-29 11:52:00'),(4,'Boobo',1,'Techzara',NULL,NULL,NULL,NULL,NULL,1,'2019-03-29 12:04:00','2019-03-29 12:04:00'),(5,'Booba',1,'Techzara',NULL,NULL,NULL,NULL,NULL,47,'2019-03-29 17:03:00','2019-03-29 17:03:00');
 /*!40000 ALTER TABLE `sk_book` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `sk_bug`
+--
+
+DROP TABLE IF EXISTS `sk_bug`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sk_bug` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user` int(11) DEFAULT NULL,
+  `titre` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `description` longtext COLLATE utf8_unicode_ci NOT NULL,
+  `status` longtext COLLATE utf8_unicode_ci NOT NULL,
+  `date_ajout` datetime NOT NULL,
+  `color` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `attachment` longtext COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`),
+  KEY `IDX_8B35E1628D93D649` (`user`),
+  CONSTRAINT `FK_8B35E1628D93D649` FOREIGN KEY (`user`) REFERENCES `sk_user` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sk_bug`
+--
+
+LOCK TABLES `sk_bug` WRITE;
+/*!40000 ALTER TABLE `sk_bug` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sk_bug` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -188,7 +219,7 @@ CREATE TABLE `sk_classe` (
   PRIMARY KEY (`id`),
   KEY `IDX_497ED0384BDFF36B` (`niveau`),
   CONSTRAINT `FK_497ED0384BDFF36B` FOREIGN KEY (`niveau`) REFERENCES `sk_niveau` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -197,8 +228,35 @@ CREATE TABLE `sk_classe` (
 
 LOCK TABLES `sk_classe` WRITE;
 /*!40000 ALTER TABLE `sk_classe` DISABLE KEYS */;
-INSERT INTO `sk_classe` VALUES (1,NULL,'zaza',NULL,NULL,NULL,NULL,NULL,NULL),(11,6,'Seconde A','Techzara',NULL,NULL,NULL,NULL,NULL),(12,5,'TA3','Techzara',NULL,NULL,NULL,NULL,NULL),(13,5,'test1','Techzara',NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `sk_classe` VALUES (1,NULL,'zaza',NULL,NULL,NULL,NULL,NULL,NULL),(11,6,'Seconde A','Techzara',NULL,NULL,NULL,NULL,NULL),(12,5,'TA3','Techzara',NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `sk_classe` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `sk_classe_sk_matiere`
+--
+
+DROP TABLE IF EXISTS `sk_classe_sk_matiere`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sk_classe_sk_matiere` (
+  `sk_classe_id` int(11) NOT NULL,
+  `sk_matiere_id` int(11) NOT NULL,
+  PRIMARY KEY (`sk_classe_id`,`sk_matiere_id`),
+  KEY `IDX_1FC34237ABCE875` (`sk_classe_id`),
+  KEY `IDX_1FC3423AD2A0D02` (`sk_matiere_id`),
+  CONSTRAINT `FK_1FC34237ABCE875` FOREIGN KEY (`sk_classe_id`) REFERENCES `sk_classe` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_1FC3423AD2A0D02` FOREIGN KEY (`sk_matiere_id`) REFERENCES `sk_matiere` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sk_classe_sk_matiere`
+--
+
+LOCK TABLES `sk_classe_sk_matiere` WRITE;
+/*!40000 ALTER TABLE `sk_classe_sk_matiere` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sk_classe_sk_matiere` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -218,7 +276,7 @@ CREATE TABLE `sk_discipline` (
   `ets_email` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
   `ets_logo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -227,7 +285,7 @@ CREATE TABLE `sk_discipline` (
 
 LOCK TABLES `sk_discipline` WRITE;
 /*!40000 ALTER TABLE `sk_discipline` DISABLE KEYS */;
-INSERT INTO `sk_discipline` VALUES (2,'A','Techzara',NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `sk_discipline` VALUES (2,'Ab','Techzara',NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `sk_discipline` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -251,7 +309,7 @@ CREATE TABLE `sk_discipline_list` (
   PRIMARY KEY (`id`),
   KEY `IDX_824EA63CA5522701` (`discipline_id`),
   CONSTRAINT `FK_824EA63CA5522701` FOREIGN KEY (`discipline_id`) REFERENCES `sk_discipline` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -260,7 +318,7 @@ CREATE TABLE `sk_discipline_list` (
 
 LOCK TABLES `sk_discipline_list` WRITE;
 /*!40000 ALTER TABLE `sk_discipline_list` DISABLE KEYS */;
-INSERT INTO `sk_discipline_list` VALUES (3,2,'Mamafa gabone','Techzara',NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `sk_discipline_list` VALUES (3,2,'Mamafa gabone','Techzara',NULL,NULL,NULL,NULL,NULL),(4,2,'Mamafa gabone','Techzara',NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `sk_discipline_list` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -348,7 +406,7 @@ CREATE TABLE `sk_etudiant` (
   KEY `IDX_9CF709B44BDFF36B` (`niveau`),
   CONSTRAINT `FK_9CF709B44BDFF36B` FOREIGN KEY (`niveau`) REFERENCES `sk_classe` (`id`) ON DELETE SET NULL,
   CONSTRAINT `FK_9CF709B4717E22E3` FOREIGN KEY (`etudiant`) REFERENCES `sk_user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -357,8 +415,70 @@ CREATE TABLE `sk_etudiant` (
 
 LOCK TABLES `sk_etudiant` WRITE;
 /*!40000 ALTER TABLE `sk_etudiant` DISABLE KEYS */;
-INSERT INTO `sk_etudiant` VALUES (1,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL),(29,11,46,'Techzara',NULL,NULL,NULL,NULL,NULL),(30,11,47,'Techzara',NULL,NULL,NULL,NULL,NULL),(31,11,49,'Techzara',NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `sk_etudiant` VALUES (1,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL),(29,11,46,'Techzara',NULL,NULL,NULL,NULL,NULL),(30,11,47,'Techzara',NULL,NULL,NULL,NULL,NULL),(31,11,49,'Techzara',NULL,NULL,NULL,NULL,NULL),(45,12,130,'Techzara',NULL,NULL,NULL,NULL,NULL),(46,12,131,'Techzara',NULL,NULL,NULL,NULL,NULL),(47,12,132,'Techzara',NULL,NULL,NULL,NULL,NULL),(48,12,133,'Techzara',NULL,NULL,NULL,NULL,NULL),(49,12,135,'Techzara',NULL,NULL,NULL,NULL,NULL),(52,12,139,'Techzara',NULL,NULL,NULL,NULL,NULL),(53,12,140,'Techzara',NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `sk_etudiant` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `sk_guide`
+--
+
+DROP TABLE IF EXISTS `sk_guide`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sk_guide` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `desciption` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `ets_nom` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_adresse` longtext COLLATE utf8_unicode_ci,
+  `ets_responsable` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_phone` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_email` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_logo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `attachment` longtext COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sk_guide`
+--
+
+LOCK TABLES `sk_guide` WRITE;
+/*!40000 ALTER TABLE `sk_guide` DISABLE KEYS */;
+INSERT INTO `sk_guide` VALUES (2,'descripti',NULL,NULL,NULL,NULL,NULL,NULL,NULL),(3,'azzzzzzzzzz',NULL,NULL,NULL,NULL,NULL,NULL,NULL),(4,'aaaaaaaaaa',NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `sk_guide` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `sk_information`
+--
+
+DROP TABLE IF EXISTS `sk_information`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sk_information` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `description` longtext COLLATE utf8_unicode_ci NOT NULL,
+  `date_ajout` datetime NOT NULL,
+  `ets_nom` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_adresse` longtext COLLATE utf8_unicode_ci,
+  `ets_responsable` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_phone` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_email` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ets_logo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `titre` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sk_information`
+--
+
+LOCK TABLES `sk_information` WRITE;
+/*!40000 ALTER TABLE `sk_information` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sk_information` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -502,7 +622,7 @@ CREATE TABLE `sk_note` (
   KEY `IDX_76659743717E22E3` (`etudiant`),
   CONSTRAINT `FK_76659743717E22E3` FOREIGN KEY (`etudiant`) REFERENCES `sk_etudiant` (`id`) ON DELETE CASCADE,
   CONSTRAINT `FK_76659743EEC51E56` FOREIGN KEY (`matNom`) REFERENCES `sk_matiere` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -602,7 +722,7 @@ CREATE TABLE `sk_role` (
 
 LOCK TABLES `sk_role` WRITE;
 /*!40000 ALTER TABLE `sk_role` DISABLE KEYS */;
-INSERT INTO `sk_role` VALUES (1,'Superadmin'),(2,'Etudiant'),(3,'Etudiant'),(4,'Profs'),(5,'Personel'),(6,'Parent');
+INSERT INTO `sk_role` VALUES (1,'Superadmin'),(2,'Etudiant'),(3,'Admin'),(4,'Profs'),(5,'Personel'),(6,'Parent');
 /*!40000 ALTER TABLE `sk_role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -637,7 +757,7 @@ CREATE TABLE `sk_salle` (
 
 LOCK TABLES `sk_salle` WRITE;
 /*!40000 ALTER TABLE `sk_salle` DISABLE KEYS */;
-INSERT INTO `sk_salle` VALUES (3,'aza','za',0,'2019-03-27 13:05:00','2019-03-27 13:05:00',NULL,'Techzara',NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `sk_salle` VALUES (3,'aza','za',1,'2019-03-29 12:45:00','2019-03-29 12:45:00','azzzaza','Techzara',NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `sk_salle` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -653,8 +773,8 @@ CREATE TABLE `sk_user` (
   `sk_role_id` int(11) DEFAULT NULL,
   `username` varchar(180) COLLATE utf8_unicode_ci NOT NULL,
   `username_canonical` varchar(180) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(180) COLLATE utf8_unicode_ci NOT NULL,
-  `email_canonical` varchar(180) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email_canonical` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `enabled` tinyint(1) NOT NULL,
   `salt` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -678,11 +798,10 @@ CREATE TABLE `sk_user` (
   `ets_logo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username_canonical_UNIQUE` (`username_canonical`),
-  UNIQUE KEY `email_canonical_UNIQUE` (`email_canonical`),
   UNIQUE KEY `confirmation_token_UNIQUE` (`confirmation_token`),
   KEY `IDX_344BBB1EE7AB552C` (`sk_role_id`),
   CONSTRAINT `FK_344BBB1EE7AB552C` FOREIGN KEY (`sk_role_id`) REFERENCES `sk_role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=144 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -691,7 +810,7 @@ CREATE TABLE `sk_user` (
 
 LOCK TABLES `sk_user` WRITE;
 /*!40000 ALTER TABLE `sk_user` DISABLE KEYS */;
-INSERT INTO `sk_user` VALUES (1,1,'julien','julien','julienrajerison5@gmail.com','julienrajerison5@gmail.com',1,NULL,'$2y$13$RownMDH4AZ.aEfcafgWLlelI7DmDNJY0zHBtxeKrk4PSEPeG5M.Uu','2019-03-29 00:33:30',NULL,NULL,'a:1:{i:0;s:15:\"ROLE_SUPERADMIN\";}','teste','teste','teste','2019-01-24 22:59:34','2019-03-28 21:08:40','0329473033',NULL,0,'Techzara',NULL,'',NULL,NULL,NULL),(46,2,'za','za','zaza@zaza.com','zaza@zaza.com',1,NULL,'$2y$13$CNWMTXzSglKQaz1E3kyX3egJC2TkhLs7chTM.UNBY7F9cdchxFwai','2019-03-29 11:18:50',NULL,NULL,'a:1:{i:0;s:13:\"ROLE_ETUDIANT\";}','za','za','za','2019-03-28 23:16:35',NULL,NULL,NULL,0,'Techzara',NULL,NULL,NULL,NULL,NULL),(47,2,'az','az','az@az.com','az@az.com',1,NULL,'$2y$13$X2nvspFG.1fh8J0PRRljV.Q7eubFNtGUjf5m4KLFNIoTYnJazLh7W',NULL,NULL,NULL,'a:1:{i:0;s:13:\"ROLE_ETUDIANT\";}','az','az','az','2019-03-28 23:17:10',NULL,'0329473033',NULL,0,'Techzara',NULL,NULL,NULL,NULL,NULL),(48,4,'prof','prof','prof@prof.gma','prof@prof.gma',1,NULL,'$2y$13$XrFzQnXUvtThXrKGH0Kp.umO92sb8yiLOqV70EJrmM2km/Us6IFEy',NULL,NULL,NULL,'a:1:{i:0;s:10:\"ROLE_PROFS\";}','prof','prof','prof','2019-03-28 23:29:20',NULL,'0329473033',NULL,0,'Techzara',NULL,NULL,NULL,NULL,NULL),(49,2,'bon','bon','bon@bon.com','bon@bon.com',1,NULL,'$2y$13$UEi37RJs4Z2A6yG9EnfQHeP/UhAE/zFTevXvI1PMap3Jo0M4P.a7q',NULL,NULL,NULL,'a:1:{i:0;s:13:\"ROLE_ETUDIANT\";}','bon','bon','bon','2019-03-29 00:25:08',NULL,'0329473033',NULL,0,'Techzara',NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `sk_user` VALUES (1,1,'julien','julien','julienrajerison5@gmail.com','julienrajerison5@gmail.com',1,NULL,'$2y$13$z//7IEYKyI/ENc4idtejguCKumh/MewQl5HyfhrUofzY6u8OrFKaG','2019-04-02 20:36:57',NULL,NULL,'a:1:{i:0;s:15:\"ROLE_SUPERADMIN\";}','teste','teste','teste','2019-01-24 22:59:34','2019-03-29 22:05:37','0329473033',NULL,0,'Techzara',NULL,'',NULL,NULL,NULL),(46,2,'za','za','zaza@zaza.com','zaza@zaza.com',1,NULL,'$2y$13$IZnW5uh/YGjM3z7LfcqeTuZD7zPuPk2Hnf6XGknt4xitkULYqMVKO','2019-03-29 21:05:49',NULL,NULL,'a:1:{i:0;s:13:\"ROLE_ETUDIANT\";}','za','za','za','2019-03-28 23:16:35','2019-03-29 21:29:35','0329473033','/upload/user/f7d22b8a0da3e56fafe998ce39fdd7e2.png',0,'Techzara',NULL,NULL,NULL,NULL,NULL),(47,2,'az','az','az@az.com','az@az.com',1,NULL,'$2y$13$X2nvspFG.1fh8J0PRRljV.Q7eubFNtGUjf5m4KLFNIoTYnJazLh7W',NULL,NULL,NULL,'a:1:{i:0;s:13:\"ROLE_ETUDIANT\";}','az','az','az','2019-03-28 23:17:10',NULL,'0329473033',NULL,0,'Techzara',NULL,NULL,NULL,NULL,NULL),(48,4,'prof','prof','prof@prof.gma','prof@prof.gma',1,NULL,'$2y$13$XrFzQnXUvtThXrKGH0Kp.umO92sb8yiLOqV70EJrmM2km/Us6IFEy',NULL,NULL,NULL,'a:1:{i:0;s:10:\"ROLE_PROFS\";}','prof','prof','prof','2019-03-28 23:29:20',NULL,'0329473033',NULL,0,'Techzara',NULL,NULL,NULL,NULL,NULL),(49,2,'bon','bon','bon@bon.com','bon@bon.com',1,NULL,'$2y$13$UEi37RJs4Z2A6yG9EnfQHeP/UhAE/zFTevXvI1PMap3Jo0M4P.a7q',NULL,NULL,NULL,'a:1:{i:0;s:13:\"ROLE_ETUDIANT\";}','bon','bon','bon','2019-03-29 00:25:08',NULL,'0329473033',NULL,0,'Techzara',NULL,NULL,NULL,NULL,NULL),(50,3,'admin','admin','admin@gmail.com','admin@gmail.com',1,NULL,'$2y$13$cA7z3REXP9pnb7oRUQ0JDOj6hNQTVwHsnt4xPy1E1Qtxpq5zWwzNW','2019-04-02 20:37:12',NULL,NULL,'a:1:{i:0;s:10:\"ROLE_ADMIN\";}','admin','admin','admin','2019-03-29 16:17:55',NULL,'0329473033',NULL,0,'Techzara',NULL,NULL,NULL,NULL,NULL),(51,3,'bonoa','bonoa','adt@ga.com','adt@ga.com',1,NULL,'$2y$13$dEtvbaieoYnwL9rN1rWBZezlSSw8.rFDFFkHGwGIlVWibqm/rUOQW',NULL,NULL,NULL,'a:1:{i:0;s:10:\"ROLE_ADMIN\";}','adt','adt','adt','2019-03-29 21:52:42',NULL,'0329473033',NULL,0,'Techzara',NULL,NULL,NULL,NULL,NULL),(52,3,'po','po','pon@.cq.dda','pon@.cq.dda',1,NULL,'$2y$13$2mnbZYdWcnjwiF5h2jrRner1Us5wPSVgVylpXCddYWc8xsQM3o2s.',NULL,NULL,NULL,'a:1:{i:0;s:10:\"ROLE_ADMIN\";}','pon','pon','pon','2019-03-29 21:54:20',NULL,'pn',NULL,0,'Techzara',NULL,NULL,NULL,NULL,NULL),(53,3,'koko','koko','aaaaaa@aaaaaaa.com','aaaaaa@aaaaaaa.com',1,NULL,'$2y$13$MqEEH1hulAQnPh02cwPYHeE409p8bekJTsOsTE5Vu96sv6kAee8hi',NULL,NULL,NULL,'a:1:{i:0;s:10:\"ROLE_ADMIN\";}','aaaaaaaaa','aaaaaa','aaaaaa@aaaaaaa.com','2019-03-29 21:58:55',NULL,'0329473033',NULL,0,'Techzara',NULL,NULL,NULL,NULL,NULL),(54,3,'aaaaaaaa','aaaaaaaa','a@c.com','a@c.com',1,NULL,'$2y$13$9qIIeaxrYTz829H1nLcOTuhiHYOrDR1GVemqq86c9j7UMXCct5rza',NULL,NULL,NULL,'a:1:{i:0;s:10:\"ROLE_ADMIN\";}','bob','aaa','bo','2019-03-29 22:09:39',NULL,'0329473033',NULL,0,'Techzara',NULL,NULL,NULL,NULL,NULL),(55,3,'aaaaaaaaaaaa','aaaaaaaaaaaa','julienrajerison5@gmail.comaaaaaaaa','julienrajerison5@gmail.comaaaaaaaa',1,NULL,'$2y$13$02gCvQO//44f5aJ8bEnLJOIkxlPXqnZ.noArKLf38MglPyEHqSktC',NULL,NULL,NULL,'a:1:{i:0;s:10:\"ROLE_ADMIN\";}','pol','pol','pol','2019-03-29 22:10:17',NULL,'0329473033',NULL,0,'Techzara',NULL,NULL,NULL,NULL,NULL),(56,3,'bonaaaaaaaaaaaa','bonaaaaaaaaaaaa','bon@bon.comaaaa','bon@bon.comaaaa',1,NULL,'$2y$13$lvbMSqIpDhk5v4UcSUDkmujcyMWW3FyyyCjC4ApiiUR/xTJNpuPjW',NULL,NULL,NULL,'a:1:{i:0;s:10:\"ROLE_ADMIN\";}','bon','bon','bon','2019-03-29 22:12:59',NULL,NULL,NULL,0,'Techzara',NULL,NULL,NULL,NULL,NULL),(128,3,'ada','ada','julienrajerison5@gmail.com','julienrajerison5@gmail.com',1,NULL,'$2y$13$rlDPF3s764Sa3nsUrpl/Lu5SxwF0M7TdbS33h0J.zk7xIUHb4m5uC','2019-04-02 20:38:08',NULL,NULL,'a:1:{i:0;s:10:\"ROLE_ADMIN\";}','kotikota','za','Tana','2019-04-02 20:37:33',NULL,'0329473033',NULL,0,'Techzara',NULL,NULL,NULL,NULL,NULL),(130,2,'jul1','jul1','jul1@jul.com','jul1@jul.com',1,NULL,'$2y$13$Qbou3tqASw3TCYPaWqapZOJCBp6IUosnQmmP4Av5YXz9LlwvPs77C',NULL,NULL,NULL,'a:1:{i:0;s:13:\"ROLE_ETUDIANT\";}','jul','jul','jul','2019-04-02 21:46:41',NULL,'345475684',NULL,0,'Techzara',NULL,NULL,NULL,NULL,NULL),(131,2,'jul2','jul2','jul2@jul.com','jul2@jul.com',1,NULL,'$2y$13$FJisSkcO0O.CWsDkJeDbgOqmnWxlnSfxvA.RZFxOG1omHYUMMITwW',NULL,NULL,NULL,'a:1:{i:0;s:13:\"ROLE_ETUDIANT\";}','jul','jul','jul','2019-04-02 21:46:43',NULL,'345475684',NULL,0,'Techzara',NULL,NULL,NULL,NULL,NULL),(132,2,'jul3','jul3','jul3@jul.com','jul3@jul.com',1,NULL,'$2y$13$/oxMs.hOmnE7pmkuxjDyr.ke6YO.lxyfoK3E/8v0kOyHjTPHEBa2i',NULL,NULL,NULL,'a:1:{i:0;s:13:\"ROLE_ETUDIANT\";}','jul','jul','jul','2019-04-02 21:46:44',NULL,'345475684',NULL,0,'Techzara',NULL,NULL,NULL,NULL,NULL),(133,2,'jul4','jul4','jul4@jul.com','jul4@jul.com',1,NULL,'$2y$13$68VU4nYEs6RkDR/5GA2vN.QktKvm8eVtFAUCbAodBGE0J4ZOOzvdS',NULL,NULL,NULL,'a:1:{i:0;s:13:\"ROLE_ETUDIANT\";}','jul','jul','jul','2019-04-02 21:46:45',NULL,'345475684',NULL,0,'Techzara',NULL,NULL,NULL,NULL,NULL),(135,2,'test','test','Null','null',1,NULL,'$2y$13$G0JTNDuCpSBw3.FRvw7iz.R7yAmDsCstWWftoCk88kp8T0Xb85SGC',NULL,NULL,NULL,'a:1:{i:0;s:13:\"ROLE_ETUDIANT\";}','Null','jul','tana','2019-04-02 21:51:50',NULL,'Null',NULL,0,'Techzara',NULL,NULL,NULL,NULL,NULL),(139,2,'boba','boba','julienrajerison5@gmail.com','julienrajerison5@gmail.com',1,NULL,'$2y$13$n4ovvRNeHcmLkWSKPsePBun6Bj7EclVA9PnAfES9qZBeRl8.jbqu6',NULL,NULL,NULL,'a:1:{i:0;s:13:\"ROLE_ETUDIANT\";}','ada','donu','dada','2019-04-02 22:28:33',NULL,'zzzzzzzzzzz',NULL,0,'Techzara',NULL,NULL,NULL,NULL,NULL),(140,2,'zazaza','zazaza','julienrajerison5@gmail.com','julienrajerison5@gmail.com',1,NULL,'$2y$13$5pZhHDKfzYSomKNWJ2cq9OW1XCHiqOfrHbk5R4pG2mX9GUA4JDUIG',NULL,NULL,NULL,'a:1:{i:0;s:13:\"ROLE_ETUDIANT\";}','mick','micik','mi','2019-04-02 22:42:11',NULL,'0329473033',NULL,0,'Techzara',NULL,NULL,NULL,NULL,NULL),(142,3,'dada','dada','julienrajerison5@gmail.com','julienrajerison5@gmail.com',1,NULL,'$2y$13$bbSYLGoN10nsdPIlcsmP4eqguvRgK0r3Xrn1BOX9J.JEk3vM0Nxz2',NULL,NULL,NULL,'a:1:{i:0;s:10:\"ROLE_ADMIN\";}','a','a','Tana','2019-04-02 22:53:33',NULL,'0329473033',NULL,0,'Techzara',NULL,NULL,NULL,NULL,NULL),(143,3,'da','da','julienrajerison5@gmail.con','julienrajerison5@gmail.con',1,NULL,'$2y$13$S5YnF6OGQxu.f9VXJGev7e44ICAJsbSCipgLIL0Ou6sYanTKT8Y/O',NULL,NULL,NULL,'a:1:{i:0;s:10:\"ROLE_ADMIN\";}','a','a','a','2019-04-02 22:54:28',NULL,'0329473033',NULL,0,'Techzara',NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `sk_user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -704,4 +823,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-29 12:24:58
+-- Dump completed on 2019-04-03 11:10:12
