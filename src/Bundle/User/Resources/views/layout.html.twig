@@ -29,7 +29,21 @@
                 <div class="card-body p-0">
                     <!-- Nested Row within Card Body -->
                     <div class="row">
-                        <div class="col-lg-6 d-none d-lg-block bg-login-image" style="background: url('{{ asset('img/sekoly.jpg') }}');background-size: cover"></div>
+                        <div class="col-lg-6 d-none d-lg-block bg-login-image">
+                            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img class="d-block w-100" src="{{ asset('img/sekoly.jpg') }}" alt="First slide" style="width: 100%;height: 500px;">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img class="d-block w-100" src="{{ asset('img/sekoly2.jpg') }}" alt="Second slide" style="width: 100%;height: 500px;">
+                                    </div>1
+                                    <div class="carousel-item">
+                                        <img class="d-block w-100" src="{{ asset('img/sekoly3.jpg') }}" alt="Third slide"style="width: 100%;height: 500px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-center">
@@ -53,6 +67,12 @@
         </div>
     </div>
 </div>
+<script>
+    $('.carousel').carousel({
+        interval: 500
+    });
+    
+</script>
 <!-- Bootstrap core JavaScript-->
 <script src="{{ asset('decoupe/vendor/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('decoupe/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
