@@ -64,24 +64,24 @@
                                     <td>{{ book.isReserved ? 'OUI' : 'NON' }}</td>
                                     {% if is_granted('ROLE_ADMIN') %}
                                         <td class="kl-action-button-bloc">
-                                            <a class="btn btn-primary" title="Modifier ce livre"
+                                            <a class="btn btn-primary btn-sm" title="Modifier ce livre"
                                                href="{{ path('book_edit', { 'id': book.id }) }}">
                                                 <i class="fa fa-edit"></i>
                                             </a>
-                                            <a class="btn btn-success" title="Reserver"
+                                            <a class="btn btn-success btn-sm" title="Reserver"
                                                href="{{ path('book_reservation', { 'id': book.id }) }}">
                                                 <i class="fa fa-book"></i>
                                             </a>
-                                            <a class="btn btn-info" title="Details de la réservations"
+                                            <a class="btn btn-info btn-sm" title="Details de la réservations"
                                                href="{{ path('book_reservation_details', { 'id': book.id }) }}">
                                                 <i class="fa fa-info"></i>
                                             </a>
-                                            <a class="btn btn-warning" title="Supprimer la réservation"
+                                            <a class="btn btn-warning btn-sm" title="Supprimer la réservation"
                                                onclick="confirm('Voulez vous vraiment supprimer?')"
                                                href="{{ path('book_unreserve', { 'id': book.id }) }}">
                                                 <i class="fa fa-undo"></i>
                                             </a>
-                                            <a class="btn btn-danger remove-elt" title="Supprimer"
+                                            <a class="btn btn-danger remove-elt btn-sm" title="Supprimer"
                                                onclick="supprimer('{{ path('book_delete', { 'id': book.id }) }}')">
                                                 <i class="fa fa-trash"></i>
                                             </a>

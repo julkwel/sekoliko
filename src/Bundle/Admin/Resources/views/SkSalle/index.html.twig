@@ -62,28 +62,28 @@
                                     <td>{{ salle.salleNom }}</td>
                                     <td>{{ salle.salleNumero }}</td>
                                     <td>{{ salle.isReserve ? 'oui' : 'Non' }}</td>
-                                    <td>{{ salle.motifs ? salle.motifs : 'Non reservé' }}</td>
+                                    <td>{{ salle.motifs ? salle.motifs : 'Non réservé' }}</td>
                                     <td class="kl-action-button-bloc">
 
                                         {% if is_granted('ROLE_ADMIN') %}
-                                        <a class="btn btn-success" title="Modifier"
+                                        <a class="btn btn-success btn-sm" title="Modifier"
                                            href="{{ path('salle_edit', { 'id': salle.id }) }}">
                                             <i class="fa fa-edit"></i>
                                         </a>
                                         {% endif %}
 
-                                        <a class="btn btn-secondary" title="reserver ce salle"
+                                        <a class="btn btn-secondary btn-sm" title="Réserver ce salle"
                                            href="{{ path('salle_reservation', { 'id': salle.id }) }}">
                                             <i class="fa fa-restroom"></i>
                                         </a>
                                         {% if is_granted('ROLE_ADMIN') %}
-                                            <a class="btn btn-warning" title="annuler la reservation"
+                                            <a class="btn btn-warning btn-sm" title="Annuler la réservation"
                                                href="{{ path('salle_annule', { 'id': salle.id }) }}">
                                                 <i class="fa fa-check"></i>
                                             </a>
                                         {% endif %}
                                         {% if is_granted('ROLE_ADMIN') %}
-                                            <a class="btn btn-danger remove-elt" title="Supprimer"
+                                            <a class="btn btn-danger remove-elt btn-sm" title="Supprimer"
                                                onclick="supprimer('{{ path('salle_delete', { 'id': salle.id }) }}')">
                                                 <i class="fa fa-trash"></i>
                                             </a>

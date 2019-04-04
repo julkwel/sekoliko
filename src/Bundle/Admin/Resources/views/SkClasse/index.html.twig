@@ -60,24 +60,24 @@
                                     <td>{{ classe.classeNom }}</td>
                                     <td>{{ classe.niveau ? classe.niveau.niveauNom : '' }}</td>
                                     <td class="kl-action-button-bloc">
-                                        <a class="btn btn-success" title="Modifier ce classe"
+                                        <a class="btn btn-success btn-sm" title="Modifier ce classe"
                                            href="{{ path('classe_edit', { 'id': classe.id }) }}">
                                             <i class="fa fa-edit"></i>
                                         </a>
-                                        <a class="btn btn-secondary" title="Liste des étudiants"
+                                        <a class="btn btn-secondary btn-sm" title="Liste des étudiants"
                                            href="{{ path('etudiant_liste', { 'id': classe.id }) }}">
                                             <i class="fa fa-list"></i>
                                         </a>
-                                        <a class="btn btn-info" title="Matiere liste"
+                                        <a class="btn btn-info btn-sm" title="Matiere liste"
                                            href="{{ path('classe_matiere_liste', { 'id': classe.id }) }}">
                                             <i class="fa fa-book"></i>
                                         </a>
-                                        <a class="btn btn-warning" title="Emploi du temps"
+                                        <a class="btn btn-warning btn-sm" title="Emploi du temps"
                                            href="{{ path('classe_edt', { 'id': classe.id }) }}">
                                             <i class="fa fa-calendar"></i>
                                         </a>
                                         {% if is_granted('ROLE_ADMIN') %}
-                                            <a class="btn btn-danger remove-elt" title="Supprimer"
+                                            <a class="btn btn-danger remove-elt btn-sm" title="Supprimer"
                                                onclick="supprimer('{{ path('classe_delete', { 'id': classe.id }) }}')">
                                                 <i class="fa fa-trash"></i>
                                             </a>

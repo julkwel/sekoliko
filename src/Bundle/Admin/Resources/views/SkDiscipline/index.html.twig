@@ -61,23 +61,23 @@
                                     <td>{{ discipline.name }}</td>
                                     <td>
                                         {% if is_granted('ROLE_ADMIN') %}
-                                            <a class="btn btn-primary" title="Modifier"
+                                            <a class="btn btn-primary btn-sm" title="Modifier"
                                                href="{{ path('discipline_edit', { 'id': discipline.id }) }}">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                         {% endif %}
 
-                                        <a class="btn btn-secondary" title="Punition liste"
+                                        <a class="btn btn-secondary btn-sm" title="Punition liste"
                                            href="{{ path('punition_index', { 'id': discipline.id }) }}">
                                             <i class="fa fa-list"></i>
                                         </a>
 
                                         {% if is_granted('ROLE_ADMIN') %}
-                                            <a class="btn btn-success" title="Ajouter des punitions pour {{ discipline.name }}"
+                                            <a class="btn btn-success btn-sm" title="Ajouter des punitions pour {{ discipline.name }}"
                                                href="{{ path('punition_new', { 'id': discipline.id }) }}">
                                                 <i class="fa fa-plus"></i>
                                             </a>
-                                            <a class="btn btn-primary btn btn-danger remove-elt"
+                                            <a class="btn btn-primary btn btn-danger remove-elt btn-sm"
                                                onclick="supprimer('{{ path('discipline_delete', { 'id': discipline.id }) }}')">
                                                 <i class="fa fa-trash"></i>
                                             </a>
