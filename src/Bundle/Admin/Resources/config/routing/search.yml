@@ -3,6 +3,11 @@ user_search:
     defaults: { _controller: "AdminBundle:SkRecherche:search" }
     methods:  [GET, POST]
 
+user_search_result_ajax:
+    path: /ajax
+    defaults: { _controller: "AdminBundle:SkRecherche:searchResultAjax" }
+    methods:  [GET]
+
 search_details:
     path:     /{id}/show
     defaults: { _controller: "AdminBundle:SkRecherche:details" }

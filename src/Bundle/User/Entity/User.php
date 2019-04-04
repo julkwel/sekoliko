@@ -29,7 +29,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *      )
  * })
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Shared\Repository\UserRepository")
  */
 class User extends BaseUser
 {

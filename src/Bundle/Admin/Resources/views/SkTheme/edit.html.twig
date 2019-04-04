@@ -18,8 +18,8 @@
                 </div>
                 <div class="form-group">
                     <label for="">Header color</label>
-                    <div id="cp5b" class="input-group" title="Using format option">
-                        <input type="text" name="header" onchange="changeHead()"
+                    <div id="cp5b" class="input-group" onchange="changeHead()" title="Using format option">
+                        <input type="text" name="header"
                                class="form-control head-value input-lg" value="#305AA2"/>
                         <span class="input-group-append"><span
                                     class="input-group-text colorpicker-input-addon"><i></i></span></span>
@@ -42,7 +42,9 @@
         </div>
     {% endif %}
 
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script>
+
         /**
          * Preview background
          */
@@ -53,6 +55,7 @@
          */
         function changeHead() {
             var head_color = $('.head-value').val();
+            $('#sk-bg-header').removeClass('bg-white');
             $('#sk-bg-header').css('background', head_color)
         }
 
