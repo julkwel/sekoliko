@@ -2,7 +2,14 @@ function supprimer(url){
     confirm("Voulez vous vraiment supprimer ?") ? window.location = url : '';
 }
 
+
+
+/**
+ * DataTables
+ */
 $(document).ready(function() {
+
+
     $('#dataTable').DataTable({
         dom: 'Bfrtip',
         buttons: [

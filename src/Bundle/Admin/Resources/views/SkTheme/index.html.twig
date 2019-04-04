@@ -1,0 +1,68 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-body">
+            {% if add is defined %}
+                {{ form_start(form) }}
+                <div class="form-group">
+                    <label for="">Body color</label>
+                    <div id="cp5a" class="input-group" title="Using format option">
+                        <input type="text" name="body" class="form-control input-lg" value="#305AA2"/>
+                        <span class="input-group-append">
+                            <span class="input-group-text colorpicker-input-addon"><i></i>
+                        </span>
+                    </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="">Header color</label>
+                    <div id="cp5b" class="input-group" title="Using format option">
+                        <input type="text" name="header" class="form-control input-lg" value="#305AA2"/>
+                        <span class="input-group-append"><span
+                                    class="input-group-text colorpicker-input-addon"><i></i></span></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="">Sidebar color</label>
+                    <div id="cp6b" class="input-group" title="Using format option">
+                        <input type="text" name="sidebar" class="form-control input-lg" value="#305AA2"/>
+                        <span class="input-group-append"><span
+                                    class="input-group-text colorpicker-input-addon"><i></i></span>
+                        </span>
+                    </div>
+                </div>
+
+                <input type="submit" value="test">
+                {{ form_end(form) }}
+            {% endif %}
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% if index is defined %}
+        <script>
+            /**
+             * Fond Thème
+             */
+            function changeTheme(sidebar,body,header){
+                $('#sk-bg-header').css('background-color',header);
+                $('#accordionSidebar').css('background-color',sidebar);
+                $('#page-top').css('background-color',body);
+            }
+            $(document).ready(function () {
+                {% for theme in themes %}
+                    changeTheme('{{ theme.sidebar }}','{{ theme.body }}','{{ theme.header }}');
+                    console.log("aaaa");
+                {% endfor %}
+                {#document.getElementById('sk-bg-header').style.background = {% for theme in themes %}'{{ theme.header }}'{% endfor %};#}
+                {#document.getElementById('accordionSidebar').style.background = {% for theme in themes %}'{{ theme.sidebar }}!important'{% endfor %};#}
+                {#document.getElementById('page-top').style.background = {% for theme in themes %}'{{ theme.body }}'{% endfor %};#}
+            })
+        </script>
+    {% endif %}
+{% endblock %}
