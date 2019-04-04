@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4072f06b926e75ed1fb25e54a56add39",
+    "content-hash": "a1476c3d23e38a75313f48ea5ee1b354",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -2552,6 +2552,52 @@
                 "controllers"
             ],
             "time": "2018-02-14T08:40:54+00:00"
+        },
+        {
+            "name": "sinner/phpseclib-bundle",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sinner/PhpseclibBundle.git",
+                "reference": "e2e5275955a7094ae3e277bffda67b37473596d9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sinner/PhpseclibBundle/zipball/e2e5275955a7094ae3e277bffda67b37473596d9",
+                "reference": "e2e5275955a7094ae3e277bffda67b37473596d9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Sinner\\Phpseclib": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jose Gabriel Gonzalez",
+                    "email": "jgabrielsinner10@gmail.com",
+                    "role": "Developer - Free Software Specialist"
+                }
+            ],
+            "description": "PHP Secure Communications Library - Pure-PHP implementations of RSA, AES, SSH2, SFTP, X.509 etc. Created By Jim Wigginton and Modified to be a Symfony2 Bundle.",
+            "homepage": "https://github.com/Sinner/PhpseclibBundle",
+            "keywords": [
+                "Jim Wigginton",
+                "Sinner",
+                "Symfony2",
+                "crypt",
+                "cryptography",
+                "phpseclib"
+            ],
+            "time": "2016-10-03T15:25:01+00:00"
         },
         {
             "name": "sonata-project/exporter",
@@ -6908,6 +6954,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "sinner/phpseclib-bundle": 20,
         "liip/imagine-bundle": 20,
         "stof/doctrine-extensions-bundle": 20,
         "symfony/lts": 20

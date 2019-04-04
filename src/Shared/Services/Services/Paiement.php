@@ -1,13 +1,13 @@
 <?php
-namespace Ariary\PaiementBundle\Services;
+namespace App\Shared\Services\Services;
 
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Ariary\PaiementBundle\Response as RestResponse;
-use Ariary\PaiementBundle\Lib\PusherInstance;
+//use Ariary\PaiementBundle\Response as RestResponse;
+//use Ariary\PaiementBundle\Lib\PusherInstance;
 
 class Paiement
 {
@@ -21,14 +21,15 @@ class Paiement
     const URL_AUTH = "https://pro.ariarynet.com/oauth/v2/token";
     const URL_PAIEMENT = "https://pro.ariarynet.com/api/paiements";
     const URL_PAIE =  "https://moncompte.ariarynet.com/paiement/";
+    const URL_RESULTAT =  "https://www.techzara.org/sekoliko/admin/paiement/";
 
     /**
      * Paiement constructor.
      * @param $public_key
-     * @param $private_key  
+     * @param $private_key
      * @param $client_id
      * @param $client_secret
-     * @param $site_url
+     * @param RequestStack $requestStack
      * @param Util $util
      */
     public function __construct($public_key, $private_key, $client_id, $client_secret,RequestStack $requestStack,Util $util)
@@ -38,11 +39,12 @@ class Paiement
         $this->client_id = $client_id;
         $this->client_secret = $client_secret;
         $this->util=$util;
-	    $this->site_url="http://www.monsite.com"; //url du site inscrit dans pro.ariarynet.com
+	    $this->site_url="https://www.techzara.org/sekoliko/admin/paiement/new"; //url du site inscrit dans pro.ariarynet.com
     }
 
     /**
-     * @return mixed
+     * @return null
+     * @throws \Exception
      */
     private function getAccess(){
         if($this->token!=null)return $this->token;
@@ -58,10 +60,11 @@ class Paiement
         $this->token=$json->access_token;
         return $json->access_token;
     }
-	
+
     /**
      * @param $idpaiement
-     * @return bool|int|string
+     * @return mixed
+     * @throws \Exception
      */
     public function resultPaiement($idpaiement){
         $idpaiement=$this->util->decrypter($this->private_key,$idpaiement);
@@ -76,6 +79,7 @@ class Paiement
      * @param $url
      * @param array $params_to_send
      * @return bool|int|string
+     * @throws \Exception
      */
     private function send($url,array $params_to_send){
         $params_crypt=$this->util->crypter($this->public_key,json_encode($params_to_send));
@@ -91,14 +95,15 @@ class Paiement
         }
         return $this->util->decrypter($this->private_key,$json);
     }
-	
-	/**
+
+    /**
      * @param $idpanier
      * @param $montant
      * @param $nom
      * @param $reference
      * @param $adresseip
-     * @return bool|int|string
+     * @return RedirectResponse
+     * @throws \Exception
      */
     public function initPayAriary($idpanier,$montant,$nom,$reference,$adresseip){
         $now=new \DateTime();

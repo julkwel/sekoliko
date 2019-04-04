@@ -6,10 +6,13 @@
  * Time: 10:46
  */
 
-namespace Ariary\PaiementBundle\Services;
+namespace App\Shared\Services\Services;
 
 
 use Sinner\Phpseclib\Crypt\Crypt_TripleDES;
+use Sinner\Phpseclib\Crypt\Crypt_Hash;
+use Sinner\Phpseclib\Crypt\Crypt_AES;
+use Sinner\Phpseclib\Math\Math_BigInteger;
 
 use Symfony\Component\HttpFoundation\Response;
 

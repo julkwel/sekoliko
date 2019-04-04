@@ -1,0 +1,58 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% form_theme form 'form/custom_fields.html.twig' %}
+
+{% block title %}{{ parent() }} | Ajout paiement {% endblock %}
+
+{% set menu_paiement     = true %}
+
+{% block body %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary text-center">Ajouter un guide</h6>
+        </div>
+        <div class="card-body">
+            {{ form_start(form) }}
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_row(form.commentaire) }}
+                    <div class="form-group">
+                        <select name="user" id="" class="form-control">
+                            {% for user in user %}
+                                <option value="{{ user.id }}">{{ user.username }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    {{ form_row(form.reference) }}
+                    {{ form_row(form.montant) }}
+                    <div class="form-group">
+                        <label for="">Date de paiement</label>
+                        <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
+                            <input type="text" name="date" class="form-control datetimepicker-input" data-target="#datetimepicker2"/>
+                            <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="box-footer">
+                <input type="submit" class="btn btn-primary btn-block" value="Enregistrer" name="new_guide"/>
+                <a href="{{ path('paiement_list') }}"
+                   class="btn btn-google btn-block">
+                    Annuler
+                </a>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <script>
+        $(function () {
+            $('#datetimepicker1').datetimepicker();
+            $('#datetimepicker2').datetimepicker();
+        });
+    </script>
+{% endblock %}
+

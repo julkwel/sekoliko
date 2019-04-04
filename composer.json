@@ -7,6 +7,7 @@
         "friendsofsymfony/user-bundle": "^2.0",
         "gedmo/doctrine-extensions": "~2.4",
         "knplabs/doctrine-behaviors": "~1.1",
+        "sinner/phpseclib-bundle": "dev-master",
         "koff/i18n-form-bundle": "4.0.7",
         "lexik/jwt-authentication-bundle": "^2.6",
         "liip/imagine-bundle": "2.0.x-dev",
