@@ -66,7 +66,7 @@
                                         <td class="kl-action-button-bloc">
                                             <a class="btn btn-primary btn-sm" title="Modifier ce livre"
                                                href="{{ path('book_edit', { 'id': book.id }) }}">
-                                                <i class="fa fa-edit"></i>
+                                                <i class="fas fa-pen"></i>
                                             </a>
                                             <a class="btn btn-success btn-sm" title="Reserver"
                                                href="{{ path('book_reservation', { 'id': book.id }) }}">
@@ -74,7 +74,7 @@
                                             </a>
                                             <a class="btn btn-info btn-sm" title="Details de la réservations"
                                                href="{{ path('book_reservation_details', { 'id': book.id }) }}">
-                                                <i class="fa fa-info"></i>
+                                                <i class="fas fa-info-circle"></i>
                                             </a>
                                             <a class="btn btn-warning btn-sm" title="Supprimer la réservation"
                                                onclick="confirm('Voulez vous vraiment supprimer?')"

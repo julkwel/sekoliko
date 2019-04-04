@@ -68,7 +68,7 @@
                                         {% if is_granted('ROLE_ADMIN') %}
                                         <a class="btn btn-success btn-sm" title="Modifier"
                                            href="{{ path('salle_edit', { 'id': salle.id }) }}">
-                                            <i class="fa fa-edit"></i>
+                                            <i class="fas fa-pen"></i>
                                         </a>
                                         {% endif %}
 
@@ -79,7 +79,7 @@
                                         {% if is_granted('ROLE_ADMIN') %}
                                             <a class="btn btn-warning btn-sm" title="Annuler la réservation"
                                                href="{{ path('salle_annule', { 'id': salle.id }) }}">
-                                                <i class="fa fa-check"></i>
+                                                <i class="fa fa-ban"></i>
                                             </a>
                                         {% endif %}
                                         {% if is_granted('ROLE_ADMIN') %}
