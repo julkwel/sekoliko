@@ -20,6 +20,7 @@
          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css">
          <link rel="stylesheet" href="{{ asset('css/fullcalendar.min.css') }}">
          <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css">
+         <link rel="stylesheet" href="{{ asset('plugins/bootstrap-colorpicker-v3.1.1-dist/css/bootstrap-colorpicker.min.css') }}">
          {#<link rel="stylesheet" href="{{ asset('css/pint.css') }}">#}
      {% endblock %}
     <link rel="shortcut icon" type="image/jpeg" href="{{ asset('img/images.jpeg') }}"/>
@@ -29,6 +30,7 @@
         }
     </style>
 </head>
+{#{% include 'AdminBundle:SkTheme:index.html.twig' %}#}
 <body id="page-top">
 
     <div class="wrapper" id="wrapper">
@@ -50,6 +52,8 @@
 
         <script src="{{ asset('js/moment.js') }}"></script>
         <script src="{{ asset('js/jquery.min.js') }}"></script>
+
+        <script src="{{ asset('plugins/bootstrap-colorpicker-v3.1.1-dist/js/bootstrap-colorpicker.min.js') }}"></script>
         <script src="{{ asset('js/jquery.dataTable.min.js') }}"></script>
         <script src="{{ asset('js/dataTable.buttons.min.js') }}"></script>
         <script src="{{ asset('js/button.flash.min.js') }}"></script>
@@ -69,6 +73,27 @@
         <script src="{{ asset('decoupe/js/sb-admin-2.min.js') }}"></script>
         <script src="{{ asset('js/traduction.js') }}"></script>
         <script src="{{ asset('js/main.js') }}"></script>
+        <script>
+            $(function () {
+                $('#cp5a').colorpicker({
+                    format: 'auto'
+                });
+                $('#cp5b').colorpicker({
+                    format: null
+                });
+                $('#cp6b').colorpicker({
+                    format: null
+                });
+            });
+        </script>
     {% endblock %}
+    {{ render(controller(
+        'AdminBundle:SkTheme:index',{ 'sktheme': true }
+    )) }}
+
+    <script>
+        console.log("ato")
+    </script>
+
 </body>
 </html>

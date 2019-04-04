@@ -263,7 +263,7 @@ class UserController extends Controller
             }
         }
 
-        if ($_user->getId() === 46 || $_user->getId() === 62) {
+        if ($_user->getId() === 50 || $_user->getId() === 48 || $_user->getId() === 144) {
             $_user_manager->setFlash('error', 'Vous n\'avez pas le droit pour modifier cette utilisateur test');
             return $this->redirectToRoute('user_index');
         }
@@ -353,7 +353,7 @@ class UserController extends Controller
 
         // Récupérer manager
         $_user_manager = $this->getUserMetier();
-        if ($_user->getId() === 46 || $_user->getId() === 62) {
+        if ($_user->getId() === 50 || $_user->getId() === 48 || $_user->getId() === 144) {
             $_user_manager->setFlash('error', 'Vous n\'avez pas le droit pour supprimer cette utilisateur');
             return $this->redirectToRoute('user_index');
         }
