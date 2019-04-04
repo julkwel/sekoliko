@@ -28,7 +28,7 @@
                     <h6 class="m-0 font-weight-bold text-primary text-center">Liste des matieres</h6>
                     {# Bouton création #}
                     {% if is_granted('ROLE_ADMIN') %}
-                        <div class="row add-btn-top-list">
+                        <div class="add-btn-top-list float-right">
                             <a href="{{ path('matiere_new') }}" class="btn btn-primary">
                                 Ajouter une matière
                             </a>
