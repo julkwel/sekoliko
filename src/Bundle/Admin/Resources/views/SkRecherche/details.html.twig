@@ -16,7 +16,7 @@
             <div class="card-body text-center">
                <div> 
                 <ul>
-                <img class="rounded-circle" style="vertical-align: middle;" src="{{ app.user.imgUrl ? app.user.imgUrl  : asset('img/images.jpeg') }}" alt="Generic placeholder image" width="140" height="140">
+                <img class="rounded-circle" style="vertical-align: middle;" src="{{ users.imgUrl ? users.imgUrl  : asset('img/avatar.png') }}" alt="Generic placeholder image" width="140" height="140">
                     <li><b>Nom</b> : {{ users.usrLastname }}</li>
                     <li><b>Prénom</b> : {{ users.usrFirstname }}</li>
                     <li><b>Adresse</b> : {{ users.usrAddress }}</li>
