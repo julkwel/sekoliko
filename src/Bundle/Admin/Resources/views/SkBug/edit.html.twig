@@ -27,7 +27,9 @@
                             <option value="Fix">Fix</option>
                         </select>
                     </div>
-                    {{ form_row(form.attachment) }}
+                    <label for="sk_bug_attachment" class="label-file">Ajouter un fichier</label>
+                    {{ form_row(form.attachment, {'label':false}) }}
+                    <p>Fichier : <small id="label-file">Aucun fichier choisi</small></p>
                 </div>
             </div>
             <div class="box-footer">
