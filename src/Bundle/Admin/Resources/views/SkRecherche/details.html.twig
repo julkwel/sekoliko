@@ -5,17 +5,28 @@
 {% set menu_user = true %}
 
 {% block body %}
-    <div class="card mb-4">
-        <div class="card-header text-center">
-            A propos de {{ users }} du {{ users.etsNom }}
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+
+        <div class="card mb-4">
+            <div class="card-header text-center">
+                A propos de {{ users }} du {{ users.etsNom }}
+            </div>
+            <div class="card-body text-center">
+               <div> 
+                <ul>
+                <img class="rounded-circle" style="vertical-align: middle;" src="{{ users.imgUrl ? users.imgUrl  : asset('img/avatar.png') }}" alt="Generic placeholder image" width="140" height="140">
+                    <li><b>Nom</b> : {{ users.usrLastname }}</li>
+                    <li><b>Prénom</b> : {{ users.usrFirstname }}</li>
+                    <li><b>Adresse</b> : {{ users.usrAddress }}</li>
+                    <li><b>Contact</b> : {{ users.usrPhone }}</li>
+                </ul> 
+               </div> 
+            </div>
+            </div>
+            
         </div>
-        <div class="card-body">
-            <ul>
-                <li>NOM : {{ users.usrLastname }}</li>
-                <li>PRÉNOM : {{ users.usrFirstname }}</li>
-                <li>ADRESSE : {{ users.usrAddress }}</li>
-                <li>CONTACT : {{ users.usrPhone }}</li>
-            </ul>
-        </div>
+        <div class="col-lg-3"></div>
     </div>
 {% endblock %}
