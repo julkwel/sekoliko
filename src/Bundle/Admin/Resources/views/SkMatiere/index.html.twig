@@ -1,6 +1,6 @@
 {% extends 'admin/admin.html.twig' %}
 
-{% block title %}{{ parent() }} Tableau de bord {% endblock %}
+{% block title %}{{ parent() }} | Liste matières {% endblock %}
 
 {% set menu_matiere = true %}
 
@@ -25,7 +25,7 @@
         <form action="" method="POST" class="form-search">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary text-center">Liste des matieres</h6>
+                    <h6 class="m-0 font-weight-bold text-primary text-center">Liste des matières</h6>
                     {# Bouton création #}
                     {% if is_granted('ROLE_ADMIN') %}
                         <div class="row add-btn-top-list">

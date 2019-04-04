@@ -1,5 +1,7 @@
 {% extends "UserBundle::layout.html.twig" %}
 
+{% block title %}{{ parent() }} | Login {% endblock %}
+
 {% block fos_user_content %}
     {% if error is defined %}
         <div class="alert alert-danger">
