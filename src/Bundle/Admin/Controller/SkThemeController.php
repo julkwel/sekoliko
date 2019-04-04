@@ -32,11 +32,9 @@ class SkThemeController extends Controller
     public function indexAction()
     {
         $_theme = $this->getEntityService()->getAllListByEts(SkTheme::class);
-//        dump($_theme);die();
 
-        return $this->render('AdminBundle:SkTheme:index.html.twig', array(
-            'index' => true,
-            'themes' => $_theme,
+        return $this->render('admin/theme.html.twig', array(
+            'themes' => $_theme
         ));
     }
 
@@ -73,10 +71,29 @@ class SkThemeController extends Controller
             return $this->redirectToRoute('dashboard_index');
         }
 
-        return $this->render('AdminBundle:SkTheme:index.html.twig', array(
+        return $this->render('@Admin/SkTheme/edit.html.twig', array(
             'method' => 'POST',
             'add' => true,
             'form' => $_form->createView()
         ));
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Exception
+     */
+    public function resetAction()
+    {
+        $_theme_list = $this->getEntityService()->getAllListByEts(SkTheme::class);
+        if (count($_theme_list) >= 1) {
+            $_theme_id = $_theme_list[0]->getId();
+            $_theme_list = $this->getEntityService()->getEntityById(SkTheme::class, $_theme_id);
+            $this->getEntityService()->deleteEntity($_theme_list, '');
+            return $this->redirectToRoute('dashboard_index');
+        } else{
+            return $this->redirectToRoute('dashboard_index');
+        }
     }
 }

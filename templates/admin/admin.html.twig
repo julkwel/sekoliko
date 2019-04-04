@@ -26,6 +26,7 @@
     <link rel="shortcut icon" type="image/jpeg" href="{{ asset('img/images.jpeg') }}"/>
     
 </head>
+{#{% include 'AdminBundle:SkTheme:index.html.twig' %}#}
 <body id="page-top">
 
     <div class="wrapper" id="wrapper">
@@ -82,5 +83,13 @@
             });
         </script>
     {% endblock %}
+    {{ render(controller(
+        'AdminBundle:SkTheme:index',{ 'sktheme': true }
+    )) }}
+
+    <script>
+        console.log("ato")
+    </script>
+
 </body>
 </html>

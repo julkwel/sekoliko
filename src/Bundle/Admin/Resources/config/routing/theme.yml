@@ -1,24 +1,9 @@
-theme_index:
-    path:     /
-    defaults: { _controller: "AdminBundle:SkTheme:index" }
-    methods:  GET
-
 theme_new:
     path:     /new
     defaults: { _controller: "AdminBundle:SkTheme:new" }
     methods:  [GET, POST]
 
-theme_edit:
-    path:     /{id}/edit
-    defaults: { _controller: "AdminBundle:SkTheme:update" }
-    methods:  [GET, POST]
-
-#theme_liste:
-#    path:     /{id}/etudiant
-#    defaults: { _controller: "AdminBundle:SkInformation:index" }
-#    methods:  [GET, POST]
-
 theme_reset:
-    path:     /{id}/reset
+    path:     /reset
     defaults: { _controller: "AdminBundle:SkTheme:reset" }
     methods:  [GET, DELETE]
