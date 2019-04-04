@@ -46,11 +46,13 @@
                                     <td style="width: 200px">{{ bug.user.usrLastname }}</td>
                                 {% endif %}
                                 <td class="status" style="color: {{ bug.color }};width: 100px">{{ bug.status }}</td>
-                                <td class="status" style="width:100px">{# img src="{{ asset('uploads/images/bug/'~ bug.attachment) }}" #}
-                                    <a href="{{ asset('uploads/images/bug/'~ bug.attachment) }}" data-toggle="lightbox">
-                                        <img src="{{ asset('uploads/images/bug/'~ bug.attachment) }}" class="img-fluid">
-                                    </a>
-                                </td>
+                                {% if bug.attachment %}
+                                    <td style="width:100px" class="img-fluid">
+                                        <a href="{{ asset('uploads/images/bug/'~ bug.attachment) }}" data-toggle="lightbox">
+                                            <img src="{{ asset('uploads/images/bug/'~ bug.attachment) }}" class="img-fluid">
+                                        </a>
+                                    </td>
+                                {% endif %}
                                 {% if is_granted('ROLE_SUPERADMIN') %}
                                     <td style="width: 200px">
                                         <a href="{{ path('bug_edit',{"id":bug.id}) }}"
@@ -68,15 +70,4 @@
         </form>
     </div>
 
-{% endblock %}
-
-{% block javascripts %}
-
-    {{ parent() }}
-    <script>
-        $(document).on('click', '[data-toggle="lightbox"]', function(event) {
-                event.preventDefault();
-                $(this).ekkoLightbox();
-            });
-    </script>
 {% endblock %}
