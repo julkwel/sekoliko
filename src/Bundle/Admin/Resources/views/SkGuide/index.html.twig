@@ -42,7 +42,13 @@
                             {% for guide in listguide %}
                                 <tr>
                                     <td>{{ guide.description }}</td>
-                                    <td><img width="200px" height="200px" src="{{ asset('uploads/images/guide/'~guide.attachment)}}" alt=""></td>
+                                    {% if guide.attachment %}
+                                        <td style="width:100px" class="img-fluid">
+                                            <a href="{{ asset('uploads/images/guide/'~ guide.attachment) }}" data-toggle="lightbox">
+                                                <img src="{{ asset('uploads/images/guide/'~ guide.attachment) }}" class="img-fluid">
+                                            </a>
+                                        </td>
+                                    {% endif %}
                                     {% if is_granted('ROLE_SUPERADMIN') %}
                                     <td>
                                         <a href="{{ path('guide_edit',{"id":guide.id}) }}"
