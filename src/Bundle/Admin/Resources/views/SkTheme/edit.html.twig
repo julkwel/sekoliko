@@ -1,4 +1,7 @@
 {% extends 'admin/admin.html.twig' %}
+
+{% block title %}{{ parent() }} | Thèmes  {% endblock %}
+
 {% form_theme form 'form/custom_fields.html.twig' %}
 
 {% block body %}
