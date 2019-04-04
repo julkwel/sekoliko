@@ -162,6 +162,25 @@
                 </div>
             </li>
         {% endif %}
+        <!-- Nav Item - Discipline Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#discipline" aria-expanded="true"
+               aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Paiement</span>
+            </a>
+            <div id="discipline" class="collapse  {% if menu_discipline is defined %}show{% endif %}"
+                 aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Actions:</h6>
+                    <a class="collapse-item" href="{{ path('discipline_index') }}">Etats des paiement</a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a class="collapse-item" href="{{ path('discipline_new') }}">Nouveau paiement</a>
+                    {% endif %}
+                </div>
+            </div>
+        </li>
+
         <!-- Nav Item - Salle Collapse Menu -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#salle" aria-expanded="true"
