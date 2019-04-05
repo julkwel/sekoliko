@@ -72,26 +72,34 @@ class SkPaiementController extends Controller
             $_paiement->setReference($_reference);
             $_paiement->setEtsNom($_user_ets);
             $_paiement->setUser(array($_find_user));
-
             $_addresse = '104.236.254.239';
 
-            $_add_paiement = $this->getAriaryNetPaiement()->initPayAriary($_panie_id, $_montant, $_user_id, $_reference, $_addresse);
-
-            if ($_add_paiement === true){
-                $this->getEntityService()->saveEntity($_paiement, 'new');
-            }
-
-            $this->getEntityService()->setFlash('success', 'Paiement avec success');
-
-            return $this->redirectToRoute('paiement_list');
+            return $this->addPaiement($_panie_id, $_montant, $_user_id, $_reference, $_addresse);
         }
-
 
         return $this->render('AdminBundle:SkPaiement:add.html.twig', array(
             'form' => $_form->createView(),
             'user' => $_user_list
         ));
     }
+
+    /**
+     * @param $_panie_id
+     * @param $_montant
+     * @param $_user_id
+     * @param $_reference
+     * @param $_addresse
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Exception
+     */
+
+    public function addPaiement($_panie_id, $_montant, $_user_id, $_reference, $_addresse){
+
+        $_add_paiement = $this->getAriaryNetPaiement()->initPayAriary($_panie_id, $_montant, $_user_id, $_reference, $_addresse);
+
+        return $_add_paiement;
+    }
+
 
     /**
      * @return \Symfony\Component\HttpFoundation\Response
