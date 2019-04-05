@@ -66,6 +66,8 @@ class SkPaiementController extends Controller
             $_reference = $request->request->get('reference');
             $_date = $request->request->get('date');
             $_paiement->setDate(new  \DateTime($_date));
+            $_paiement->setMontant($_montant);
+            $_paiement->setReference($_reference);
             $_addresse = '104.236.254.239';
             $_paiement->setUser($_find_user);
 

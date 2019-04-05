@@ -27,12 +27,6 @@ class SkPaiementType extends AbstractType
             ->add('commentaire',TextareaType::class,array(
                 'label'=>'Remarque'
             ))
-            ->add('montant',TextType::class,array(
-                'label'=>'Montant de paiement'
-            ))
-            ->add('reference',TextType::class,array(
-                'label'=>'Réference de paiement'
-            ))
             ;
     }
 
