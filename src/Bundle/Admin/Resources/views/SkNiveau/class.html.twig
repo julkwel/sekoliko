@@ -2,30 +2,28 @@
 
 {% form_theme form 'form/custom_fields.html.twig' %}
 
-{% block title %}{{ parent() }} | Ajouts niveaux {% endblock %}
+{% block title %}{{ parent() }} | Création classe {% endblock %}
 
-{% set menu_niveau        = true %}
+{% set menu_classe        = true %}
 
 {% block body %}
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary text-center">Ajouter un niveau</h6>
+            <h6 class="m-0 font-weight-bold text-primary text-center">Créer une classe</h6>
         </div>
         <div class="card-body">
             {{ form_start(form) }}
             <div class="row">
                 <div class="col-md-12">
-                    {{ form_row(form.niveauNom) }}
-                    <div class="funkyradio">
-                        <div class="funkyradio-primary">
-                            <input type="checkbox" name="classe" id="checkbox2" checked/>
-                            <label for="checkbox2">Ajouter des classes pour ce niveau ? </label>
-                        </div>
+                    <div class="form-group ">
+                        <label for="">Niveau</label>
+                        <input type="text" class="form-control" value="{{ niveau.niveauNom }}" disabled readonly>
                     </div>
+                    {{ form_row(form.classeNom) }}
                 </div>
             </div>
             <div class="box-footer">
-                <input type="submit" class="btn btn-primary btn-block" value="Enregistrer" name="new_niveau"/>
+                <input type="submit" class="btn btn-primary btn-block" value="Enregistrer" name="new_classe"/>
                 <a href="{{ path('niveau_index') }}"
                    class="btn btn-google btn-block">
                     Annuler

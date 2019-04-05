@@ -62,6 +62,10 @@
                                            href="{{ path('niveau_edit', { 'id': niveau.id }) }}">
                                             <i class="fas fa-pen"></i>
                                         </a>
+                                        <a class="btn btn-info btn-sm" title="Modifier"
+                                           href="{{ path('niveau_list_class', { 'id': niveau.id }) }}">
+                                            <i class="fas fa-list"></i>
+                                        </a>
                                         {% if is_granted('ROLE_ADMIN') %}
                                             <a class="btn btn-danger remove-elt btn-sm" title="Supprimer"
                                                onclick="supprimer('{{ path('niveau_delete', { 'id': niveau.id }) }}')">
