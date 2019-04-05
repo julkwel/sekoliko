@@ -10,7 +10,7 @@
     border-radius: 5px;
     display: inline-block;
 }
-#sk_guide_attachment, #sk_bug_attachment {display: none;}
+#sk_guide_attachment, #sk_bug_attachment, #sk_userbundle_user_imgUrl {display: none;}
 
 /**
 Checkbox
