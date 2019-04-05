@@ -28,7 +28,7 @@
                     <h6 class="m-0 font-weight-bold text-primary text-center">Liste des bugs</h6>
                     {# Bouton création #}
                     {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPERADMIN') %}
-                        <div class="row add-btn-top-list">
+                        <div class="add-btn-top-list float-right">
                             <a href="{{ path('bug_new') }}" class="btn btn-primary">
                                 Signaler un bug ou amélioration(s)
                             </a>

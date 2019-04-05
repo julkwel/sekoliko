@@ -7,7 +7,7 @@
 {% set menu_classe        = true %}
 
 {% block body %}
-    <div class="card shadow mb-4">
+    <div class="card shadow mb-4 col-4 mx-auto">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary text-center">Créer une classe</h6>
         </div>
@@ -27,9 +27,9 @@
                 </div>
             </div>
             <div class="box-footer">
-                <input type="submit" class="btn btn-primary btn-block" value="Enregistrer" name="new_classe"/>
+                <input type="submit" class="btn btn-primary float-right" value="Enregistrer" name="new_classe"/>
                 <a href="{{ path('classe_index') }}"
-                   class="btn btn-google btn-block">
+                   class="btn btn-google">
                     Annuler
                 </a>
             </div>
