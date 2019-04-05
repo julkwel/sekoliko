@@ -17,14 +17,22 @@
                 <div class="col-md-12">
                     {{ form_row(form.commentaire) }}
                     <div class="form-group">
+                        <label for="">Utilisateur</label>
                         <select name="user" id="" class="form-control">
                             {% for user in user %}
                                 <option value="{{ user.id }}">{{ user.username }}</option>
                             {% endfor %}
                         </select>
                     </div>
-                    {{ form_row(form.reference) }}
-                    {{ form_row(form.montant) }}
+                    <div class="form-group">
+                        <label for="">Réference de paiement</label>
+                        <input type="text" class="form-control"  name="reference">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Montant de paiement</label>
+                        <input type="text" class="form-control" name="montant">
+                    </div>
+
                     <div class="form-group">
                         <label for="">Date de paiement</label>
                         <div class="input-group date" id="datetimepicker2" data-target-input="nearest">

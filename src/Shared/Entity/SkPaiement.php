@@ -8,11 +8,12 @@
 
 namespace App\Shared\Entity;
 
+use App\Bundle\User\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class SkPaiement
- * @package App\Shared\Entity
+ * SkPaiement.
+ *
  * @ORM\Table(name="sk_paiement")
  * @ORM\Entity
  */
@@ -30,7 +31,7 @@ class SkPaiement
     private $id;
 
     /**
-     * @var SkPaiement
+     * @var User
      * @ORM\ManyToMany(targetEntity="App\Bundle\User\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="user", referencedColumnName="id", onDelete="SET NULL")
@@ -83,7 +84,7 @@ class SkPaiement
     }
 
     /**
-     * @return SkPaiement
+     * @return User
      */
     public function getUser()
     {
@@ -91,7 +92,7 @@ class SkPaiement
     }
 
     /**
-     * @param SkPaiement $user
+     * @param User $user
      */
     public function setUser($user)
     {
@@ -161,6 +162,6 @@ class SkPaiement
     {
         $this->commentaire = $commentaire;
     }
-    
+
     
 }
