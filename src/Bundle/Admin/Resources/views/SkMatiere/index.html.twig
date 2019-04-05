@@ -28,7 +28,7 @@
                     <h6 class="m-0 font-weight-bold text-primary text-center">Liste des matières</h6>
                     {# Bouton création #}
                     {% if is_granted('ROLE_ADMIN') %}
-                        <div class="row add-btn-top-list">
+                        <div class="add-btn-top-list float-right">
                             <a href="{{ path('matiere_new') }}" class="btn btn-primary">
                                 Ajouter une matière
                             </a>
@@ -36,7 +36,7 @@
                     {% endif %}
                     <div class="box-header">
                         <div class="list-count">
-                            <span class="title-count-text"> TOTAL: </span><span class="title-count"></span>
+                            <h4><span class="title-count-text"> TOTAL : </span><span class="title-count"></span></h4>
                         </div>
                     </div>
                 </div>
@@ -75,21 +75,21 @@
                                     </td>
                                     <td class="kl-action-button-bloc">
                                         {% if is_granted('ROLE_PROFS') %}
-                                            <a class="btn btn-success" title="Voir emploi du temps"
+                                            <a class="btn btn-success btn-sm" title="Voir emploi du temps"
                                                href="{{ path('edt_classe', { 'id': matiere.matClasse.id }) }}">
                                                 <i class="fa fa-calendar"></i>
                                             </a>
-                                            <a class="btn btn-info" title="Voir mes etudiants"
+                                            <a class="btn btn-info btn-sm" title="Voir mes etudiants"
                                                href="{{ path('etudiant_liste', { 'id': matiere.matClasse.id }) }}">
                                                 <i class="fa fa-user"></i>
                                             </a>
                                         {% endif %}
                                         {% if is_granted('ROLE_ADMIN') %}
-                                            <a class="btn btn-success" title="Modifier"
+                                            <a class="btn btn-success btn-sm" title="Modifier"
                                                href="{{ path('matiere_edit', { 'id': matiere.id }) }}">
-                                                <i class="fa fa-edit"></i>
+                                                <i class="fas fa-pen"></i>
                                             </a>
-                                            <a class="btn btn-danger remove-elt" title="Supprimer"
+                                            <a class="btn btn-danger remove-elt btn-sm" title="Supprimer"
                                                onclick="supprimer('{{ path('matiere_delete', { 'id': matiere.id }) }}')">
                                                 <i class="fa fa-trash"></i>
                                             </a>
