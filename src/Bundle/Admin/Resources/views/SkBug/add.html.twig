@@ -7,7 +7,7 @@
 {% set menu_info     = true %}
 
 {% block body %}
-    <div class="card shadow mb-4">
+    <div class="card shadow mb-4 col-md-6 col-xs-12 mx-auto">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary text-center">Signaler un bug ou amélioration(s)</h6>
         </div>
@@ -19,7 +19,7 @@
                     {{ form_row(form.description) }}
                     <div class="form-group">
                         <label for="">Status</label>
-                        <select name="status" class="form-control" id="">
+                        <select name="status" class="form-control col-4" id="">
                             <option value="Important">Important</option>
                             <option value="Features">Amelioration</option>
                             <option value="Erreur">Erreur</option>
@@ -33,9 +33,9 @@
                 </div>
             </div>
             <div class="box-footer">
-                <input type="submit" class="btn btn-primary btn-block" value="Envoyer" name="new_info"/>
+                <input type="submit" class="btn btn-primary float-right" value="Envoyer" name="new_info"/>
                 <a href="{{ path('bug_index') }}"
-                   class="btn btn-google btn-block">
+                   class="btn btn-google">
                     Annuler
                 </a>
             </div>
