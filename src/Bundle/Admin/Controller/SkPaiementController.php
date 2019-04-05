@@ -74,7 +74,11 @@ class SkPaiementController extends Controller
             $_paiement->setUser(array($_find_user));
             $_addresse = '104.236.254.239';
 
-            return $this->addPaiement($_panie_id, $_montant, $_user_id, $_reference, $_addresse);
+            $this->terminerPaiementAction($_panie_id, $_montant, $_user_id, $_reference, $_addresse);
+
+            if ($_paiement){
+                return $this->addPaiement($_panie_id, $_montant, $_user_id, $_reference, $_addresse);
+            }
         }
 
         return $this->render('AdminBundle:SkPaiement:add.html.twig', array(
@@ -89,10 +93,24 @@ class SkPaiementController extends Controller
      * @param $_user_id
      * @param $_reference
      * @param $_addresse
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function terminerPaiementAction($_panie_id, $_montant, $_user_id, $_reference, $_addresse)
+    {
+        dump($_panie_id, $_montant, $_user_id, $_reference, $_addresse);die();
+        return $this->render('@Admin/SkPaiement/fin.html.twig',array(
+            'data'=>array($_panie_id, $_montant, $_user_id, $_reference, $_addresse)
+        ));
+    }
+    /**
+     * @param $_panie_id
+     * @param $_montant
+     * @param $_user_id
+     * @param $_reference
+     * @param $_addresse
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @throws \Exception
      */
-
     public function addPaiement($_panie_id, $_montant, $_user_id, $_reference, $_addresse){
 
         $_add_paiement = $this->getAriaryNetPaiement()->initPayAriary($_panie_id, $_montant, $_user_id, $_reference, $_addresse);

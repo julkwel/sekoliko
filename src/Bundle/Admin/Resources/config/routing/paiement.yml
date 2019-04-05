@@ -13,6 +13,11 @@ paiement_edit:
     defaults: { _controller: "AdminBundle:SkPaiement:edit" }
     methods:  [GET, POST]
 
+paiement_fin:
+    path:     /terminer
+    defaults: { _controller: "AdminBundle:SkPaiement:terminerPaiement" }
+    methods:  [GET, POST]
+
 paiement_delete:
     path:     /{id}/delete
     defaults: { _controller: "AdminBundle:SkPaiement:delete" }
