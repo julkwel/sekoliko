@@ -13,6 +13,16 @@ niveau_edit:
     defaults: { _controller: "AdminBundle:SkNiveau:update" }
     methods:  [GET, POST]
 
+niveau_add_class:
+    path:     /{id}/classe
+    defaults: { _controller: "AdminBundle:SkNiveau:addClassForNiveau" }
+    methods:  [GET, POST]
+
+niveau_list_class:
+    path:     /{id}/class/list
+    defaults: { _controller: "AdminBundle:SkNiveau:getAllNiveauClass" }
+    methods:  [GET, POST]
+
 #niveau_update:
 #    path:     /{id}/update
 #    defaults: { _controller: "U" }

@@ -24,7 +24,7 @@
         </div>
     {% endfor %}
 
-    <div class="card shadow mb-4">
+    <div class="card shadow mb-4 col-md-8 col-xs-12 mx-auto">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary text-center">Créer un utilisateur</h6>
         </div>
@@ -32,11 +32,11 @@
             {{ form_start(form) }}
             <div class="row">
                 <div class="col-md-6">
-                    {{ form_row(form.usrLastname) }}
-                    {{ form_row(form.usrFirstname) }}
-                    {{ form_row(form.usrAddress) }}
-                    {{ form_row(form.email) }}
-                    {{ form_row(form.usrPhone) }}
+                    {{ form_row(form.usrLastname, {'attr': {'class': 'col-10'}}) }}
+                    {{ form_row(form.usrFirstname, {'attr': {'class': 'col-10'}}) }}
+                    {{ form_row(form.usrAddress, {'attr': {'class': 'col-10'}}) }}
+                    {{ form_row(form.email, {'attr': {'class': 'col-8'}}) }}
+                    {{ form_row(form.usrPhone, {'attr': {'class': 'col-6'}}) }}
                 </div>
                 <div class="col-md-6">
                     {% if is_granted('ROLE_SUPERADMIN') %}
@@ -50,21 +50,21 @@
                             {{ form_row(form.imgUrl) }}
                         </div>
 
-                    {{ form_row(form.skRole) }}
+                    {{ form_row(form.skRole, {'attr': {'class': 'col-4'}}) }}
                     <div class="hide" style="display: none;">
                         {{ form_row(form.enabled) }}
                     </div>
-                    {{ form_row(form.username) }}
-                    {{ form_row(form.plainPassword.first) }}
-                    {{ form_row(form.plainPassword.second) }}
+                    {{ form_row(form.username, {'attr': {'class': 'col-6'}}) }}
+                    {{ form_row(form.plainPassword.first, {'attr': {'class': 'col-6'}}) }}
+                    {{ form_row(form.plainPassword.second, {'attr': {'class': 'col-6'}}) }}
                 </div>
             </div>
 
             <div class="box-footer">
-                <input type="submit" class="btn btn-primary btn-block" value="Enregistrer" name="new_user"/>
+                <input type="submit" class="btn btn-primary float-right" value="Enregistrer" name="new_user"/>
                 {% if not is_granted('ROLE_SUPERADMIN') %}
                     <a href="{{ path('user_index') }}"
-                       class="btn btn-google btn-block">
+                       class="btn btn-google">
                         Annuler
                     </a>
                 {% endif %}

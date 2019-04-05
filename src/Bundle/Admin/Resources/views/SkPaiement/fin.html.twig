@@ -1,0 +1,21 @@
+{% extends 'admin/admin.html.twig' %}
+
+{#{% form_theme form 'form/custom_fields.html.twig' %}#}
+
+{% block title %}{{ parent() }} | Ajout paiement {% endblock %}
+
+{% set menu_paiement     = true %}
+
+{% block body %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary text-center">Terminer le paiement</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <input type="submit" class="btn btn-primary btn-block" value="Terminer le payement" name="new_guide"/>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
