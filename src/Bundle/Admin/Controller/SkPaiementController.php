@@ -54,7 +54,7 @@ class SkPaiementController extends Controller
         $_user_ets = $this->getUserConnected()->getEtsNom();
         $_panie_id = rand(100, 100000);
         $_paiement = new SkPaiement();
-        $_form = $this->createForm(SkPaiementType::class, $_paiement);
+        $_form = $this->createForm(SkPaiementType::class);
         $_form->handleRequest($request);
         $_user_list = $this->getEntityService()->getAllListByEts(User::class);
 
@@ -69,10 +69,10 @@ class SkPaiementController extends Controller
             $_paiement->setMontant($_montant);
             $_paiement->setReference($_reference);
             $_addresse = '104.236.254.239';
-            $_paiement->setUser($_find_user);
+            $_paiement->setUser(array($_find_user));
 
             $this->getAriaryNetPaiement()->initPayAriary($_panie_id, $_montant, $_user_id, $_reference, $_addresse);
-
+//            dump($_paiement);die();
             $this->getEntityService()->saveEntity($_paiement, 'new');
             $this->getEntityService()->setFlash('success', 'Paiement avec success');
 
