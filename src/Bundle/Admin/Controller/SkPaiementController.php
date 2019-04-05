@@ -39,8 +39,8 @@ class SkPaiementController extends Controller
     public function indexAction()
     {
         $_paiement = $this->getEntityService()->getAllListByEts(SkPaiement::class);
-        return $this->render('AdminBundle:SkPaiement:index.html.twig',array(
-            'paiement'=>$_paiement
+        return $this->render('AdminBundle:SkPaiement:index.html.twig', array(
+            'paiement' => $_paiement
         ));
     }
 
@@ -61,7 +61,7 @@ class SkPaiementController extends Controller
         if ($_form->isSubmitted() && $_form->isValid()) {
             $_paiement->setEtsNom($_user_ets);
             $_user_id = $request->request->get('user');
-            $_find_user = $this->getEntityService()->getEntityById(User::class,$_user_id);
+            $_find_user = $this->getEntityService()->getEntityById(User::class, $_user_id);
             $_montant = $request->request->get('montant');
             $_reference = $request->request->get('reference');
             $_date = $request->request->get('date');
@@ -69,20 +69,18 @@ class SkPaiementController extends Controller
             $_addresse = '104.236.254.239';
             $_paiement->setUser($_find_user);
 
-            try {
-                $this->getAriaryNetPaiement()->initPayAriary($_panie_id, $_montant, $_user_id, $_reference, $_addresse);
-                $this->getEntityService()->saveEntity($_paiement, 'new');
-                $this->getEntityService()->setFlash('success','Paiement avec success');
-                return $this->redirectToRoute('paiement_list');
-            } catch (\Exception $e) {
-                $e->getMessage();
-            }
+            $this->getAriaryNetPaiement()->initPayAriary($_panie_id, $_montant, $_user_id, $_reference, $_addresse);
+
+            $this->getEntityService()->saveEntity($_paiement, 'new');
+            $this->getEntityService()->setFlash('success', 'Paiement avec success');
+
+            return $this->redirectToRoute('paiement_list');
         }
 
 
-        return $this->render('AdminBundle:SkPaiement:add.html.twig',array(
-            'form'=>$_form->createView(),
-            'user'=>$_user_list
+        return $this->render('AdminBundle:SkPaiement:add.html.twig', array(
+            'form' => $_form->createView(),
+            'user' => $_user_list
         ));
     }
 
