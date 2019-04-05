@@ -1,0 +1,53 @@
+<div class="table-responsive">
+    <p>Total : {% if users %}{{ users | length }}{% else %} 0 {% endif %} </p>
+    <table class="table" id="dataTable">
+        <thead>
+            <tr>
+                <th>Role</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.skRole.rlName }}</td>
+                    <td>{{ user.usrLastname }}</td>
+                    <td>{{ user.usrFirstname }}</td>
+                    <td>
+                        <a href="{{ path('search_details',{id:user.id}) }}"
+                        class="btn btn-circle btn-primary">
+                            <i class="fa fa-eye"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <script>
+        $(document).ready(function(){
+            $('#dataTable').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ],
+                "order": [[0, "desc"]],
+                "bProcessing": true,
+                "bFilter": true,
+                "oLanguage": {
+                    "sProcessing": "Traitement...",
+                    "oPaginate": {
+                        "sPrevious": "PrÃ©cÃ©dente", // This is the link to the previous page
+                        "sNext": "Suivante", // This is the link to the next page
+                    },
+                    "sSearch": "Filtrer: ",
+                    "sLengthMenu": "Afficher _MENU_ enregistrement par page",
+                    "sEmptyTable": "Aucun utilisateur trouvÃ©",
+                    "sInfo": "Voir _TOTAL_ de _PAGE_ pour _PAGES_ entrÃ©es",
+                }
+            });
+        })    
+    </script>
+</div>
+

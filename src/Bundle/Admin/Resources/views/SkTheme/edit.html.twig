@@ -1,0 +1,81 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}{{ parent() }} | Thèmes  {% endblock %}
+
+{% form_theme form 'form/custom_fields.html.twig' %}
+
+{% block body %}
+    {% if add is defined %}
+        <div class="card">
+            <div class="card-body">
+                {{ form_start(form) }}
+                <div class="form-group">
+                    <label for="">Body color</label>
+                    <div id="cp5a" class="input-group" title="Using format option">
+                        <input type="text" name="body" onchange="changeContent()" class="form-control body-color input-lg" value="#305AA2"/>
+                        <span class="input-group-append">
+                            <span class="input-group-text colorpicker-input-addon"><i></i>
+                        </span>
+                    </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="">Header color</label>
+                    <div id="cp5b" class="input-group" onchange="changeHead()" title="Using format option">
+                        <input type="text" name="header"
+                               class="form-control head-value input-lg" value="#305AA2"/>
+                        <span class="input-group-append"><span
+                                    class="input-group-text colorpicker-input-addon"><i></i></span></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="">Sidebar color</label>
+                    <div id="cp6b" class="input-group" onchange="changeSide()" title="Using format option">
+                        <input type="text" name="sidebar" class="form-control side-color input-lg" value="#305AA2"/>
+                        <span class="input-group-append"><span
+                                    class="input-group-text colorpicker-input-addon"><i></i></span>
+                        </span>
+                    </div>
+                </div>
+
+                <input type="submit" class="btn btn-primary btn-block" value="Modifier" name="new_niveau"/>
+                <a href="{{ path('dashboard_index') }}" class="btn btn-google btn-block"> Annuler </a>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    {% endif %}
+
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <script>
+
+        /**
+         * Preview background
+         */
+        $('.body-color').val();
+
+        /**
+         * Change header background
+         */
+        function changeHead() {
+            var head_color = $('.head-value').val();
+            $('#sk-bg-header').removeClass('bg-white');
+            $('#sk-bg-header').css('background', head_color)
+        }
+
+        /**
+         * Change sideba background
+         */
+        function changeSide() {
+            var side_color = $('.side-color').val();
+            $('#accordionSidebar').css('background', side_color)
+        }
+
+        /**
+         * Change body background
+         */
+        function changeContent() {
+            var body_color = $('.body-color').val();
+            $('#content').css('background', body_color)
+        }
+    </script>
+{% endblock %}

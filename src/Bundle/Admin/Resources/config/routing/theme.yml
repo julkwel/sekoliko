@@ -1,0 +1,9 @@
+theme_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:SkTheme:new" }
+    methods:  [GET, POST]
+
+theme_reset:
+    path:     /reset
+    defaults: { _controller: "AdminBundle:SkTheme:reset" }
+    methods:  [GET, DELETE]

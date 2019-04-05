@@ -1,5 +1,7 @@
 {% extends "UserBundle::layout.html.twig" %}
 
+{% block title %}{{ parent() }} | Login {% endblock %}
+
 {% block fos_user_content %}
     {% if error is defined %}
         <div class="alert alert-danger">
@@ -28,7 +30,8 @@
         </button>
         <hr>
         <div class="text-center">
-            <a class="small" href="{{ path('sk_resetting_password') }}">Mot de passe oublié?</a>
+            <a class="small" href="{{ path('sk_login') }}">Tongasoa eto amin'ny Sekoliko</a>
+            {#<a class="small" href="{{ path('sk_resetting_password') }}">Mot de passe oublié?</a>#}
         </div>
     </form>
 {% endblock %}

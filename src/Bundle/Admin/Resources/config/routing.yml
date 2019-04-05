@@ -58,3 +58,11 @@ tz_info:
 tz_bug:
     resource: "@AdminBundle/Resources/config/routing/bug.yml"
     prefix:   /bug
+
+tz_theme:
+    resource: "@AdminBundle/Resources/config/routing/theme.yml"
+    prefix:   /theme
+
+tz_paiement:
+    resource: "@AdminBundle/Resources/config/routing/paiement.yml"
+    prefix:   /paiement

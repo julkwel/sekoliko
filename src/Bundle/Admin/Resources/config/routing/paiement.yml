@@ -1,0 +1,24 @@
+paiement_list:
+    path:     /
+    defaults: { _controller: "AdminBundle:SkPaiement:index" }
+    methods:  [GET, POST]
+
+paiement_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:SkPaiement:new" }
+    methods:  [GET, POST]
+
+paiement_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:SkPaiement:edit" }
+    methods:  [GET, POST]
+
+paiement_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:SkPaiement:delete" }
+    methods:  [GET, DELETE]
+
+paiement_details:
+    path:     /{id}/details
+    defaults: { _controller: "AdminBundle:SkPaiement:details" }
+    methods:  [GET, POST]

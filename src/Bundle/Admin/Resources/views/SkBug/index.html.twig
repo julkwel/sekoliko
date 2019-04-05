@@ -1,6 +1,6 @@
 {% extends 'admin/admin.html.twig' %}
 
-{% block title %}{{ parent() }} Tableau de bord {% endblock %}
+{% block title %}{{ parent() }} | Tableau de bord {% endblock %}
 
 {% set menu_info = true %}
 
@@ -46,9 +46,13 @@
                                     <td style="width: 200px">{{ bug.user.usrLastname }}</td>
                                 {% endif %}
                                 <td class="status" style="color: {{ bug.color }};width: 100px">{{ bug.status }}</td>
-                                <td class="status" style="width:100px"><img width="100px" height="100px"
-                                                                             src="{{ asset('uploads/images/bug/'~ bug.attachment) }}"
-                                                                             alt=""></td>
+                                {% if bug.attachment %}
+                                    <td style="width:100px" class="img-fluid">
+                                        <a href="{{ asset('uploads/images/bug/'~ bug.attachment) }}" data-toggle="lightbox">
+                                            <img src="{{ asset('uploads/images/bug/'~ bug.attachment) }}" class="img-fluid">
+                                        </a>
+                                    </td>
+                                {% endif %}
                                 {% if is_granted('ROLE_SUPERADMIN') %}
                                     <td style="width: 200px">
                                         <a href="{{ path('bug_edit',{"id":bug.id}) }}"
@@ -66,11 +70,4 @@
         </form>
     </div>
 
-{% endblock %}
-
-{% block javascripts %}
-
-    {{ parent() }}
-    <script>
-    </script>
 {% endblock %}

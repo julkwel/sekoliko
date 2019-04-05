@@ -1,7 +1,7 @@
 {% extends 'admin/admin.html.twig' %}
-{% form_theme form 'form/custom_fields.html.twig' %}
+{#{% form_theme form 'form/custom_fields.html.twig' %}#}
 
-{% block title %}{{ parent() }} Tableau de bord {% endblock %}
+{% block title %}{{ parent() }} | Rechercher {% endblock %}
 
 {% set menu_recherche = true %}
 
@@ -27,12 +27,21 @@
             <div class="card shadow mb-4 p-2">
                 <h4>Rechercher avancé utilisateur</h4>
                 <div class="col-md-12">
-                    {{ form_start(form) }}
-                    {{ form_row(form.username,{ 'value': '' }) }}
-                    {{ form_row(form.prenom,{ 'value': '' }) }}
-                    {{ form_row(form.nom,{ 'value': '' }) }}
-                    <input type="submit" class="btn btn-primary btn-block" value="Chercher" name="find"/>
-                    {{ form_end(form) }}
+                    {{ form_start(filter, {'attr': {'class': 'form-filter'}}) }}
+                    <div class="form-group">
+                        {{ form_row(filter.username) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(filter.userFirstName) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(filter.userLastName) }}
+                    </div>
+                    <div class="alert alert-danger"></div>
+                    <div class="form-group">
+                        {{ form_row(filter.save, {'attr':{'class':'btn btn-primary button-submit'}}) }}
+                    </div>
+                    {{ form_end(filter) }}
                 </div>
             </div>
         </div>
@@ -43,56 +52,27 @@
                     <input type="text" id="search" class="form-control" placeholder="Nom d'utilisateur...">
                 </div>
                 <div class="mt-3">
-                    <ul class="nav">
-                        <li>
-                            <h4>Résultas</h4>
-                            <ul class="nav nav-second-level" id="entitiesNav"></ul>
-                        </li>
-                    </ul>
+                    <div style="display: flex;justify-content: space-between">
+                        <h4>Résultats</h4>
+                    </div>
+                    <p class="text-center not-found"></p>
+                    <ul class="list-group" id="entitiesNav"></ul>
                 </div>
             </div>
         </div>
-
-
         <form action="" method="POST" class="form-search">
-            <div class="card shadow mb-4">
+            <div class="card list-users shadow mb-4">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary text-center">Resultats</h6>
                     <div class="box-header">
                         <div class="list-count">
-                            <span class="title-count-text"> {% if users %} TOTAL: {{ users ? users|length }} {% endif %}</span><span
+                            <span class="title-count-text"> </span><span
                                     class="title-count"></span>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table" id="dataTable">
-                            <thead>
-                            <tr>
-                                <th>Role</th>
-                                <th>Nom</th>
-                                <th>Prénom</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for user in users %}
-                                <tr>
-                                    <td>{{ user.skRole.rlName }}</td>
-                                    <td>{{ user.usrLastname }}</td>
-                                    <td>{{ user.usrFirstname }}</td>
-                                    <td>
-                                        <a href="{{ path('search_details',{id:user.id}) }}"
-                                           class="btn btn-circle btn-primary">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
+
                 </div>
             </div>
         </form>
@@ -103,13 +83,97 @@
     {{ parent() }}
 
     <script type="text/javascript">
-        // Call the dataTables jQuery plugin
-        $(document).ready(function () {
-            $('#dataTable').DataTable();
+
+        $(document).ready(function(){
+
+            $('.alert-danger').hide();
+            /**
+             * Script to filter user by username|firstName|lastName
+             */
+            $('.button-submit').on('click', function(){
+                // initialize progress bar
+                NProgress.start();
+                $('.card').css({'opacity':'0.5'});
+                $(this).text('En cours ...');
+                var formArray = $('.form-filter').serializeArray();
+                const obj = {};
+                if(Array.isArray(formArray)) {
+                    for(var i = 0; i<formArray.length; i++) {
+                        const data = formArray[i];
+                        obj[data.name] = data.value;
+                    }
+                }
+
+                if(obj.username == '' || obj.userFirstName == '' || obj.userLastName == '') {
+                    $('.alert-danger').html('Les champs sont obligatoires a remplir').show();
+                    $('.card').css({'opacity':'1'});
+                    $('.button-submit').text('Filtrer');
+                    NProgress.done();
+                } else {
+                    var tr = '';
+                    $.ajax({
+                        url: '{{ path('user_search_result_ajax') }}',
+                        type: 'GET',
+                        data: obj,
+                        success: function(data){
+                            $('.card-body').empty().html(data);
+                            $('input').val("");
+                            NProgress.done();
+                            $('.card').css({'opacity':'1'});
+                            $('.button-submit').text('Filtrer');
+                            $('.alert-danger').hide();
+                        }
+                    })
+                }
+
+                return false;
+            })
+
+            var li = '';
+            $('.not-found').hide();
+            /**
+             * Script to filter user by only lastName
+             */
+            $('#search').on('keyup', function(){
+                $('#entitiesNav').empty();
+                var valueSearch = $(this).val();
+                if(valueSearch.length >= 3) {
+                    $.ajax({
+                        url: '{{ path('user_search_result_ajax') }}',
+                        type: 'GET',
+                        beforeSend: function(){
+                            NProgress.start();
+                        },
+                        data: {userLastNameSearch: valueSearch},
+                        success: function(data){
+                            if(data.length) {
+                                $.each(data, function(k,v){
+                                    li += `
+                                <li class="list-group-item">
+                                        <strong>Nom:</strong> ${v.username} <br>
+                                        <strong>Role:</strong> ${v.skRole.rlName}
+                                </li>
+                               `
+                                });
+                                $('#entitiesNav').html(li);
+                                li = '';
+                                $('.not-found').hide();
+                            }else{
+                                li = '';
+                                $('#entitiesNav').html('');
+                                $('.not-found').html('Aucun résultat pour la recherche').show();
+                            }
+                            NProgress.done();
+                        }
+                    })
+                }
+            })
+
         });
+        // Call the dataTables jQuery plugin
 
         $(function () {
-            $('#list-user').DataTable(
+            $('#list-users').DataTable(
                 {
                     "order": [[0, "desc"]],
                     "bProcessing": true,
@@ -129,45 +193,6 @@
                         $('.title-count').html(display.length);
                     }
                 });
-        });
-    </script>
-    <script type="text/javascript">
-        jQuery(document).ready(function () {
-            var searchRequest = null;
-            $("#search").keyup(function () {
-                var minlength = 3;
-                var that = this;
-                var value = $(this).val();
-                var entitySelector = $("#entitiesNav").html('');
-                if (value.length >= minlength) {
-                    if (searchRequest != null)
-                        searchRequest.abort();
-                    searchRequest = $.ajax({
-                        type: "GET",
-                        url: "{{ path('user_search_us') }}",
-                        data: {
-                            'q': value
-                        },
-                        dataType: "text",
-                        success: function (msg) {
-                            if (value == $(that).val()) {
-                                var result = JSON.parse(msg);
-                                $.each(result, function (key, arr) {
-                                    $.each(arr, function (id, value) {
-                                        if (key == 'entities') {
-                                            if (id != 'error') {
-                                                entitySelector.append('<li><a href="/admin/search/' + id + '/show">' + value + '  <i class="fas fa-eye"></i></a></li>');
-                                            } else {
-                                                entitySelector.append('<li class="errorLi">' + value + '</li>');
-                                            }
-                                        }
-                                    });
-                                });
-                            }
-                        }
-                    });
-                }
-            });
         });
     </script>
 {% endblock %}

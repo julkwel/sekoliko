@@ -170,6 +170,9 @@
             "ref": "aaddfdf43cdecd4cf91f992052d76c2cadc04543"
         }
     },
+    "sinner/phpseclib-bundle": {
+        "version": "dev-master"
+    },
     "sonata-project/exporter": {
         "version": "2.0.0"
     },

@@ -1,2 +1,13 @@
 .form-search{width: 100%}
 .fa-trash{color:white}
+.label-file {border: 1px solid #ccc;display: inline-block;padding: 6px 12px;cursor: pointer;}
+.label-file:hover {color: #25a5c4;}
+.buttons-html5, .buttons-print{
+    color: #fff !important;
+    border: none !important;
+    background-color: #25a5c4 !important;
+    padding: 7px;
+    border-radius: 5px;
+    display: inline-block;
+}
+#sk_guide_attachment, #sk_bug_attachment {display: none;}

@@ -5,9 +5,12 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>SEKOLIKO</title>
+
+    <title>{% block title %} Sekoliko {% endblock %}</title>
+
      {% block stylesheet %}
          <link rel="stylesheet" href="{{ asset('admin/bootstrap/bootstrap.min.css') }}">
+         <link rel="stylesheet" href="{{ asset('admin/bootstrap/bootstrap-lightbox.min.css') }}">
          <link rel="stylesheet" href="{{ asset('css/main.css') }}">
          <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
          <!-- Custom fonts for this template-->
@@ -18,11 +21,18 @@
          <link href="{{ asset('decoupe/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css">
          <link rel="stylesheet" href="{{ asset('css/fullcalendar.min.css') }}">
-         <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css">
-         {#<link rel="stylesheet" href="{{ asset('css/pint.css') }}">#}
+         {# <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css"> #}
+         <link rel="stylesheet" href="{{ asset('plugins/bootstrap-colorpicker-v3.1.1-dist/css/bootstrap-colorpicker.min.css') }}">
+         {#<link rel="stylesheet" href="https://unpkg.com/nprogress@0.2.0/nprogress.css">#}
      {% endblock %}
     <link rel="shortcut icon" type="image/jpeg" href="{{ asset('img/images.jpeg') }}"/>
+    <style>
+        li{
+            list-style-type: none;
+        }
+    </style>
 </head>
+{#{% include 'AdminBundle:SkTheme:index.html.twig' %}#}
 <body id="page-top">
 
     <div class="wrapper" id="wrapper">
@@ -44,6 +54,8 @@
 
         <script src="{{ asset('js/moment.js') }}"></script>
         <script src="{{ asset('js/jquery.min.js') }}"></script>
+        <script src="https://unpkg.com/nprogress@0.2.0/nprogress.js"></script>
+        <script src="{{ asset('plugins/bootstrap-colorpicker-v3.1.1-dist/js/bootstrap-colorpicker.min.js') }}"></script>
         <script src="{{ asset('js/jquery.dataTable.min.js') }}"></script>
         <script src="{{ asset('js/dataTable.buttons.min.js') }}"></script>
         <script src="{{ asset('js/button.flash.min.js') }}"></script>
@@ -56,12 +68,34 @@
         <script src="{{ asset('decoupe/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
         <script src="{{ asset('admin/bootstrap/popper.min.js') }}"></script>
         <script src="{{ asset('admin/bootstrap/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('admin/bootstrap/bootstrap-lightbox.min.js') }}"></script>
         <script src="{{ asset('js/confirm.min.js') }}"></script>
         <script src="{{ asset('js/tempusdominus.min.js') }}"></script>
         <script src="{{ asset('decoupe/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
         <script src="{{ asset('decoupe/js/sb-admin-2.min.js') }}"></script>
         <script src="{{ asset('js/traduction.js') }}"></script>
         <script src="{{ asset('js/main.js') }}"></script>
+        <script>
+            $(function () {
+                $('#cp5a').colorpicker({
+                    format: 'auto'
+                });
+                $('#cp5b').colorpicker({
+                    format: null
+                });
+                $('#cp6b').colorpicker({
+                    format: null
+                });
+            });
+        </script>
     {% endblock %}
+    {{ render(controller(
+        'AdminBundle:SkTheme:index',{ 'sktheme': true }
+    )) }}
+
+    <script>
+        console.log("ato")
+    </script>
+
 </body>
 </html>

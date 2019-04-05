@@ -1,7 +1,12 @@
 function supprimer(url){
     confirm("Voulez vous vraiment supprimer ?") ? window.location = url : '';
 }
+console.log($('#accordionSidebar').attr('style'))
 
+
+/**
+ * DataTables
+ */
 $(document).ready(function() {
     $('#dataTable').DataTable({
         dom: 'Bfrtip',
@@ -21,6 +26,21 @@ $(document).ready(function() {
             "sLengthMenu": "Afficher _MENU_ enregistrement par page",
             "sEmptyTable": "Aucun utilisateur trouvé",
             "sInfo": "Voir _TOTAL_ de _PAGE_ pour _PAGES_ entrées",
+        }
+    });
+    //Lightbox activation
+    $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+        event.preventDefault();
+        $(this).ekkoLightbox();
+    });
+    //File input action
+    $('#sk_bug_attachment, #sk_guide_attachment').on('change', function (e) {
+        var file = e.originalEvent.target.value;
+        if (file){
+            var fileName = file.split("\\");
+            $("#label-file").text(fileName[fileName.length-1]);
+        }else {
+            $("#label-file").text('Aucun fichier choisi');
         }
     });
 });

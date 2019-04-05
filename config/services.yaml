@@ -58,3 +58,11 @@ services:
         class: App\Shared\Repository\SkEntityManager
         arguments: [ "@doctrine.orm.entity_manager","@service_container",'%kernel.root_dir%' ]
         public: true
+
+    sk.ariary.util:
+        class: App\Shared\Services\Services\Util
+
+    sk.ariary.paiement:
+        class: App\Shared\Services\Services\Paiement
+        arguments: ['%env(PUBLIC_KEY)%','%env(PRIVATE_KEY)%','%env(CLIENT_ID)%','%env(CLIENT_KEY)%','@request_stack','@sk.ariary.util']
+        public: true

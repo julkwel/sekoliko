@@ -1,0 +1,16 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        {% for theme in themes %}
+            if (({{ themes|length }}) >= 1){
+                function changeTheme(sidebar, body, header) {
+                    $('#sk-bg-header').css('background-color', header);
+                    $('#accordionSidebar').css('background-color', sidebar);
+                    $('#accordionSidebar').removeClass("bg-gradient-primary");
+                    $('#sk-bg-header').removeClass("bg-white");
+                    $('#content').css('background-color', body);
+                }
+                changeTheme('{{ theme.sidebar }}', '{{ theme.body }}', '{{ theme.header }}');
+            }
+        {% endfor %}
+    })
+</script>
