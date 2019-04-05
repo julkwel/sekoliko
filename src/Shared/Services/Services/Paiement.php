@@ -21,7 +21,7 @@ class Paiement
     const URL_AUTH = "https://pro.ariarynet.com/oauth/v2/token";
     const URL_PAIEMENT = "https://pro.ariarynet.com/api/paiements";
     const URL_PAIE =  "https://moncompte.ariarynet.com/payer/";
-    const URL_RESULTAT =  "https://www.techzara.org/sekoliko/admin/paiement/";
+    const URL_RESULTAT =  "https://www.techzara.org/sekoliko/admin/paiement/terminer";
 
     /**
      * Paiement constructor.
