@@ -59,7 +59,6 @@ class SkRechercheController extends Controller
                     return $this->render('@Admin/SkRecherche/search_result_ajax.html.twig', array(
                         'users' => $users
                     ));
-
                 }
 
             }

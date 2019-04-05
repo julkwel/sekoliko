@@ -52,6 +52,7 @@
 
 {% block javascripts %}
     {{ parent() }}
+    {% if is_granted('ROLE_ADMIN') == false %}
     <script src="{{ asset('js/fullcalendar.min.js') }}"></script>
     <script src="{{ asset('js/tooltip.js') }}"></script>
     <script type="text/javascript">
@@ -87,7 +88,7 @@
             });
         });
     </script>
-    {% if is_granted('ROLE_ADMIN') %}
+    {% elseif is_granted('ROLE_ADMIN') %}
         {{ parent() }}
 
         <script src="{{ asset('js/fullcalendar.min.js') }}"></script>

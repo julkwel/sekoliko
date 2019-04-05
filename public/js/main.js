@@ -24,7 +24,7 @@ $(document).ready(function() {
             },
             "sSearch": "Filtrer: ",
             "sLengthMenu": "Afficher _MENU_ enregistrement par page",
-            "sEmptyTable": "Aucun utilisateur trouvé",
+            "sEmptyTable": "Aucun donées à été trouvé",
             "sInfo": "Voir _TOTAL_ de _PAGE_ pour _PAGES_ entrées",
         }
     });

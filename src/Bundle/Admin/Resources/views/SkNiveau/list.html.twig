@@ -2,7 +2,7 @@
 
 {% block title %}{{ parent() }} | Classe {% endblock %}
 
-{% set menu_classe = true %}
+{% set menu_niveau = true %}
 
 {% block body %}
     {% for flashMessage in app.session.flashbag.get('success') %}
@@ -29,8 +29,8 @@
                     {# Bouton création #}
                     {% if is_granted('ROLE_ADMIN') %}
                         <div class="add-btn-top-list float-right">
-                            <a href="{{ path('classe_new') }}" class="btn btn-primary">
-                                Créer une classe
+                            <a href="{{ path('niveau_add_class',{'id':niveau.id}) }}" class="btn btn-primary">
+                                Créer une classe pour {{ niveau.niveauNom }}
                             </a>
                         </div>
                     {% endif %}

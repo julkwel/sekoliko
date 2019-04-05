@@ -4,10 +4,18 @@
 
 {% block title %}{{ parent() }} | Ajouts matières {% endblock %}
 
-{% set menu_matiere        = true %}
+{% set menu_classe        = true %}
 
 {% block body %}
+
     <div class="card shadow mb-4 col-md-4 col-xs-12 mx-auto">
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="card bg-warning text-white shadow">
+                <div class="card-body">
+                    {{ flashMessage }}
+                </div>
+            </div>
+        {% endfor %}
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary text-center">Ajouter une matière</h6>
         </div>
@@ -19,25 +27,22 @@
                     {{ form_row(form.matCoeff, {'attr': {'class': 'col-3'}}) }}
                     <div class="form-group ">
                         <label for="">Selectionner un profs</label>
-                        <select name="profs" id="" class="form-control">
-                            {% for prof in profs  %}
-                                <option value="{{ prof.id }}" >{{ prof.usrFirstname }}</option>
+                        <select name="prof" id="" class="form-control">
+                            <option value="">Veuillez selectionner un profs</option>
+                            {% for profs in prof %}
+                                <option value="{{ profs.id }}">{{ profs.usrFirstname }}</option>
                             {% endfor %}
                         </select>
                     </div>
                     <div class="form-group ">
-                        <label for="">Selectionner un classe</label>
-                        <select name="classe" id="" class="form-control">
-                            {% for classe in classe  %}
-                                <option value="{{ classe.id }}" >{{ classe.classeNom }}</option>
-                            {% endfor %}
-                        </select>
+                        <label for="">Classe</label>
+                        <input type="text" class="form-control" value="{{ classe.classeNom }}" disabled readonly>
                     </div>
                 </div>
             </div>
             <div class="box-footer">
                 <input type="submit" class="btn btn-primary float-right" value="Enregistrer" name="new_matiere"/>
-                <a href="{{ path('matiere_index') }}"
+                <a href="{{ path('classe_matiere_liste',{"id":classe.id}) }}"
                    class="btn btn-google">
                     Annuler
                 </a>

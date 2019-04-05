@@ -64,15 +64,15 @@
                                            href="{{ path('classe_edit', { 'id': classe.id }) }}">
                                             <i class="fas fa-pen"></i>
                                         </a>
-                                        <a class="btn btn-secondary btn-sm" title="Liste des étudiants"
+                                        <a class="btn btn-secondary btn-sm" title="Liste des étudiants en {{ classe.classeNom }}"
                                            href="{{ path('etudiant_liste', { 'id': classe.id }) }}">
                                             <i class="fa fa-list"></i>
                                         </a>
-                                        <a class="btn btn-info btn-sm" title="Matiere liste"
+                                        <a class="btn btn-info btn-sm" title="Liste des matieres du {{ classe.classeNom }}"
                                            href="{{ path('classe_matiere_liste', { 'id': classe.id }) }}">
                                             <i class="fa fa-book"></i>
                                         </a>
-                                        <a class="btn btn-warning btn-sm" title="Emploi du temps"
+                                        <a class="btn btn-warning btn-sm" title="Emploi du temps du {{ classe.classeNom }}"
                                            href="{{ path('classe_edt', { 'id': classe.id }) }}">
                                             <i class="fa fa-calendar"></i>
                                         </a>

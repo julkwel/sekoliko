@@ -23,11 +23,6 @@ classe_delete:
     defaults: { _controller: "AdminBundle:SkClass:delete" }
     methods:  [GET, DELETE]
 
-classe_matiere_liste:
-    path:     /{id}/matiere
-    defaults: { _controller: "AdminBundle:SkClass:getMatiere" }
-    methods:  [GET, POST]
-
 classe_edt:
     path:     edt/{id}
     defaults: { _controller: "AdminBundle:SkEdt:index" }
@@ -36,4 +31,19 @@ classe_edt:
 classe_etudiant_new:
     path:     etudiant/{id}
     defaults: { _controller: "AdminBundle:SkClass:createEtudian" }
+    methods:  [GET, POST]
+
+classe_matiere_liste:
+    path:     /{id}/matiere
+    defaults: { _controller: "AdminBundle:SkClass:getMatiere" }
+    methods:  [GET, POST]
+
+classe_add_matiere:
+    path:     /{id}/matiere/ajout
+    defaults: { _controller: "AdminBundle:SkClass:addMatiere" }
+    methods:  [GET, POST]
+
+classe_delete_matiere:
+    path:     /delete/{id_class}/{id_mat}
+    defaults: { _controller: "AdminBundle:SkClass:deleteClassMatiere" }
     methods:  [GET, POST]
