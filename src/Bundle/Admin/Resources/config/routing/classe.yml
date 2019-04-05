@@ -33,6 +33,11 @@ classe_etudiant_new:
     defaults: { _controller: "AdminBundle:SkClass:createEtudian" }
     methods:  [GET, POST]
 
+classe_etudiant_delete:
+    path:     etudiant/{id_user}/{id_class}
+    defaults: { _controller: "AdminBundle:SkClass:deleteEtudiant" }
+    methods:  [GET, POST]
+
 classe_matiere_liste:
     path:     /{id}/matiere
     defaults: { _controller: "AdminBundle:SkClass:getMatiere" }

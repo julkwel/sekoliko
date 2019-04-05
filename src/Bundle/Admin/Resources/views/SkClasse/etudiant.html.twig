@@ -30,7 +30,7 @@
                     {% if is_granted('ROLE_ADMIN') %}
                         <div class="row add-btn-top-list">
                             <a href="{{ path('classe_etudiant_new',{'id':classe.id}) }}" class="btn btn-primary">
-                                Créer un étudiant
+                                Ajouter un étudiant en {{ classe.classeNom }}
                             </a>
                         </div>
                     {% endif %}
@@ -82,7 +82,7 @@
                                         </a>
                                         {% if is_granted('ROLE_ADMIN') %}
                                             <a class="btn btn-danger remove-elt"
-                                               onclick="supprimer('{{ path('user_delete', { 'id': etudiant.etudiant.id }) }}')">
+                                               onclick="supprimer('{{ path('classe_etudiant_delete', { 'id_class': classe.id,'id_user': etudiant.etudiant.id}) }}')">
                                                 <i class="fa fa-trash"></i>
                                             </a>
                                         {% endif %}

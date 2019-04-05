@@ -13,11 +13,6 @@ guide_edit:
     defaults: { _controller: "AdminBundle:SkGuide:edit" }
     methods:  [GET, POST]
 
-etudiant_liste:
-    path:     /{id}/etudiant
-    defaults: { _controller: "AdminBundle:SkClass:getListeEtudiant" }
-    methods:  [GET, POST]
-
 guide_delete:
     path:     /{id}/delete
     defaults: { _controller: "AdminBundle:SkGuide:delete" }

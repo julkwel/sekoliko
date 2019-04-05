@@ -42,10 +42,14 @@ class SkNoteController extends Controller
     public function indexAction(Request $request, SkEtudiant $skEtudiant)
     {
         $_note_liste = $this->getDoctrine()->getRepository(SkNote::class)->findBy(array('etudiant' => $skEtudiant));
+        $request = $this->container->get('request_stack');
+        $routeName = $request->getParentRequest();
+        $_classe = $skEtudiant->getClasse();
 
         return $this->render('@Admin/SkEtudiant/listnote.html.twig', array(
             'note_liste' => $_note_liste,
             'etudiant' => $skEtudiant,
+            'classe'=>$_classe
         ));
     }
 
@@ -64,6 +68,7 @@ class SkNoteController extends Controller
             return $this->redirectToRoute('sk_login');
         }
 
+        $_classe = $etudiant->getClasse();
         /*
          * Check if profs is connected
          */
@@ -76,6 +81,7 @@ class SkNoteController extends Controller
             ));
         } else {
             $_ets_nom = $this->getUserConnected()->getEtsNom();
+
             $_etudiant_classe = $etudiant->getClasse()->getId();
             $_matiere_liste = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array(
                 'etsNom' => $_ets_nom,
@@ -111,6 +117,7 @@ class SkNoteController extends Controller
             'user' => $etudiant,
             'matiere' => $_matiere_liste,
             'etudiant' => $etudiant,
+            'classe'=>$_classe
         ));
     }
 

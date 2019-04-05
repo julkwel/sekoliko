@@ -27,11 +27,16 @@
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary text-center">Liste des notes
                         de {{ etudiant.etudiant.usrLastname }}</h6>
-                    {# Bouton création #}
+
                     {% if is_granted('ROLE_PROFS') %}
-                        <div class="row add-btn-top-list">
-                            <a href="{{ path('note_new',{'id':etudiant.id}) }}" class="btn btn-primary">
+                        <div class="add-btn-top-list d-block">
+                            <a href="{{ path('note_new',{'id':etudiant.id}) }}" class="btn btn-primary float-right">
                                 Ajouter note pour {{ etudiant.etudiant.usrLastname }}
+                            </a>
+                        </div>
+                        <div class="add-btn-top-list d-block">
+                            <a href="{{ path('etudiant_liste',{'id':classe.id}) }}" class="btn btn-warning float-left">
+                                Retour vers les étudiants en {{ classe.classeNom }}
                             </a>
                         </div>
                     {% endif %}

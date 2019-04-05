@@ -19,6 +19,7 @@ use App\Shared\Form\SkClasseType;
 use App\Shared\Form\SkEtudiantType;
 use App\Shared\Form\SkMatiereType;
 use App\Shared\Services\Utils\RoleName;
+use App\Shared\Services\Utils\ServiceName;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -171,12 +172,11 @@ class SkClassController extends Controller
     }
 
     /**
-     * @param Request $request
      * @param SkClasse $skClasse
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getListeEtudiantAction(Request $request, SkClasse $skClasse)
+    public function getListeEtudiantAction(SkClasse $skClasse)
     {
         $_etudiant_liste = $this->getDoctrine()->getRepository(SkEtudiant::class)->findBy(array(
             'classe' => $skClasse,
@@ -324,6 +324,32 @@ class SkClassController extends Controller
         } else {
             $this->getEntityService()->setFlash('error', 'Une erreur s\'est produite, veuiller réessayez ultérieurement');
         }
+    }
+
+    /**
+     * @param SkClasse $skClasse
+     * @param User $user
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @ParamConverter("skClasse", options={"id" = "id_class"})
+     * @ParamConverter("user", options={"id" = "id_user"})
+     * @throws \Exception
+     */
+    public function deleteEtudiantAction(SkClasse $skClasse,User $user){
+        /*
+         * Secure to etudiant connected
+         */
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            $_user_service = $this->get(ServiceName::SRV_METIER_USER);
+            $_delete_etudiant = $_user_service->deleteUser($user);
+            if(true === $_delete_etudiant){
+                $this->getEntityService()->setFlash('success', 'Suppression étudiant effectuée');
+
+                return $this->redirectToRoute('etudiant_liste', array('id' => $skClasse->getId()));
+            }
+        }
+        return $this->redirectToRoute('sk_login');
     }
 
     /**

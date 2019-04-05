@@ -22,7 +22,8 @@
                         <label for="">Selectionner la matière</label>
                         <select name="matiere" id="" required class="form-control">
                             {% for matiere in matiere %}
-                                <option value="{{ matiere.id }}">{{ matiere.matNom }} Coefficient {{ matiere.matCoeff }}</option>
+                                <option value="{{ matiere.id }}">{{ matiere.matNom }}
+                                    Coefficient {{ matiere.matCoeff }}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -34,7 +35,7 @@
             </div>
             <div class="box-footer">
                 <input type="submit" class="btn btn-primary btn-block" value="Enregistrer" name="new_niveau"/>
-                <a href="{{ path('etudiant_note',{'id':etudiant.id}) }}"
+                <a href="{{ path('etudiant_liste',{'id':classe.id}) }}"
                    class="btn btn-google btn-block">
                     Annuler
                 </a>
