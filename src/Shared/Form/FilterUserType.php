@@ -24,15 +24,24 @@ class FilterUserType extends AbstractType
         $builder
             ->add('username', TextType::class, [
                 'label' => "Nom d'utilisateur",
-                'attr' => ['class' => 'form-control']
+                'attr' => [
+                    'class' => 'form-control',
+                    'required'=> false,
+                    ]
             ])
             ->add('userFirstName', TextType::class, [
                 'label' => 'Nom',
-                'attr' => ['class' => 'form-control']
+                'attr' => [
+                    'class' => 'form-control',
+                    'required'=> false,
+                ]
             ])
             ->add('userLastName', TextType::class, [
                 'label' => 'Prénom',
-                'attr' => ['class' => 'form-control']
+                'attr' => [
+                    'class' => 'form-control',
+                    'required'=> false,
+                    ]
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Filter',

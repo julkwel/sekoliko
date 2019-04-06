@@ -25,12 +25,12 @@
         <form action="" method="POST" class="form-search">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary text-center">Liste des matières</h6>
+                    <h6 class="m-0 font-weight-bold text-primary text-center">Liste des matières en  {{ classe.classeNom }}</h6>
                     {# Bouton création #}
                     {% if is_granted('ROLE_ADMIN') %}
                         <div class="row add-btn-top-list">
-                            <a href="{{ path('matiere_new') }}" class="btn btn-primary">
-                                Ajouter une matière
+                            <a href="{{ path('classe_add_matiere',{'id':classe.id}) }}" class="btn btn-primary">
+                                Ajouter une matière pour {{ classe.classeNom }}
                             </a>
                         </div>
                     {% endif %}
@@ -68,7 +68,7 @@
                                         </a>
                                         {% if is_granted('ROLE_ADMIN') %}
                                             <a class="btn btn-danger remove-elt" title="Supprimer"
-                                               onclick="supprimer('{{ path('matiere_delete', { 'id': matiere.id }) }}')">
+                                               onclick="supprimer('{{ path('classe_delete_matiere', { 'id_class': classe.id ,'id_mat': matiere.id}) }}')">
                                                 <i class="fa fa-trash"></i>
                                             </a>
                                         {% endif %}

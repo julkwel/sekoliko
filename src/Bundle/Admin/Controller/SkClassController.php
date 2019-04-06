@@ -17,7 +17,10 @@ use App\Shared\Entity\SkNiveau;
 use App\Shared\Entity\SkRole;
 use App\Shared\Form\SkClasseType;
 use App\Shared\Form\SkEtudiantType;
+use App\Shared\Form\SkMatiereType;
 use App\Shared\Services\Utils\RoleName;
+use App\Shared\Services\Utils\ServiceName;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\HttpFoundation\Request;
@@ -169,12 +172,11 @@ class SkClassController extends Controller
     }
 
     /**
-     * @param Request $request
      * @param SkClasse $skClasse
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getListeEtudiantAction(Request $request, SkClasse $skClasse)
+    public function getListeEtudiantAction(SkClasse $skClasse)
     {
         $_etudiant_liste = $this->getDoctrine()->getRepository(SkEtudiant::class)->findBy(array(
             'classe' => $skClasse,
@@ -197,6 +199,7 @@ class SkClassController extends Controller
 
         return $this->render('@Admin/SkClasse/class.mat.html.twig', array(
             'liste_matiere' => $_matiere_liste,
+            'classe' => $skClasse
         ));
     }
 
@@ -228,6 +231,125 @@ class SkClassController extends Controller
         $_entity_service->setFlash('success', 'Eléments sélectionnés supprimés');
 
         return $this->redirect($this->generateUrl('classe_index'));
+    }
+
+    /**
+     * @return User[]|SkClasse[]|SkEtudiant[]|SkMatiere[]|SkNiveau[]|array
+     */
+    public function getProfs()
+    {
+        $_user_ets = $this->getUserConnected()->getEtsNom();
+
+        $_array_type = array(
+            'skRole' => array(
+                RoleName::ID_ROLE_PROFS,
+            ),
+            'etsNom' => array(
+                $_user_ets,
+            ),
+        );
+
+        return $this->getDoctrine()->getRepository(User::class)->findBy($_array_type, array('id' => 'DESC'));
+    }
+
+    /**
+     * @param Request $request
+     * @param SkClasse $skClasse
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Exception
+     */
+    public function addMatiereAction(Request $request, SkClasse $skClasse)
+    {
+        $_user_ets = $this->getUserConnected()->getEtsNom();
+        $_matiere = new SkMatiere();
+        $_prof_list = $this->getProfs();
+        $_form = $this->createForm(SkMatiereType::class, $_matiere);
+        $_form->handleRequest($request);
+
+        if ($_form->isSubmitted() && $_form->isValid()) {
+            $_prof = $request->request->get('prof');
+
+            if (!($_prof)) {
+                $this->getEntityService()->setFlash('error', 'Veuillez sélectionner un prof');
+                return $this->redirectToRoute('classe_add_matiere', array('id' => $skClasse->getId()));
+            }
+
+            $_prof = $this->getDoctrine()->getRepository(User::class)->find($_prof);
+            $_matiere->setEtsNom($_user_ets);
+            $_matiere->setMatProf($_prof);
+            $_matiere->setMatClasse($skClasse);
+
+            $_save_data = $this->getEntityService()->saveEntity($_matiere, 'new');
+            if ($_save_data === true) {
+                $this->getEntityService()->setFlash('success', 'Ajout matiere pour' . $skClasse->getClasseNom() . 'a réussi');
+                return $this->redirect($this->generateUrl('classe_matiere_liste', array('id' => $skClasse->getId())));
+            }
+            return $this->redirectToRoute('classe_add_matiere', array('id' => $skClasse->getId()));
+        }
+
+        return $this->render('@Admin/SkClasse/add.mat.html.twig', array(
+            'form' => $_form->createView(),
+            'classe' => $skClasse,
+            'prof' => $_prof_list
+        ));
+    }
+
+    /**
+     * @param SkClasse $skClasse
+     * @param SkMatiere $skMatiere
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Exception
+     * @ParamConverter("skClasse", options={"id" = "id_class"})
+     * @ParamConverter("skMatiere", options={"id" = "id_mat"})
+     */
+    public function deleteClassMatiereAction(SkClasse $skClasse, SkMatiere $skMatiere)
+    {
+        /*
+         * Secure to etudiant connected
+         */
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_ETUDIANT')) {
+            return $this->redirectToRoute('sk_login');
+        }
+
+        $_del_matiere = $this->getEntityService()->deleteEntity($skMatiere, '');
+
+        if (true === $_del_matiere) {
+            $this->getEntityService()->setFlash('success', 'Suppression du matière effectuée');
+
+            return $this->redirectToRoute('classe_matiere_liste', array('id' => $skClasse->getId()));
+        } else {
+            $this->getEntityService()->setFlash('error', 'Une erreur s\'est produite, veuiller réessayez ultérieurement');
+        }
+    }
+
+    /**
+     * @param SkClasse $skClasse
+     * @param User $user
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @ParamConverter("skClasse", options={"id" = "id_class"})
+     * @ParamConverter("user", options={"id" = "id_user"})
+     * @throws \Exception
+     */
+    public function deleteEtudiantAction(SkClasse $skClasse,User $user){
+        /*
+         * Secure to etudiant connected
+         */
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            $_user_service = $this->get(ServiceName::SRV_METIER_USER);
+            $_delete_etudiant = $_user_service->deleteUser($user);
+            if(true === $_delete_etudiant){
+                $this->getEntityService()->setFlash('success', 'Suppression étudiant effectuée');
+
+                return $this->redirectToRoute('etudiant_liste', array('id' => $skClasse->getId()));
+            }
+        }
+        return $this->redirectToRoute('sk_login');
     }
 
     /**

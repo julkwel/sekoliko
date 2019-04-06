@@ -232,7 +232,8 @@ class SkNiveauController extends Controller
         $_list_class = $this->getDoctrine()->getRepository(SkClasse::class)->findBy(array('niveau'=>$skNiveau));
 
         return $this->render('@Admin/SkNiveau/list.html.twig',array(
-            'class_list'=>$_list_class
+            'class_list'=>$_list_class,
+            'niveau'=>$skNiveau
         ));
     }
 }

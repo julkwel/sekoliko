@@ -4,7 +4,7 @@
 
 {% block title %}{{ parent() }} | Création classe {% endblock %}
 
-{% set menu_classe        = true %}
+{% set menu_niveau        = true %}
 
 {% block body %}
     <div class="card shadow mb-4">
@@ -24,7 +24,7 @@
             </div>
             <div class="box-footer">
                 <input type="submit" class="btn btn-primary btn-block" value="Enregistrer" name="new_classe"/>
-                <a href="{{ path('niveau_index') }}"
+                <a href="{{ path('niveau_list_class',{"id":niveau.id}) }}"
                    class="btn btn-google btn-block">
                     Annuler
                 </a>

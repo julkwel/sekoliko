@@ -85,6 +85,9 @@ class SkMatiereController extends Controller
         return $this->container->get('security.token_storage')->getToken()->getUser();
     }
 
+    /**
+     * @return User[]|SkClasse[]|SkEtudiant[]|SkMatiere[]|\App\Shared\Entity\SkNiveau[]|array
+     */
     public function getProfs()
     {
         $_user_ets = $this->getUserConected()->getEtsNom();
