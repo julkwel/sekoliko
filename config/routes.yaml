@@ -6,6 +6,10 @@ sk_admin:
     resource: "@AdminBundle/Resources/config/routing.yml"
     prefix:   /admin
 
+sk_front:
+    resource: "@FrontBundle/Resources/config/routing.yml"
+    prefix:   /front
+
 sk_api:
     resource: "@ApiBundle/Ressources/config/routing/api.yml"
     prefix:   /api

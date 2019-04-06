@@ -18,6 +18,7 @@ return [
     App\Bundle\Admin\AdminBundle::class => ['all' => true],
     App\Bundle\User\UserBundle::class => ['all' => true],
     App\Shared\SharedBundle::class => ['all' => true],
+    App\Bundle\Front\FrontBundle::class => ['all' => true],
     Liip\ImagineBundle\LiipImagineBundle::class => ['all' => true],
     Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle::class => ['all' => true],
     Koff\Bundle\I18nFormBundle\I18nFormBundle::class => ['all' => true],
