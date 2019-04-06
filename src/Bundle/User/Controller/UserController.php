@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Bundle\User\Entity\User;
 use App\Bundle\User\Form\UserType;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
  * Class UserController.
@@ -92,8 +93,11 @@ class UserController extends Controller
         /*
          * Secure to etudiant connected
          */
-        if ($this->get('security.authorization_checker')->isGranted('ROLE_ETUDIANT')) {
-            return $this->redirectToRoute('sk_login');
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_ETUDIANT') ||
+            $this->get('security.authorization_checker')->isGranted('ROLE_PROFS')) {
+            if ($this->getUserConnected()->getId() !== $_user->getId()) {
+                return $this->redirectToRoute('fos_user_security_logout');
+            }
         }
         $_id_user = $this->getUserConnected()->getId();
         $_user_role = $this->getUserRole();
@@ -135,7 +139,7 @@ class UserController extends Controller
          * Secure to etudiant connected
          */
         if ($this->get('security.authorization_checker')->isGranted('ROLE_ETUDIANT')) {
-            return $this->redirectToRoute('sk_login');
+            return $this->redirectToRoute('fos_user_security_logout');
         }
 
         $_user_manager = $this->getUserMetier();
@@ -207,6 +211,11 @@ class UserController extends Controller
             $_form->handleRequest($request);
 
             if ($_form->isSubmitted() && $_form->isValid()) {
+                $_ann_deb = $request->request->get('annDebut');
+                $_ann_fin = $request->request->get('annFin');
+
+                $_user->setAnneScolaireDebut(new \DateTime($_ann_deb));
+                $_user->setAnneScolaireFin(new \DateTime($_ann_fin));
                 $_ets_nom = $request->request->get('etsNom');
                 $_user->setEtsNom($_ets_nom);
                 $_srv_entity->saveEntity($_user, 'new');
@@ -224,7 +233,7 @@ class UserController extends Controller
 
     /**
      * @param Request $_request
-     * @param User    $_user
+     * @param User $_user
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      *
@@ -239,11 +248,9 @@ class UserController extends Controller
          * Secure to etudiant and profs connected
          */
         if (
-            $this->get('security.authorization_checker')->isGranted('ROLE_ETUDIANT') ||
-            $this->get('security.authorization_checker')->isGranted('ROLE_PROFS')
-        ) {
+            $this->get('security.authorization_checker')->isGranted('ROLE_ETUDIANT') || $this->get('security.authorization_checker')->isGranted('ROLE_PROFS')) {
             if ($this->getUserConnected()->getId() !== $_user->getId()) {
-                return $this->redirectToRoute('sk_login');
+                return $this->redirectToRoute('fos_user_security_logout');
             }
         }
 
@@ -316,7 +323,7 @@ class UserController extends Controller
 
     /**
      * @param Request $_request
-     * @param User    $_user
+     * @param User $_user
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *

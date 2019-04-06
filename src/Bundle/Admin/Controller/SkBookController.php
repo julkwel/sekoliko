@@ -128,7 +128,7 @@ class SkBookController extends Controller
          * Secure to etudiant connected
          */
         if ($this->get('security.authorization_checker')->isGranted('ROLE_ETUDIANT')) {
-            return $this->redirectToRoute('sk_login');
+            return $this->redirectToRoute('fos_user_security_logout');
         }
 
         $_delete_book = $this->getEntityService()->deleteEntity($skBook, '');
