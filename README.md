@@ -1,4 +1,3 @@
-
 # Sekoliko Application
 
 Based on Symfony 4.0
@@ -19,7 +18,7 @@ Based on Symfony 4.0
 
 - All html class have a separated with `-` ex `class="my-class"`
 
-- Add a documentation in your code 
+- Add a documentation in your code
 
 ## GIT
 
@@ -29,7 +28,7 @@ Based on Symfony 4.0
 
 ## TODOS
 
-- Add import export data (csv) done on  #24
+- Add import export data (csv) done on #24
 
 - Add chart in dashboard
 
@@ -42,16 +41,25 @@ Based on Symfony 4.0
 - Ariary net integrations
 
 ## Import export data
+
 To import student data go to /admin/classe/ then click on student list /new student , Import etudiant via csv file , and format your csv like bellow :
 
-nom | prenom | email | username | adresse | telephone
--- | -- | -- | -- | -- | --
-jul | jul | jul1@jul.com | jul1 | jul | 345475684
-jul | jul | jul2@jul.com | jul2 | jul | 345475684
-jul | jul | jul3@jul.com | jul3 | jul | 345475684
-jul | jul | jul4@jul.com | jul4 | jul | 345475684
-  |   |   |   |   |  
-					
+| nom | prenom | email        | username | adresse | telephone |
+| --- | ------ | ------------ | -------- | ------- | --------- |
+| jul | jul    | jul1@jul.com | jul1     | jul     | 345475684 |
+| jul | jul    | jul2@jul.com | jul2     | jul     | 345475684 |
+| jul | jul    | jul3@jul.com | jul3     | jul     | 345475684 |
+| jul | jul    | jul4@jul.com | jul4     | jul     | 345475684 |
+|     |        |              |          |         |           |
 
+## Front
 
-*Made for all Malagasy kids !!!*
+- Run `npm install` to install all dependencies
+
+- Run `npm run watch` to watch your changes.
+
+- Todo
+  - Hot reload feature to improve _Developer Experience_
+  - Add tests.
+
+_Made for all Malagasy kids !!!_
