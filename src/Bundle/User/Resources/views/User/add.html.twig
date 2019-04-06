@@ -65,7 +65,9 @@
                     {% endif %}
 
                         <div class="hide" {% if is_granted('ROLE_SUPERADMIN') %} style="display: none"{% endif %}>
-                            {{ form_row(form.imgUrl) }}
+                            <label for="sk_userbundle_user_imgUrl" class="label-file">Ajouter une photo de profil</label>
+                            {{ form_row(form.imgUrl, {'label':false}) }}
+                            <p>Fichier : <small id="label-file">Aucun fichier choisi</small></p>
                         </div>
 
                     {{ form_row(form.skRole, {'attr': {'class': 'col-4'}}) }}
