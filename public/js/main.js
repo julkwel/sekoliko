@@ -34,7 +34,7 @@ $(document).ready(function() {
         $(this).ekkoLightbox();
     });
     //File input action
-    $('#sk_bug_attachment, #sk_guide_attachment').on('change', function (e) {
+    $('#sk_bug_attachment, #sk_guide_attachment, #sk_userbundle_user_imgUrl').on('change', function (e) {
         var file = e.originalEvent.target.value;
         if (file){
             var fileName = file.split("\\");
