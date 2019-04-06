@@ -133,9 +133,15 @@ class SkEntityManager
                 $_user_ets = $this->getUserConnected()->getEtsNom();
             } finally {
                 if ($_ann_scolaire_debut || $_ann_scolaire_fin || $_user_ets) {
-                    $_data->setAnneScolaireDebut($_ann_scolaire_debut);
-                    $_data->setAnneScolaireFin($_ann_scolaire_fin);
-                    $_data->setEtsNom($_user_ets);
+                    if ($_ann_scolaire_debut) {
+                        $_data->setAnneScolaireDebut($_ann_scolaire_debut);
+                    }
+                    if ($_ann_scolaire_fin) {
+                        $_data->setAnneScolaireFin($_ann_scolaire_fin);
+                    }
+                    if ($_user_ets) {
+                        $_data->setEtsNom($_user_ets);
+                    }
                 }
             }
 

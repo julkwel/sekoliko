@@ -8,11 +8,9 @@
 
 namespace App\Bundle\User\Controller;
 
-use App\Shared\Entity\SkRole;
 use App\Shared\Services\Utils\RoleName;
 use App\Shared\Services\Utils\ServiceName;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Bundle\User\Entity\User;
@@ -145,48 +143,35 @@ class UserController extends Controller
         $_user = new User();
         $_form = $this->createCreateForm($_user);
         $_form->handleRequest($_request);
-//        $_form_upload = $this->createFormBuilder()->add('file', FileType::class)->getForm();
-//
-//        $_form_upload->handleRequest($_request);
-//        if ($_form_upload->isSubmitted() && $_form_upload->isValid()) {
-//            $_user_ets = $this->container->get('security.token_storage')->getToken()->getUser()->getEtsNom();
-//            $_file = $_form_upload['file']->getData();
-//            $the_big_array = [];
-//            if (($h = fopen("{$_file}", "r")) !== FALSE) {
-//                while (($data = fgetcsv($h, 1000, ",")) !== FALSE) {
-//                    $the_big_array[] = $data;
-//                }
-//
-//                array_shift($the_big_array);
-//                foreach ($the_big_array as $value) {
-//                    $_etudiant_data = new User();
-//                    $_user_role = RoleName::ROLE_ETUDIANT;
-//                    $_role = $this->getDoctrine()->getRepository(SkRole::class)->find(2);
-//                    $_pass = $_user->setPlainPassword('123456');
-//                    $_etudiant_data->setEtsNom($_user_ets);
-//                    $_etudiant_data->setRoles(array($_user_role));
-//                    $_etudiant_data->setskRole($_role);
-//                    $_etudiant_data->setUsrLastname($value[0]);
-//                    $_etudiant_data->setEnabled(true);
-//                    $_etudiant_data->setUsrFirstname($value[1]);
-//                    $_etudiant_data->setEmail($value[2]);
-//                    $_etudiant_data->setUsername($value[3]);
-//                    $_etudiant_data->setUsrAddress($value[4]);
-//                    $_etudiant_data->setUsrPhone($value[5]);
-//                    $_etudiant_data->setPassword($_pass);
-//                    for ($a = 0; $a < count($the_big_array); $a++) {
-//                        $this->getEntityService()->saveEntity($_etudiant_data, 'new');
-//                    }
-//                }
-//            }
-//        } else
+
         if ($_form->isSubmitted() && $_form->isValid()) {
-            $_user_ets = $this->container->get('security.token_storage')->getToken()->getUser()->getEtsNom();
+            $_user_ets = $this->getUserConnected()->getEtsNom();
+
             if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
                 $_ets_nom = $_request->request->get('etsNom');
+                $_ann_deb = $_request->request->get('annDebut');
+                $_ann_fin = $_request->request->get('annFin');
+
+                $_user->setAnneScolaireDebut(new \DateTime($_ann_deb));
+                $_user->setAnneScolaireFin(new \DateTime($_ann_fin));
                 $_user->setEtsNom($_ets_nom);
             } else {
-                $_user->setEtsNom($_user_ets);
+                try {
+                    $_ann_scolaire_debut = $this->getUserConnected()->getAnneScolaireDebut();
+                    $_ann_scolaire_fin = $this->getUserConnected()->getAnneScolaireFin();
+                } finally {
+                    if ($_ann_scolaire_debut || $_ann_scolaire_fin || $_user_ets) {
+                        if ($_ann_scolaire_debut) {
+                            $_user->setAnneScolaireDebut($_ann_scolaire_debut);
+                        }
+                        if ($_ann_scolaire_fin) {
+                            $_user->setAnneScolaireFin($_ann_scolaire_fin);
+                        }
+                        if ($_user_ets) {
+                            $_user->setEtsNom($_user_ets);
+                        }
+                    }
+                }
             }
             $_user_manager->addUser($_user, $_form);
             $_user_manager->setFlash('success', 'Utilisateur ajouté');
