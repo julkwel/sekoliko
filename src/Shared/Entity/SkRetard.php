@@ -21,6 +21,8 @@ class SkRetard
 {
     use SkEtablissement;
 
+    use SkAnneScolaire;
+
     /**
      * @var int
      *

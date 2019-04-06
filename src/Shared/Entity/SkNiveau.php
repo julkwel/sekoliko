@@ -20,6 +20,8 @@ class SkNiveau
 {
     use SkEtablissement;
 
+    use SkAnneScolaire;
+
     /**
      * @var int
      *

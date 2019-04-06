@@ -20,6 +20,8 @@ class SkDisciplineList
 {
     use SkEtablissement;
 
+    use SkAnneScolaire;
+
     /**
      * @var int
      *

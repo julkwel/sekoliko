@@ -21,6 +21,8 @@ class SkTheme
 {
     use SkEtablissement;
 
+    use SkAnneScolaire;
+
     /**
      * @var int
      *

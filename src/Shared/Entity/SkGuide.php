@@ -21,6 +21,8 @@ class SkGuide
 {
     use SkEtablissement;
 
+    use SkAnneScolaire;
+
     /**
      * @var int
      *

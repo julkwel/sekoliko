@@ -21,6 +21,8 @@ class SkProfs
 {
     use SkEtablissement;
 
+    use SkAnneScolaire;
+
     /**
      * @var int
      *

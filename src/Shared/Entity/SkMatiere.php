@@ -21,6 +21,8 @@ class SkMatiere
 {
     use SkEtablissement;
 
+    use SkAnneScolaire;
+
     /**
      * @var int
      *

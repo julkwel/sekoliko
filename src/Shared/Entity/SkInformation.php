@@ -20,6 +20,8 @@ class SkInformation
 {
     use SkEtablissement;
 
+    use SkAnneScolaire;
+
     /**
      * @var int
      *
