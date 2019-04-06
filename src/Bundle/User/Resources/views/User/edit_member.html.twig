@@ -44,7 +44,9 @@
                                 {{ form_row(esk_form.usrPhone) }}
                             </div>
                             <div class="col-md-6">
-                                {{ form_row(esk_form.imgUrl) }}
+                                <label for="sk_userbundle_user_imgUrl" class="label-file">Ajouter une photo de profil</label>
+                                {{ form_row(esk_form.imgUrl, {'label':false}) }}
+                                <p>Fichier : <small id="label-file">Aucun fichier choisi</small></p>
                                 <div class="row">
                                     <div class="form-group kl-pp">
                                         {% if user.imgUrl %}
