@@ -2,11 +2,10 @@
 
 namespace App\Bundle\User\Entity;
 
+use App\Shared\Entity\SkAnneScolaire;
 use App\Shared\Entity\SkEtablissement;
 use App\Shared\Entity\SkRole;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\AttributeOverride;
-use Doctrine\ORM\Mapping\AttributeOverrides;
 use FOS\UserBundle\Model\User as BaseUser;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -34,6 +33,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class User extends BaseUser
 {
     use SkEtablissement;
+
+    use SkAnneScolaire;
 
     /**
      * @var int

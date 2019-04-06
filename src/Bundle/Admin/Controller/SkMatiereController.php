@@ -42,7 +42,7 @@ class SkMatiereController extends Controller
     {
         if ($this->get('security.authorization_checker')->isGranted('ROLE_PROFS')) {
             $_profs = $this->getUserConnected();
-            $_matier_liste = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array('matProf'=>$_profs));
+            $_matier_liste = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array('matProf' => $_profs));
 
             return $this->render('AdminBundle:SkMatiere:index.html.twig', array(
                 'matiere_liste' => $_matier_liste,
@@ -137,7 +137,6 @@ class SkMatiereController extends Controller
             $_classe = $this->getDoctrine()->getRepository(SkClasse::class)->find($_classe);
             $_matiere->setMatProf($_profs_user);
             $_matiere->setMatClasse($_classe);
-            $_matiere->setEtsNom($_user_ets);
             $this->getEntityService()->saveEntity($_matiere, 'new');
             $this->getEntityService()->setFlash('success', 'Ajout du matière effectuée');
 

@@ -53,14 +53,11 @@ class SkSalleController extends Controller
      */
     public function newAction(Request $request)
     {
-        $_user_connected = $this->getUserConnected()->getEtsNom();
-
         $_salle = new SkSalle();
         $_form = $this->createForm(SkSalleType::class, $_salle);
         $_form->handleRequest($request);
 
         if ($_form->isSubmitted() && $_form->isValid()) {
-            $_salle->setEtsNom($_user_connected);
             $this->getEntityService()->saveEntity($_salle, 'new');
             try {
                 $this->getEntityService()->setFlash('success', 'Ajout du salle effectuée');
@@ -142,6 +139,7 @@ class SkSalleController extends Controller
      * @param SkSalle $skSalle
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
      * @throws \Exception
      */
     public function reservationAction(Request $request, SkSalle $skSalle)
@@ -163,8 +161,9 @@ class SkSalleController extends Controller
                 $motif_reservation = $request->request->get('motif');
                 if (new \DateTime($debut_reservation) > new \DateTime($fin_reservation)) {
                     $this->getEntityService()->setFlash('error', 'Date debut > Date Fin');
+
                     return $this->redirect($this->generateUrl('salle_reservation', array(
-                        'id'=>$skSalle->getId()
+                        'id' => $skSalle->getId(),
                     )));
                 }
                 $skSalle->setIsReserve(true);

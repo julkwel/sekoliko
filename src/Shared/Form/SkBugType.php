@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: vony
  * Date: 3/30/19
- * Time: 4:02 PM
+ * Time: 4:02 PM.
  */
 
 namespace App\Shared\Form;
@@ -22,18 +22,18 @@ class SkBugType extends AbstractType
     {
         $builder
             ->add('titre', TextType::class, array(
-                'label'=>'Titre de bug ou amelioration',
-                'required'=>true
+                'label' => 'Titre de bug ou amelioration',
+                'required' => true,
             ))
             ->add('description', TextareaType::class, array(
-                'label'=>'Description de bug'
+                'label' => 'Description de bug',
             ))
-            ->add('attachment', FileType::class, array('data_class' => null,'required'=>false))
+            ->add('attachment', FileType::class, array('data_class' => null, 'required' => false))
             ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array('data_class'=>SkBug::class));
+        $resolver->setDefaults(array('data_class' => SkBug::class));
     }
 }

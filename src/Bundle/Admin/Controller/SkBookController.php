@@ -55,11 +55,10 @@ class SkBookController extends Controller
 
         $_book = new SkBook();
         $_form = $this->createForm(SkBookType::class, $_book);
-        $_ets_nom = $this->getUserConnected()->getEtsNom();
+
         $_form->handleRequest($request);
         if ($_form->isSubmitted() && $_form->isValid()) {
             try {
-                $_book->setEtsNom($_ets_nom);
                 $this->getEntityService()->saveEntity($_book, 'new');
                 $this->getEntityService()->setFlash('success', 'Ajout du livre effectuée');
             } catch (\Exception $exception) {
@@ -171,7 +170,8 @@ class SkBookController extends Controller
             if ($_form->isSubmitted() && $_form->isValid()) {
                 if (new \DateTime($_date_debut) > new \DateTime($_date_fin)) {
                     $this->getEntityService()->setFlash('error', 'Date début > Date Fin');
-                    return $this->redirect($this->generateUrl('book_reservation', array('id'=>$skBook->getId())));
+
+                    return $this->redirect($this->generateUrl('book_reservation', array('id' => $skBook->getId())));
                 }
                 $skBook->setIsReserved(true);
                 $_user_s = $_user_manager->getUserById($_user);

@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: vony
  * Date: 3/30/19
- * Time: 4:09 PM
+ * Time: 4:09 PM.
  */
 
 namespace App\Bundle\Admin\Controller;
@@ -40,13 +40,15 @@ class SkBugController extends Controller
         $_bug_list = $this->getEntityService()->getAllList(SkBug::class);
 
         return $this->render('@Admin/SkBug/index.html.twig', array(
-            'bug'=>$_bug_list
+            'bug' => $_bug_list,
         ));
     }
 
     /**
      * @param Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
      * @throws \Exception
      */
     public function newAction(Request $request)
@@ -65,18 +67,17 @@ class SkBugController extends Controller
 
         if ($_form->isSubmitted() && $_form->isValid()) {
             $_status = $request->request->get('status');
-            if ($_status === "Important") {
-                $_bug->setColor("green");
-            } elseif ($_status === "Features") {
-                $_bug->setColor("yellow");
-            } elseif($_status === "En cours"){
-                $_bug->setColor("orange");
-            } elseif($_status === "Fix"){
-                $_bug->setColor("blue");
-            }else {
-                $_bug->setColor("red");
+            if ('Important' === $_status) {
+                $_bug->setColor('green');
+            } elseif ('Features' === $_status) {
+                $_bug->setColor('yellow');
+            } elseif ('En cours' === $_status) {
+                $_bug->setColor('orange');
+            } elseif ('Fix' === $_status) {
+                $_bug->setColor('blue');
+            } else {
+                $_bug->setColor('red');
             }
-
 
             $_bug->setStatus($_status);
             $_bug->setDateAjout(new \DateTime('now'));
@@ -85,14 +86,14 @@ class SkBugController extends Controller
             $_file = $_form['attachment']->getData();
             if ($_file) {
                 $_extension = $_file->guessExtension();
-                $_fileName = $this->generateUniqueFileName() . '.' . $_extension;
+                $_fileName = $this->generateUniqueFileName().'.'.$_extension;
                 try {
                     $_file->move($this->getParameter('bug_images_upload_directory'), $_fileName);
                     $_bug->setAttachment($_fileName);
                 } catch (FileException $e) {
                     $this->getEntityService()->setFlash('error', 'Une erreur est survenue, veuillez réessayer');
                 }
-            }else{
+            } else {
                 $_bug->setAttachment(null);
             }
 
@@ -107,14 +108,16 @@ class SkBugController extends Controller
         }
 
         return $this->render('AdminBundle:SkBug:add.html.twig', array(
-            'form'=>$_form->createView()
+            'form' => $_form->createView(),
         ));
     }
 
     /**
      * @param Request $request
-     * @param SkBug $_bug
+     * @param SkBug   $_bug
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
      * @throws \Exception
      */
     public function updateAction(Request $request, SkBug $_bug)
@@ -131,16 +134,16 @@ class SkBugController extends Controller
 
         if ($_form->isSubmitted() && $_form->isValid()) {
             $_status = $request->request->get('status');
-            if ($_status === "Important") {
-                $_bug->setColor("green");
-            } elseif ($_status === "Features") {
-                $_bug->setColor("yellow");
-            } elseif($_status === "Fix"){
-                $_bug->setColor("blue");
-            } elseif($_status === "En cours"){
-                $_bug->setColor("orange");
-            }else {
-                $_bug->setColor("red");
+            if ('Important' === $_status) {
+                $_bug->setColor('green');
+            } elseif ('Features' === $_status) {
+                $_bug->setColor('yellow');
+            } elseif ('Fix' === $_status) {
+                $_bug->setColor('blue');
+            } elseif ('En cours' === $_status) {
+                $_bug->setColor('orange');
+            } else {
+                $_bug->setColor('red');
             }
             $_bug->setStatus($_status);
 
@@ -148,7 +151,7 @@ class SkBugController extends Controller
 
             if ($_file) {
                 $_extension = $_file->guessExtension();
-                $_fileName = $this->generateUniqueFileName() . '.' . $_extension;
+                $_fileName = $this->generateUniqueFileName().'.'.$_extension;
                 try {
                     $_file->move($this->getParameter('bug_images_upload_directory'), $_fileName);
                     $_bug->setAttachment($_fileName);
@@ -168,14 +171,16 @@ class SkBugController extends Controller
         }
 
         return $this->render('AdminBundle:SkBug:edit.html.twig', array(
-            'form'=>$_form->createView(),
-            'bug'=>$_bug
+            'form' => $_form->createView(),
+            'bug' => $_bug,
         ));
     }
 
     /**
      * @param SkBug $skBug
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Exception
@@ -184,10 +189,10 @@ class SkBugController extends Controller
     {
         if (true === $this->getEntityService()->deleteEntity($skBug, '')) {
             $this->getEntityService()->setFlash('success', 'Suppression du Bug effectuée');
+
             return $this->redirectToRoute('bug_index');
         }
     }
-
 
     /**
      * @return string
@@ -196,5 +201,4 @@ class SkBugController extends Controller
     {
         return md5(uniqid());
     }
-
 }

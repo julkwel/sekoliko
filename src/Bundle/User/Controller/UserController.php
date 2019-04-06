@@ -11,7 +11,6 @@ namespace App\Bundle\User\Controller;
 use App\Shared\Entity\SkRole;
 use App\Shared\Services\Utils\RoleName;
 use App\Shared\Services\Utils\ServiceName;
-use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\HttpFoundation\Request;
@@ -201,7 +200,7 @@ class UserController extends Controller
 
         return $this->render('UserBundle:User:add.html.twig', array(
             'user' => $_user,
-            'form' => $_form->createView()
+            'form' => $_form->createView(),
         ));
     }
 
@@ -240,7 +239,7 @@ class UserController extends Controller
 
     /**
      * @param Request $_request
-     * @param User $_user
+     * @param User    $_user
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      *
@@ -263,8 +262,9 @@ class UserController extends Controller
             }
         }
 
-        if ($_user->getId() === 50 || $_user->getId() === 48 || $_user->getId() === 144) {
+        if (50 === $_user->getId() || 48 === $_user->getId() || 144 === $_user->getId()) {
             $_user_manager->setFlash('error', 'Vous n\'avez pas le droit pour modifier cette utilisateur test');
+
             return $this->redirectToRoute('user_index');
         }
 
@@ -331,7 +331,7 @@ class UserController extends Controller
 
     /**
      * @param Request $_request
-     * @param User $_user
+     * @param User    $_user
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *
@@ -353,8 +353,9 @@ class UserController extends Controller
 
         // Récupérer manager
         $_user_manager = $this->getUserMetier();
-        if ($_user->getId() === 50 || $_user->getId() === 48 || $_user->getId() === 144) {
+        if (50 === $_user->getId() || 48 === $_user->getId() || 144 === $_user->getId()) {
             $_user_manager->setFlash('error', 'Vous n\'avez pas le droit pour supprimer cette utilisateur');
+
             return $this->redirectToRoute('user_index');
         }
         $_form = $this->createDeleteForm($_user);

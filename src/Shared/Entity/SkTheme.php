@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: julkwel
  * Date: 4/3/19
- * Time: 11:13 PM
+ * Time: 11:13 PM.
  */
 
 namespace App\Shared\Entity;
@@ -11,11 +11,10 @@ namespace App\Shared\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class SkTheme
+ * Class SkTheme.
  *
  * @ORM\Table(name="sk_theme")
  * @ORM\Entity()
- * @package App\Shared\Entity
  */
 class SkTheme
 {
@@ -33,7 +32,6 @@ class SkTheme
     private $id;
 
     /**
-     *
      * @var string
      * @ORM\Column(name="sidebar",type="string",length=100,nullable=true)
      */
@@ -114,6 +112,4 @@ class SkTheme
     {
         $this->body = $body;
     }
-    
-    
 }

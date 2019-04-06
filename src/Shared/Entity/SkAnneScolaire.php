@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: julkwel
  * Date: 4/6/19
- * Time: 12:23 AM
+ * Time: 12:23 AM.
  */
 
 namespace App\Shared\Entity;
@@ -16,50 +16,47 @@ use Doctrine\ORM\Mapping as ORM;
  */
 trait SkAnneScolaire
 {
+    /**
+     * @var
+     * @ORM\Column(name="anne_scolaire_debut",type="datetime", nullable=true)
+     */
+    private $anneScolaireDebut;
 
     /**
-     * @var $debut
-     * @ORM\Column(name="debut",type="datetime", nullable=true)
+     * @var
+     * @ORM\Column(name="anne_scolaire_fin",type="datetime",nullable=true)
      */
-    private $debut;
-
-    /**
-     * @var $fin
-     * @ORM\Column(name="fin",type="datetime",nullable=true)
-     */
-    private $fin;
-
-    /**
-     * @return mixed
-     */
-    public function getDebut()
-    {
-        return $this->debut;
-    }
-
-    /**
-     * @param mixed $debut
-     */
-    public function setDebut($debut)
-    {
-        $this->debut = $debut;
-    }
+    private $anneScolaireFin;
 
     /**
      * @return mixed
      */
-    public function getFin()
+    public function getAnneScolaireDebut()
     {
-        return $this->fin;
+        return $this->anneScolaireDebut;
     }
 
     /**
-     * @param mixed $fin
+     * @param mixed $anneScolaireDebut
      */
-    public function setFin($fin)
+    public function setAnneScolaireDebut($anneScolaireDebut)
     {
-        $this->fin = $fin;
+        $this->anneScolaireDebut = $anneScolaireDebut;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getAnneScolaireFin()
+    {
+        return $this->anneScolaireFin;
+    }
 
+    /**
+     * @param mixed $anneScolaireFin
+     */
+    public function setAnneScolaireFin($anneScolaireFin)
+    {
+        $this->anneScolaireFin = $anneScolaireFin;
+    }
 }

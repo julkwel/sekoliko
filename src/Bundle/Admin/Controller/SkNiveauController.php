@@ -55,17 +55,15 @@ class SkNiveauController extends Controller
         $_niveau = new SkNiveau();
         $_form = $this->createForm(SkNiveauType::class, $_niveau);
         $_form->handleRequest($request);
-        $_classe = false;
 
         if ($_form->isSubmitted() && $_form->isValid()) {
-            $_user_ets = $this->container->get('security.token_storage')->getToken()->getUser()->getEtsNom();
             $_add_class = $request->request->get('classe');
-            $_niveau->setEtsNom($_user_ets);
-            try {
 
+            try {
                 $this->getEntityService()->saveEntity($_niveau, 'new');
-                if ($_add_class === 'on'){
-                    return $this->redirect($this->generateUrl('niveau_add_class',array('id'=>$_niveau->getId())));
+
+                if ('on' === $_add_class) {
+                    return $this->redirect($this->generateUrl('niveau_add_class', array('id' => $_niveau->getId())));
                 }
 
                 $this->getEntityService()->setFlash('success', 'Ajout de niveau effectué');
@@ -80,10 +78,8 @@ class SkNiveauController extends Controller
         return $this->render('AdminBundle:SkNiveau:add.html.twig', array(
             'niveau' => $_niveau,
             'form' => $_form->createView(),
-            'ajoutclasse'=>$_classe
         ));
     }
-
 
     /**
      * @param Request  $request
@@ -181,18 +177,20 @@ class SkNiveauController extends Controller
     }
 
     /**
-     * Other fonction
+     * Other fonction.
      */
 
     /**
-     * @param Request $request
+     * @param Request  $request
      * @param SkNiveau $skNiveau
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Exception
      */
-    public function addClassForNiveauAction(Request $request , SkNiveau $skNiveau)
+    public function addClassForNiveauAction(Request $request, SkNiveau $skNiveau)
     {
         /*
          * Secure to etudiant connected
@@ -225,15 +223,16 @@ class SkNiveauController extends Controller
 
     /**
      * @param SkNiveau $skNiveau
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public  function getAllNiveauClassAction(SkNiveau $skNiveau)
+    public function getAllNiveauClassAction(SkNiveau $skNiveau)
     {
-        $_list_class = $this->getDoctrine()->getRepository(SkClasse::class)->findBy(array('niveau'=>$skNiveau));
+        $_list_class = $this->getDoctrine()->getRepository(SkClasse::class)->findBy(array('niveau' => $skNiveau));
 
-        return $this->render('@Admin/SkNiveau/list.html.twig',array(
-            'class_list'=>$_list_class,
-            'niveau'=>$skNiveau
+        return $this->render('@Admin/SkNiveau/list.html.twig', array(
+            'class_list' => $_list_class,
+            'niveau' => $skNiveau,
         ));
     }
 }

@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: julkwel
  * Date: 4/4/19
- * Time: 11:27 PM
+ * Time: 11:27 PM.
  */
 
 namespace App\Shared\Entity;
@@ -164,6 +164,4 @@ class SkPaiement
     {
         $this->commentaire = $commentaire;
     }
-
-    
 }

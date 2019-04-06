@@ -66,6 +66,16 @@ class SkEntityManager
     }
 
     /**
+     * @return mixed
+     *
+     * @throws \Exception
+     */
+    public function getUserConnected()
+    {
+        return $this->_container->get('security.token_storage')->getToken()->getUser();
+    }
+
+    /**
      * @param $_entity_name
      *
      * @return array
@@ -74,7 +84,7 @@ class SkEntityManager
      */
     public function getAllListByEts($_entity_name)
     {
-        $_user_ets = $this->_container->get('security.token_storage')->getToken()->getUser()->getEtsNom();
+        $_user_ets = $this->getUserConnected()->getEtsNom();
 
         return $this->getRepository($_entity_name)->findBy(array('etsNom' => $_user_ets), array('id' => 'DESC'));
     }
@@ -108,10 +118,27 @@ class SkEntityManager
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Exception
      */
     public function saveEntity($_data, $_action)
     {
+        if ($this->_container->get('security.authorization_checker')->isGranted('ROLE_ETUDIANT')) {
+            return $this->_container->get('router')->generate('sk_login');
+        }
+
         if ('new' == $_action) {
+            try {
+                $_ann_scolaire_debut = $this->getUserConnected()->getAnneScolaireDebut();
+                $_ann_scolaire_fin = $this->getUserConnected()->getAnneScolaireFin();
+                $_user_ets = $this->getUserConnected()->getEtsNom();
+            } finally {
+                if ($_ann_scolaire_debut || $_ann_scolaire_fin || $_user_ets) {
+                    $_data->setAnneScolaireDebut($_ann_scolaire_debut);
+                    $_data->setAnneScolaireFin($_ann_scolaire_fin);
+                    $_data->setEtsNom($_user_ets);
+                }
+            }
+
             $this->_entity_manager->persist($_data);
         }
         $this->_entity_manager->flush();

@@ -34,22 +34,19 @@ class SkNoteController extends Controller
     }
 
     /**
-     * @param Request    $request
      * @param SkEtudiant $skEtudiant
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction(Request $request, SkEtudiant $skEtudiant)
+    public function indexAction(SkEtudiant $skEtudiant)
     {
         $_note_liste = $this->getDoctrine()->getRepository(SkNote::class)->findBy(array('etudiant' => $skEtudiant));
-        $request = $this->container->get('request_stack');
-        $routeName = $request->getParentRequest();
         $_classe = $skEtudiant->getClasse();
 
         return $this->render('@Admin/SkEtudiant/listnote.html.twig', array(
             'note_liste' => $_note_liste,
             'etudiant' => $skEtudiant,
-            'classe'=>$_classe
+            'classe' => $_classe,
         ));
     }
 
@@ -76,7 +73,7 @@ class SkNoteController extends Controller
             $_profs = $this->getUserConnected();
             $_ets_nom = $this->getUserConnected()->getEtsNom();
             $_matiere_liste = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array(
-                'matProf'=>$_profs,
+                'matProf' => $_profs,
                 'etsNom' => $_ets_nom,
             ));
         } else {
@@ -100,7 +97,6 @@ class SkNoteController extends Controller
             $_matiere = $this->getDoctrine()->getRepository(SkMatiere::class)->find($_matiere);
             $_note->setEtudiant($etudiant);
             $_note->setMatNom($_matiere);
-            $_note->setEtsNom($_ets_nom);
             $_note->setNoteVal($_valeur);
             try {
                 $this->getEntityService()->saveEntity($_note, 'new');
@@ -117,7 +113,7 @@ class SkNoteController extends Controller
             'user' => $etudiant,
             'matiere' => $_matiere_liste,
             'etudiant' => $etudiant,
-            'classe'=>$_classe
+            'classe' => $_classe,
         ));
     }
 
@@ -129,7 +125,6 @@ class SkNoteController extends Controller
      */
     public function editAction(Request $request, SkNote $skNote)
     {
-
         /*
          * Secure to etudiant connected
          */
@@ -146,7 +141,7 @@ class SkNoteController extends Controller
         if ($this->get('security.authorization_checker')->isGranted('ROLE_PROFS')) {
             $_profs = $this->getUserConnected();
             $_matiere_liste = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array(
-                'matProf'=>$_profs,
+                'matProf' => $_profs,
                 'etsNom' => $_ets_nom,
             ));
         } else {
@@ -192,7 +187,6 @@ class SkNoteController extends Controller
      */
     public function deleteAction(SkNote $skNote)
     {
-
         /*
          * Secure to etudiant connected
          */

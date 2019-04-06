@@ -45,6 +45,7 @@ class SkClassController extends Controller
 
     /**
      * @return \Symfony\Component\HttpFoundation\Response
+     *
      * @throws \Exception
      */
     public function indexAction()
@@ -55,7 +56,6 @@ class SkClassController extends Controller
             'class_list' => $_class_list,
         ));
     }
-
 
     /**
      * @param Request $request
@@ -84,7 +84,6 @@ class SkClassController extends Controller
 
         if ($_form->isSubmitted() && $_form->isValid()) {
             $_niveau = $request->get('niveau');
-            $_classe->setEtsNom($_user_ets);
 
             $_new_niveau = $this->getDoctrine()->getRepository(SkNiveau::class)->find($_niveau);
             $_classe->setNiveau($_new_niveau);
@@ -103,7 +102,7 @@ class SkClassController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param Request  $request
      * @param SkClasse $skClasse
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -199,12 +198,12 @@ class SkClassController extends Controller
 
         return $this->render('@Admin/SkClasse/class.mat.html.twig', array(
             'liste_matiere' => $_matiere_liste,
-            'classe' => $skClasse
+            'classe' => $skClasse,
         ));
     }
 
     /**
-     * @param Request $_request
+     * @param Request  $_request
      * @param SkClasse $skClasse
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -253,16 +252,17 @@ class SkClassController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param Request  $request
      * @param SkClasse $skClasse
+     *
      * @return \Symfony\Component\HttpFoundation\Response
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Exception
      */
     public function addMatiereAction(Request $request, SkClasse $skClasse)
     {
-        $_user_ets = $this->getUserConnected()->getEtsNom();
         $_matiere = new SkMatiere();
         $_prof_list = $this->getProfs();
         $_form = $this->createForm(SkMatiereType::class, $_matiere);
@@ -273,33 +273,38 @@ class SkClassController extends Controller
 
             if (!($_prof)) {
                 $this->getEntityService()->setFlash('error', 'Veuillez sélectionner un prof');
+
                 return $this->redirectToRoute('classe_add_matiere', array('id' => $skClasse->getId()));
             }
 
             $_prof = $this->getDoctrine()->getRepository(User::class)->find($_prof);
-            $_matiere->setEtsNom($_user_ets);
+
             $_matiere->setMatProf($_prof);
             $_matiere->setMatClasse($skClasse);
 
             $_save_data = $this->getEntityService()->saveEntity($_matiere, 'new');
-            if ($_save_data === true) {
-                $this->getEntityService()->setFlash('success', 'Ajout matiere pour' . $skClasse->getClasseNom() . 'a réussi');
+            if (true === $_save_data) {
+                $this->getEntityService()->setFlash('success', 'Ajout matiere pour'.$skClasse->getClasseNom().'a réussi');
+
                 return $this->redirect($this->generateUrl('classe_matiere_liste', array('id' => $skClasse->getId())));
             }
+
             return $this->redirectToRoute('classe_add_matiere', array('id' => $skClasse->getId()));
         }
 
         return $this->render('@Admin/SkClasse/add.mat.html.twig', array(
             'form' => $_form->createView(),
             'classe' => $skClasse,
-            'prof' => $_prof_list
+            'prof' => $_prof_list,
         ));
     }
 
     /**
-     * @param SkClasse $skClasse
+     * @param SkClasse  $skClasse
      * @param SkMatiere $skMatiere
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Exception
@@ -328,32 +333,37 @@ class SkClassController extends Controller
 
     /**
      * @param SkClasse $skClasse
-     * @param User $user
+     * @param User     $user
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      * @ParamConverter("skClasse", options={"id" = "id_class"})
      * @ParamConverter("user", options={"id" = "id_user"})
+     *
      * @throws \Exception
      */
-    public function deleteEtudiantAction(SkClasse $skClasse,User $user){
+    public function deleteEtudiantAction(SkClasse $skClasse, User $user)
+    {
         /*
          * Secure to etudiant connected
          */
         if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             $_user_service = $this->get(ServiceName::SRV_METIER_USER);
             $_delete_etudiant = $_user_service->deleteUser($user);
-            if(true === $_delete_etudiant){
+            if (true === $_delete_etudiant) {
                 $this->getEntityService()->setFlash('success', 'Suppression étudiant effectuée');
 
                 return $this->redirectToRoute('etudiant_liste', array('id' => $skClasse->getId()));
             }
         }
+
         return $this->redirectToRoute('sk_login');
     }
 
     /**
-     * @param Request $request
+     * @param Request  $request
      * @param SkClasse $skClasse
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -368,12 +378,10 @@ class SkClassController extends Controller
 
         $_form_upload->handleRequest($request);
         if ($_form_upload->isSubmitted() && $_form_upload->isValid()) {
-            $_user_ets = $this->container->get('security.token_storage')->getToken()->getUser()->getEtsNom();
-
             $_file = $_form_upload['file']->getData();
             $the_big_array = [];
-            if (($h = fopen("{$_file}", "r")) !== FALSE) {
-                while (($data = fgetcsv($h, 1000, ",")) !== FALSE) {
+            if (false !== ($h = fopen("{$_file}", 'r'))) {
+                while (false !== ($data = fgetcsv($h, 1000, ','))) {
                     $the_big_array[] = $data;
                 }
 
@@ -385,7 +393,6 @@ class SkClassController extends Controller
                     $_user_role = RoleName::ROLE_ETUDIANT;
                     $_role = $this->getDoctrine()->getRepository(SkRole::class)->find(2);
                     $_pass = $_etudiant_data->setPlainPassword('123456');
-                    $_etudiant_data->setEtsNom($_user_ets);
                     $_etudiant_data->setRoles(array($_user_role));
                     $_etudiant_data->setskRole($_role);
                     $_etudiant_data->setUsrLastname($value[0] ? $value[0] : 'Null');
@@ -398,34 +405,33 @@ class SkClassController extends Controller
                     $_etudiant_data->setPassword($_pass);
 
                     $_etudiant->setClasse($skClasse);
-                    $_etudiant->setEtsNom($_user_ets);
                     $_etudiant->setClasse($skClasse);
                     $_etudiant->setEtudiant($_etudiant_data);
 
-                    for ($a = 0; $a < count($the_big_array); $a++) {
+                    for ($a = 0; $a < count($the_big_array); ++$a) {
                         try {
                             $this->getEntityService()->saveEntity($_etudiant_data, 'new');
                         } catch (\Exception $exception) {
                             $exception->getMessage();
+
                             return $this->redirect($this->generateUrl('classe_etudiant_new', array('id' => $skClasse->getId())));
                         }
                         try {
                             $this->getEntityService()->saveEntity($_etudiant, 'new');
                         } catch (\Exception $exception) {
                             $exception->getMessage();
-                            $this->getEntityService()->setFlash('error', 'Une erreur s\'est produite, veuiller réessayez ultérieurement' . $exception->getMessage());
+                            $this->getEntityService()->setFlash('error', 'Une erreur s\'est produite, veuiller réessayez ultérieurement'.$exception->getMessage());
                         }
                     }
                 }
-                $this->getEntityService()->setFlash('success', 'Ajout de l\'étudiant(e) dans la classe ' . $skClasse->getClasseNom() . ' effectuée');
+                $this->getEntityService()->setFlash('success', 'Ajout de l\'étudiant(e) dans la classe '.$skClasse->getClasseNom().' effectuée');
+
                 return $this->redirect($this->generateUrl('etudiant_liste', array('id' => $skClasse->getId())));
             }
         } else {
-
             $_user = new User();
             $_etudiant = new SkEtudiant();
             $_user_role = RoleName::ROLE_ETUDIANT;
-            $_user_ets = $this->container->get('security.token_storage')->getToken()->getUser()->getEtsNom();
 
             $_form = $this->createForm(UserType::class, $_user);
             $_form_etd = $this->createForm(SkEtudiantType::class);
@@ -437,14 +443,11 @@ class SkClassController extends Controller
                     $_form_etd->handleRequest($request);
                     if ($_form->isSubmitted()) {
                         try {
-
                             $_user->setskRole($_role);
                             $_user->setRoles(array($_user_role));
-                            $_user->setEtsNom($_user_ets);
                             $_user->setEnabled(1);
 
                             $_etudiant->setClasse($skClasse);
-                            $_etudiant->setEtsNom($_user_ets);
                             $_etudiant->setClasse($skClasse);
                             $_etudiant->setEtudiant($_user);
 
@@ -452,19 +455,22 @@ class SkClassController extends Controller
                                 $this->getEntityService()->saveEntity($_user, 'new');
                             } catch (\Exception $exception) {
                                 $this->getEntityService()->setFlash('error', 'Email ou nom d\'utilisateur déjà prise');
+
                                 return $this->redirect($this->generateUrl('classe_etudiant_new', array('id' => $skClasse->getId())));
                             }
                             try {
                                 $this->getEntityService()->saveEntity($_etudiant, 'new');
                             } catch (\Exception $exception) {
-                                $this->getEntityService()->setFlash('error', 'error' . $exception->getMessage());
+                                $this->getEntityService()->setFlash('error', 'error'.$exception->getMessage());
+
                                 return $this->redirect($this->generateUrl('classe_etudiant_new', array('id' => $skClasse->getId())));
                             }
                         } catch (\Exception $exception) {
                             $exception->getMessage();
                         }
 
-                        $this->getEntityService()->setFlash('success', 'Ajout de l\'étudiant(e) dans la classe ' . $skClasse->getClasseNom() . ' effectuée');
+                        $this->getEntityService()->setFlash('success', 'Ajout de l\'étudiant(e) dans la classe '.$skClasse->getClasseNom().' effectuée');
+
                         return $this->redirect($this->generateUrl('etudiant_liste', array('id' => $skClasse->getId())));
                     }
                 } catch (\Exception $exception) {
@@ -477,7 +483,7 @@ class SkClassController extends Controller
             'form1' => $_form->createView(),
             'form2' => $_form_etd->createView(),
             'classe' => $skClasse,
-            'form_upload' => $_form_upload->createView()
+            'form_upload' => $_form_upload->createView(),
         ));
     }
 }

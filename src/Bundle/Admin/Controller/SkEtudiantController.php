@@ -136,7 +136,6 @@ class SkEtudiantController extends Controller
                 $_class = $this->getDoctrine()->getRepository(SkClasse::class)->find($_class);
 
                 $_etudiant->setClasse($_class);
-                $_etudiant->setEtsNom($_ets);
                 $_etudiant->setEtudiant($user);
                 try {
                     $this->getEntityService()->saveEntity($_etudiant, 'new');
@@ -185,7 +184,6 @@ class SkEtudiantController extends Controller
             $_class = $this->getDoctrine()->getRepository(SkClasse::class)->find($_class);
 
             $skEtudiant->setClasse($_class);
-            $skEtudiant->setEtsNom($_ets);
             try {
                 $this->getEntityService()->saveEntity($skEtudiant, 'update');
                 $this->getEntityService()->setFlash('success', 'Etudiant(e) mis à jour');

@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: vony
  * Date: 3/30/19
- * Time: 3:57 PM
+ * Time: 3:57 PM.
  */
 
 namespace App\Shared\Entity;
@@ -11,6 +11,7 @@ namespace App\Shared\Entity;
 use App\Bundle\User\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * SkBug.
  *
@@ -19,7 +20,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class SkBug
 {
-
     /**
      * @var int
      *

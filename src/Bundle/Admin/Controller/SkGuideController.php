@@ -59,18 +59,17 @@ class SkGuideController extends Controller
         $form = $this->createForm(SkGuideType::class, $guide);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
             $_file = $form['attachment']->getData();
             if ($_file) {
                 $_extension = $_file->guessExtension();
-                $_fileName = $this->generateUniqueFileName() . '.' . $_extension;
+                $_fileName = $this->generateUniqueFileName().'.'.$_extension;
                 try {
                     $_file->move($this->getParameter('guide_images_upload_directory'), $_fileName);
                     $guide->setAttachment($_fileName);
                 } catch (FileException $e) {
                     $this->getEntityService()->setFlash('error', 'Une erreur est survenue, veuillez réessayer');
                 }
-            }else{
+            } else {
                 $guide->setAttachment(null);
             }
             $this->getEntityService()->saveEntity($guide, 'new');
@@ -99,11 +98,10 @@ class SkGuideController extends Controller
         $form = $this->createForm(SkGuideType::class, $skGuide);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
             $_file = $form['attachment']->getData();
             if ($_file) {
                 $_extension = $_file->guessExtension();
-                $_fileName = $this->generateUniqueFileName() . '.' . $_extension;
+                $_fileName = $this->generateUniqueFileName().'.'.$_extension;
                 try {
                     $_file->move($this->getParameter('guide_images_upload_directory'), $_fileName);
                     $skGuide->setAttachment($_fileName);

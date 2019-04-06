@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: julkwel
  * Date: 4/4/19
- * Time: 8:56 PM
+ * Time: 8:56 PM.
  */
 
 namespace App\Bundle\Admin\Controller;
-
 
 use App\Bundle\User\Entity\User;
 use App\Shared\Entity\SkPaiement;
@@ -34,24 +33,27 @@ class SkPaiementController extends Controller
 
     /**
      * @return \Symfony\Component\HttpFoundation\Response
+     *
      * @throws \Exception
      */
     public function indexAction()
     {
         $_paiement = $this->getEntityService()->getAllListByEts(SkPaiement::class);
+
         return $this->render('AdminBundle:SkPaiement:index.html.twig', array(
-            'paiement' => $_paiement
+            'paiement' => $_paiement,
         ));
     }
 
     /**
      * @param Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
      * @throws \Exception
      */
     public function newAction(Request $request)
     {
-        $_user_ets = $this->getUserConnected()->getEtsNom();
         $_paiement = new SkPaiement();
 
         $_form = $this->createForm(SkPaiementType::class);
@@ -59,7 +61,6 @@ class SkPaiementController extends Controller
         $_user_list = $this->getEntityService()->getAllListByEts(User::class);
 
         if ($_form->isSubmitted() && $_form->isValid()) {
-
             $_panie_id = rand(100, 100000);
             $_user_id = $request->request->get('user');
             $_find_user = $this->getEntityService()->getEntityById(User::class, $_user_id);
@@ -70,20 +71,19 @@ class SkPaiementController extends Controller
             $_paiement->setDate(new  \DateTime($_date));
             $_paiement->setMontant($_montant);
             $_paiement->setReference($_reference);
-            $_paiement->setEtsNom($_user_ets);
             $_paiement->setUser(array($_find_user));
             $_addresse = '104.236.254.239';
 
             $this->terminerPaiementAction($_panie_id, $_montant, $_user_id, $_reference, $_addresse);
 
-            if ($_paiement){
+            if ($_paiement) {
                 return $this->addPaiement($_panie_id, $_montant, $_user_id, $_reference, $_addresse);
             }
         }
 
         return $this->render('AdminBundle:SkPaiement:add.html.twig', array(
             'form' => $_form->createView(),
-            'user' => $_user_list
+            'user' => $_user_list,
         ));
     }
 
@@ -93,31 +93,34 @@ class SkPaiementController extends Controller
      * @param $_user_id
      * @param $_reference
      * @param $_addresse
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function terminerPaiementAction($_panie_id, $_montant, $_user_id, $_reference, $_addresse)
     {
 //        dump($_panie_id, $_montant, $_user_id, $_reference, $_addresse);die();
-        return $this->render('@Admin/SkPaiement/fin.html.twig',array(
-            'data'=>array($_panie_id, $_montant, $_user_id, $_reference, $_addresse)
+        return $this->render('@Admin/SkPaiement/fin.html.twig', array(
+            'data' => array($_panie_id, $_montant, $_user_id, $_reference, $_addresse),
         ));
     }
+
     /**
      * @param $_panie_id
      * @param $_montant
      * @param $_user_id
      * @param $_reference
      * @param $_addresse
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     *
      * @throws \Exception
      */
-    public function addPaiement($_panie_id, $_montant, $_user_id, $_reference, $_addresse){
-
+    public function addPaiement($_panie_id, $_montant, $_user_id, $_reference, $_addresse)
+    {
         $_add_paiement = $this->getAriaryNetPaiement()->initPayAriary($_panie_id, $_montant, $_user_id, $_reference, $_addresse);
 
         return $_add_paiement;
     }
-
 
     /**
      * @return \Symfony\Component\HttpFoundation\Response

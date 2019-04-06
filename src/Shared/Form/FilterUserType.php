@@ -9,8 +9,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class FilterUserType
- * @package App\Shared\Form
+ * Class FilterUserType.
+ *
  * @author Max
  */
 class FilterUserType extends AbstractType
@@ -26,26 +26,26 @@ class FilterUserType extends AbstractType
                 'label' => "Nom d'utilisateur",
                 'attr' => [
                     'class' => 'form-control',
-                    'required'=> false,
-                    ]
+                    'required' => false,
+                    ],
             ])
             ->add('userFirstName', TextType::class, [
                 'label' => 'Nom',
                 'attr' => [
                     'class' => 'form-control',
-                    'required'=> false,
-                ]
+                    'required' => false,
+                ],
             ])
             ->add('userLastName', TextType::class, [
                 'label' => 'Prénom',
                 'attr' => [
                     'class' => 'form-control',
-                    'required'=> false,
-                    ]
+                    'required' => false,
+                    ],
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Filter',
-                'attr' => ['class' => 'btn btn-primary']
+                'attr' => ['class' => 'btn btn-primary'],
             ])
             ->setMethod('GET')
             ->setAction($options['router']->generate('user_search'))
@@ -60,7 +60,7 @@ class FilterUserType extends AbstractType
         $resolver->setDefaults([
             'router' => null,
             'csrf_protection' => false,
-            'allow_extra_fields' => true
+            'allow_extra_fields' => true,
         ]);
     }
 

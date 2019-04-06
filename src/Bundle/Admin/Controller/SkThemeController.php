@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: julkwel
  * Date: 4/3/19
- * Time: 11:08 PM
+ * Time: 11:08 PM.
  */
 
 namespace App\Bundle\Admin\Controller;
-
 
 use App\Shared\Entity\SkTheme;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -27,6 +26,7 @@ class SkThemeController extends Controller
 
     /**
      * @return \Symfony\Component\HttpFoundation\Response
+     *
      * @throws \Exception
      */
     public function indexAction()
@@ -34,13 +34,15 @@ class SkThemeController extends Controller
         $_theme = $this->getEntityService()->getAllListByEts(SkTheme::class);
 
         return $this->render('admin/theme.html.twig', array(
-            'themes' => $_theme
+            'themes' => $_theme,
         ));
     }
 
     /**
      * @param Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Exception
@@ -61,7 +63,6 @@ class SkThemeController extends Controller
                 $_theme_list = $this->getEntityService()->getEntityById(SkTheme::class, $_theme_id);
                 $this->getEntityService()->deleteEntity($_theme_list, '');
             }
-            $_theme->setEtsNom($this->getUserConnected()->getEtsNom());
             $_theme->setBody($_body);
             $_theme->setHeader($_header);
             $_theme->setSidebar($_sidebar);
@@ -74,12 +75,13 @@ class SkThemeController extends Controller
         return $this->render('@Admin/SkTheme/edit.html.twig', array(
             'method' => 'POST',
             'add' => true,
-            'form' => $_form->createView()
+            'form' => $_form->createView(),
         ));
     }
 
     /**
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Exception
@@ -91,8 +93,9 @@ class SkThemeController extends Controller
             $_theme_id = $_theme_list[0]->getId();
             $_theme_list = $this->getEntityService()->getEntityById(SkTheme::class, $_theme_id);
             $this->getEntityService()->deleteEntity($_theme_list, '');
+
             return $this->redirectToRoute('dashboard_index');
-        } else{
+        } else {
             return $this->redirectToRoute('dashboard_index');
         }
     }

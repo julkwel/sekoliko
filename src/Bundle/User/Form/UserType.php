@@ -30,7 +30,7 @@ class UserType extends AbstractType
                 'label' => 'Nom',
                 'attr' => array(
                     'placeholder' => 'Nom',
-                    'pattern'=>'^[^@&"()!_$*€£`+=\/;?#]+$'
+                    'pattern' => '^[^@&"()!_$*€£`+=\/;?#]+$',
                 ),
                 'required' => true,
             ))
@@ -39,7 +39,7 @@ class UserType extends AbstractType
                 'label' => 'Prénom',
                 'attr' => array(
                     'placeholder' => 'Prénom',
-                    'pattern'=>'^[^@&"()!_$*€£`+=\/;?#]+$'
+                    'pattern' => '^[^@&"()!_$*€£`+=\/;?#]+$',
                 ),
                 'required' => true,
             ))
@@ -47,7 +47,7 @@ class UserType extends AbstractType
             ->add('usrAddress', TextType::class, array(
                 'label' => 'Adresse',
                 'attr' => array(
-                    'placeholder' => 'Adresse'
+                    'placeholder' => 'Adresse',
                 ),
                 'required' => false,
             ))
@@ -56,7 +56,7 @@ class UserType extends AbstractType
                 'label' => 'Téléphone',
                 'attr' => array(
                     'placeholder' => 'Téléphone',
-                    'pattern'=>'(\+)?[0-9]{9,18}'
+                    'pattern' => '(\+)?[0-9]{9,18}',
                 ),
                 'required' => false,
             ))

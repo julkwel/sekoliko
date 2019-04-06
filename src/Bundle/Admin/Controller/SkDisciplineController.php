@@ -61,15 +61,12 @@ class SkDisciplineController extends Controller
             return $this->redirectToRoute('sk_login');
         }
 
-        $_user_ets = $this->getUserConnected()->getEtsNom();
-
         $_discipline = new SkDiscipline();
         $_form = $this->createForm(SkDisciplineFormType::class, $_discipline);
         $_form->handleRequest($request);
 
         if ($_form->isSubmitted() && $_form->isValid()) {
             try {
-                $_discipline->setEtsNom($_user_ets);
                 $this->getEntityService()->saveEntity($_discipline, 'new');
                 $this->getEntityService()->setFlash('success', 'Ajout du discipline effectuée');
             } catch (\Exception $exception) {
@@ -176,13 +173,11 @@ class SkDisciplineController extends Controller
      */
     public function newPunitionAction(Request $request, SkDiscipline $skDiscipline)
     {
-        $_user_ets = $this->getUserConnected()->getEtsNom();
         $_punition = new SkDisciplineList();
         $_form = $this->createForm(SkPunitionType::class, $_punition);
         $_form->handleRequest($request);
 
         if ($_form->isSubmitted() && $_form->isValid()) {
-            $_punition->setEtsNom($_user_ets);
             $_punition->setDiscipline($skDiscipline);
             try {
                 $this->getEntityService()->saveEntity($_punition, 'new');

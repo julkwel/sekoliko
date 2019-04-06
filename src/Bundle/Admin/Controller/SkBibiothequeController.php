@@ -27,6 +27,8 @@ class SkBibiothequeController extends Controller
      * @param Request $request
      *
      * @return Response
+     *
+     * @throws \Exception
      */
     public function searchAction(Request $request)
     {

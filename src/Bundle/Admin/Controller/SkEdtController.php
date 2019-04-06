@@ -78,7 +78,6 @@ class SkEdtController extends Controller
 
         try {
             $_edt = new SkEdt();
-            $_user_ets = $this->getUserConnected()->getEtsNom();
             $_form = $this->createForm(SkEdtType::class, $_edt);
             $_form->handleRequest($request);
             $_mat_list = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array('matClasse' => $skClasse));
@@ -90,10 +89,10 @@ class SkEdtController extends Controller
                     $_date_fin = $request->request->get('fin');
                     if (new \DateTime($_date_debut) > new \DateTime($_date_fin)) {
                         $this->getEntityService()->setFlash('error', 'Date début > Date Fin');
-                        return $this->redirect($this->generateUrl('edt_new', array('id'=>$skClasse->getId())));
+
+                        return $this->redirect($this->generateUrl('edt_new', array('id' => $skClasse->getId())));
                     }
                     $_mat = $this->getDoctrine()->getRepository(SkMatiere::class)->find($_mat);
-                    $_edt->setEtsNom($_user_ets);
                     $_edt->setMatNom($_mat);
                     $_edt->setEdtClasse($skClasse);
                     $_edt->setEtdDateDeb(new \DateTime($_date_debut));

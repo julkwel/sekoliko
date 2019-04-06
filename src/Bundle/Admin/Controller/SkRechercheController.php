@@ -16,8 +16,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class SkRechercheController
- * @package App\Bundle\Admin\Controller
+ * Class SkRechercheController.
+ *
  * @author Max
  */
 class SkRechercheController extends Controller
@@ -41,26 +41,26 @@ class SkRechercheController extends Controller
 
     /**
      * @param Request $request
+     *
      * @return JsonResponse|Response|void
      */
     public function searchResultAjaxAction(Request $request)
     {
-        if($request->isXmlHttpRequest()) {
-            if(!$this->getUser()) {
-                $this->addFlash('danger', "Merci de vous connecter!", Response::HTTP_FORBIDDEN);
+        if ($request->isXmlHttpRequest()) {
+            if (!$this->getUser()) {
+                $this->addFlash('danger', 'Merci de vous connecter!', Response::HTTP_FORBIDDEN);
             } else {
                 $users = $this->getDoctrine()->getRepository(User::class)
                     ->findByFilterQuery($request, $this->getUser()->getEtsNom());
                 $userLastNameSearch = $request->query->get('userLastNameSearch');
 
-                if($userLastNameSearch) {
-                     return new JsonResponse($users, 200);
-                }else{
+                if ($userLastNameSearch) {
+                    return new JsonResponse($users, 200);
+                } else {
                     return $this->render('@Admin/SkRecherche/search_result_ajax.html.twig', array(
-                        'users' => $users
+                        'users' => $users,
                     ));
                 }
-
             }
         }
     }

@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: vony
  * Date: 3/30/19
- * Time: 12:57 PM
+ * Time: 12:57 PM.
  */
 
 namespace App\Shared\Entity;
