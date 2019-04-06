@@ -21,6 +21,12 @@ Based on Symfony 4.0
 
 - Add a documentation in your code 
 
+## GIT
+
+- Commit message must with `git commit -m "(action ? add : edit : delete : update) : file edit or your big modification`
+
+- Send your PR in develop branch.
+
 ## TODOS
 
 - Add import export data (csv) done on  #24
