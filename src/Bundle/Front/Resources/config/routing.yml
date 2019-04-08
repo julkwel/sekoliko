@@ -1,3 +1,3 @@
 sk_front:
-    path: /
-    defaults: { _controller: FrontBundle:Front:index }
+  path: /
+  defaults: { _controller: FrontBundle:Front:index }
