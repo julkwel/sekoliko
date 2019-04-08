@@ -14,6 +14,7 @@ use App\Shared\Entity\SkEtudiant;
 use App\Shared\Entity\SkMatiere;
 use App\Shared\Form\SkEdtType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class SkEdtController extends Controller
@@ -62,7 +63,7 @@ class SkEdtController extends Controller
     }
 
     /**
-     * @param Request  $request
+     * @param Request $request
      * @param SkClasse $skClasse
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -118,6 +119,40 @@ class SkEdtController extends Controller
             'edt' => $_edt,
             'classe' => $skClasse,
             'form' => $_form->createView(),
+            'add' => true
         ));
+    }
+
+    /**
+     * @param Request $request
+     * @param SkEdt $skEdt
+     * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
+     */
+    public function editAction(Request $request, SkEdt $skEdt)
+    {
+        $_form = $this->createForm(SkEdtType::class, $skEdt);
+        $_form->handleRequest($request);
+
+        if ('POST' == $request->getMethod()) {
+            $_mat = $request->request->get('matiere');
+            $_date_debut = $request->request->get('start');
+            $_date_fin = $request->request->get('end');
+            if (new \DateTime($_date_debut) > new \DateTime($_date_fin)) {
+                $this->getEntityService()->setFlash('error', 'Date début > Date Fin');
+            }
+            $_mat = $this->getDoctrine()->getRepository(SkMatiere::class)->find($_mat);
+            $skEdt->setMatNom($_mat);
+            $skEdt->setEtdDateDeb(new \DateTime($_date_debut));
+            $skEdt->setEtdDateFin(new \DateTime($_date_fin));
+            try {
+                $this->getEntityService()->saveEntity($skEdt, 'update');
+            } catch (\Exception $exception) {
+                $exception->getMessage();
+            }
+//            $this->getEntityService()->setFlash('success', 'Ajout de l\'emplois du temps effectué');
+
+            return new JsonResponse("ok",200);
+        }
     }
 }
