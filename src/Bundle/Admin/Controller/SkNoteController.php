@@ -13,6 +13,7 @@ use App\Shared\Entity\SkMatiere;
 use App\Shared\Entity\SkNote;
 use App\Shared\Entity\SkTrimestre;
 use App\Shared\Form\SkNoteType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -36,11 +37,12 @@ class SkNoteController extends Controller
 
     /**
      * @param SkEtudiant $skEtudiant
-     *
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
      */
     public function indexAction(SkEtudiant $skEtudiant)
     {
+        $_trim_list = $this->getEntityService()->getAllListByEts(SkTrimestre::class);
         $_note_liste = $this->getDoctrine()->getRepository(SkNote::class)->findBy(array('etudiant' => $skEtudiant));
         $_classe = $skEtudiant->getClasse();
 
@@ -48,9 +50,35 @@ class SkNoteController extends Controller
             'note_liste' => $_note_liste,
             'etudiant' => $skEtudiant,
             'classe' => $_classe,
+            'trimestre' => $_trim_list,
+            'list' => true,
+            'details'=>false
         ));
     }
 
+    /**
+     * @param SkEtudiant $skEtudiant
+     * @param SkTrimestre $skTrimestre
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @ParamConverter("skEtudiant", options={"id" = "id_etd"})
+     * @ParamConverter("skTrimestre", options={"id" = "id_trim"})
+     * @throws \Exception
+     */
+    public function noteTrimAction(SkEtudiant $skEtudiant , SkTrimestre $skTrimestre)
+    {
+        $_trim_list = $this->getEntityService()->getAllListByEts(SkTrimestre::class);
+        $_note_liste = $this->getDoctrine()->getRepository(SkNote::class)->findBy(array('etudiant' => $skEtudiant,'trimestre'=>$skTrimestre));
+        $_classe = $skEtudiant->getClasse();
+
+        return $this->render('@Admin/SkEtudiant/trim.note.details.html.twig', array(
+            'note_liste' => $_note_liste,
+            'etudiant' => $skEtudiant,
+            'classe' => $_classe,
+            'trimestre' => $_trim_list,
+            'list' => false,
+            'details'=>true
+        ));
+    }
     /**
      * @param Request    $request
      * @param SkEtudiant $etudiant
@@ -159,17 +187,25 @@ class SkNoteController extends Controller
                 'matClasse' => $_etudiant_classe,
             ));
         }
+        $_trimestre_list = $this->getDoctrine()->getRepository(SkTrimestre::class)->findBy(array(
+            'etsNom'=>$_ets_nom
+        ));
+
         $_form = $this->createForm(SkNoteType::class, $skNote);
         $_form->handleRequest($request);
 
         if ($_form->isSubmitted() && $_form->isValid()) {
             $_matiere = $request->request->get('matiere');
             $_valeur = $request->request->get('noteVal');
+            $_trimestre = $request->request->get('trimestre');
+            $_trimestre = $this->getDoctrine()->getRepository(SkTrimestre::class)->find($_trimestre);
+
             $_matiere = $this->getDoctrine()->getRepository(SkMatiere::class)->find($_matiere);
             try {
                 $skNote->setEtudiant($skNote->getEtudiant());
                 $skNote->setMatNom($_matiere);
                 $skNote->setNoteVal($_valeur);
+                $skNote->setTrimestre($_trimestre);
                 $this->getEntityService()->saveEntity($skNote, 'update');
             } catch (\Exception $exception) {
                 $exception->getMessage();
@@ -182,6 +218,7 @@ class SkNoteController extends Controller
            'form' => $_form->createView(),
             'note' => $skNote,
             'matiere' => $_matiere_liste,
+            'trimestre'=>$_trimestre_list
         ));
     }
 
@@ -202,7 +239,7 @@ class SkNoteController extends Controller
         if ($this->get('security.authorization_checker')->isGranted('ROLE_ETUDIANT')) {
             return $this->redirectToRoute('sk_login');
         }
-        $_etudiant_classe = $skNote->getEtudiant()->getClasse()->getId();
+
         $_delete_note = $this->getEntityService()->deleteEntity($skNote, '');
         if (true === $_delete_note) {
             $this->getEntityService()->setFlash('success', 'Suppression du note effectuée');
@@ -213,9 +250,12 @@ class SkNoteController extends Controller
 
     /**
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
      */
     public function etudiantNoteAction()
     {
+        $_trim_list = $this->getEntityService()->getAllListByEts(SkTrimestre::class);
+
         $_user_classe = $this->getDoctrine()->getRepository(SkEtudiant::class)->findBy(array(
             'etsNom' => $this->getUserConnected()->getEtsNom(),
             'etudiant' => $this->getUserConnected(),
@@ -226,6 +266,28 @@ class SkNoteController extends Controller
         ));
 
         return $this->render('@Admin/SkEtudiant/etudiant.note.html.twig', array(
+            'note_liste' => $_note_liste,
+            'trimestre' => $_trim_list
+        ));
+    }
+
+    /**
+     * @param SkTrimestre $skTrimestre
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function etudiantNoteTrimAction(SkTrimestre $skTrimestre)
+    {
+        $_user_classe = $this->getDoctrine()->getRepository(SkEtudiant::class)->findBy(array(
+            'etsNom' => $this->getUserConnected()->getEtsNom(),
+            'etudiant' => $this->getUserConnected(),
+        ));
+
+        $_note_liste = $this->getDoctrine()->getRepository(SkNote::class)->findBy(array(
+            'etudiant' => $_user_classe[0],
+            'trimestre'=> $skTrimestre
+        ));
+
+        return $this->render('@Admin/SkEtudiant/trim.note.details.html.twig', array(
             'note_liste' => $_note_liste,
         ));
     }
