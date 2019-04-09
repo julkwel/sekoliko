@@ -67,6 +67,10 @@ tz_trimestre:
     resource: "@AdminBundle/Resources/config/routing/trimestre.yml"
     prefix:   /trimestre
 
+tz_profs:
+    resource: "@AdminBundle/Resources/config/routing/profs.yml"
+    prefix:   /profs
+
 tz_paiement:
     resource: "@AdminBundle/Resources/config/routing/paiement.yml"
     prefix:   /paiement

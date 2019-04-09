@@ -33,24 +33,25 @@
         </div>
 
         <div class="card-body">
-            {{ form_start(form1) }}
+            {{ form_start(form1, {attr: {novalidate: 'novalidate'}}) }}
             <div class="row">
                 <div class="col-md-6">
                     {{ form_row(form1.usrLastname) }}
                     {{ form_row(form1.usrFirstname) }}
                     {{ form_row(form1.usrAddress) }}
-                    {{ form_row(form1.email) }}
-                    {{ form_row(form1.usrPhone) }}
+
                 </div>
                 <div class="col-md-6">
-                    {{ form_row(form1.imgUrl) }}
                     <div class="hide" style="display: none">
-                        {{ form_row(form1.skRole) }}
-                        {{ form_row(form1.enabled) }}
+                        {{ form_row(form1.imgUrl, { 'attr': {'required': 'false'} }) }}
+                        {{ form_row(form1.skRole, { 'attr': {'required': 'false'} }) }}
+                        {{ form_row(form1.enabled, { 'attr': {'required': 'false'} }) }}
+                        {{ form_row(form1.plainPassword.first, { 'attr': {'required': 'false'} }) }}
+                        {{ form_row(form1.plainPassword.second, { 'attr': {'required': 'false'} }) }}
                     </div>
+                    {{ form_row(form1.email) }}
+                    {{ form_row(form1.usrPhone) }}
                     {{ form_row(form1.username) }}
-                    {{ form_row(form1.plainPassword.first) }}
-                    {{ form_row(form1.plainPassword.second) }}
                     <div class="form-group">
                         <label for="">Classe</label>
                         <input type="text" disabled class="form-control" value="{{ classe.classeNom }}" readonly>
