@@ -54,7 +54,7 @@ To import student data go to /admin/classe/ then click on student list /new stud
 
 ## Front
 
-- Run `npm install` to install all dependencies
+- Run `yarn install` to install all dependencies.
 
 - Run `npm run watch` to watch your changes.
 

@@ -2,9 +2,7 @@
   "devDependencies": {
     "@symfony/webpack-encore": "^0.17.0",
     "babel-preset-react": "^6.24.1",
-    "prop-types": "^15.7.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "babel-preset-stage-2": "^6.24.1"
   },
   "license": "UNLICENSED",
   "private": true,
@@ -13,5 +11,13 @@
     "dev": "encore dev",
     "watch": "encore dev --watch",
     "build": "encore production"
+  },
+  "dependencies": {
+    "@reach/router": "^1.2.1",
+    "formik": "^1.5.2",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "yup": "^0.27.0"
   }
 }

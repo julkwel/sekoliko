@@ -12,3 +12,8 @@ edt_new:
     path:     /{id}/new
     defaults: { _controller: "AdminBundle:SkEdt:addEdt" }
     methods:  [GET, POST]
+
+edt_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:SkEdt:edit" }
+    methods:  [GET, POST]

@@ -45,6 +45,22 @@
                     </div>
                 </div>
             </div>
+
+            <div class="modaledit fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModal"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-center" id="editModal">Modifier l'emploi du temps</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body"></div>
+                    </div>
+                </div>
+            </div>
+
             <div id='calendar'></div>
         </div>
     </div>
@@ -53,41 +69,41 @@
 {% block javascripts %}
     {{ parent() }}
     {% if is_granted('ROLE_ADMIN') == false %}
-    <script src="{{ asset('js/fullcalendar.min.js') }}"></script>
-    <script src="{{ asset('js/tooltip.js') }}"></script>
-    <script type="text/javascript">
-        $(function () {
-            $('#datetimepicker1').datetimepicker();
-            $('#datetimepicker2').datetimepicker();
-        });
-    </script>
-    <script>
-        $(function () {
-
-            $('#calendar').fullCalendar({
-                themeSystem: 'bootstrap4',
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'month,agendaWeek,agendaDay,listMonth'
-                },
-
-                weekNumbers: true,
-                eventLimit: true,
-                events: [
-                    {% for edt in edt %}
-                    {
-                        title: '{{ edt.matNom.matNom }}',
-                        start: '{{ edt.etdDateDeb | date('Y-m-d H:i:s') }}',
-                        end: '{{ edt.etdDateFin | date('Y-m-d H:i:s') }}'
-                    }
-                    {% if not loop.last %},
-                    {% endif %}
-                    {% endfor %}
-                ]
+        <script src="{{ asset('js/fullcalendar.min.js') }}"></script>
+        <script src="{{ asset('js/tooltip.js') }}"></script>
+        <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker1').datetimepicker();
+                $('#datetimepicker2').datetimepicker();
             });
-        });
-    </script>
+        </script>
+        <script>
+            $(function () {
+
+                $('#calendar').fullCalendar({
+                    themeSystem: 'bootstrap4',
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,agendaWeek,agendaDay,listMonth'
+                    },
+
+                    weekNumbers: true,
+                    eventLimit: true,
+                    events: [
+                        {% for edt in edt %}
+                        {
+                            title: '{{ edt.matNom.matNom }}',
+                            start: '{{ edt.etdDateDeb | date('Y-m-d H:i:s') }}',
+                            end: '{{ edt.etdDateFin | date('Y-m-d H:i:s') }}'
+                        }
+                        {% if not loop.last %},
+                        {% endif %}
+                        {% endfor %}
+                    ]
+                });
+            });
+        </script>
     {% elseif is_granted('ROLE_ADMIN') %}
         {{ parent() }}
 
@@ -142,7 +158,9 @@
                     events: [
                         {% for edt in edt %}
                         {
-                            title: '{{ edt.matNom.matNom }}',
+                            id: '{{ edt.id }}',
+                            title: '{{ edt.matNom ?  edt.matNom.matNom : "null" }}',
+                            id_mat: '{{ edt.matNom ? edt.matNom.id }}',
                             start: '{{ edt.etdDateDeb | date('Y-m-d H:i:s') }}',
                             end: '{{ edt.etdDateFin | date('Y-m-d H:i:s') }}'
                         }
@@ -163,10 +181,42 @@
                         $('.modal').modal('show');
                     },
                     eventClick: function () {
-                        $('.modal').modal('show');
+                        {#$('.modaledit').modal('show');#}
+                        {#$('#exampleModal').on('shown.bs.modal', function () {#}
+                            {#var url = '{{ path('edt_edit',{id:"event"}) }}'#}
+                            {#url.replace("event", event.id);#}
+                            {#var modal = $(this);#}
+                            {#$.ajax(url, {#}
+                                {#success: function (data) {#}
+                                    {#modal.find('.modal-body').html(data);#}
+                                {#}#}
+                            {#});#}
+                        {#});#}
                     },
-                    eventDrop: function () {
-                        $('.modal').modal('show');
+                    eventDrop: function (event, delta, revertFunc) {
+                        var defaultDuration = moment.duration($('#calendar').fullCalendar('option', 'defaultTimedEventDuration'));
+                        var end = event.end || event.start.clone().add(defaultDuration);
+                        console.log(event.id);
+                        console.log("id matiere" + event.id_mat);
+                        console.log(event.start.format());
+                        console.log('end is ' + end.format());
+                        var url = '{{ path('edt_edit',{"id":'id'}) }}';
+                        url = url.replace("id", event.id);
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: {
+                                "start": event.start.format(),
+                                "end": end.format(),
+                                "matiere": event.id_mat
+                            },
+                            success: function () {
+                                console.log("post")
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                console.log("tsy post")
+                            }
+                        });
                     }
                 });
             });

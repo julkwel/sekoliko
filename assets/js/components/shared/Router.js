@@ -1,11 +1,7 @@
-import { Router } from '@reach/router';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Link from './components/shared/Link';
+import { Router } from '@reach/router';
 import { baseUrl } from './core/variables';
-
-let Home = () => <div>Home</div>;
-let Dash = () => <div>Dash</div>;
 
 function App() {
   return (
