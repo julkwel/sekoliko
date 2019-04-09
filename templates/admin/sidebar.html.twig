@@ -85,6 +85,21 @@
                     </div>
                 </div>
             </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#profs" aria-expanded="true"
+                   aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-user-circle"></i>
+                    <span>Professeur</span>
+                </a>
+                <div id="profs" class="collapse {% if manu_profs is defined %}show{% endif %}"
+                     aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Actions:</h6>
+                        <a class="collapse-item" href="{{ path('profs_index') }}">Liste des professeurs</a>
+                        <a class="collapse-item" href="{{ path('profs_new') }}">Nouveau professeur</a>
+                    </div>
+                </div>
+            </li>
             <!-- Heading -->
 
             <!-- Heading -->
@@ -145,21 +160,6 @@
                             <h6 class="collapse-header">Actions:</h6>
                             <a class="collapse-item" href="{{ path('niveau_index') }}">Liste des niveaux</a>
                             <a class="collapse-item" href="{{ path('niveau_new') }}">Nouveau niveau</a>
-                        </div>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#profs" aria-expanded="true"
-                       aria-controls="collapseTwo">
-                        <i class="fas fa-fw fa-user-circle"></i>
-                        <span>Professeur</span>
-                    </a>
-                    <div id="profs" class="collapse {% if manu_profs is defined %}show{% endif %}"
-                         aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Actions:</h6>
-                            <a class="collapse-item" href="{{ path('profs_index') }}">Liste des professeurs</a>
-                            <a class="collapse-item" href="{{ path('profs_new') }}">Nouveau professeur</a>
                         </div>
                     </div>
                 </li>
