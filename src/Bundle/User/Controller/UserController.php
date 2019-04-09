@@ -15,7 +15,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Bundle\User\Entity\User;
 use App\Bundle\User\Form\UserType;
-use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
  * Class UserController.
@@ -233,7 +232,7 @@ class UserController extends Controller
 
     /**
      * @param Request $_request
-     * @param User $_user
+     * @param User    $_user
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      *
@@ -323,7 +322,7 @@ class UserController extends Controller
 
     /**
      * @param Request $_request
-     * @param User $_user
+     * @param User    $_user
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *

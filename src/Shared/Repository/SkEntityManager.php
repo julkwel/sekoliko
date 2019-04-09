@@ -134,16 +134,19 @@ class SkEntityManager
             } finally {
                 if ($_ann_scolaire_debut || $_ann_scolaire_fin || $_user_ets) {
                     if ($_ann_scolaire_debut) {
-                        if (method_exists($_data,'setAnneScolaireDebut'))
+                        if (method_exists($_data, 'setAnneScolaireDebut')) {
                             $_data->setAnneScolaireDebut($_ann_scolaire_debut);
+                        }
                     }
                     if ($_ann_scolaire_fin) {
-                        if (method_exists($_data,'setAnneScolaireFin'))
+                        if (method_exists($_data, 'setAnneScolaireFin')) {
                             $_data->setAnneScolaireFin($_ann_scolaire_fin);
+                        }
                     }
                     if ($_user_ets) {
-                        if (method_exists($_data,'setEtsNom'))
+                        if (method_exists($_data, 'setEtsNom')) {
                             $_data->setEtsNom($_user_ets);
+                        }
                     }
                 }
             }

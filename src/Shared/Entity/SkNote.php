@@ -143,6 +143,4 @@ class SkNote
     {
         $this->trimestre = $trimestre;
     }
-
-
 }

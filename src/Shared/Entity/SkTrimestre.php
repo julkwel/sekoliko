@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: julkwel
  * Date: 4/9/19
- * Time: 9:37 AM
+ * Time: 9:37 AM.
  */
 
 namespace App\Shared\Entity;
@@ -14,7 +14,6 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="sk_trimestre")
  * @ORM\Entity
  * Class SkTrimestre
- * @package App\Shared\Entity
  */
 class SkTrimestre
 {
@@ -32,19 +31,19 @@ class SkTrimestre
     private $id;
 
     /**
-     * @var $name
+     * @var
      * @ORM\Column(name="name",type="string",length=100,nullable=false)
      */
     private $name;
 
     /**
-     * @var $trimDebut
+     * @var
      * @ORM\Column(name="trim_debut",type="datetime",nullable=false)
      */
     private $trimDebut;
 
     /**
-     * @var $trimFin
+     * @var
      * @ORM\Column(name="trim_fin",type="datetime",nullable=false)
      */
     private $trimFin;
@@ -112,6 +111,4 @@ class SkTrimestre
     {
         $this->trimFin = $trimFin;
     }
-    
-    
 }

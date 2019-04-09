@@ -63,7 +63,7 @@ class SkEdtController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param Request  $request
      * @param SkClasse $skClasse
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -119,14 +119,16 @@ class SkEdtController extends Controller
             'edt' => $_edt,
             'classe' => $skClasse,
             'form' => $_form->createView(),
-            'add' => true
+            'add' => true,
         ));
     }
 
     /**
      * @param Request $request
-     * @param SkEdt $skEdt
+     * @param SkEdt   $skEdt
+     *
      * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
+     *
      * @throws \Exception
      */
     public function editAction(Request $request, SkEdt $skEdt)
@@ -152,7 +154,7 @@ class SkEdtController extends Controller
             }
 //            $this->getEntityService()->setFlash('success', 'Ajout de l\'emplois du temps effectué');
 
-            return new JsonResponse("ok",200);
+            return new JsonResponse('ok', 200);
         }
     }
 }

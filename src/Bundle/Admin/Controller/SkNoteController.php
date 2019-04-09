@@ -37,7 +37,9 @@ class SkNoteController extends Controller
 
     /**
      * @param SkEtudiant $skEtudiant
+     *
      * @return \Symfony\Component\HttpFoundation\Response
+     *
      * @throws \Exception
      */
     public function indexAction(SkEtudiant $skEtudiant)
@@ -52,22 +54,24 @@ class SkNoteController extends Controller
             'classe' => $_classe,
             'trimestre' => $_trim_list,
             'list' => true,
-            'details'=>false
+            'details' => false,
         ));
     }
 
     /**
-     * @param SkEtudiant $skEtudiant
+     * @param SkEtudiant  $skEtudiant
      * @param SkTrimestre $skTrimestre
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      * @ParamConverter("skEtudiant", options={"id" = "id_etd"})
      * @ParamConverter("skTrimestre", options={"id" = "id_trim"})
+     *
      * @throws \Exception
      */
-    public function noteTrimAction(SkEtudiant $skEtudiant , SkTrimestre $skTrimestre)
+    public function noteTrimAction(SkEtudiant $skEtudiant, SkTrimestre $skTrimestre)
     {
         $_trim_list = $this->getEntityService()->getAllListByEts(SkTrimestre::class);
-        $_note_liste = $this->getDoctrine()->getRepository(SkNote::class)->findBy(array('etudiant' => $skEtudiant,'trimestre'=>$skTrimestre));
+        $_note_liste = $this->getDoctrine()->getRepository(SkNote::class)->findBy(array('etudiant' => $skEtudiant, 'trimestre' => $skTrimestre));
         $_classe = $skEtudiant->getClasse();
 
         return $this->render('@Admin/SkEtudiant/trim.note.details.html.twig', array(
@@ -76,9 +80,10 @@ class SkNoteController extends Controller
             'classe' => $_classe,
             'trimestre' => $_trim_list,
             'list' => false,
-            'details'=>true
+            'details' => true,
         ));
     }
+
     /**
      * @param Request    $request
      * @param SkEtudiant $etudiant
@@ -118,7 +123,7 @@ class SkNoteController extends Controller
         $_note = new SkNote();
 
         $_trimestre_list = $this->getDoctrine()->getRepository(SkTrimestre::class)->findBy(array(
-           'etsNom'=>$_ets_nom
+           'etsNom' => $_ets_nom,
         ));
 
         $_form = $this->createForm(SkNoteType::class, $_note);
@@ -150,7 +155,7 @@ class SkNoteController extends Controller
             'matiere' => $_matiere_liste,
             'etudiant' => $etudiant,
             'classe' => $_classe,
-            'trimestre'=>$_trimestre_list
+            'trimestre' => $_trimestre_list,
         ));
     }
 
@@ -188,7 +193,7 @@ class SkNoteController extends Controller
             ));
         }
         $_trimestre_list = $this->getDoctrine()->getRepository(SkTrimestre::class)->findBy(array(
-            'etsNom'=>$_ets_nom
+            'etsNom' => $_ets_nom,
         ));
 
         $_form = $this->createForm(SkNoteType::class, $skNote);
@@ -218,7 +223,7 @@ class SkNoteController extends Controller
            'form' => $_form->createView(),
             'note' => $skNote,
             'matiere' => $_matiere_liste,
-            'trimestre'=>$_trimestre_list
+            'trimestre' => $_trimestre_list,
         ));
     }
 
@@ -250,6 +255,7 @@ class SkNoteController extends Controller
 
     /**
      * @return \Symfony\Component\HttpFoundation\Response
+     *
      * @throws \Exception
      */
     public function etudiantNoteAction()
@@ -267,12 +273,13 @@ class SkNoteController extends Controller
 
         return $this->render('@Admin/SkEtudiant/etudiant.note.html.twig', array(
             'note_liste' => $_note_liste,
-            'trimestre' => $_trim_list
+            'trimestre' => $_trim_list,
         ));
     }
 
     /**
      * @param SkTrimestre $skTrimestre
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function etudiantNoteTrimAction(SkTrimestre $skTrimestre)
@@ -284,7 +291,7 @@ class SkNoteController extends Controller
 
         $_note_liste = $this->getDoctrine()->getRepository(SkNote::class)->findBy(array(
             'etudiant' => $_user_classe[0],
-            'trimestre'=> $skTrimestre
+            'trimestre' => $skTrimestre,
         ));
 
         return $this->render('@Admin/SkEtudiant/trim.note.details.html.twig', array(
