@@ -11,6 +11,7 @@ namespace App\Bundle\Admin\Controller;
 use App\Shared\Entity\SkEtudiant;
 use App\Shared\Entity\SkMatiere;
 use App\Shared\Entity\SkNote;
+use App\Shared\Entity\SkTrimestre;
 use App\Shared\Form\SkNoteType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -88,16 +89,23 @@ class SkNoteController extends Controller
 
         $_note = new SkNote();
 
+        $_trimestre_list = $this->getDoctrine()->getRepository(SkTrimestre::class)->findBy(array(
+           'etsNom'=>$_ets_nom
+        ));
+
         $_form = $this->createForm(SkNoteType::class, $_note);
         $_form->handleRequest($request);
 
         if ($_form->isSubmitted() && $_form->isValid()) {
             $_matiere = $request->request->get('matiere');
             $_valeur = $request->request->get('noteVal');
+            $_trimestre = $request->request->get('trimestre');
+            $_trimestre = $this->getDoctrine()->getRepository(SkTrimestre::class)->find($_trimestre);
             $_matiere = $this->getDoctrine()->getRepository(SkMatiere::class)->find($_matiere);
             $_note->setEtudiant($etudiant);
             $_note->setMatNom($_matiere);
             $_note->setNoteVal($_valeur);
+            $_note->setTrimestre($_trimestre);
             try {
                 $this->getEntityService()->saveEntity($_note, 'new');
                 $this->getEntityService()->setFlash('success', 'Ajout du note éffectuée');
@@ -114,6 +122,7 @@ class SkNoteController extends Controller
             'matiere' => $_matiere_liste,
             'etudiant' => $etudiant,
             'classe' => $_classe,
+            'trimestre'=>$_trimestre_list
         ));
     }
 
