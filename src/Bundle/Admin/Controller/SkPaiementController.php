@@ -47,9 +47,7 @@ class SkPaiementController extends Controller
 
     /**
      * @param Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     *
+     * @return array|\Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
     public function newAction(Request $request)
@@ -74,10 +72,11 @@ class SkPaiementController extends Controller
             $_paiement->setUser(array($_find_user));
             $_addresse = '104.236.254.239';
 
-            $this->terminerPaiementAction($_panie_id, $_montant, $_user_id, $_reference, $_addresse);
-
             if ($_paiement) {
-                return $this->addPaiement($_panie_id, $_montant, $_user_id, $_reference, $_addresse);
+                return array(
+                    $this->addPaiement($_panie_id, $_montant, $_user_id, $_reference, $_addresse),
+                    $this->terminerPaiementAction($_panie_id, $_montant, $_user_id, $_reference, $_addresse),
+                );
             }
         }
 
