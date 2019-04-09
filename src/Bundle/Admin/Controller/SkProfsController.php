@@ -76,7 +76,7 @@ class SkProfsController extends Controller
                     $_user->setEnabled(1);
                     $_user->setPassword($_pass);
                     $this->getEntityService()->saveEntity($_user, 'new');
-                    $this->getEntityService()->setFlash('success', 'ajout profs réussie');
+                    $this->getEntityService()->setFlash('success', 'Ajout profs réussie');
 
                     return $this->redirectToRoute('profs_index');
                 }
@@ -90,8 +90,28 @@ class SkProfsController extends Controller
         return $this->redirectToRoute('fos_user_security_logout');
     }
 
-    public function editAction()
+    /**
+     * @param Request $request
+     * @param User $_user
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Exception
+     */
+    public function editAction(Request $request,User $_user)
     {
+        $_form = $this->createForm(UserType::class, $_user);
+        $_form->handleRequest($request);
+        if ($_form->isSubmitted() && $_form->isValid()){
+            $this->getEntityService()->saveEntity($_user,'update');
+            $this->getEntityService()->setFlash('success', 'Modification profs réussie');
+
+            return $this->redirectToRoute('profs_index');
+        }
+
+        return $this->render('@Admin/SkProfs/edit.html.twig', array(
+            'form' => $_form->createView(),
+        ));
     }
 
     /**
@@ -105,7 +125,7 @@ class SkProfsController extends Controller
     {
         if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             if (true === $this->getEntityService()->deleteEntity($user, $user->getImgUrl())) {
-                $this->getEntityService()->setFlash('success', 'suppression profs réussie');
+                $this->getEntityService()->setFlash('success', 'Suppression profs réussie');
                 return $this->redirectToRoute('profs_index');
             }
         }

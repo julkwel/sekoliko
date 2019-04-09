@@ -66,7 +66,7 @@
                                     <td class="kl-action-button-bloc">
                                         {% if is_granted('ROLE_ADMIN') %}
                                             <a class="btn btn-success btn-sm" title="Modifier"
-                                               href="{{ path('user_edit', { 'id': prof.id }) }}">
+                                               href="{{ path('profs_edit', { 'id': prof.id }) }}">
                                                 <i class="fas fa-pen"></i>
                                             </a>
                                             <a class="btn btn-danger remove-elt btn-sm" title="Supprimer"
