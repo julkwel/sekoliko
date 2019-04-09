@@ -10,6 +10,7 @@ namespace App\Bundle\Admin\Controller;
 
 use App\Bundle\User\Entity\User;
 use App\Bundle\User\Form\UserType;
+use App\Shared\Entity\SkMatiere;
 use App\Shared\Entity\SkRole;
 use App\Shared\Services\Utils\RoleName;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -131,5 +132,22 @@ class SkProfsController extends Controller
         }
 
         return $this->redirectToRoute('fos_user_security_logout');
+    }
+
+    /**
+     * @param User $user
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function detailsAction(User $user)
+    {
+        $_prof_mat = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array(
+           'matProf'=>$user
+        ));
+
+//        dump($_prof_mat);die();
+        return $this->render('@Admin/SkProfs/details.html.twig',[
+            'prof'=>$user,
+            'matiere'=>$_prof_mat
+        ]);
     }
 }

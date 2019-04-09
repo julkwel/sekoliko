@@ -13,6 +13,11 @@ profs_edit:
     defaults: { _controller: "AdminBundle:SkProfs:edit" }
     methods:  [GET, POST]
 
+profs_details:
+    path:     /{id}/details
+    defaults: { _controller: "AdminBundle:SkProfs:details" }
+    methods:  [GET, POST]
+
 profs_delete:
     path:     /{id}/delete
     defaults: { _controller: "AdminBundle:SkProfs:delete" }
