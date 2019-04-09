@@ -2,7 +2,7 @@
 
 {% block title %}{{ parent() }} | Liste salles {% endblock %}
 
-{% set menu_salle = true %}
+{% set manu_trimestre = true %}
 
 {% block body %}
     {% for flashMessage in app.session.flashbag.get('success') %}
