@@ -23,8 +23,18 @@
                     </div>
                     <div class="form-group">
                         <select name="matiere" id="" class="form-control">
+                            <option value="{{ note.matNom.id }}">{{ note.matNom.matNom }}</option>
                             {% for matiere in matiere %}
-                                <option value="{{ note.matNom.id }}">{{ matiere.matNom }}</option>
+                                <option value="{{ matiere.id }}">{{ matiere.matNom }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Selectionner le trimestre</label>
+                        <select name="trimestre" class="form-control">
+                            <option value="{{ note.trimestre.id }}">{{ note.trimestre.name }}</option>
+                            {% for trim in trimestre %}
+                                <option value="{{ trim.id }}">{{ trim.name }}</option>
                             {% endfor %}
                         </select>
                     </div>

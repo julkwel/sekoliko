@@ -1,0 +1,19 @@
+trim_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:SkTrimestre:index" }
+    methods:  GET
+
+trim_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:SkTrimestre:new" }
+    methods:  [GET, POST]
+
+trim_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:SkTrimestre:edit" }
+    methods:  [GET, POST]
+
+trim_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:SkTrimestre:delete" }
+    methods:  [GET, DELETE]

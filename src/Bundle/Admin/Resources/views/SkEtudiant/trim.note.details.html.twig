@@ -1,0 +1,45 @@
+<div class="tab-pane fade show sk-nav-tabs active" role="tabpanel" aria-labelledby="nav-home-tab">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTabledata" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Matiere</th>
+                    <th>Note obténue</th>
+                    <th>Coefficient</th>
+                    <th>Trimestre</th>
+                    {% if is_granted('ROLE_PROFS') %}
+                    <th>Action</th>
+                    {% endif %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for note in note_liste %}
+                    <tr>
+                        <td class="text-center">
+                            <input type="checkbox" value="{{ note.id }}" name="delete[]"/>
+                        </td>
+                        <td>{{ note.matNom.matNom }}</td>
+                        <td>{{ note.noteVal }}</td>
+                        <td>{{ note.matNom.matCoeff }}</td>
+                        <td>{{ note.trimestre.name }}</td>
+                        <td class="kl-action-button-bloc">
+                            {% if is_granted('ROLE_PROFS') %}
+                                <a class="btn btn-primary" title="Modifier"
+                                   href="{{ path('note_edit', { 'id': note.id }) }}">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <a class="btn btn-danger remove-elt" title="Supprimer"
+                                   onclick="supprimer('{{ path('note_delete', { 'id': note.id }) }}')">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -119,6 +119,21 @@
                 </div>
                 <!-- Nav Item - Niveau Collapse Menu -->
                 <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#trim" aria-expanded="true"
+                       aria-controls="collapseTwo">
+                        <i class="fas fa-fw fa-list"></i>
+                        <span>Trimestre</span>
+                    </a>
+                    <div id="trim" class="collapse {% if manu_trimestre is defined %}show{% endif %}"
+                         aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Actions:</h6>
+                            <a class="collapse-item" href="{{ path('trim_index') }}">Liste trimestre</a>
+                            <a class="collapse-item" href="{{ path('trim_new') }}">Nouveau trimestre</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#niveau" aria-expanded="true"
                        aria-controls="collapseTwo">
                         <i class="fas fa-fw fa-school"></i>

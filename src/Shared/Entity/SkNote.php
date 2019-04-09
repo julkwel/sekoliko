@@ -40,6 +40,15 @@ class SkNote
     private $etudiant;
 
     /**
+     * @var SkTrimestre
+     * @ORM\ManyToOne(targetEntity="App\Shared\Entity\SkTrimestre")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="trimestre", referencedColumnName="id", onDelete="CASCADE")
+     * })
+     */
+    private $trimestre;
+
+    /**
      * @var SkMatiere
      * @ORM\ManyToOne(targetEntity="App\Shared\Entity\SkMatiere")
      * @ORM\JoinColumns({
@@ -117,5 +126,21 @@ class SkNote
     public function setEtudiant($etudiant)
     {
         $this->etudiant = $etudiant;
+    }
+
+    /**
+     * @return SkTrimestre
+     */
+    public function getTrimestre()
+    {
+        return $this->trimestre;
+    }
+
+    /**
+     * @param SkTrimestre $trimestre
+     */
+    public function setTrimestre($trimestre)
+    {
+        $this->trimestre = $trimestre;
     }
 }

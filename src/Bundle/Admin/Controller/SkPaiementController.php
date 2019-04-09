@@ -98,7 +98,6 @@ class SkPaiementController extends Controller
      */
     public function terminerPaiementAction($_panie_id, $_montant, $_user_id, $_reference, $_addresse)
     {
-//        dump($_panie_id, $_montant, $_user_id, $_reference, $_addresse);die();
         return $this->render('@Admin/SkPaiement/fin.html.twig', array(
             'data' => array($_panie_id, $_montant, $_user_id, $_reference, $_addresse),
         ));
