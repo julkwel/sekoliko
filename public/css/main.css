@@ -25,6 +25,9 @@
     .dt-button{
         margin: 10px;
     }
+    .sk-coll-img{
+        display: none!important;
+    }
 }
 
 /**
