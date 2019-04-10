@@ -217,7 +217,7 @@
                                     window.location.reload();
                                 })
                                 .fail(function () {
-                                    alert("an error occured");
+                                    alert("Une erreur se produite!")
                                 });
 
                         });
@@ -237,10 +237,10 @@
                                 "matiere": event.id_mat
                             },
                             success: function () {
-                                console.log("post")
+                                alert("Modification éffectué!")
                             },
                             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                console.log("tsy post")
+                                alert("Une erreur se produite!")
                             }
                         });
                     }
