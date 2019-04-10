@@ -32,11 +32,11 @@
             {{ form_start(form) }}
             <div class="row">
                 <div class="col-md-6">
-                    {{ form_row(form.usrLastname, {'attr': {'class': 'col-lg-10'}}) }}
-                    {{ form_row(form.usrFirstname, {'attr': {'class': 'col-lg-10'}}) }}
-                    {{ form_row(form.usrAddress, {'attr': {'class': 'col-lg-10'}}) }}
-                    {{ form_row(form.email, {'attr': {'class': 'col-lg-8'}}) }}
-                    {{ form_row(form.usrPhone, {'attr': {'class': 'col-lg-6'}}) }}
+                    {{ form_row(form.usrLastname, {'attr': {'class': 'col-md-10'}}) }}
+                    {{ form_row(form.usrFirstname, {'attr': {'class': 'col-md-10'}}) }}
+                    {{ form_row(form.usrAddress, {'attr': {'class': 'col-md-10'}}) }}
+                    {{ form_row(form.email, {'attr': {'class': 'col-md-8'}}) }}
+                    {{ form_row(form.usrPhone, {'attr': {'class': 'col-md-6'}}) }}
                 </div>
                 <div class="col-md-6">
                     {% if is_granted('ROLE_SUPERADMIN') %}
@@ -70,21 +70,21 @@
                             <p>Fichier : <small id="label-file">Aucun fichier choisi</small></p>
                         </div>
 
-                    {{ form_row(form.skRole, {'attr': {'class': 'col-lg-4'}}) }}
+                    {{ form_row(form.skRole, {'attr': {'class': 'col-md-4'}}) }}
                     <div class="hide" style="display: none;">
                         {{ form_row(form.enabled) }}
                     </div>
-                    {{ form_row(form.username, {'attr': {'class': 'col-lg-6'}}) }}
-                    {{ form_row(form.plainPassword.first, {'attr': {'class': 'col-lg-6'}}) }}
-                    {{ form_row(form.plainPassword.second, {'attr': {'class': 'col-lg-6'}}) }}
+                    {{ form_row(form.username, {'attr': {'class': 'col-md-6'}}) }}
+                    {{ form_row(form.plainPassword.first, {'attr': {'class': 'col-md-6'}}) }}
+                    {{ form_row(form.plainPassword.second, {'attr': {'class': 'col-md-6'}}) }}
                 </div>
             </div>
 
             <div class="box-footer">
-                <input type="submit" class="btn btn-primary float-right" value="Enregistrer" name="new_user"/>
+                <input type="submit" class="btn btn-primary float-md-right col-md-5 btn-bloc mt-2" value="Enregistrer" name="new_user"/>
                 {% if not is_granted('ROLE_SUPERADMIN') %}
                     <a href="{{ path('user_index') }}"
-                       class="btn btn-google">
+                       class="btn btn-google btn-bloc col-md-4 mt-2">
                         Annuler
                     </a>
                 {% endif %}
