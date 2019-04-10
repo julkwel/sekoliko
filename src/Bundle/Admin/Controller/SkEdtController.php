@@ -135,6 +135,7 @@ class SkEdtController extends Controller
     {
         $_form = $this->createForm(SkEdtType::class, $skEdt);
         $_form->handleRequest($request);
+        $_mat_list = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array('matClasse' => $skEdt->getEdtClasse()->getId()));
 
         if ('POST' == $request->getMethod()) {
             $_mat = $request->request->get('matiere');
@@ -156,5 +157,13 @@ class SkEdtController extends Controller
 
             return new JsonResponse('ok', 200);
         }
+
+        return $this->render('@Admin/SkClasse/edt.edit.html.twig', array(
+            'matieres' => $_mat_list,
+            'edt' => $skEdt,
+            'classe' => $skEdt->getEdtClasse(),
+            'form' => $_form->createView(),
+            'add' => true,
+        ));
     }
 }
