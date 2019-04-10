@@ -29,7 +29,7 @@
                     <h6 class="m-0 font-weight-bold text-primary text-center">Listes des administrateurs</h6>
                     {# Bouton création #}
                     {% if is_granted('ROLE_ADMIN') %}
-                        <div class="add-btn-top-list float-right">
+                        <div class="add-btn-top-list col-md-4 float-right btn-block">
                             <a href="{{ path('user_new') }}" class="btn btn-primary">
                                     Créer un utilisateur
                             </a>

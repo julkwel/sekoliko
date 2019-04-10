@@ -17,7 +17,7 @@
         </div>
     {% endfor %}
 
-    <div class="card shadow mb-4 col-md-6 mx-auto">
+    <div class="card shadow mb-4 col-md-8 mx-auto">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary text-center">Ajouter un(e) professeur</h6>
         </div>
@@ -43,9 +43,9 @@
                     {{ form_row(form.usrPhone) }}
                 </div>
             </div>
-            <input type="submit" class="btn btn-primary float-right" value="Enregistrer" name="new_user"/>
+            <input type="submit" class="btn btn-primary float-md-right col-md-5 btn-bloc mt-2" value="Enregistrer" name="new_user"/>
             <a href="{{ path('profs_index') }}"
-               class="btn btn-google">
+               class="btn btn-google col-md-4 btn-bloc mt-2">
                 Annuler
             </a>
             {{ form_end(form) }}
