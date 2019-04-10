@@ -1,0 +1,54 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% form_theme form 'form/custom_fields.html.twig' %}
+
+{% block title %}{{ parent() }} | Ajout étudiant(e) {% endblock %}
+
+{% set menu_profs        = true %}
+
+{% block body %}
+
+
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <div class="card bg-warning text-white shadow">
+            <div class="card-body">
+                {{ flashMessage }}
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="card shadow mb-4 col-md-6 mx-auto">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary text-center">Ajouter un(e) professeur</h6>
+        </div>
+
+        <div class="card-body">
+            {{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(form.usrLastname) }}
+                    {{ form_row(form.usrFirstname) }}
+                    {{ form_row(form.usrAddress) }}
+                </div>
+                <div class="col-md-6">
+                    <div class="hide" style="display: none">
+                        {{ form_row(form.imgUrl, { 'attr': {'required': 'false'} }) }}
+                        {{ form_row(form.skRole, { 'attr': {'required': 'false'} }) }}
+                        {{ form_row(form.enabled, { 'attr': {'required': 'false'} }) }}
+                        {{ form_row(form.plainPassword.first, { 'attr': {'required': 'false'} }) }}
+                        {{ form_row(form.plainPassword.second, { 'attr': {'required': 'false'} }) }}
+                    </div>
+                    {{ form_row(form.username) }}
+                    {{ form_row(form.email) }}
+                    {{ form_row(form.usrPhone) }}
+                </div>
+            </div>
+            <input type="submit" class="btn btn-primary float-right" value="Enregistrer" name="new_user"/>
+            <a href="{{ path('profs_index') }}"
+               class="btn btn-google">
+                Annuler
+            </a>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

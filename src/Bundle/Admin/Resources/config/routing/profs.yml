@@ -1,0 +1,24 @@
+profs_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:SkProfs:index" }
+    methods:  GET
+
+profs_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:SkProfs:new" }
+    methods:  [GET, POST]
+
+profs_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:SkProfs:edit" }
+    methods:  [GET, POST]
+
+profs_details:
+    path:     /{id}/details
+    defaults: { _controller: "AdminBundle:SkProfs:details" }
+    methods:  [GET, POST]
+
+profs_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:SkProfs:delete" }
+    methods:  [GET, DELETE]

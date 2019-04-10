@@ -359,7 +359,7 @@ class SkClassController extends Controller
             }
         }
 
-        return $this->redirectToRoute('sk_login');
+        return $this->redirectToRoute('fos_user_security_logout');
     }
 
     /**
@@ -437,12 +437,15 @@ class SkClassController extends Controller
             $_form_etd = $this->createForm(SkEtudiantType::class);
             $_role = $this->getDoctrine()->getRepository(SkRole::class)->find(2);
 
+
             if ($request->isMethod('POST')) {
                 try {
                     $_form->handleRequest($request);
                     $_form_etd->handleRequest($request);
                     if ($_form->isSubmitted()) {
                         try {
+                            $_pass = $_user->setPlainPassword('123456');
+                            $_user->setPassword($_pass);
                             $_user->setskRole($_role);
                             $_user->setRoles(array($_user_role));
                             $_user->setEnabled(1);

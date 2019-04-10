@@ -1,0 +1,36 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <h6 class="text-center">Details professeurs</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Details personnels</h4>
+                    <li>Nom : {{ prof.usrLastname }}</li>
+                    <li>Prénom : {{ prof.usrFirstname }}</li>
+                    <li>Phone : {{ prof.usrPhone }}</li>
+                    <li>Email : {{ prof.email ? prof.email : '' }}</li>
+                    <li>Date d'ajout : {{ prof.usrDateCreate |date('Y-m-d') }}</li>
+                </div>
+                <div class="col-md-6">
+                    <h4>Domaine details</h4>
+                    <table>
+                        <tr>
+                            {% for matiere in matiere %}
+                                <td class="p-2">
+                                    <li><strong>{{ matiere.matNom }}</strong></li>
+                                    <li>{{ matiere.matCoeff }}</li>
+                                    <li>{{ matiere.matClasse.classeNom }}</li>
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

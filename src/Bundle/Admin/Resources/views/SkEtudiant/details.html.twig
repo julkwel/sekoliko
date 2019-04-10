@@ -1,0 +1,27 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <h6 class="text-center">Details étudiants</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Details personnels</h4>
+                    <li>Nom : {{ etudiant.etudiant.usrLastname }}</li>
+                    <li>Prénom : {{ etudiant.etudiant.usrFirstname }}</li>
+                    <li>Phone : {{ etudiant.etudiant.usrPhone }}</li>
+                    <li>Email : {{ etudiant.etudiant.email ? etudiant.etudiant.email : '' }}</li>
+                    <li>Date d'ajout : {{ etudiant.etudiant.usrDateCreate |date('Y-m-d') }}</li>
+                </div>
+                <div class="col-md-6">
+                    <h4>Domaine details</h4>
+                    <li>Classe : {{ etudiant.classe.classeNom }}</li>
+                    <li>Niveau : {{ etudiant.classe.niveau.niveauNom }}</li>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

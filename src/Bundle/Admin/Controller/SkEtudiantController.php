@@ -202,6 +202,19 @@ class SkEtudiantController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @param SkEtudiant $skEtudiant
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function detailsAction(Request $request , SkEtudiant $skEtudiant)
+    {
+//        dump($skEtudiant);die();
+        return $this->render('@Admin/SkEtudiant/details.html.twig',[
+           'etudiant'=>$skEtudiant
+        ]);
+    }
+
+    /**
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function myCollegueAction()

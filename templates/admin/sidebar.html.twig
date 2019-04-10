@@ -22,13 +22,13 @@
     {% if not is_granted('ROLE_PARENT') or not is_granted('ROLE_PERSONEL') %}
         <li class="nav-item active">
             <a class="nav-link" href="{{ path('guide_index') }}">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <i class="fas fa-fw fa-mail-bulk"></i>
                 <span>Manuel de l'utilisateur</span></a>
         </li>
         {% if is_granted('ROLE_SUPERADMIN') or  is_granted('ROLE_ADMIN') %}
             <li class="nav-item active">
                 <a class="nav-link" href="{{ path('bug_index') }}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <i class="fas fa-fw fa-bug"></i>
                     <span> Bug ou Améliorations</span></a>
             </li>
         {% endif %}
@@ -36,7 +36,7 @@
         {% if is_granted('ROLE_SUPERADMIN') %}
             <li class="nav-item active">
                 <a class="nav-link" href="{{ path('user_ets_new') }}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <i class="fas fa-fw fa-school"></i>
                     <span>Nouvel établissement</span></a>
             </li>
         {% endif %}
@@ -47,7 +47,7 @@
             <!-- Heading -->
             <li class="nav-item active">
                 <a class="nav-link" href="{{ path('info_index') }}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <i class="fas fa-fw fa-info"></i>
                     <span> Informations </span></a>
             </li>
 
@@ -85,33 +85,48 @@
                     </div>
                 </div>
             </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#profs" aria-expanded="true"
+                   aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-user-circle"></i>
+                    <span>Professeur</span>
+                </a>
+                <div id="profs" class="collapse {% if manu_profs is defined %}show{% endif %}"
+                     aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Actions:</h6>
+                        <a class="collapse-item" href="{{ path('profs_index') }}">Liste des professeurs</a>
+                        <a class="collapse-item" href="{{ path('profs_new') }}">Nouveau professeur</a>
+                    </div>
+                </div>
+            </li>
             <!-- Heading -->
 
             <!-- Heading -->
-            {% if is_granted('ROLE_ADMIN') %}
-                <div class="sidebar-heading">
-                    Trésorerie
-                </div>
-                <!-- Nav Item - Tresorerie Collapse Menu -->
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#paiement"
-                       aria-expanded="true"
-                       aria-controls="collapseTwo">
-                        <i class="fas fa-fw fa-cog"></i>
-                        <span>Paiement</span>
-                    </a>
-                    <div id="paiement" class="collapse  {% if manu_paiement is defined %}show{% endif %}"
-                         aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Actions:</h6>
-                            <a class="collapse-item" href="{{ path('paiement_list') }}">Etats des paiement</a>
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <a class="collapse-item" href="{{ path('paiement_new') }}">Nouveau paiement</a>
-                            {% endif %}
-                        </div>
-                    </div>
-                </li>
-            {% endif %}
+            {#{% if is_granted('ROLE_ADMIN') %}#}
+                {#<div class="sidebar-heading">#}
+                    {#Trésorerie#}
+                {#</div>#}
+                {#<!-- Nav Item - Tresorerie Collapse Menu -->#}
+                {#<li class="nav-item">#}
+                    {#<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#paiement"#}
+                       {#aria-expanded="true"#}
+                       {#aria-controls="collapseTwo">#}
+                        {#<i class="fas fa-fw fa-cog"></i>#}
+                        {#<span>Paiement</span>#}
+                    {#</a>#}
+                    {#<div id="paiement" class="collapse  {% if manu_paiement is defined %}show{% endif %}"#}
+                         {#aria-labelledby="headingTwo" data-parent="#accordionSidebar">#}
+                        {#<div class="bg-white py-2 collapse-inner rounded">#}
+                            {#<h6 class="collapse-header">Actions:</h6>#}
+                            {#<a class="collapse-item" href="{{ path('paiement_list') }}">Etats des paiement</a>#}
+                            {#{% if is_granted('ROLE_ADMIN') %}#}
+                                {#<a class="collapse-item" href="{{ path('paiement_new') }}">Nouveau paiement</a>#}
+                            {#{% endif %}#}
+                        {#</div>#}
+                    {#</div>#}
+                {#</li>#}
+            {#{% endif %}#}
 
             {% if is_granted('ROLE_ADMIN') %}
                 <div class="sidebar-heading">
