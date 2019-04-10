@@ -110,7 +110,7 @@ class SkEtudiantController extends Controller
 
     /**
      * @param Request $request
-     * @param User    $user
+     * @param User $user
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
@@ -159,7 +159,7 @@ class SkEtudiantController extends Controller
     }
 
     /**
-     * @param Request    $request
+     * @param Request $request
      * @param SkEtudiant $skEtudiant
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -206,12 +206,36 @@ class SkEtudiantController extends Controller
      * @param SkEtudiant $skEtudiant
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function detailsAction(Request $request , SkEtudiant $skEtudiant)
+    public function detailsAction(Request $request, SkEtudiant $skEtudiant)
     {
-//        dump($skEtudiant);die();
-        return $this->render('@Admin/SkEtudiant/details.html.twig',[
-           'etudiant'=>$skEtudiant
+        return $this->render('@Admin/SkEtudiant/details.html.twig', [
+            'etudiant' => $skEtudiant
         ]);
+    }
+
+    /**
+     * @param SkEtudiant $skEtudiant
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Exception
+     */
+    public function renvoieAction(SkEtudiant $skEtudiant)
+    {
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            if ($skEtudiant->getEtudiant()->isEnabled() === true){
+                $skEtudiant->getEtudiant()->setEnabled(0);
+                $skEtudiant->setDateRenvoie(new \DateTime('now'));
+                $skEtudiant->setIsRenvoie(1);
+                $this->getEntityService()->saveEntity($skEtudiant, 'update');
+                if ($skEtudiant->getEtudiant()->setEnabled(0)) {
+                    return $this->redirect($this->generateUrl('etudiant_liste', array('id' => $skEtudiant->getClasse()->getId())));
+                }
+            }
+            $this->getEntityService()->setFlash('error','l\'utilisateur est déja renvoyé');
+            return $this->redirect($this->generateUrl('etudiant_liste', array('id' => $skEtudiant->getClasse()->getId())));
+        }
+        return $this->redirectToRoute('fos_user_security_logout');
     }
 
     /**

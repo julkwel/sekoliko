@@ -46,17 +46,18 @@
                 </div>
             </div>
 
-            <div class="modaledit fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModal"
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                  aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title text-center" id="editModal">Modifier l'emploi du temps</h5>
+                            <h5 class="modal-title text-center" id="exampleModalLabel">Emplois aaaaaadu temps</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body"></div>
+                        <div class="modal-body">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -124,6 +125,7 @@
                     }
                 });
             });
+
         </script>
         <script>
             $(document).on('click', '#addedt', function (e) {
@@ -141,6 +143,9 @@
                     });
 
             });
+
+
+
         </script>
         <script>
             $(function () {
@@ -177,29 +182,50 @@
                     editable: true,
                     selectable: true,
                     selectHelper: true,
-                    select: function () {
+                    select: function (event) {
                         $('.modal').modal('show');
                     },
-                    eventClick: function () {
-                        {#$('.modaledit').modal('show');#}
-                        {#$('#exampleModal').on('shown.bs.modal', function () {#}
-                            {#var url = '{{ path('edt_edit',{id:"event"}) }}'#}
-                            {#url.replace("event", event.id);#}
-                            {#var modal = $(this);#}
-                            {#$.ajax(url, {#}
-                                {#success: function (data) {#}
-                                    {#modal.find('.modal-body').html(data);#}
-                                {#}#}
-                            {#});#}
-                        {#});#}
+                    eventClick: function (event) {
+
+                        $('#myModal').modal('show');
+
+                        $('#myModal').on('shown.bs.modal', function () {
+                            var url = '{{ path('edt_edit',{"id":'id'}) }}';
+                            url = url.replace("id", event.id);
+
+                            var modal = $(this);
+                            $.ajax(url, {
+                                success: function (data) {
+                                    modal.find('.modal-body').html(data);
+                                }
+                            });
+                        });
+
+                        $(document).on('click', '#editedt', function (event) {
+                            var edt_id = document.getElementById('edtId').value;
+
+                            var url = '{{ path('edt_edit',{"id":'id'}) }}';
+                            url = url.replace("id", edt_id);
+
+                            $.ajax({
+                                type: 'POST',
+                                url: url,
+                                data: $('#edt').serialize(),
+                                dataType: "json"
+                            })
+                                .done(function (response) {
+                                    window.location.reload();
+                                })
+                                .fail(function () {
+                                    alert("an error occured");
+                                });
+
+                        });
                     },
                     eventDrop: function (event, delta, revertFunc) {
                         var defaultDuration = moment.duration($('#calendar').fullCalendar('option', 'defaultTimedEventDuration'));
                         var end = event.end || event.start.clone().add(defaultDuration);
-                        console.log(event.id);
-                        console.log("id matiere" + event.id_mat);
-                        console.log(event.start.format());
-                        console.log('end is ' + end.format());
+
                         var url = '{{ path('edt_edit',{"id":'id'}) }}';
                         url = url.replace("id", event.id);
                         $.ajax({

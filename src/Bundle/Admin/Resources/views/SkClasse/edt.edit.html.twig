@@ -1,9 +1,11 @@
 <div class="col-md-12">
     {{ form_start(form, {'attr': {'id': 'edt'}}) }}
     <div class="form-group">
+        <input type="text" value="{{ edt.id }}" id="edtId" hidden>
         <label for="">Date début</label>
         <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-            <input type="text" name="debut" id="debut" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
+            <input type="text" name="start" value="{{ edt.etdDateDeb|date('Y-m-d H:m') }}" id="start"
+                   class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
             <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
             </div>
@@ -12,7 +14,8 @@
     <div class="form-group">
         <label for="">Date fin</label>
         <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
-            <input type="text" name="fin" class="form-control datetimepicker-input" data-target="#datetimepicker2"/>
+            <input type="text" value="{{ edt.etdDateFin|date('Y-m-d H:m') }}" name="end"
+                   class="form-control datetimepicker-input" data-target="#datetimepicker2"/>
             <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
             </div>
@@ -21,13 +24,14 @@
     <div class="form-group ">
         <label for="">Selectionner la matiere</label>
         <select name="matiere" id="" class="form-control">
+            <option value="{{ edt.matNom ? edt.matNom.id : 'selectionner le matiere' }}">{{ edt.matNom ? edt.matNom.matNom : 'selectionner le matiere' }}</option>
             {% for matiere in matieres %}
                 <option value="{{ matiere.id }}">{{ matiere.matNom }}</option>
             {% endfor %}
         </select>
     </div>
     <div class="box-footer">
-        <input type="submit" class="btn btn-primary btn-block" id="addedt" value="Enregistrer"
+        <input type="submit" class="btn btn-primary btn-block" id="editedt" value="Enregistrer"
                name="new_classe"/>
         <button class="btn btn-google btn-block" data-dismiss="modal" aria-label="Close">
             Annuler

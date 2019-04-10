@@ -12,6 +12,33 @@
 }
 #sk_guide_attachment, #sk_bug_attachment, #sk_userbundle_user_imgUrl {display: none;}
 
+@media screen and (max-width: 600px){
+    .kl-action-button-bloc{
+        display:flex;
+    }
+    .kl-action-button-bloc a{
+        margin: 5px;
+    }
+    .dt-buttons{
+        display: flex;
+    }
+    .dt-button{
+        margin: 10px;
+    }
+    .sk-coll-img{
+        display: none!important;
+    }
+
+    .box-footer .btn{
+        float: none!important;
+        display: block;
+        width: 100% !important;
+    }
+    .label-file{
+        width: 100%!important;
+    }
+}
+
 /**
 Checkbox
  */

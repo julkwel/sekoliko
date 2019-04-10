@@ -85,6 +85,7 @@
                     </div>
                 </div>
             </li>
+            {% if is_granted('ROLE_ADMIN') %}
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#profs" aria-expanded="true"
                    aria-controls="collapseTwo">
@@ -100,6 +101,7 @@
                     </div>
                 </div>
             </li>
+            {% endif %}
             <!-- Heading -->
 
             <!-- Heading -->

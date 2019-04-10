@@ -14,6 +14,9 @@
                     <li>Phone : {{ etudiant.etudiant.usrPhone }}</li>
                     <li>Email : {{ etudiant.etudiant.email ? etudiant.etudiant.email : '' }}</li>
                     <li>Date d'ajout : {{ etudiant.etudiant.usrDateCreate |date('Y-m-d') }}</li>
+                    {% if etudiant.isRenvoie == true %}
+                        <li>Renvoyé le {{ etudiant.dateRenvoie | date('Y-m-d') }}</li>
+                    {% endif %}
                 </div>
                 <div class="col-md-6">
                     <h4>Domaine details</h4>
