@@ -51,6 +51,19 @@ class SkEtudiant
     private $etudiant;
 
     /**
+     * @var string
+     * @ORM\Column(name="is_renvoie",type="boolean", options={"default":"0"})
+     */
+    private $isRenvoie;
+
+    /**
+     * @var string
+     * @ORM\Column(name="date_renvoie",type="datetime",nullable=true)
+     */
+    private $dateRenvoie;
+
+
+    /**
      * @return int
      */
     public function getId()
@@ -97,4 +110,38 @@ class SkEtudiant
     {
         $this->etudiant = $etudiant;
     }
+
+    /**
+     * @return string
+     */
+    public function getisRenvoie()
+    {
+        return $this->isRenvoie;
+    }
+
+    /**
+     * @param string $isRenvoie
+     */
+    public function setIsRenvoie($isRenvoie)
+    {
+        $this->isRenvoie = $isRenvoie;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDateRenvoie()
+    {
+        return $this->dateRenvoie;
+    }
+
+    /**
+     * @param string $dateRenvoie
+     */
+    public function setDateRenvoie($dateRenvoie)
+    {
+        $this->dateRenvoie = $dateRenvoie;
+    }
+
+
 }

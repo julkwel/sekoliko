@@ -1,7 +1,10 @@
 function supprimer(url){
     confirm("Voulez vous vraiment supprimer ?") ? window.location = url : '';
 }
-console.log($('#accordionSidebar').attr('style'))
+
+function renvoyer(url){
+    confirm("Voulez vous vraiment renvoié l'utilisateur ?") ? window.location = url : '';
+}
 
 
 /**
