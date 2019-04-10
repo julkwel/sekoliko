@@ -23,7 +23,21 @@
     {% endfor %}
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
+            <div class="card shadow mb-4 p-2">
+                <h4>Rechercher simple par prénom</h4>
+                <div class="input-group custom-search-form">
+                    <input type="text" id="search" class="form-control" placeholder="Nom d'utilisateur...">
+                </div>
+                <div class="mt-3">
+                    <div style="display: flex;justify-content: space-between">
+                        <h4>Résultats</h4>
+                    </div>
+                    <p class="text-center not-found"></p>
+                    <ul class="list-group" id="entitiesNav"></ul>
+                </div>
+            </div>
+
             <div class="card shadow mb-4 p-2">
                 <h4>Rechercher avancé utilisateur</h4>
                 <div class="col-md-12">
@@ -44,23 +58,10 @@
                     {{ form_end(filter) }}
                 </div>
             </div>
+        
         </div>
-        <div class="col-md-6">
-            <div class="card shadow mb-4 p-2">
-                <h4>Rechercher simple par prénom</h4>
-                <div class="input-group custom-search-form">
-                    <input type="text" id="search" class="form-control" placeholder="Nom d'utilisateur...">
-                </div>
-                <div class="mt-3">
-                    <div style="display: flex;justify-content: space-between">
-                        <h4>Résultats</h4>
-                    </div>
-                    <p class="text-center not-found"></p>
-                    <ul class="list-group" id="entitiesNav"></ul>
-                </div>
-            </div>
-        </div>
-        <form action="" method="POST" class="form-search">
+
+        <form action="" method="POST" class="form-search col-md-8">
             <div class="card list-users shadow mb-4">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary text-center">Resultats</h6>
