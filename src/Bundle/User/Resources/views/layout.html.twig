@@ -30,33 +30,41 @@
                 <div class="card-body p-0">
                     <!-- Nested Row within Card Body -->
                     <div class="row">
-                        <div class="col-lg-6 d-none d-lg-block p-0" >
+                        <div class="col-lg-6 d-none d-lg-block p-0">
                             <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                                 <ol class="carousel-indicators">
-                                    <li data-target="#carouselExampleControls" data-slide-to="0" class="active" style="background-color: black !important;"></li>
-                                    <li data-target="#carouselExampleControls" data-slide-to="1" style="background-color: black !important;"></li>
-                                    <li data-target="#carouselExampleControls" data-slide-to="2" style="background-color: black !important;"></li>
-                                    <li data-target="#carouselExampleControls" data-slide-to="3" style="background-color: black !important;"></li>
+                                    <li data-target="#carouselExampleControls" data-slide-to="0" class="active"
+                                        style="background-color: black !important;"></li>
+                                    <li data-target="#carouselExampleControls" data-slide-to="1"
+                                        style="background-color: black !important;"></li>
+                                    <li data-target="#carouselExampleControls" data-slide-to="2"
+                                        style="background-color: black !important;"></li>
+                                    <li data-target="#carouselExampleControls" data-slide-to="3"
+                                        style="background-color: black !important;"></li>
                                 </ol>
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
-                                        <img class="d-block w-100" src="{{ asset('img/sekoliko.jpeg') }}" alt="Sekoliko logo" style="width: 100%;height: 550px;">
+                                        <img class="d-block w-100" src="{{ asset('img/sekoliko.jpeg') }}"
+                                             alt="Sekoliko logo" style="width: 100%;height: 550px;">
                                         <div class="carousel-caption">
                                             <p>Aide pour la gestion d'établissement</p>
                                         </div>
                                     </div>
                                     <div class="carousel-item">
-                                        <img class="d-block w-100" src="{{ asset('img/ariary.jpeg') }}" alt="Ariary net logo"style="width: 100%;height: 550px;">
+                                        <img class="d-block w-100" src="{{ asset('img/ariary.jpeg') }}"
+                                             alt="Ariary net logo" style="width: 100%;height: 550px;">
                                         <div class="carousel-caption" style="color: black !important;">
                                             <h3>Sekoliko & Ariary.NET</h3>
                                             <p>Payer vos frais de scolarité avec Ariary.NET</p>
                                         </div>
                                     </div>
                                     <div class="carousel-item">
-                                        <img class="d-block w-100" src="{{ asset('img/sekoly2.jpg') }}" alt="Sekoliko salle discipline" style="width: 100%;height: 550px;">
+                                        <img class="d-block w-100" src="{{ asset('img/sekoly2.jpg') }}"
+                                             alt="Sekoliko salle discipline" style="width: 100%;height: 550px;">
                                     </div>
                                     <div class="carousel-item">
-                                        <img class="d-block w-100" src="{{ asset('img/sekoly3.jpg') }}" alt="Sekoliko livre bibliothèque"style="width: 100%;height: 550px;">
+                                        <img class="d-block w-100" src="{{ asset('img/sekoly3.jpg') }}"
+                                             alt="Sekoliko livre bibliothèque" style="width: 100%;height: 550px;">
                                     </div>
                                 </div>
                             </div>
@@ -76,45 +84,60 @@
 
                                 {% block fos_user_content %}{% endblock fos_user_content %}
                                 <hr>
+                                <div class="sk-coll-img">
+                                    <h6 class="text-center">Les contributeurs de ce projet</h6>
+                                    <div class="col-md-12 text-center d-flex">
+                                        <a href="https://github.com/hantsaniala" data-toggle="tooltip"
+                                           data-placement="top"
+                                           title="Hantsaniala Eléo" target="_blank">
+                                            <img src="{{ asset('https://avatars2.githubusercontent.com/u/8157490') }}"
+                                                 alt="logo"
+                                                 class="img-thumbnail sk-pdp m-2">
+                                        </a>
+                                        <a href="https://github.com/tolotrasmile" target="_blank" data-toggle="tooltip"
+                                           data-placement="top"
+                                           title="Raharison Tolotra">
+                                            <img src="{{ asset('https://avatars0.githubusercontent.com/u/8298581') }}"
+                                                 alt="logo"
+                                                 class="img-thumbnail sk-pdp m-2">
+                                        </a>
+                                        <a href="https://github.com/vonyms" target="_blank" data-toggle="tooltip"
+                                           data-placement="top"
+                                           title="Vony Randria">
+                                            <img src="{{ asset('https://avatars0.githubusercontent.com/u/33556409') }}"
+                                                 alt="logo"
+                                                 class="img-thumbnail sk-pdp m-2">
+                                        </a>
+                                        <a href="https://github.com/max5055" target="_blank" data-toggle="tooltip"
+                                           data-placement="top"
+                                           title="Max">
+                                            <img src="{{ asset('https://avatars2.githubusercontent.com/u/39415739') }}"
+                                                 alt="logo"
+                                                 class="img-thumbnail sk-pdp m-2">
+                                        </a>
+                                        <a href="https://github.com/chrys-elrak" target="_blank" data-toggle="tooltip"
+                                           data-placement="top"
+                                           title="Chrys Rakotonimanana">
+                                            <img src="{{ asset('https://avatars0.githubusercontent.com/u/40733956') }}"
+                                                 alt="logo"
+                                                 class="img-thumbnail sk-pdp m-2">
+                                        </a>
+                                        <a href="https://github.com/Fy-RAKOTONDRABE" target="_blank"
+                                           data-toggle="tooltip" data-placement="top"
+                                           title="Rakotondrabe Fy">
+                                            <img src="{{ asset('https://avatars2.githubusercontent.com/u/45007981') }}"
+                                                 alt="logo"
+                                                 class="img-thumbnail sk-pdp m-2">
+                                        </a>
+                                        <a href="https://github.com/julkwel" target="_blank" data-toggle="tooltip"
+                                           data-placement="top"
+                                           title="Rajerison Julien">
+                                            <img src="{{ asset('https://avatars1.githubusercontent.com/u/30557565') }}"
+                                                 alt="logo"
+                                                 class="img-thumbnail sk-pdp m-2">
+                                        </a>
 
-                                <h6 class="text-center">Les contributeurs de ce projet</h6>
-                                <div class="col-md-12 text-center d-flex sk-coll-img">
-                                    <a href="https://github.com/hantsaniala"  data-toggle="tooltip" data-placement="top"
-                                       title="Hantsaniala Eléo" target="_blank">
-                                        <img src="{{ asset('https://avatars2.githubusercontent.com/u/8157490') }}" alt="logo"
-                                                    class="img-thumbnail sk-pdp m-2">
-                                    </a>
-                                    <a href="https://github.com/tolotrasmile" target="_blank"  data-toggle="tooltip" data-placement="top"
-                                       title="Raharison Tolotra" >
-                                        <img src="{{ asset('https://avatars0.githubusercontent.com/u/8298581') }}" alt="logo"
-                                             class="img-thumbnail sk-pdp m-2">
-                                    </a>
-                                    <a href="https://github.com/vonyms" target="_blank"  data-toggle="tooltip" data-placement="top"
-                                       title="Vony Randria" >
-                                        <img src="{{ asset('https://avatars0.githubusercontent.com/u/33556409') }}" alt="logo"
-                                                    class="img-thumbnail sk-pdp m-2">
-                                    </a>
-                                    <a href="https://github.com/max5055" target="_blank"  data-toggle="tooltip" data-placement="top"
-                                       title="Max" >
-                                        <img src="{{ asset('https://avatars2.githubusercontent.com/u/39415739') }}" alt="logo"
-                                             class="img-thumbnail sk-pdp m-2">
-                                    </a>
-                                    <a href="https://github.com/chrys-elrak" target="_blank"  data-toggle="tooltip" data-placement="top"
-                                       title="Chrys Rakotonimanana" >
-                                        <img src="{{ asset('https://avatars0.githubusercontent.com/u/40733956') }}" alt="logo"
-                                             class="img-thumbnail sk-pdp m-2">
-                                    </a>
-                                    <a href="https://github.com/Fy-RAKOTONDRABE" target="_blank"  data-toggle="tooltip" data-placement="top"
-                                       title="Rakotondrabe Fy" >
-                                        <img src="{{ asset('https://avatars2.githubusercontent.com/u/45007981') }}" alt="logo"
-                                             class="img-thumbnail sk-pdp m-2">
-                                    </a>
-                                    <a href="https://github.com/julkwel" target="_blank"  data-toggle="tooltip" data-placement="top"
-                                       title="Rajerison Julien" >
-                                        <img src="{{ asset('https://avatars1.githubusercontent.com/u/30557565') }}" alt="logo"
-                                             class="img-thumbnail sk-pdp m-2">
-                                    </a>
-                                    
+                                    </div>
                                 </div>
                             </div>
                         </div>
