@@ -28,6 +28,15 @@
     .sk-coll-img{
         display: none!important;
     }
+
+    .box-footer .btn{
+        float: none!important;
+        display: block;
+        width: 100% !important;
+    }
+    .label-file{
+        width: 100%!important;
+    }
 }
 
 /**

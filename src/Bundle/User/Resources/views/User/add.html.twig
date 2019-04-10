@@ -32,11 +32,11 @@
             {{ form_start(form) }}
             <div class="row">
                 <div class="col-md-6">
-                    {{ form_row(form.usrLastname, {'attr': {'class': 'col-10'}}) }}
-                    {{ form_row(form.usrFirstname, {'attr': {'class': 'col-10'}}) }}
-                    {{ form_row(form.usrAddress, {'attr': {'class': 'col-10'}}) }}
-                    {{ form_row(form.email, {'attr': {'class': 'col-8'}}) }}
-                    {{ form_row(form.usrPhone, {'attr': {'class': 'col-6'}}) }}
+                    {{ form_row(form.usrLastname, {'attr': {'class': 'col-lg-10'}}) }}
+                    {{ form_row(form.usrFirstname, {'attr': {'class': 'col-lg-10'}}) }}
+                    {{ form_row(form.usrAddress, {'attr': {'class': 'col-lg-10'}}) }}
+                    {{ form_row(form.email, {'attr': {'class': 'col-lg-8'}}) }}
+                    {{ form_row(form.usrPhone, {'attr': {'class': 'col-lg-6'}}) }}
                 </div>
                 <div class="col-md-6">
                     {% if is_granted('ROLE_SUPERADMIN') %}
@@ -70,13 +70,13 @@
                             <p>Fichier : <small id="label-file">Aucun fichier choisi</small></p>
                         </div>
 
-                    {{ form_row(form.skRole, {'attr': {'class': 'col-4'}}) }}
+                    {{ form_row(form.skRole, {'attr': {'class': 'col-lg-4'}}) }}
                     <div class="hide" style="display: none;">
                         {{ form_row(form.enabled) }}
                     </div>
-                    {{ form_row(form.username, {'attr': {'class': 'col-6'}}) }}
-                    {{ form_row(form.plainPassword.first, {'attr': {'class': 'col-6'}}) }}
-                    {{ form_row(form.plainPassword.second, {'attr': {'class': 'col-6'}}) }}
+                    {{ form_row(form.username, {'attr': {'class': 'col-lg-6'}}) }}
+                    {{ form_row(form.plainPassword.first, {'attr': {'class': 'col-lg-6'}}) }}
+                    {{ form_row(form.plainPassword.second, {'attr': {'class': 'col-lg-6'}}) }}
                 </div>
             </div>
 
