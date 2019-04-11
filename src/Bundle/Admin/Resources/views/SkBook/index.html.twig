@@ -37,7 +37,7 @@
                     <div class="box-header">
                         <div class="list-count">
                             <h4><span class="title-count-text"> TOTAL : {{ _book_list|length }} </span><span
-                                    class="title-count"></span></h4>
+                                        class="title-count"></span></h4>
                         </div>
                     </div>
                 </div>
@@ -49,6 +49,8 @@
                                 <th></th>
                                 <th>Titre du livre</th>
                                 <th>Reservé</th>
+                                <th>Début</th>
+                                <th>Fin</th>
                                 {% if is_granted('ROLE_ADMIN') %}
                                     <th>Actions</th>
                                 {% endif %}
@@ -62,6 +64,20 @@
                                     </td>
                                     <td>{{ book.bookName }}</td>
                                     <td>{{ book.isReserved ? 'OUI' : 'NON' }}</td>
+                                    <td>
+                                        {% if book.isReserved == true %}
+                                            {{ book.dateDebut | date('Y-m-d') }}
+                                        {% else %}
+                                            Non reservé
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if book.isReserved == true %}
+                                            {{ book.dateFin | date('Y-m-d') }}
+                                        {% else %}
+                                            Non reservé
+                                        {% endif %}
+                                    </td>
                                     {% if is_granted('ROLE_ADMIN') %}
                                         <td class="kl-action-button-bloc">
                                             <a class="btn btn-primary btn-sm" title="Modifier ce livre"
