@@ -407,6 +407,7 @@ class SkClassController extends Controller
                     $_etudiant->setClasse($skClasse);
                     $_etudiant->setClasse($skClasse);
                     $_etudiant->setEtudiant($_etudiant_data);
+                    $_etudiant->setIsRenvoie(false);
 
                     for ($a = 0; $a < count($the_big_array); ++$a) {
                         try {
@@ -453,11 +454,13 @@ class SkClassController extends Controller
                             $_etudiant->setClasse($skClasse);
                             $_etudiant->setClasse($skClasse);
                             $_etudiant->setEtudiant($_user);
+                            $_etudiant->setIsRenvoie(false);
 
                             try {
                                 $this->getEntityService()->saveEntity($_user, 'new');
                             } catch (\Exception $exception) {
-                                $this->getEntityService()->setFlash('error', 'Email ou nom d\'utilisateur déjà prise');
+//                                $this->getEntityService()->setFlash('error', 'Email ou nom d\'utilisateur déjà prise');
+                                $exception->getMessage();
 
                                 return $this->redirect($this->generateUrl('classe_etudiant_new', array('id' => $skClasse->getId())));
                             }
