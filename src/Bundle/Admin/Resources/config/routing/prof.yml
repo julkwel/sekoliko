@@ -1,0 +1,34 @@
+list_classes:
+    path:     /class/lists
+    defaults: { _controller: "AdminBundle:SkProfs:lists" }
+    methods:  [GET]
+
+list_students:
+    path:     /class/etudiant/{id}
+    defaults: { _controller: "AdminBundle:SkProfs:listStudents" }
+    methods:  [GET]
+
+manage_marks:
+    path:     /etudiant/note/{id_class}/{id_matiere}/{id_etudiant}
+    defaults: { _controller: "AdminBundle:SkProfs:manageMarks" }
+    methods:  [GET,POST]
+
+update_marks:
+    path:     /etudiant/note/update/{id}
+    defaults: { _controller: "AdminBundle:SkProfs:updateMarksStudent" }
+    methods:  [GET,POST]
+
+delete_marks:
+    path:     /etudiant/note/delete/{id}
+    defaults: { _controller: "AdminBundle:SkProfs:deleteMarksStudent" }
+    methods:  [GET,POST]
+
+delete_group_marks:
+    path:     /marks/delete/group
+    defaults: { _controller: "AdminBundle:SkProfs:deleteGroupMarks" }
+    methods:  [POST]
+
+list_marks:
+    path:     /marks
+    defaults: { _controller: "AdminBundle:SkProfs:listProfMarks" }
+    methods:  [GET, POST]
