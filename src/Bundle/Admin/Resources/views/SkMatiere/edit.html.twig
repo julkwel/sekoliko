@@ -2,7 +2,7 @@
 
 {% form_theme form 'form/custom_fields.html.twig' %}
 
-{% block title %}{{ parent() }} | Modifications matières {% endblock %}
+{% block title %}{{ parent() }} Modifications matières {% endblock %}
 
 {% set menu_matiere        = true %}
 
@@ -11,27 +11,47 @@
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary text-center">Modifier le matière</h6>
         </div>
-        <div class="card-body">
+        <div class="card-body" id="vue-coefficient">
             {{ form_start(form) }}
             <div class="row">
                 <div class="col-md-12">
                     {{ form_row(form.matNom) }}
-                    {{ form_row(form.matCoeff) }}
                     <div class="form-group ">
-                        <label for="">Selectionner le profs</label>
-                        <select name="profs" id="" class="form-control">
-                            {% for prof in profs  %}
-                                <option value="{{ prof.id }}" >{{ prof.usrFirstname }}</option>
-                            {% endfor %}
-                        </select>
+                        {{ form_row(form.matProf) }}
                     </div>
-                    <div class="form-group ">
-                        <label for="">Selectionner la classe</label>
-                        <select name="classe" id="" class="form-control">
-                            {% for classe in classe  %}
-                                <option value="{{ classe.id }}" >{{ classe.classeNom }}</option>
-                            {% endfor %}
-                        </select>
+                    <div class="form-group">
+                        {% if not app.request.query.get('idClass') %}
+                            <div class="form-group">
+                                <label for="">Selectionnez une classe</label>
+                                <select v-model="classSelected" name="class" class="form-control">
+                                    <option value="label" selected disabled>Choississez une classe</option>
+                                    <option v-for="(classe, index) in classes" :value="classe.id">${ classe.option }</option>
+                                </select>
+                            </div>
+                        {% endif %}
+                        <div class="form-group">
+                            <div>
+                                <h6 v-show="attachments.length">Liste des coefficients pour chaque classe</h6>
+                                <div class="row" v-for="(attachment, index) in attachments" :key="index">
+                                    <div class="col-md-9">
+                                        <div class="form-group">
+                                            <select name="coefficient[]" class="form-control" v-model="attachment.coefficient" id="">
+                                                <option selected value="" disabled>Coefficient pour la classe ${attachment.choice_label}</option>
+                                                {% for i in 1..5 %}
+                                                    <option value="{{ i }}">{{ i }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <input type="hidden" v-model="attachment.classId" name="classId[]">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="button" @click="deleteCoefficient(index)" class="btn btn-danger">
+                                            <i class="fa fa-trash-restore"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -45,4 +65,74 @@
             {{ form_end(form) }}
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        new Vue({
+            el: '#vue-coefficient',
+            delimiters: ['${', '}'],
+            data(){
+                return {
+                    attachments: [],
+                    classes: [],
+                    classSelected: 'label',
+                }
+            },
+            mounted() {
+                {% for classe in classes  %}
+                    this.classes.push({
+                        'id': `{{classe.id}}`,
+                        'option':
+                            `{{ classe.classeNom }}`
+                    });
+                {% endfor %}
+
+                {% for attachment in data %}
+                    this.attachments.push({
+                        classId: `{{ attachment.id }}`,
+                        coefficient: `{{ attachment.coefficient }}`,
+                        choice_label: `{{ attachment.optionName }}`
+                    });
+                {% endfor %}
+
+            },
+            watch: {
+                classSelected: function(val) {
+                    let choice = $('select[name="class"]').find('option:selected').html();
+                    let isExist = false;
+                    for(let i = 0; i<this.attachments.length; i++) {
+                        if(this.attachments[i].classId === val) {
+                            isExist = true;
+                        }
+                    }
+                    if(!isExist) {
+                        this.attachments.push({
+                            classId: val,
+                            coefficient: '',
+                            choice_label: choice
+                        });
+                    }else{
+                        $.toast({
+                            heading: 'Notification',
+                            text: 'Un coefficient est deja associé à la classe '+choice+', veuillez modifier',
+                            showHideTransition: 'slide',
+                            icon: 'error',
+                            allowToastClose: true,
+                            position: 'top-right',
+                            loader: false
+                        })
+                    }
+                }
+            },
+            methods: {
+                deleteCoefficient(index) {
+                    if(typeof index === 'number') {
+                        this.attachments.splice(index,1);
+                    }
+                }
+            }
+        })
+
+    </script>
 {% endblock %}

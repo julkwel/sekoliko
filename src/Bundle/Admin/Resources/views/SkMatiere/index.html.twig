@@ -1,34 +1,18 @@
 {% extends 'admin/admin.html.twig' %}
 
-{% block title %}{{ parent() }} | Liste matières {% endblock %}
+{% block title %}{{ parent() }} Tableau de bord {% endblock %}
 
 {% set menu_matiere = true %}
 
 {% block body %}
-    {% for flashMessage in app.session.flashbag.get('success') %}
-        <div class="card bg-success text-white shadow">
-            <div class="card-body">
-                {{ flashMessage }}
-            </div>
-        </div>
-    {% endfor %}
-
-    {% for flashMessage in app.session.flashbag.get('error') %}
-        <div class="card bg-warning text-white shadow">
-            <div class="card-body">
-                {{ flashMessage }}
-            </div>
-        </div>
-    {% endfor %}
-
     <div class="row">
-        <form action="" method="POST" class="form-search">
+        <form action="{{ path('delete_group_subject') }}" method="POST" class="form-search">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary text-center">Liste des matières</h6>
+                    <h6 class="m-0 font-weight-bold text-primary text-center">Liste des matieres</h6>
                     {# Bouton création #}
                     {% if is_granted('ROLE_ADMIN') %}
-                        <div class="add-btn-top-list float-right">
+                        <div class="row add-btn-top-list float-right">
                             <a href="{{ path('matiere_new') }}" class="btn btn-primary">
                                 Ajouter une matière
                             </a>
@@ -36,7 +20,7 @@
                     {% endif %}
                     <div class="box-header">
                         <div class="list-count">
-                            <h4><span class="title-count-text"> TOTAL : </span><span class="title-count"></span></h4>
+                            <span class="title-count-text"> TOTAL: </span><span class="title-count">{% if subjects %} {{ subjects | length }}{% endif %}</span>
                         </div>
                     </div>
                 </div>
@@ -47,58 +31,66 @@
                             <tr>
                                 <th></th>
                                 <th>Matières</th>
-                                <th>Coefficients</th>
-                                <th>
+                                <th class="class-row">
                                     {% if is_granted('ROLE_PROFS') %}
                                         classe
                                     {% else %}
                                         Profs
                                     {% endif %}
                                 </th>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <th>Professeur</th>
+                                {% endif %}
                                 <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {% for matiere in matiere_liste %}
+                                {% for subject in subjects %} 
+
                                 <tr>
                                     <td class="text-center">
-                                        <input type="checkbox" value="{{ matiere.id }}" name="delete[]"/>
+                                        <input type="checkbox" value="{{ subject.id }}" name="delete[]"/>
                                     </td>
-                                    <td>{{ matiere.matNom }}</td>
-                                    <td>{{ matiere.matCoeff }}</td>
+                                    <td>{{ subject.matNom }}</td>
                                     <td>
-                                        {% if is_granted('ROLE_PROFS') %}
-                                            {{ matiere.matClasse.classeNom }}
-                                        {% else %}
-                                            {{ matiere.matProf ?  matiere.matProf.usrFirstname : '' }}
-                                        {% endif %}
+                                        {% for sCollection in subject.skClasseMatieres() %}
+                                            <span class="badge badge-secondary">{{ sCollection.getIdClasse() }}, coefficient : {{ sCollection.getCoefficient() }}</span>
+                                        {% endfor %}
                                     </td>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <td>{{ subject.matProf.getUsername() }}</td>
+                                    {% endif %}
                                     <td class="kl-action-button-bloc">
                                         {% if is_granted('ROLE_PROFS') %}
-                                            <a class="btn btn-success btn-sm" title="Voir emploi du temps"
-                                               href="{{ path('edt_classe', { 'id': matiere.matClasse.id }) }}">
+                                            <a class="btn btn-success" title="Voir emploi du temps"
+                                               href="{{ path('edt_classe', { 'id': subject.matClasse.id }) }}">
                                                 <i class="fa fa-calendar"></i>
                                             </a>
-                                            <a class="btn btn-info btn-sm" title="Voir mes etudiants"
-                                               href="{{ path('etudiant_liste', { 'id': matiere.matClasse.id }) }}">
+                                            <a class="btn btn-info" title="Voir mes etudiants"
+                                               href="{{ path('etudiant_liste', { 'id': subject.matClasse.id }) }}">
                                                 <i class="fa fa-user"></i>
                                             </a>
                                         {% endif %}
                                         {% if is_granted('ROLE_ADMIN') %}
-                                            <a class="btn btn-success btn-sm" title="Modifier"
-                                               href="{{ path('matiere_edit', { 'id': matiere.id }) }}">
-                                                <i class="fas fa-pen"></i>
+                                            <a class="btn btn-success" title="Modifier"
+                                               href="{{ path('matiere_edit', { 'id': subject.id }) }}">
+                                                <i class="fa fa-edit"></i>
                                             </a>
-                                            <a class="btn btn-danger remove-elt btn-sm" title="Supprimer"
-                                               onclick="supprimer('{{ path('matiere_delete', { 'id': matiere.id }) }}')">
+                                            <a style="color:#fff;" class="btn btn-danger remove-elt-{{ subject.id }}" title="Supprimer"
+                                               onclick="deleted({{ subject.id }})">
                                                 <i class="fa fa-trash"></i>
                                             </a>
+                                            <small class="confirmation-{{ subject.id }}"></small>
+                                            <span class="confirmation-button-{{ subject.id }}"></span>
                                         {% endif %}
                                     </td>
                                 </tr>
                             {% endfor %}
+
                             </tbody>
                         </table>
+                        <button type="submit" class="btn btn-danger">Supprimer les selections</button>
+                        <button type="button" class="btn btn-outline-success">Cochez tous</button>
                     </div>
                 </div>
             </div>
@@ -111,9 +103,44 @@
 
     <script type="text/javascript">
         // Call the dataTables jQuery plugin
+
+        /** @author Max **/
         $(document).ready(function () {
             $('#dataTable').DataTable();
+            /** @author Max **/
+            var isChecked = false;
+            $('.btn-outline-success').on('click', function(){
+                if(isChecked) {
+                    $('input[type="checkbox"]').attr('checked','checked');
+                    isChecked = false;
+                    $(this).text('Décochez tous');
+                }else{
+                    $('input[type="checkbox"]').removeAttr('checked','checked');
+                    isChecked = true;
+                    $(this).text('Cochez tous');
+                }
+
+            })
         });
+
+        function deleted(index) {
+            $('.confirmation-'+index).html('Voulez-vous supprimé ?');
+            $('.remove-elt-'+index).hide();
+            $('.confirmation-button-'+index).html("<a data-id='"+index+"' id='confirmDelete-"+index+"' style='color:#fff;' class='btn btn-danger btn-sm'>Oui</a> <span id='cancel-"+index+"'>Non</span>");
+
+            $('#confirmDelete-'+index).on('click', function(){
+                var id = $(this).data('id');
+                window.location.href = 'http://127.0.0.1:8000/admin/matiere/'+id+'/delete';
+            })
+
+            $('.class-row').css({'width':'190px'});
+            $('#cancel-'+index).on('click', function(){
+                $('.remove-elt-'+index).show();
+                $('.confirmation-'+index).html('');
+                $('.confirmation-button-'+index).html('');
+                //$('.class-row').css({'width':'0px'});
+            });
+        }
 
         $(function () {
             $('#list-user').DataTable(

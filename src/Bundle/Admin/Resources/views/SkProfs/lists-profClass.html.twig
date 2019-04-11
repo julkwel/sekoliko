@@ -1,0 +1,96 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}{{ parent() }} Classe {% endblock %}
+
+{% set menu_classe = true %}
+
+{% block body %}
+    <div class="row">
+        <form action="" method="POST" class="form-search">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary text-center">Liste des classe</h6>
+                    {# Bouton création #}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <div class="row add-btn-top-list float-right">
+                            <a href="{{ path('classe_new') }}" class="btn btn-primary">
+                                Créer une classe
+                            </a>
+                        </div>
+                    {% endif %}
+                    <div class="box-header">
+                        <div class="list-count">
+                            <span class="title-count-text"> TOTAL: {{ listClass|length }} </span><span class="title-count"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>Classes</th>
+                                <th>Matiere</th>
+                                <th>Coefficient</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for classe in listClass %}
+                                <tr>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="{{ classe.idClasse.id }}" name="delete[]"/>
+                                    </td>
+                                    <td>{{ classe.idClasse.classeNom }}</td>
+                                    <td>{{ classe.idMatiere.matNom }}</td>
+                                    <td>{{ classe.coefficient }}</td>
+                                    <td>
+                                        <a href="{{ path('list_students', {'id': classe.idClasse.id }) }}" class="btn btn-primary">
+                                            <i class="fa fa-user"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        // Call the dataTables jQuery plugin
+        $(document).ready(function() {
+            $('#dataTable').DataTable();
+        });
+
+        $(function () {
+            $('#list-user').DataTable(
+                {
+                    "order": [[0, "desc"]],
+                    "bProcessing": true,
+                    "bFilter": true,
+                    "oLanguage": {
+                        "sProcessing": "Traitement...",
+                        "oPaginate": {
+                            "sPrevious": "Précédente", // This is the link to the previous page
+                            "sNext": "Suivante", // This is the link to the next page
+                        },
+                        "sSearch": "Filtrer: ",
+                        "sLengthMenu": "Afficher _MENU_ enregistrement par page",
+                        "sEmptyTable": "Aucun utilisateur trouvé",
+                        "sInfo": "Voir _TOTAL_ de _PAGE_ pour _PAGES_ entrées",
+                    },
+                    "footerCallback": function (row, data, start, end, display) {
+                        $('.title-count').html(display.length);
+                    }
+                });
+        });
+    </script>
+{% endblock %}

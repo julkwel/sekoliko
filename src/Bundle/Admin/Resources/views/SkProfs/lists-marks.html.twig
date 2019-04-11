@@ -1,0 +1,130 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}{{ parent() }} Classe {% endblock %}
+
+{% set menu_classe = true %}
+
+{% block body %}
+    <div class="row">
+        <form action="{{ path('delete_group_marks')}}" method="POST" class="form-search">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary text-center">Listes des notes</h6>
+                    {# Bouton création #}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <div class="row add-btn-top-list float-right">
+                            <a href="{{ path('classe_new') }}" class="btn btn-primary">
+                                Créer une classe
+                            </a>
+                        </div>
+                    {% endif %}
+                    <div class="box-header">
+                        <div class="list-count">
+                            <span class="title-count-text"> TOTAL: {{ marks|length }} </span><span class="title-count"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>Nom</th>
+                                <th>Prénom</th>
+                                <th>Classe</th>
+                                <th>Matiere</th>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <th>Prof</th>
+                                {% endif %}
+                                <th>Note</th>
+                                <th>Coefficient</td>
+                                <th>N/C</td>
+                                <th>Type exam</td>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                    {% for mark in marks %}
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" value="{{ mark.id }}" name="deleteMarks[]">
+                                            </td>
+                                            <td>{{ mark.etudiant.etudiant.usrFirstname }}</td>
+                                            <td>{{ mark.etudiant.etudiant.usrLastname }}</td>
+                                            <td>{{ mark.classe.classeNom }}</td>
+                                            <td>{{ mark.matNom.matNom }}</td>
+                                            {% if is_granted('ROLE_ADMIN') %}
+                                                <td>{{ mark.prof.profs.usrFirstname }}</td>
+                                            {% endif %}
+                                            <td>
+                                                <span class="badge badge-primary" style="font-size:16px;">
+                                                    {{ mark.noteVal }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="badge badge-danger" style="font-size:16px;">
+                                                    {{ mark.coef }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="badge badge-success" style="font-size:16px;">
+                                                    {{ (mark.noteVal * mark.coef) }}
+                                                </span>
+                                            </td>
+                                            <td>{{ mark.examType.title }}</td>
+                                            {% if is_granted('ROLE_PROFS') %}
+                                                <td>
+                                                    <a href="{{ path('update_marks', {'id': mark.id})}}" class="btn btn-primary">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
+                                                    <a href="{{ path('delete_marks', {'id': mark.id})}}" class="btn btn-danger">
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                </td>
+                                            {% endif %}
+                                        </tr>
+                                    {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+             <button type="submit" class="btn btn-danger">Supprimer la selection</button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        // Call the dataTables jQuery plugin
+        $(document).ready(function() {
+            $('#dataTable').DataTable();
+        });
+
+        $(function () {
+            $('#list-user').DataTable(
+                {
+                    "order": [[0, "desc"]],
+                    "bProcessing": true,
+                    "bFilter": true,
+                    "oLanguage": {
+                        "sProcessing": "Traitement...",
+                        "oPaginate": {
+                            "sPrevious": "Précédente", // This is the link to the previous page
+                            "sNext": "Suivante", // This is the link to the next page
+                        },
+                        "sSearch": "Filtrer: ",
+                        "sLengthMenu": "Afficher _MENU_ enregistrement par page",
+                        "sEmptyTable": "Aucun utilisateur trouvé",
+                        "sInfo": "Voir _TOTAL_ de _PAGE_ pour _PAGES_ entrées",
+                    },
+                    "footerCallback": function (row, data, start, end, display) {
+                        $('.title-count').html(display.length);
+                    }
+                });
+        });
+    </script>
+{% endblock %}

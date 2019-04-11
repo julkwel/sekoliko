@@ -1,153 +1,274 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: julkwel
- * Date: 3/28/19
- * Time: 10:41 PM.
- */
 
 namespace App\Bundle\Admin\Controller;
 
-use App\Bundle\User\Entity\User;
-use App\Bundle\User\Form\UserType;
-use App\Shared\Entity\SkMatiere;
-use App\Shared\Entity\SkRole;
-use App\Shared\Services\Utils\RoleName;
+use App\Shared\Repository\SkClasseMatiereRepository;
+use App\Shared\Repository\SkEtudiantRepository;
+use App\Shared\Repository\SkNoteRepository;
+use App\Shared\Repository\SkProfRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use App\Shared\Entity\SkClasse;
+use App\Shared\Entity\SkEtudiant;
+use App\Shared\Entity\SkNote;
+use App\Shared\Entity\SkMatiere;
+use App\Shared\Form\SkNoteType;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * @package App\Bundle\Admin\Controller
+ * @author Max
+ */
 class SkProfsController extends Controller
 {
     /**
+     * @var SkProfRepository
+     */
+    private $profRepository;
+    /**
+     * @var SkClasseMatiereRepository
+     */
+    private $classeMatiereRepository;
+    /**
+     * @var SkNoteRepository
+     */
+    private $noteRepository;
+
+    public function __construct(SkProfRepository $profRepository,
+                                SkClasseMatiereRepository $classeMatiereRepository,
+                                SkNoteRepository $noteRepository)
+    {
+        $this->profRepository = $profRepository;
+        $this->classeMatiereRepository = $classeMatiereRepository;
+        $this->noteRepository = $noteRepository;
+    }
+
+    /**
+     * Get instance of prof
+     */
+    private function getProfConnected()
+    {
+        return $this->profRepository->findOneBy(['profs' => $this->getUser()]);
+    }
+
+    /**
+     * Get all class professor 
+     */
+    public function listsAction()
+    {
+        $prof = $this->getProfConnected();
+        $listClass = $this->classeMatiereRepository
+                          ->findBy(['idProf' => $prof]);
+        return $this->render('@Admin/SkProf/lists-profClass.html.twig', compact('listClass'));
+    }
+
+    /**
+     * Get all students by class
+     * @param SkClasse $skClasse
+     * @param SkEtudiantRepository $etudiantRepository
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function listStudentsAction(SkClasse $skClasse, SkEtudiantRepository $etudiantRepository)
+    {
+        $students = $etudiantRepository->findBy(['classe' => $skClasse]);
+        
+        return $this->render('@Admin/SkProf/lists-students.html.twig', array(
+            'students' => $students,
+            'prof' => $this->getProfConnected()
+        ));
+    }
+
+    /**
+     * Lists all marks
+     */
+    public function listProfMarksAction()
+    {
+        if(in_array('ROLE_PROFS', $this->getUser()->getRoles())) {
+            $marks = $this->noteRepository
+                        ->findBy(['prof' => $this->getProfConnected()]);
+        } else {
+            $marks = $this->noteRepository->findAll();
+
+        }
+        
+        return $this->render('@Admin/SkProf/lists-marks.html.twig',compact('marks'));
+    }
+
+    /**
+     * manage marks student
+     * @param Request $request
+     * @param SkClasse $id_class
+     * @param SkMatiere $id_matiere | SkMatiere
+     * @param SkEtudiant $id_etudiant | SkEtudiant
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function manageMarksAction(Request $request, SkClasse $id_class, SkMatiere $id_matiere, SkEtudiant $id_etudiant)
+    {
+        /**
+         * Access denied for role student
+         */
+        if(in_array('ROLE_ETUDIANT', $this->getUser()->getRoles())) {
+            return $this->redirectToRoute('fos_user_security_login');
+        }
+
+        $marks = new SkNote();
+        $form = $this->createForm(SkNoteType::class, $marks, [
+            'userProf' => $this->getUser(),
+            'student' => $id_etudiant->getEtudiant()->getUsrFirstname(),
+        ]);
+        $form->handleRequest($request);
+
+        $coef = null;
+        $skClassMatiere = $this->classeMatiereRepository->findOneBy([
+                'idMatiere' => $id_matiere,
+                'idClasse' => $id_class
+            ]);
+
+        if($skClassMatiere) { 
+            $coef = $skClassMatiere->getCoefficient();
+        }
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $marks->setEtudiant($id_etudiant);
+            $marks->setCoef($coef);
+            $marks->setClasse($id_class);
+            $marks->setProf($this->getProfConnected());
+            $marksExist = $this->noteRepository->findBy([
+                    'matNom' => $id_matiere,
+                    'etudiant' => $id_etudiant,
+                    'examType' => $form->getData()->getExamType()
+                ]);
+            if(count($marksExist)) {
+                $this->addFlash('error', 'Cette etudiant a deja un note!');
+            } else {
+                try {
+                    $em->persist($marks);
+                    $em->flush();
+                    $this->addFlash('success', 'Note ajouté avec success!');
+
+                    return $this->redirectToRoute('list_marks');
+
+                }catch(\Exception $e) {
+                    $this->addFlash('error', $e->getMessage());
+                }
+                
+            }
+           
+        }
+
+        return $this->render('@Admin/SkProf/manage-marks.html.twig', array(
+            'form' => $form->createView()
+        )); 
+    }
+
+    /**
+     * update marks student
+     * @param $request | Request
+     * @param $marks | SkNote
      * @return mixed
      */
-    public function getUserConnected()
+    public function updateMarksStudentAction(Request $request, SkNote $marks)
     {
-        return $this->get('security.token_storage')->getToken()->getUser();
-    }
-
-    public function getEntityService()
-    {
-        return $this->get('sk.repository.entity');
-    }
-
-    public function getClasseList()
-    {
-    }
-
-    public function indexAction()
-    {
-        if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-            $_profs_list = $this->getDoctrine()->getRepository(User::class)->findBy(array(
-                'skRole' => [RoleName::ID_ROLE_PROFS],
-                'etsNom' => $this->getUserConnected()->getEtsNom()
-            ));
-
-            return $this->render('AdminBundle:SkProfs:index.html.twig', [
-                'profs' => $_profs_list,
-                'ets' => $this->getUserConnected()->getEtsNom()
-            ]);
+        /**
+         * Access denied for role student
+         */
+        if(in_array('ROLE_ETUDIANT', $this->getUser()->getRoles())) {
+            return $this->redirectToRoute('fos_user_security_login');
         }
 
-        return $this->redirectToRoute('fos_user_security_logout');
+        if($marks->accessDenied($this->getUser(), $marks)) {
+            $this->addFlash('error', "Vous n'avez pas le droit de modifier cette note!");
+            return $this->redirectToRoute('list_marks');
+        }
+
+        $form = $this->createForm(SkNoteType::class, $marks, [
+            'userProf' => $this->getUser(),
+            'student' => $marks->getEtudiant()->getEtudiant()->getUsrFirstname(),
+        ]);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            try {
+                $em->persist($marks);
+                $em->flush();
+                $this->addFlash('success', 'Note modifié avec success!');
+
+                return $this->redirectToRoute('list_marks');
+
+            }catch(\Exception $e) {
+                $this->addFlash('error', $e->getMessage());
+            }
+           
+        }
+
+        return $this->render('@Admin/SkProf/edit-marks.html.twig', array(
+            'form' => $form->createView()
+        )); 
     }
 
     /**
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     * @throws \Exception
+     * delete marks student
+     * @param $marks | SkNote
+     * @return mixed
      */
-    public function newAction(Request $request)
+    public function deleteMarksStudentAction(SkNote $marks)
     {
-        if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-            $_user = new User();
-            $_user_role = RoleName::ROLE_PROFS;
+        if(!$marks) {
+            $this->createNotFoundException('Aucun note trouvé pour cette id!');
+        }
 
-            $_form = $this->createForm(UserType::class, $_user);
-            $_role = $this->getDoctrine()->getRepository(SkRole::class)->find(RoleName::ID_ROLE_PROFS);
-            $_pass = $_user->setPlainPassword('123456');
+        if($marks->accessDenied($this->getUser(), $marks)) {
+            $this->addFlash('error', "Vous n'avez pas le droit d'effacer cette note!");
+            return $this->redirectToRoute('list_marks');
+        }
 
-            if ($request->isMethod('POST')) {
-                $_form->handleRequest($request);
-                if ($_form->isSubmitted()) {
-                    $_user->setskRole($_role);
-                    $_user->setRoles(array($_user_role));
-                    $_user->setEnabled(1);
-                    $_user->setPassword($_pass);
-                    $this->getEntityService()->saveEntity($_user, 'new');
-                    $this->getEntityService()->setFlash('success', 'Ajout profs réussie');
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($marks);
+            $em->flush();
 
-                    return $this->redirectToRoute('profs_index');
+            $this->addFlash('success', 'Note supprimé avec success');
+            return $this->redirectToRoute('list_marks');
+        }catch(\Exception $e) {
+            $this->addFlash('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Delete group marks
+     * @param Request $request
+     * @return mixed
+     */
+    public function deleteGroupMarksAction(Request $request)
+    {
+        $ids = $request->request->get('deleteMarks');
+        $em = $this->getDoctrine()->getManager();
+        $isDeleted = false;
+
+        if(null == $ids) {
+            $this->addFlash('error', 'Veuillez selectioner une note a supprimer');
+        } else {
+            $marks = $this->noteRepository->findAllMarksById($ids);
+            if($marks) {
+                foreach($marks as $mark) {
+                    try {
+                        $em->remove($mark);
+                        $em->flush();
+                        $isDeleted = true;
+                    } catch(\Exception $e) {
+                        $this->addFlash('success', 'Note supprimé!');
+                    }
                 }
             }
-
-            return $this->render('@Admin/SkProfs/add.html.twig', array(
-                'form' => $_form->createView(),
-            ));
         }
 
-        return $this->redirectToRoute('fos_user_security_logout');
-    }
-
-    /**
-     * @param Request $request
-     * @param User $_user
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     * @throws \Exception
-     */
-    public function editAction(Request $request,User $_user)
-    {
-        $_form = $this->createForm(UserType::class, $_user);
-        $_form->handleRequest($request);
-        if ($_form->isSubmitted() && $_form->isValid()){
-            $this->getEntityService()->saveEntity($_user,'update');
-            $this->getEntityService()->setFlash('success', 'Modification profs réussie');
-
-            return $this->redirectToRoute('profs_index');
+        if($isDeleted) {
+            $this->addFlash('success', 'Note supprimé!');
         }
 
-        return $this->render('@Admin/SkProfs/edit.html.twig', array(
-            'form' => $_form->createView(),
-        ));
+        return $this->redirectToRoute('list_marks');
+
     }
 
-    /**
-     * @param User $user
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     * @throws \Exception
-     */
-    public function deleteAction(User $user)
-    {
-        if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-            if (true === $this->getEntityService()->deleteEntity($user, $user->getImgUrl())) {
-                $this->getEntityService()->setFlash('success', 'Suppression profs réussie');
-                return $this->redirectToRoute('profs_index');
-            }
-        }
-
-        return $this->redirectToRoute('fos_user_security_logout');
-    }
-
-    /**
-     * @param User $user
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function detailsAction(User $user)
-    {
-        $_prof_mat = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array(
-           'matProf'=>$user
-        ));
-
-//        dump($_prof_mat);die();
-        return $this->render('@Admin/SkProfs/details.html.twig',[
-            'prof'=>$user,
-            'matiere'=>$_prof_mat
-        ]);
-    }
 }

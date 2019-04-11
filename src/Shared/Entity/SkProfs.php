@@ -10,12 +10,14 @@ namespace App\Shared\Entity;
 
 use App\Bundle\User\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * SkClasse.
  *
  * @ORM\Table(name="sk_profs")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Shared\Repository\SkProfRepository")
  */
 class SkProfs
 {
@@ -58,6 +60,16 @@ class SkProfs
      * })
      */
     private $matiere;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Shared\Entity\SkClasseMatiere", mappedBy="idProf", cascade={"remove","persist"})
+     */
+    private $skClasseMatieres;
+
+    public function __construct()
+    {
+        $this->skClasseMatieres = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -121,5 +133,44 @@ class SkProfs
     public function setMatiere($matiere)
     {
         $this->matiere = $matiere;
+    }
+
+    /**
+     * @return Collection|SkClasseMatiere[]
+     */
+    public function getSkClasseMatieres(): Collection
+    {
+        return $this->skClasseMatieres;
+    }
+
+    public function addSkClasseMatiere(SkClasseMatiere $skClasseMatiere): self
+    {
+        if (!$this->skClasseMatieres->contains($skClasseMatiere)) {
+            $this->skClasseMatieres[] = $skClasseMatiere;
+            $skClasseMatiere->setIdMatiere($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSkClasseMatiere(SkClasseMatiere $skClasseMatiere): self
+    {
+        if ($this->skClasseMatieres->contains($skClasseMatiere)) {
+            $this->skClasseMatieres->removeElement($skClasseMatiere);
+            // set the owning side to null (unless already changed)
+            if ($skClasseMatiere->getIdMatiere() === $this) {
+                $skClasseMatiere->setIdMatiere(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param mixed $skClasseMatieres
+     */
+    public function setSkClasseMatieres($skClasseMatieres)
+    {
+        $this->skClasseMatieres = $skClasseMatieres;
     }
 }

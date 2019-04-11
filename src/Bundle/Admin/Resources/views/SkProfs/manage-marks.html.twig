@@ -1,0 +1,42 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% form_theme form 'form/custom_fields.html.twig' %}
+
+{% block title %}{{ parent() }} Ajout Note {% endblock %}
+
+{% set menu_note        = true %}
+
+{% block body %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary text-center">Ajouter un note</h6>
+        </div>
+        <div class="card-body">
+            {{ form_start(form) }}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        {{ form_row(form.student) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(form.matNom) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(form.noteVal) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(form.examType) }}
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer">
+                <input type="submit" class="btn btn-primary btn-block" value="Enregistrer" name="new_niveau"/>
+                <a href="{{ path('etudiant_note',{'id':1}) }}"
+                   class="btn btn-google btn-block">
+                    Annuler
+                </a>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

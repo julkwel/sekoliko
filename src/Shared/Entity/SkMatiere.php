@@ -10,12 +10,14 @@ namespace App\Shared\Entity;
 
 use App\Bundle\User\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * SkMatiere.
  *
  * @ORM\Table(name="sk_matiere")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Shared\Repository\SkMatiereRepository")
  */
 class SkMatiere
 {
@@ -63,6 +65,16 @@ class SkMatiere
      * })
      */
     private $matClasse;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Shared\Entity\SkClasseMatiere", mappedBy="idMatiere", cascade={"remove","persist"})
+     */
+    private $skClasseMatieres;
+
+    public function __construct()
+    {
+        $this->skClasseMatieres = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -143,4 +155,44 @@ class SkMatiere
     {
         $this->matClasse = $matClasse;
     }
+
+    /**
+     * @return Collection|SkClasseMatiere[]
+     */
+    public function getSkClasseMatieres(): Collection
+    {
+        return $this->skClasseMatieres;
+    }
+
+    public function addSkClasseMatiere(SkClasseMatiere $skClasseMatiere): self
+    {
+        if (!$this->skClasseMatieres->contains($skClasseMatiere)) {
+            $this->skClasseMatieres[] = $skClasseMatiere;
+            $skClasseMatiere->setIdMatiere($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSkClasseMatiere(SkClasseMatiere $skClasseMatiere): self
+    {
+        if ($this->skClasseMatieres->contains($skClasseMatiere)) {
+            $this->skClasseMatieres->removeElement($skClasseMatiere);
+            // set the owning side to null (unless already changed)
+            if ($skClasseMatiere->getIdMatiere() === $this) {
+                $skClasseMatiere->setIdMatiere(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param mixed $skClasseMatieres
+     */
+    public function setSkClasseMatieres($skClasseMatieres)
+    {
+        $this->skClasseMatieres = $skClasseMatieres;
+    }
+
 }

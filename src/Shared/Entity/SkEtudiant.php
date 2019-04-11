@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  * SkClasse.
  *
  * @ORM\Table(name="sk_etudiant")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Shared\Repository\SkEtudiantRepository")
  */
 class SkEtudiant
 {

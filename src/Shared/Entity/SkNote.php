@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * SkRole.
  *
  * @ORM\Table(name="sk_note")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Shared\Repository\SkNoteRepository")
  */
 class SkNote
 {
@@ -63,6 +63,26 @@ class SkNote
      * @ORM\Column(name="note_val", type="string", length=100, nullable=true)
      */
     private $noteVal;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="coef", type="string", length=100, nullable=true)
+     */
+    private $coef;
+
+    /**
+     * @var SkClasse
+     * @ORM\ManyToOne(targetEntity="App\Shared\Entity\SkClasse")
+     */
+    private $classe;
+
+    /**
+     * @var SkProfs
+     * @ORM\ManyToOne(targetEntity="App\Shared\Entity\SkProfs")
+     */
+    private $prof;
+
 
     /**
      * @return int
@@ -142,5 +162,44 @@ class SkNote
     public function setTrimestre($trimestre)
     {
         $this->trimestre = $trimestre;
+    }
+
+    public function getCoef()
+    {
+        return $this->coef;
+    }
+
+    public function setCoef($coef) 
+    {
+        $this->coef = $coef;
+    }
+
+    public function getClasse()
+    {
+        return $this->classe;
+    }
+
+    public function setClasse($classe) 
+    {
+        $this->classe = $classe;
+    }
+
+    public function getProf()
+    {
+        return $this->prof;
+    }
+
+    public function setProf($prof) 
+    {
+        $this->prof = $prof;
+    }
+
+    public function accessDenied($user, $marks)
+    {
+        if($marks->getProf()->getProfs() !== $user) {
+            return true;
+        }
+
+        return false;
     }
 }

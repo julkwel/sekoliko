@@ -9,12 +9,15 @@
 namespace App\Shared\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
 
 /**
  * SkClasse.
  *
  * @ORM\Table(name="sk_classe")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Shared\Repository\SkClasseRepository")
  */
 class SkClasse
 {
@@ -37,6 +40,7 @@ class SkClasse
      */
     private $classeNom;
 
+
     /**
      * @var SkMatiere
      * @ORM\ManyToMany(targetEntity="App\Shared\Entity\SkMatiere")
@@ -54,6 +58,18 @@ class SkClasse
      * })
      */
     private $niveau;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Shared\Entity\SkClasseMatiere", mappedBy="idClasse", cascade={"remove","persist"})
+     */
+    private $skClasseMatieres;
+
+    public function __construct()
+    {
+        $this->matiere = new ArrayCollection();
+        $this->skClasseMatieres = new ArrayCollection();
+    }
+
 
     /**
      * @return int
@@ -117,5 +133,64 @@ class SkClasse
     public function setMatiere($matiere)
     {
         $this->matiere = $matiere;
+    }
+
+    /**
+     * @return Collection|Matiere[]
+     */
+    public function getMatieres(): Collection
+    {
+        return $this->matieres;
+    }
+
+    public function addMatiere(SkMatiere $matiere): self
+    {
+        if (!$this->matieres->contains($matiere)) {
+            $this->matieres[] = $matiere;
+            $matiere->addClass($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMatiere(SkMatiere $matiere): self
+    {
+        if ($this->matieres->contains($matiere)) {
+            $this->matieres->removeElement($matiere);
+            $matiere->removeClass($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SkClasseMatiere[]
+     */
+    public function getSkClasseMatieres(): Collection
+    {
+        return $this->skClasseMatieres;
+    }
+
+    public function addSkClasseMatiere(SkClasseMatiere $skClasseMatiere): self
+    {
+        if (!$this->skClasseMatieres->contains($skClasseMatiere)) {
+            $this->skClasseMatieres[] = $skClasseMatiere;
+            $skClasseMatiere->setIdClasse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSkClasseMatiere(SkClasseMatiere $skClasseMatiere): self
+    {
+        if ($this->skClasseMatieres->contains($skClasseMatiere)) {
+            $this->skClasseMatieres->removeElement($skClasseMatiere);
+            // set the owning side to null (unless already changed)
+            if ($skClasseMatiere->getIdClasse() === $this) {
+                $skClasseMatiere->setIdClasse(null);
+            }
+        }
+
+        return $this;
     }
 }

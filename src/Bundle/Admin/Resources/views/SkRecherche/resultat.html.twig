@@ -135,7 +135,7 @@
             /**
              * Script to filter user by only lastName
              */
-            $('#search').on('keyup', function(){
+            $('#search').keyup(_.debounce(function(){
                 $('#entitiesNav').empty();
                 var valueSearch = $(this).val();
                 if(valueSearch.length >= 3) {
@@ -168,7 +168,7 @@
                         }
                     })
                 }
-            })
+            },500))
 
         });
         // Call the dataTables jQuery plugin

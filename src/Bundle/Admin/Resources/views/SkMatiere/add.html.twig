@@ -2,47 +2,212 @@
 
 {% form_theme form 'form/custom_fields.html.twig' %}
 
-{% block title %}{{ parent() }} | Ajouts matières {% endblock %}
+{% block title %}{{ parent() }} Ajouts matières {% endblock %}
 
-{% set menu_matiere        = true %}
+{% set menu_matiere = true %}
 
 {% block body %}
-    <div class="card shadow mb-4 col-md-4 col-xs-12 mx-auto">
+    <style>
+        /*Typerhead*/
+        .typeahead,
+        .tt-query,
+        .tt-hint {
+            width: 396px; }
+
+        .tt-menu {
+            width: 422px;
+            margin: 12px 0;
+            padding: 8px 0;
+            background-color: #fff;
+            border: 1px solid #dedede;
+            -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); }
+
+        .tt-suggestion {
+            padding: 3px 20px;
+            border-radius: 0; }
+
+        .tt-suggestion:hover {
+            cursor: pointer;
+            color: #fff;
+            background-color: #2ecd99; }
+
+        .tt-suggestion.tt-cursor {
+            color: #fff;
+            background-color: #0097cf; }
+
+        #custom-templates .empty-message {
+            padding: 5px 10px;
+            text-align: center; }
+
+        #multiple-datasets .league-name {
+            margin: 0 20px 5px 20px;
+            padding: 3px 0;
+            border-bottom: 1px solid #ccc; }
+
+        #scrollable-dropdown-menu .tt-menu {
+            max-height: 150px;
+            overflow-y: auto; }
+
+        #rtl-support .tt-menu {
+            text-align: right; }
+        
+        .twitter-typeahead {
+            display: block;
+            position: relative;
+        }
+    </style>
+    <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary text-center">Ajouter une matière</h6>
         </div>
-        <div class="card-body">
+        <div class="card-body" id="vue-coefficient">
             {{ form_start(form) }}
             <div class="row">
                 <div class="col-md-12">
-                    {{ form_row(form.matNom) }}
-                    {{ form_row(form.matCoeff, {'attr': {'class': 'col-3'}}) }}
-                    <div class="form-group ">
-                        <label for="">Selectionner un profs</label>
-                        <select name="profs" id="" class="form-control">
-                            {% for prof in profs  %}
-                                <option value="{{ prof.id }}" >{{ prof.usrFirstname }}</option>
-                            {% endfor %}
-                        </select>
+                    <div id="the-basics">
+                        {{ form_row(form.matNom, {'attr': {'class': 'js-autocomplete', 'style':'width:100%'}}) }}
                     </div>
                     <div class="form-group ">
-                        <label for="">Selectionner un classe</label>
-                        <select name="classe" id="" class="form-control">
-                            {% for classe in classe  %}
-                                <option value="{{ classe.id }}" >{{ classe.classeNom }}</option>
-                            {% endfor %}
+                        {{ form_row(form.matProf) }}
+                    </div>
+                    <div class="form-group">
+                        <label for="">Selectionnez une classe</label>
+                        <select v-model="classSelected" name="class" class="form-control">
+                            <option value="label" selected disabled>Choississez une classe</option>
+                            <option v-for="(classe, index) in classes" :value="classe.id">${ classe.option }</option>
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <div class="row" v-for="(attachment, index) in attachments" :key="index">
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <select name="coefficient[]" class="form-control" v-model="attachment.coefficient" id="">
+                                            <option selected value="" disabled>Coefficient pour la classe ${attachment.choice_label}</option>
+                                            {% for i in 1..5 %}
+                                                <option value="{{ i }}">{{ i }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <input type="hidden" v-model="attachment.classId" name="classId[]">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="button" @click="deleteCoefficient(index)" class="btn btn-danger">
+                                        <i class="fa fa-trash-restore"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="box-footer">
-                <input type="submit" class="btn btn-primary float-right" value="Enregistrer" name="new_matiere"/>
+                <input type="submit" class="btn btn-primary btn-block" value="Enregistrer" name="new_matiere"/>
                 <a href="{{ path('matiere_index') }}"
-                   class="btn btn-google">
+                   class="btn btn-google btn-block">
                     Annuler
                 </a>
             </div>
             {{ form_end(form) }}
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        new Vue({
+            el: '#vue-coefficient',
+            delimiters: ['${', '}'],
+            data(){
+                return {
+                    attachments: [],
+                    classes: [],
+                    classSelected: 'label',
+                }
+            },
+            mounted() {
+                {% for classe in classe  %}
+                this.classes.push({
+                    'id': `{{classe.id}}`,
+                    'option':
+                        `{{ classe.classeNom }}`
+                });
+                {% endfor %}
+            },
+            watch: {
+                classSelected: function(val) {
+                    let choice = $('select[name="class"]').find('option:selected').html();
+                    let isExist = false;
+                    for(let i = 0; i<this.attachments.length; i++) {
+                        if(this.attachments[i].classId === val) {
+                            isExist = true;
+                        }
+                    }
+                    if(!isExist) {
+                        this.attachments.push({
+                            classId: val,
+                            coefficient: '',
+                            choice_label: choice
+                        });
+                    }else{
+                        $.toast({
+                            heading: 'Notification',
+                            text: 'Un coefficient est deja associé à la classe '+choice+', veuillez modifier',
+                            showHideTransition: 'slide',
+                            icon: 'error',
+                            allowToastClose: true,
+                            position: 'top-right',
+                            loader: false
+                        })
+                    }
+
+                }
+            },
+            methods: {
+                deleteCoefficient(index) {
+                    if(typeof index === 'number') {
+                        this.attachments.splice(index,1);
+                    }
+                }
+            }
+        })
+
+        // call subject api to fill states
+        $(document).ready(function(){
+            // jquery autocomplete
+            var countriesList = [];
+            $.ajax({
+                type: 'GET',
+                url: '{{ path('api_subjects') }}',
+                contentType: 'application/json',
+                success: function(_data){
+                    $.each(_data, function(k,v){
+                       countriesList.push(v);
+                    });
+                },
+                fail: function(err) {
+                    console.log(err.message);
+                },
+            });
+
+            jQuery('.js-autocomplete').autoComplete({
+                minChars: 1,
+                source: function(term, suggest){
+                    term = term.toLowerCase();
+
+                    var suggestions = [];
+
+                    for (i = 0; i < countriesList.length; i++) {
+                        if (~ countriesList[i].toLowerCase().indexOf(term)) suggestions.push(countriesList[i]);
+                    }
+
+                    suggest(suggestions);
+                }
+            });
+            
+        });
+
+    </script>
 {% endblock %}
