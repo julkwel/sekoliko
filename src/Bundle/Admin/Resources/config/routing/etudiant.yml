@@ -18,6 +18,10 @@ etudiant_details:
     defaults: {_controller: 'AdminBundle:SkEtudiant:details'}
     methods: [GET, POST]
 
+etudiant_note:
+    path:   /note
+    defaults: {_controller: 'AdminBundle:SkEtudiant:marksStudent'}
+    
 etudiant_collegue:
     path:   /collegue
     defaults: {_controller: 'AdminBundle:SkEtudiant:myCollegue'}
