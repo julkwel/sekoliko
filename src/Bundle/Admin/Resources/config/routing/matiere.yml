@@ -27,3 +27,8 @@ api_subjects:
     path: /api/subjects
     defaults: { _controller: "AdminBundle:SkMatiere:getAllSubjects" }
     methods:  [GET]
+
+delete_group_subject:
+    path: /delete/ajax
+    defaults: { _controller: "AdminBundle:SkMatiere:deleteSubjectGroup" }
+    methods:  [POST]
