@@ -52,7 +52,7 @@ class SkEtudiant
 
     /**
      * @var string
-     * @ORM\Column(name="is_renvoie",type="boolean", options={"default":"0"})
+     * @ORM\Column(name="is_renvoie",type="boolean", options={"default":"0"},nullable=true)
      */
     private $isRenvoie;
 
