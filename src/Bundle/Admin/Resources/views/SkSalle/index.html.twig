@@ -48,6 +48,7 @@
                                 <th></th>
                                 <th>Nom</th>
                                 <th>Numéro</th>
+                                <th>Nombre place</th>
                                 <th>Réservation</th>
                                 <th>Motifs</th>
                                 <th>Actions</th>
@@ -61,27 +62,36 @@
                                     </td>
                                     <td>{{ salle.salleNom }}</td>
                                     <td>{{ salle.salleNumero }}</td>
+                                    <td>{{ salle.nombrePlace }}</td>
                                     <td>{{ salle.isReserve ? 'oui' : 'Non' }}</td>
-                                    <td>{{ salle.motifs ? salle.motifs : 'Non réservé' }}</td>
+                                    <td>{{ salle.motifs ?salle.motifs : 'Non réservé' }}</td>
                                     <td class="kl-action-button-bloc">
 
                                         {% if is_granted('ROLE_ADMIN') %}
-                                        <a class="btn btn-success btn-sm" title="Modifier"
-                                           href="{{ path('salle_edit', { 'id': salle.id }) }}">
-                                            <i class="fas fa-pen"></i>
-                                        </a>
-                                        {% endif %}
-
-                                        <a class="btn btn-secondary btn-sm" title="Réserver ce salle"
-                                           href="{{ path('salle_reservation', { 'id': salle.id }) }}">
-                                            <i class="fa fa-restroom"></i>
-                                        </a>
-                                        {% if is_granted('ROLE_ADMIN') %}
-                                            <a class="btn btn-warning btn-sm" title="Annuler la réservation"
-                                               href="{{ path('salle_annule', { 'id': salle.id }) }}">
-                                                <i class="fa fa-ban"></i>
+                                            <a class="btn btn-success btn-sm" title="Modifier"
+                                               href="{{ path('salle_edit', { 'id': salle.id }) }}">
+                                                <i class="fas fa-pen"></i>
                                             </a>
                                         {% endif %}
+                                        {% if salle.isReserve == false %}
+                                            <a class="btn btn-secondary btn-sm" title="Réserver ce salle"
+                                               href="{{ path('salle_reservation', { 'id': salle.id }) }}">
+                                                <i class="fa fa-restroom"></i>
+                                            </a>
+                                        {% endif %}
+                                        {% if salle.isReserve == true %}
+                                            <a class="btn btn-primary btn-sm" title="Details réservations"
+                                               href="{{ path('details_reservation', { 'id': salle.id }) }}">
+                                                <i class="fa fa-lightbulb"></i>
+                                            </a>
+                                            {% if is_granted('ROLE_ADMIN') %}
+                                                <a class="btn btn-warning btn-sm" title="Annuler la réservation"
+                                                   href="{{ path('salle_annule', { 'id': salle.id }) }}">
+                                                    <i class="fa fa-ban"></i>
+                                                </a>
+                                            {% endif %}
+                                        {% endif %}
+
                                         {% if is_granted('ROLE_ADMIN') %}
                                             <a class="btn btn-danger remove-elt btn-sm" title="Supprimer"
                                                onclick="supprimer('{{ path('salle_delete', { 'id': salle.id }) }}')">
@@ -102,34 +112,19 @@
 
 {% block javascripts %}
     {{ parent() }}
-
     <script type="text/javascript">
-        // Call the dataTables jQuery plugin
-        $(document).ready(function () {
-            $('#dataTable').DataTable();
-        });
+        {% for salle in salle_list %}
+        var date_list = '{{ salle.finReserve|date('d/m/y H:m') }}';
+        var now = new Date();
+        var date_now = $.format.date(now, 'dd/MM/yyyy HH:mm');
+        if (date_list < date_now) {
+            $.ajax({
+                type: "POST",
+                url: '{{ path('salle_annule',{"id":salle.id}) }}'
+            })
+        }
+        {% endfor %}
 
-        $(function () {
-            $('#list-user').DataTable(
-                {
-                    "order": [[0, "desc"]],
-                    "bProcessing": true,
-                    "bFilter": true,
-                    "oLanguage": {
-                        "sProcessing": "Traitement...",
-                        "oPaginate": {
-                            "sPrevious": "Précédente", // This is the link to the previous page
-                            "sNext": "Suivante", // This is the link to the next page
-                        },
-                        "sSearch": "Filtrer: ",
-                        "sLengthMenu": "Afficher _MENU_ enregistrement par page",
-                        "sEmptyTable": "Aucun utilisateur trouvé",
-                        "sInfo": "Voir _TOTAL_ de _PAGE_ pour _PAGES_ entrées",
-                    },
-                    "footerCallback": function (row, data, start, end, display) {
-                        $('.title-count').html(display.length);
-                    }
-                });
-        });
+
     </script>
 {% endblock %}

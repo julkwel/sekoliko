@@ -58,6 +58,16 @@ class SkSalleController extends Controller
         $_form->handleRequest($request);
 
         if ($_form->isSubmitted() && $_form->isValid()) {
+            $_verif = $_salle->getSalleNom();
+            $_salle_exist = $this->getDoctrine()->getRepository(SkSalle::class)->findBy(array(
+                'salleNom' => $_verif,
+                'etsNom' => $this->getUser()->getEtsNom()
+            ));
+
+            if (null !== $_salle_exist) {
+                $this->getEntityService()->setFlash('error', 'ce salle existe déjà! ');
+                return $this->redirectToRoute('salle_new');
+            }
             $this->getEntityService()->saveEntity($_salle, 'new');
             try {
                 $this->getEntityService()->setFlash('success', 'Ajout du salle effectuée');
@@ -159,13 +169,28 @@ class SkSalleController extends Controller
                 $debut_reservation = $request->request->get('debut');
                 $fin_reservation = $request->request->get('fin');
                 $motif_reservation = $request->request->get('motif');
-                if (new \DateTime($debut_reservation) > new \DateTime($fin_reservation)) {
+                $_nombre = $request->request->get('nombre');
+
+                if ($_nombre > $skSalle->getNombrePlace()) {
+                    $this->getEntityService()->setFlash('error', 'Ce salle ne supporte pas les nombres des personnes');
+
+                    return $this->redirect($this->generateUrl('salle_reservation', array(
+                        'id' => $skSalle->getId(),
+                    )));
+                } elseif (new \DateTime($debut_reservation) < new \DateTime('now')) {
+                    $this->getEntityService()->setFlash('error', 'La date début réservation et déjà passé');
+
+                    return $this->redirect($this->generateUrl('salle_reservation', array(
+                        'id' => $skSalle->getId(),
+                    )));
+                } elseif (new \DateTime($debut_reservation) > new \DateTime($fin_reservation)) {
                     $this->getEntityService()->setFlash('error', 'Date debut > Date Fin');
 
                     return $this->redirect($this->generateUrl('salle_reservation', array(
                         'id' => $skSalle->getId(),
                     )));
                 }
+
                 $skSalle->setIsReserve(true);
                 $skSalle->setDebReserve(new \DateTime($debut_reservation));
                 $skSalle->setFinReserve(new \DateTime($fin_reservation));
@@ -185,6 +210,13 @@ class SkSalleController extends Controller
             'form' => $_form->createView(),
             'salle' => $skSalle,
         ));
+    }
+
+    public function detailsReservationAction(SkSalle $skSalle)
+    {
+        return $this->render('@Admin/SkSalle/details.reservation.html.twig', [
+            'reservation' => $skSalle
+        ]);
     }
 
     /**

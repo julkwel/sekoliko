@@ -74,6 +74,13 @@ class SkSalle
     private $motifs;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="nombre_place", type="integer", length=200,nullable=true)
+     */
+    private $nombrePlace;
+
+    /**
      * @return int
      */
     public function getId()
@@ -184,4 +191,22 @@ class SkSalle
     {
         $this->motifs = $motifs;
     }
+
+    /**
+     * @return int
+     */
+    public function getNombrePlace()
+    {
+        return $this->nombrePlace;
+    }
+
+    /**
+     * @param int $nombrePlace
+     */
+    public function setNombrePlace($nombrePlace)
+    {
+        $this->nombrePlace = $nombrePlace;
+    }
+
+
 }

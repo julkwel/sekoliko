@@ -25,6 +25,7 @@
                 <div class="col-md-12">
                     {{ form_row(form.salleNom) }}
                     {{ form_row(form.salleNumero) }}
+                    {{ form_row(form.nombrePlace) }}
                     <div class="form-group">
                         <label for="">Début d'occupation</label>
                         <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
@@ -43,9 +44,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="">Motifs d'utilisation</label>
-                        <input type="text" name="motif" class="form-control">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="">Motifs d'utilisation</label>
+                                <input type="text" name="motif" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="">Nombre des personnes</label>
+                                <input type="text" name="nombre" class="form-control">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,26 @@
+{% extends 'admin/admin.html.twig' %}
+
+
+{% block title %}{{ parent() }} | Details réservations {% endblock %}
+
+{% set menu_salle       = true %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <h6 class="text-center">Details réservation du {{ reservation.salleNom }}</h6>
+        </div>
+        <div class="card-body">
+            <ul>
+                <li>{{ reservation.salleNom }} {{ reservation.salleNumero }}</li>
+                <li>réservé pour <strong>{{ reservation.nombrePlace }} pers</strong> le
+                    <mark>{{ reservation.debReserve|date('Y-m-d H:m') }}</mark>
+                    au
+                    <mark>{{ reservation.finReserve|date('Y-m-d H:m') }}</mark>
+                </li>
+                <li>Motifs : {{ reservation.motifs }}</li>
+            </ul>
+        </div>
+    </div>
+
+{% endblock %}
