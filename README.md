@@ -1,4 +1,4 @@
-# Sekoliko Application
+# Sekoliko Web Application
 
 Based on Symfony 4.0
 
