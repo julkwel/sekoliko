@@ -62,6 +62,47 @@ class SkEtudiant
      */
     private $dateRenvoie;
 
+    /**
+     * @var string
+     * @ORM\Column(name="motif_renvoie",type="text",nullable=true)
+     */
+    private $motifRenvoie;
+
+    /**
+     * @var string
+     * @ORM\Column(name="date_de_naissance",type="string",length=200,nullable=true)
+     */
+    private $dateDeNaissance;
+
+    /**
+     * @var string
+     * @ORM\Column(name="mere",type="string",length=200,nullable=true)
+     */
+    private $mere;
+
+    /**
+     * @var string
+     * @ORM\Column(name="pere",type="string",length=200,nullable=true)
+     */
+    private $pere;
+
+    /**
+     * @var string
+     * @ORM\Column(name="contact_parent",type="string",length=100,nullable=true)
+     */
+    private $contactParent;
+
+    /**
+     * @var string
+     * @ORM\Column(name="sexe",type="string",length=100,nullable=true)
+     */
+    private $sexe;
+
+    /**
+     * @var string
+     * @ORM\Column(name="addition",type="string",length=100, nullable=true)
+     */
+    private $addition;
 
     /**
      * @return int
@@ -141,6 +182,118 @@ class SkEtudiant
     public function setDateRenvoie($dateRenvoie)
     {
         $this->dateRenvoie = $dateRenvoie;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMotifRenvoie()
+    {
+        return $this->motifRenvoie;
+    }
+
+    /**
+     * @param string $motifRenvoie
+     */
+    public function setMotifRenvoie($motifRenvoie)
+    {
+        $this->motifRenvoie = $motifRenvoie;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDateDeNaissance()
+    {
+        return $this->dateDeNaissance;
+    }
+
+    /**
+     * @param string $dateDeNaissance
+     */
+    public function setDateDeNaissance($dateDeNaissance)
+    {
+        $this->dateDeNaissance = $dateDeNaissance;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMere()
+    {
+        return $this->mere;
+    }
+
+    /**
+     * @param string $mere
+     */
+    public function setMere($mere)
+    {
+        $this->mere = $mere;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPere()
+    {
+        return $this->pere;
+    }
+
+    /**
+     * @param string $pere
+     */
+    public function setPere($pere)
+    {
+        $this->pere = $pere;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContactParent()
+    {
+        return $this->contactParent;
+    }
+
+    /**
+     * @param string $contactParent
+     */
+    public function setContactParent($contactParent)
+    {
+        $this->contactParent = $contactParent;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSexe()
+    {
+        return $this->sexe;
+    }
+
+    /**
+     * @param string $sexe
+     */
+    public function setSexe($sexe)
+    {
+        $this->sexe = $sexe;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAddition()
+    {
+        return $this->addition;
+    }
+
+    /**
+     * @param string $addition
+     */
+    public function setAddition($addition)
+    {
+        $this->addition = $addition;
     }
 
 

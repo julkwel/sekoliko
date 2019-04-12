@@ -58,6 +58,41 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-12">
+                <h4>Informations pour l'étudiant</h4>
+                <div class="form-group">
+                    <label for="">Date de naissance</label>
+                    <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                        <input type="text" name="datedenaissance" required class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
+                        <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="">Sexe de l'étudiant</label>
+                    <select name="sexe" class="form-control" id="">
+                        <option value="Male">Male</option>
+                        <option value="Femme">Femme</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Nom de la mere</label>
+                    <input type="text" class="form-control" name="mere">
+                </div>
+                <div class="form-group">
+                    <label for="">Nom du pere</label>
+                    <input type="text" class="form-control" name="pere">
+                </div>
+                <div class="form-group">
+                    <label for="">Type d'addition (admis-redoublant)</label>
+                    <input type="text" class="form-control" name="addition">
+                </div>
+                <div class="form-group">
+                    <label for="">Contact parent</label>
+                    <input type="text" class="form-control" name="contactParent">
+                </div>
+            </div>
             <input type="submit" class="btn btn-primary btn-block" value="Enregistrer" name="new_user"/>
             <a href="{{ path('etudiant_liste',{'id':classe.id}) }}"
                class="btn btn-google btn-block">
@@ -66,6 +101,12 @@
             {{ form_end(form1) }}
         </div>
     </div>
+    <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker1').datetimepicker();
+            $('#datetimepicker2').datetimepicker();
+        });
+    </script>
     <script>
         $('#sk_userbundle_user_skRole').style.display = 'none'
     </script>

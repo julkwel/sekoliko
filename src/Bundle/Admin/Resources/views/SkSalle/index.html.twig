@@ -113,8 +113,10 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
+
         {% for salle in salle_list %}
         var date_list = '{{ salle.finReserve|date('d/m/y H:m') }}';
+
         var now = new Date();
         var date_now = $.format.date(now, 'dd/MM/yyyy HH:mm');
         if (date_list < date_now) {

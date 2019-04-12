@@ -29,10 +29,17 @@
                     {# Bouton création #}
                     {% if is_granted('ROLE_ADMIN') %}
                         <div class="row add-btn-top-list">
-                            <a href="{{ path('classe_etudiant_new',{'id':classe.id}) }}" class="btn btn-primary">
-                                Ajouter un étudiant en {{ classe.classeNom }}
-                            </a>
+                            <div class="m-2">
+                                <a href="{{ path('classe_etudiant_new',{'id':classe.id}) }}" class="btn btn-primary">
+                                    Ajouter un nouvelle étudiant en {{ classe.classeNom }}
+                                </a>
+                            </div>
+                            <div class="m-2">
+                                <a class="btn btn-secondary" href="{{ path('etudiant_search') }}">Nouvel classe d'étudiant</a>
+                            </div>
+
                         </div>
+
                     {% endif %}
                     <div class="box-header">
                         <div class="list-count">
