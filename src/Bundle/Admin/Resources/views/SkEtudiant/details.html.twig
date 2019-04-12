@@ -16,6 +16,7 @@
                     <li>Date d'ajout : {{ etudiant.etudiant.usrDateCreate |date('Y-m-d') }}</li>
                     {% if etudiant.isRenvoie == true %}
                         <li>Renvoyé le {{ etudiant.dateRenvoie | date('Y-m-d') }}</li>
+                        <li>Motifs de renvoie : {{ etudiant.motifRenvoie }}</li>
                     {% endif %}
                 </div>
                 <div class="col-md-6">
