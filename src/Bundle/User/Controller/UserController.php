@@ -92,12 +92,19 @@ class UserController extends Controller
         /*
          * Secure to etudiant connected
          */
+    /*
         if ($this->get('security.authorization_checker')->isGranted('ROLE_ETUDIANT') ||
             $this->get('security.authorization_checker')->isGranted('ROLE_PROFS')) {
             if ($this->getUserConnected()->getId() !== $_user->getId()) {
                 return $this->redirectToRoute('fos_user_security_logout');
             }
         }
+    */
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN') ||
+            $this->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
+                return $this->redirectToRoute('fos_user_security_logout');
+        }
+
         $_id_user = $this->getUserConnected()->getId();
         $_user_role = $this->getUserRole();
 
@@ -115,9 +122,12 @@ class UserController extends Controller
         $_esk_form = $this->createEditForm($_user);
 
         $_template = 'UserBundle:User:edit.html.twig';
+    /*
         if (RoleName::ID_ROLE_ETUDIANT === $_user_role) {
             $_template = 'UserBundle:User:edit_member.html.twig';
         }
+    */
+
 
         return $this->render($_template, array(
             'user' => $_user,
@@ -197,9 +207,6 @@ class UserController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     * @throws \Exception
      */
     public function newUserEtsAction(Request $request)
     {
@@ -246,19 +253,25 @@ class UserController extends Controller
         /*
          * Secure to etudiant and profs connected
          */
-        if (
+    /*
+         if (
             $this->get('security.authorization_checker')->isGranted('ROLE_ETUDIANT') || $this->get('security.authorization_checker')->isGranted('ROLE_PROFS')) {
             if ($this->getUserConnected()->getId() !== $_user->getId()) {
                 return $this->redirectToRoute('fos_user_security_logout');
             }
         }
-
+    */
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN') ||
+            $this->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
+            return $this->redirectToRoute('fos_user_security_logout');
+        }
+    /*
         if (50 === $_user->getId() || 48 === $_user->getId() || 144 === $_user->getId()) {
             $_user_manager->setFlash('error', 'Vous n\'avez pas le droit pour modifier cette utilisateur test');
 
             return $this->redirectToRoute('user_index');
         }
-
+    */
         if (!$_user) {
             throw $this->createNotFoundException('Unable to find User entity.');
         }
@@ -271,9 +284,9 @@ class UserController extends Controller
             $_user_manager->updateUser($_user, $_esk_form);
 
             $_user_manager->setFlash('success', 'Utilisateur modifié');
-            if (RoleName::ID_ROLE_ETUDIANT === $_user_role) {
-                return $this->redirectToRoute('dashboard_index');
-            }
+//            if (RoleName::ID_ROLE_ETUDIANT === $_user_role) {
+//              return $this->redirectToRoute('dashboard_index');
+//            }
 
             return $this->redirect($this->generateUrl('user_index'));
         }
