@@ -1,4 +1,3 @@
-
 <nav class="navbar navbar-expand navbar-light sk-bg-header  bg-white topbar mb-4 static-top shadow" id="sk-bg-header">
 
     <!-- Sidebar Toggle (Topbar) -->
@@ -28,18 +27,20 @@
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="{{ path('user_edit', { 'id': app.user.id }) }}">
-                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Profil
-                </a>
-                <a class="dropdown-item" href="{{ path('theme_new') }}">
-                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Thème
-                </a>
-                <a class="dropdown-item" href="{{ path('theme_reset') }}">
-                    <i class="fas fa-toggle-off fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Reset thème
-                </a>
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPERADMIN') %}
+                    <a class="dropdown-item" href="{{ path('user_edit', { 'id': app.user.id }) }}">
+                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Profil
+                    </a>
+                    <a class="dropdown-item" href="{{ path('theme_new') }}">
+                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Thème
+                    </a>
+                    <a class="dropdown-item" href="{{ path('theme_reset') }}">
+                        <i class="fas fa-toggle-off fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Reset thème
+                    </a>
+                {% endif %}
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ path('fos_user_security_logout') }}">
                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>

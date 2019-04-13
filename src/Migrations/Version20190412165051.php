@@ -1,28 +1,35 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace DoctrineMigrations;
 
-use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
+use Doctrine\Migrations\AbstractMigration;
 
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-class Version20190411095753 extends AbstractMigration
+final class Version20190412165051 extends AbstractMigration
 {
-    public function up(Schema $schema)
+    public function getDescription() : string
+    {
+        return '';
+    }
+
+    public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE sk_etudiant CHANGE is_renvoie is_renvoie TINYINT(1) DEFAULT \'0\'');
+        $this->addSql('ALTER TABLE sk_etudiant ADD addition VARCHAR(100) DEFAULT NULL, DROP is_passent');
     }
 
-    public function down(Schema $schema)
+    public function down(Schema $schema) : void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE sk_etudiant CHANGE is_renvoie is_renvoie TINYINT(1) DEFAULT \'0\' NOT NULL');
+        $this->addSql('ALTER TABLE sk_etudiant ADD is_passent TINYINT(1) DEFAULT \'0\', DROP addition');
     }
 }

@@ -25,10 +25,11 @@
                 <div class="col-md-12">
                     {{ form_row(form.salleNom) }}
                     {{ form_row(form.salleNumero) }}
+                    {{ form_row(form.nombrePlace) }}
                     <div class="form-group">
                         <label for="">Début d'occupation</label>
                         <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                            <input type="text" name="debut" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
+                            <input type="text" name="debut" required class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
                             <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>
@@ -37,15 +38,25 @@
                     <div class="form-group">
                         <label for="">Fin d'occupation</label>
                         <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
-                            <input type="text" name="fin" class="form-control datetimepicker-input" data-target="#datetimepicker2"/>
+                            <input type="text" name="fin" required class="form-control datetimepicker-input" data-target="#datetimepicker2"/>
                             <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="">Motifs d'utilisation</label>
-                        <input type="text" name="motif" class="form-control">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="">Motifs d'utilisation</label>
+                                <input type="text" required name="motif" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="">Nombre des personnes</label>
+                                <input type="text" required name="nombre" class="form-control">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

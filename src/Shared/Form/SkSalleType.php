@@ -10,6 +10,7 @@ namespace App\Shared\Form;
 
 use App\Shared\Entity\SkSalle;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -24,6 +25,9 @@ class SkSalleType extends AbstractType
             ))
             ->add('salleNumero', TextType::class, array(
                 'label' => 'Numero salle',
+            ))
+            ->add('nombrePlace',NumberType::class,array(
+                'label' => 'Nombre des places dans la salle'
             ))
             ;
     }

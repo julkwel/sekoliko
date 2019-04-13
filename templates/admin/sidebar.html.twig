@@ -77,7 +77,6 @@
                             <a class="collapse-item" href="{{ path('user_search') }}">Recherche utilisateur</a>
                             <a class="collapse-item" href="{{ path('user_index') }}">Liste des administrateurs</a>
                             <a class="collapse-item" href="{{ path('user_new') }}">Nouvel utilisateur</a>
-                            <a class="collapse-item" href="{{ path('etudiant_search') }}">Nouvel classe d'étudiant</a>
                         {% endif %}
                         {% if is_granted('ROLE_ETUDIANT') or is_granted('ROLE_PROFS') %}
                             <a class="collapse-item" href="{{ path('user_search') }}">Chercher une personne</a>

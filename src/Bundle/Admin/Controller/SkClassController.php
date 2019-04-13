@@ -408,6 +408,12 @@ class SkClassController extends Controller
                     $_etudiant->setClasse($skClasse);
                     $_etudiant->setEtudiant($_etudiant_data);
                     $_etudiant->setIsRenvoie(false);
+                    $_etudiant->setDateDeNaissance($value[6] ? $value[6] : 'Null');
+                    $_etudiant->setSexe($value[7] ? $value[7] : 'Null');
+                    $_etudiant->setAddition($value[8]? $value[8] : 'Null');
+                    $_etudiant->setPere($value[9] ? $value[9] : 'Null');
+                    $_etudiant->setMere($value[10] ? $value[10] : 'Null');
+                    $_etudiant->setContactParent($value[11] ? $value[11] : 'Null');
 
                     for ($a = 0; $a < count($the_big_array); ++$a) {
                         try {
@@ -435,15 +441,16 @@ class SkClassController extends Controller
             $_user_role = RoleName::ROLE_ETUDIANT;
 
             $_form = $this->createForm(UserType::class, $_user);
-            $_form_etd = $this->createForm(SkEtudiantType::class);
             $_role = $this->getDoctrine()->getRepository(SkRole::class)->find(2);
 
 
             if ($request->isMethod('POST')) {
                 try {
                     $_form->handleRequest($request);
-                    $_form_etd->handleRequest($request);
                     if ($_form->isSubmitted()) {
+                        $_date_de_naissance = $request->request->get('datedenaissance');
+                        $_dt_n= new \DateTime($_date_de_naissance);
+                        $_dt_n = $_dt_n->format('d/m/Y');
                         try {
                             $_pass = $_user->setPlainPassword('123456');
                             $_user->setPassword($_pass);
@@ -455,6 +462,12 @@ class SkClassController extends Controller
                             $_etudiant->setClasse($skClasse);
                             $_etudiant->setEtudiant($_user);
                             $_etudiant->setIsRenvoie(false);
+                            $_etudiant->setPere($request->request->get('pere'));
+                            $_etudiant->setMere($request->request->get('mere'));
+                            $_etudiant->setContactParent($request->request->get('contactParent'));
+                            $_etudiant->setSexe($request->request->get('sexe'));
+                            $_etudiant->setAddition($request->request->get('addition'));
+                            $_etudiant->setDateDeNaissance($_dt_n);
 
                             try {
                                 $this->getEntityService()->saveEntity($_user, 'new');
@@ -486,7 +499,6 @@ class SkClassController extends Controller
 
         return $this->render('@Admin/SkClasse/add.etudiant.html.twig', array(
             'form1' => $_form->createView(),
-            'form2' => $_form_etd->createView(),
             'classe' => $skClasse,
             'form_upload' => $_form_upload->createView(),
         ));

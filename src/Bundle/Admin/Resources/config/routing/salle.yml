@@ -18,6 +18,11 @@ salle_reservation:
     defaults: { _controller: "AdminBundle:SkSalle:reservation" }
     methods:  [GET, POST]
 
+details_reservation:
+    path:     /{id}/reservation/details
+    defaults: { _controller: "AdminBundle:SkSalle:detailsReservation" }
+    methods:  [GET, POST]
+
 salle_annule:
     path:     /{id}/annule
     defaults: { _controller: "AdminBundle:SkSalle:annule" }
