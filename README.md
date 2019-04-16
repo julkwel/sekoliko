@@ -1,4 +1,4 @@
-# Sekoliko Application
+# Sekoliko Web Application
 
 Based on Symfony 4.0
 
@@ -44,13 +44,10 @@ Based on Symfony 4.0
 
 To import student data go to /admin/classe/ then click on student list /new student , Import etudiant via csv file , and format your csv like bellow :
 
-| nom | prenom | email        | username | adresse | telephone |
-| --- | ------ | ------------ | -------- | ------- | --------- |
-| jul | jul    | jul1@jul.com | jul1     | jul     | 345475684 |
-| jul | jul    | jul2@jul.com | jul2     | jul     | 345475684 |
-| jul | jul    | jul3@jul.com | jul3     | jul     | 345475684 |
-| jul | jul    | jul4@jul.com | jul4     | jul     | 345475684 |
-|     |        |              |          |         |           |
+| nom | prenom | email        | username | adresse | telephone | date de naissance | sexe | Addition | Pere | Mere | Contact Parentale |
+| --- | ------ | ------------ | -------- | ------- | --------- | --------- | --------- | --------- | --------- | --------- | --------- |
+| jul | jul    | jul1@jul.com | jul1     | jul     | 345475684 | 29/01/95 | M | Passant  | Rakoto | Rasoa | 0329473033 |
+| jul | jul    | jul2@jul.com | jul2     | jul     | 345475684 | 29/01/95 | F | Redoublant | Rakoto | Rasoa | 0329473033 |
 
 ## Front
 
