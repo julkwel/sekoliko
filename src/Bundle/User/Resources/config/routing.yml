@@ -1,13 +1,9 @@
-sk_redirect:
-    path: /
-    defaults: { _controller: UserBundle:Security:redirect }
-
 sk_user:
     resource: "@UserBundle/Resources/config/routing/user.yml"
     prefix:   /admin/user
 
 sk_login:
-    path: /login
+    path: /
     defaults: { _controller: UserBundle:Security:login }
 
 api_login_check:

@@ -1,6 +1,794 @@
-{% extends 'base.html.twig' %}
+{% extends 'front/base.front.html.twig' %}
 
 {% block body %}
-<div id="root"></div>
-<script type="text/javascript" src="{{ asset('build/js/app.js') }}"></script>
+    {#<div id="root"></div>#}
+    {#<script type="text/javascript" src="{{ asset('build/js/app.js') }}"></script>#}
+
+    <!--==========================
+      Intro Section
+    ============================-->
+    <section id="intro" class="clearfix" style="background: black">
+        <div class="container">
+
+            <div class="intro-img">
+                <img src="{{ asset('front/img/intro-img.svg') }}" alt="" class="img-fluid">
+            </div>
+
+            <div class="intro-info">
+                <h2>Numeriser la gestion de votre établissement avec <br>Sekoliko</h2>
+                <div>
+                    <a href="{{ path('sk_login') }}" target="_blank" class="btn-get-started scrollto">Try it out</a>
+                    <a href="#about" class="btn-services scrollto">Sekoliko ? </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- #intro -->
+
+    <main id="main">
+
+        <!--==========================
+          Apropos Sekoliko Section
+        ============================-->
+        <section id="about">
+            <div class="container">
+
+                <header class="section-header">
+                    <h3>Apropos Sekoliko</h3>
+                    <p>Sekoliko est une application web pour objectif à la numérisation de gestion des établissements
+                        scolaire</p>
+                </header>
+
+                <div class="row about-container">
+
+                    <div class="col-lg-6 content order-lg-1 order-2">
+                        <p>
+                            Liste des modules dans cette application
+                        </p>
+
+                        <div class="icon-box wow fadeInUp">
+                            <div class="icon"><i class="fa fa-user-circle"></i></div>
+                            <h4 class="title"><a href="">Gestion des étudiants</a></h4>
+                            <p class="description">Liste des étudiants , note des étudiants , informations de
+                                l'étudiant</p>
+                        </div>
+
+                        <div class="icon-box wow fadeInUp" data-wow-delay="0.2s">
+                            <div class="icon"><i class="fa fa-photo"></i></div>
+                            <h4 class="title"><a href="">Gestion de l'établissement en générale </a></h4>
+                            <p class="description">Information pour les étudiants , profs et parent , emploi du
+                                temps</p>
+                        </div>
+
+                        <div class="icon-box wow fadeInUp" data-wow-delay="0.4s">
+                            <div class="icon"><i class="fa fa-bar-chart"></i></div>
+                            <h4 class="title"><a href="">Gestion logistique et financiaire</a></h4>
+                            <p class="description">Gestion des salles , bibliothèques , paiement des écolage et frais
+                                scolaire en ligne</p>
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-6 background order-lg-2 order-1 wow fadeInUp">
+                        <img src="{{ asset('front/img/about-img.svg') }}" class="img-fluid" alt="">
+                    </div>
+                </div>
+
+            </div>
+        </section><!-- #about -->
+
+        <!--==========================
+          Services Section
+        ============================-->
+        <section id="services" class="section-bg">
+            <div class="container">
+
+                <header class="section-header">
+                    <h3>Les modules</h3>
+                    <p>Les modules dans l'application vous servir à.</p>
+                </header>
+
+                <div class="row">
+
+                    <div class="col-md-6 col-lg-5 offset-lg-1 wow bounceInUp" data-wow-duration="1.4s">
+                        <div class="box">
+                            <div class="icon"><i class="ion-ios-analytics-outline" style="color: #ff689b;"></i></div>
+                            <h4 class="title"><a href="">Gerer votre établissement en générale</a></h4>
+                            <p class="description">Nombre des salles , profs étudiants et classe dans votre
+                                établissement </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-5 wow bounceInUp" data-wow-duration="1.4s">
+                        <div class="box">
+                            <div class="icon"><i class="ion-ios-paper-outline" style="color: #e9bf06;"></i></div>
+                            <h4 class="title"><a href="">Gerer les profs</a></h4>
+                            <p class="description">Assigné des matieres à une professeur et planifier leur emploi du
+                                temps</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-5 offset-lg-1 wow bounceInUp" data-wow-delay="0.1s"
+                         data-wow-duration="1.4s">
+                        <div class="box">
+                            <div class="icon"><i class="ion-ios-bookmarks-outline" style="color: #3fcdc7;"></i></div>
+                            <h4 class="title"><a href="">Gerer les matieres</a></h4>
+                            <p class="description">Créer une matiere avec le coefficient , assigné a une professeur et
+                                pour une classe</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-5 wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
+                        <div class="box">
+                            <div class="icon"><i class="ion-ios-world-outline" style="color:#41cf2e;"></i></div>
+                            <h4 class="title"><a href="">Information</a></h4>
+                            <p class="description">Numeriser les informations pour les personne dans votre
+                                établissement</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-5 offset-lg-1 wow bounceInUp" data-wow-delay="0.2s"
+                         data-wow-duration="1.4s">
+                        <div class="box">
+                            <div class="icon"><i class="ion-ios-speedometer-outline" style="color: #d6ff22;"></i></div>
+                            <h4 class="title"><a href="">Gerer votre salle et bibliothèque</a></h4>
+                            <p class="description">Planifier l'utilisation de votre salle pour les réunions et suivant
+                                l'emploi du temps</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-5 wow bounceInUp" data-wow-delay="0.2s" data-wow-duration="1.4s">
+                        <div class="box">
+                            <div class="icon"><i class="ion-ios-clock-outline" style="color: #4680ff;"></i></div>
+                            <h4 class="title"><a href="">Diminuer votre temps</a></h4>
+                            <p class="description">Diminuer votre temps pour les paiements des frais scolaire ainsi les
+                                écolages</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section><!-- #services -->
+
+        <!--==========================
+          Why Us Section
+        ============================-->
+        <section id="why-us" class="wow fadeIn">
+            <div class="container">
+                <header class="section-header">
+                    <h3>Pourquoi Sekoliko ?</h3>
+                    <p>C'est une application gratuit et opensource Malagasy.</p>
+                </header>
+
+                <div class="row row-eq-height justify-content-center">
+
+                    <div class="col-lg-4 mb-4">
+                        <div class="card wow bounceInUp">
+                            <i class="fa fa-home"></i>
+                            <div class="card-body">
+                                <h5 class="card-title">Pour toutes sorte d'établissement</h5>
+                                <p class="card-text">Grace a la fonctionnalité standard de l'application , Sekoliko et
+                                    compatible pour toutes les établissement ,
+                                    Il suffit d'avoir une connection permanente.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 mb-4">
+                        <div class="card wow bounceInUp">
+                            <i class="fa fa-language"></i>
+                            <div class="card-body">
+                                <h5 class="card-title">Sécurité de vos données</h5>
+                                <p class="card-text">L'application est en ligne mais la sécurité de vos données de
+                                    l'établissement et les données personnels sont
+                                    assurer par nous</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 mb-4">
+                        <div class="card wow bounceInUp">
+                            <i class="fa fa-object-group"></i>
+                            <div class="card-body">
+                                <h5 class="card-title">Access pour les étudiants et profs</h5>
+                                <p class="card-text">L'access pour les étudiants et professeurs sont déjà mise en place
+                                    ,mais les étudiants et professeurs ne trouve que les informations
+                                    qui le concerne</p>
+                                <a href="#" class="readmore">Read more </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                {#<div class="row counters">#}
+
+                {#<div class="col-lg-3 col-6 text-center">#}
+                {#<span data-toggle="counter-up">274</span>#}
+                {#<p>Clients</p>#}
+                {#</div>#}
+
+                {#<div class="col-lg-3 col-6 text-center">#}
+                {#<span data-toggle="counter-up">421</span>#}
+                {#<p>Projects</p>#}
+                {#</div>#}
+
+                {#<div class="col-lg-3 col-6 text-center">#}
+                {#<span data-toggle="counter-up">1,364</span>#}
+                {#<p>Hours Of Support</p>#}
+                {#</div>#}
+
+                {#<div class="col-lg-3 col-6 text-center">#}
+                {#<span data-toggle="counter-up">18</span>#}
+                {#<p>Hard Workers</p>#}
+                {#</div>#}
+
+                {#</div>#}
+
+            </div>
+        </section>
+
+        <!--==========================
+          Portfolio Section
+        ============================-->
+        <section id="portfolio" class="clearfix">
+            <div class="container">
+
+                <header class="section-header">
+                    <h3 class="section-title">Our Portfolio</h3>
+                </header>
+
+                {#<div class="row">#}
+                {#<div class="col-lg-12">#}
+                {#<ul id="portfolio-flters">#}
+                {#<li data-filter="*" class="filter-active">All</li>#}
+                {#<li data-filter=".filter-app">App</li>#}
+                {#<li data-filter=".filter-card">Card</li>#}
+                {#<li data-filter=".filter-web">Web</li>#}
+                {#</ul>#}
+                {#</div>#}
+                {#</div>#}
+
+                <div class="row portfolio-container">
+
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+                        <div class="portfolio-wrap">
+                            <img src="{{ asset('img/sekoliko.png') }}" class="img-fluid" alt="">
+                            <div class="portfolio-info">
+                                <h4><a href="#">App 1</a></h4>
+                                <p>App</p>
+                                <div>
+                                    <a href="{{ asset('img/sekoliko.png') }}" data-lightbox="portfolio"
+                                    data-title="App 1" class="link-preview" title="Preview"><i
+                                            class="ion ion-eye"></i></a>
+                                    <a href="#" class="link-details" title="More Details"><i
+                                                class="ion ion-android-open"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-web" data-wow-delay="0.1s">
+                        <div class="portfolio-wrap">
+                            <img src="{{ asset('img/sekoly2.jpg') }}" class="img-fluid" alt="">
+                            <div class="portfolio-info">
+                                <h4><a href="#">Web 3</a></h4>
+                                <p>Web</p>
+                                <div>
+                                    <a href="{{ asset('img/sekoly2.jpg') }}" class="link-preview"
+                                       data-lightbox="portfolio" data-title="Web 3" title="Preview"><i
+                                                class="ion ion-eye"></i></a>
+                                    <a href="#" class="link-details" title="More Details"><i
+                                                class="ion ion-android-open"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-app" data-wow-delay="0.2s">
+                        <div class="portfolio-wrap">
+                            <img src="{{ asset('img/sekoliko.jpeg') }}" class="img-fluid" alt="">
+                            <div class="portfolio-info">
+                                <h4><a href="#">App 2</a></h4>
+                                <p>App</p>
+                                <div>
+                                    <a href="{{ asset('img/sekoliko.jpeg') }}" class="link-preview"
+                                       data-lightbox="portfolio" data-title="App 2" title="Preview"><i
+                                                class="ion ion-eye"></i></a>
+                                    <a href="#" class="link-details" title="More Details"><i
+                                                class="ion ion-android-open"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+                        <div class="portfolio-wrap">
+                            <img src="{{ asset('img/sekoly3.jpg') }}" class="img-fluid" alt="">
+                            <div class="portfolio-info">
+                                <h4><a href="#">Card 2</a></h4>
+                                <p>Card</p>
+                                <div>
+                                    <a href="{{ asset('img/sekoly3.jpg') }}" class="link-preview"
+                                       data-lightbox="portfolio" data-title="Card 2" title="Preview"><i
+                                                class="ion ion-eye"></i></a>
+                                    <a href="#" class="link-details" title="More Details"><i
+                                                class="ion ion-android-open"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-web" data-wow-delay="0.1s">
+                        <div class="portfolio-wrap">
+                            <img src="{{ asset('img/sekoly.jpg') }}" class="img-fluid" alt="">
+                            <div class="portfolio-info">
+                                <h4><a href="#">Web 2</a></h4>
+                                <p>Web</p>
+                                <div>
+                                    <a href="{{ asset('img/sekoly.jpg') }}" class="link-preview"
+                                       data-lightbox="portfolio" data-title="Web 2" title="Preview"><i
+                                                class="ion ion-eye"></i></a>
+                                    <a href="#" class="link-details" title="More Details"><i
+                                                class="ion ion-android-open"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-app" data-wow-delay="0.2s">
+                        <div class="portfolio-wrap">
+                            <img src="{{ asset('front/img/portfolio/app3.jpg') }}" class="img-fluid" alt="">
+                            <div class="portfolio-info">
+                                <h4><a href="#">App 3</a></h4>
+                                <p>App</p>
+                                <div>
+                                    <a href="{{ asset('front/img/portfolio/app3.jpg') }}" class="link-preview"
+                                       data-lightbox="portfolio" data-title="App 3" title="Preview"><i
+                                                class="ion ion-eye"></i></a>
+                                    <a href="#" class="link-details" title="More Details"><i
+                                                class="ion ion-android-open"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+                        <div class="portfolio-wrap">
+                            <img src="{{ asset('front/img/portfolio/card1.jpg') }}" class="img-fluid" alt="">
+                            <div class="portfolio-info">
+                                <h4><a href="#">Card 1</a></h4>
+                                <p>Card</p>
+                                <div>
+                                    <a href="{{ asset('front/img/portfolio/card1.jpg') }}" class="link-preview"
+                                       data-lightbox="portfolio" data-title="Card 1" title="Preview"><i
+                                                class="ion ion-eye"></i></a>
+                                    <a href="#" class="link-details" title="More Details"><i
+                                                class="ion ion-android-open"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-card" data-wow-delay="0.1s">
+                        <div class="portfolio-wrap">
+                            <img src="{{ asset('front/img/portfolio/card3.jpg') }}" class="img-fluid" alt="">
+                            <div class="portfolio-info">
+                                <h4><a href="#">Card 3</a></h4>
+                                <p>Card</p>
+                                <div>
+                                    <a href="{{ asset('front/img/portfolio/card3.jpg') }}" class="link-preview"
+                                       data-lightbox="portfolio" data-title="Card 3" title="Preview"><i
+                                                class="ion ion-eye"></i></a>
+                                    <a href="#" class="link-details" title="More Details"><i
+                                                class="ion ion-android-open"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-web" data-wow-delay="0.2s">
+                        <div class="portfolio-wrap">
+                            <img src="{{ asset('img/sekoliko.jpeg') }}" class="img-fluid" alt="">
+                            <div class="portfolio-info">
+                                <h4><a href="#">Web 1</a></h4>
+                                <p>Web</p>
+                                <div>
+                                    <a href="{{ asset('img/sekoliko.jpeg') }}" class="link-preview"
+                                       data-lightbox="portfolio" data-title="Web 1" title="Preview"><i
+                                                class="ion ion-eye"></i></a>
+                                    <a href="#" class="link-details" title="More Details"><i
+                                                class="ion ion-android-open"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section><!-- #portfolio -->
+
+        <!--==========================
+          Clients Section
+        ============================-->
+        {#<section id="testimonials" class="section-bg">#}
+        {#<div class="container">#}
+
+        {#<header class="section-header">#}
+        {#<h3>Testimonials</h3>#}
+        {#</header>#}
+
+        {#<div class="row justify-content-center">#}
+        {#<div class="col-lg-8">#}
+
+        {#<div class="owl-carousel testimonials-carousel wow fadeInUp">#}
+
+        {#<div class="testimonial-item">#}
+        {#<img src="img/testimonial-1.jpg" class="testimonial-img" alt="">#}
+        {#<h3>Saul Goodman</h3>#}
+        {#<h4>Ceo &amp; Founder</h4>#}
+        {#<p>#}
+        {#Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.#}
+        {#</p>#}
+        {#</div>#}
+
+        {#<div class="testimonial-item">#}
+        {#<img src="img/testimonial-2.jpg" class="testimonial-img" alt="">#}
+        {#<h3>Sara Wilsson</h3>#}
+        {#<h4>Designer</h4>#}
+        {#<p>#}
+        {#Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.#}
+        {#</p>#}
+        {#</div>#}
+
+        {#<div class="testimonial-item">#}
+        {#<img src="img/testimonial-3.jpg" class="testimonial-img" alt="">#}
+        {#<h3>Jena Karlis</h3>#}
+        {#<h4>Store Owner</h4>#}
+        {#<p>#}
+        {#Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.#}
+        {#</p>#}
+        {#</div>#}
+
+        {#<div class="testimonial-item">#}
+        {#<img src="img/testimonial-4.jpg" class="testimonial-img" alt="">#}
+        {#<h3>Matt Brandon</h3>#}
+        {#<h4>Freelancer</h4>#}
+        {#<p>#}
+        {#Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.#}
+        {#</p>#}
+        {#</div>#}
+
+        {#<div class="testimonial-item">#}
+        {#<img src="img/testimonial-5.jpg" class="testimonial-img" alt="">#}
+        {#<h3>John Larson</h3>#}
+        {#<h4>Entrepreneur</h4>#}
+        {#<p>#}
+        {#Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.#}
+        {#</p>#}
+        {#</div>#}
+
+        {#</div>#}
+
+        {#</div>#}
+        {#</div>#}
+
+
+        {#</div>#}
+        {#</section><!-- #testimonials -->#}
+
+        <!--==========================
+          Team Section
+        ============================-->
+        <section id="team">
+            <div class="container">
+                <div class="section-header">
+                    <h3>Team</h3>
+                    <p>Nos Team et les contributeurs de projet Sekoliko</p>
+                </div>
+
+                <div class="row text-center">
+                    <div class="col-lg-2 col-md-6 wow fadeInUp">
+                        <div class="member">
+                            <img src="https://avatars2.githubusercontent.com/u/8157490?s=400&v=4" class="img-fluid"
+                                 alt="">
+                            <div class="member-info">
+                                <div class="member-info-content">
+                                    <h4>Hantsaniala Eleo</h4>
+                                    <span>Développeur</span>
+                                    <div class="social">
+                                        <a href=""><i class="fa fa-twitter"></i></a>
+                                        <a href=""><i class="fa fa-facebook"></i></a>
+                                        <a href=""><i class="fa fa-google-plus"></i></a>
+                                        <a href=""><i class="fa fa-linkedin"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="member">
+                            <img src="https://avatars0.githubusercontent.com/u/8298581?s=400&v=4" class="img-fluid"
+                                 alt="">
+                            <div class="member-info">
+                                <div class="member-info-content">
+                                    <h4>Tolotra Raharison</h4>
+                                    <span>Développeur</span>
+                                    <div class="social">
+                                        <a href=""><i class="fa fa-twitter"></i></a>
+                                        <a href=""><i class="fa fa-facebook"></i></a>
+                                        <a href=""><i class="fa fa-google-plus"></i></a>
+                                        <a href=""><i class="fa fa-linkedin"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="member">
+                            <img src="https://avatars0.githubusercontent.com/u/33556409?s=400&v=4" class="img-fluid"
+                                 alt="">
+                            <div class="member-info">
+                                <div class="member-info-content">
+                                    <h4>Vony Randria</h4>
+                                    <span>Développeur</span>
+                                    <div class="social">
+                                        <a href=""><i class="fa fa-twitter"></i></a>
+                                        <a href=""><i class="fa fa-facebook"></i></a>
+                                        <a href=""><i class="fa fa-google-plus"></i></a>
+                                        <a href=""><i class="fa fa-linkedin"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="member">
+                            <img src="https://avatars2.githubusercontent.com/u/39415739?s=400&v=4" class="img-fluid"
+                                 alt="">
+                            <div class="member-info">
+                                <div class="member-info-content">
+                                    <h4>Max</h4>
+                                    <span>Développeur</span>
+                                    <div class="social">
+                                        <a href=""><i class="fa fa-twitter"></i></a>
+                                        <a href=""><i class="fa fa-facebook"></i></a>
+                                        <a href=""><i class="fa fa-google-plus"></i></a>
+                                        <a href=""><i class="fa fa-linkedin"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="member">
+                            <img src="https://avatars0.githubusercontent.com/u/40733956?s=400&v=4" class="img-fluid"
+                                 alt="">
+                            <div class="member-info">
+                                <div class="member-info-content">
+                                    <h4>Chrys</h4>
+                                    <span>Développeur</span>
+                                    <div class="social">
+                                        <a href=""><i class="fa fa-twitter"></i></a>
+                                        <a href=""><i class="fa fa-facebook"></i></a>
+                                        <a href=""><i class="fa fa-google-plus"></i></a>
+                                        <a href=""><i class="fa fa-linkedin"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="member">
+                            <img src="https://avatars2.githubusercontent.com/u/45007981?s=400&v=4" class="img-fluid"
+                                 alt="">
+                            <div class="member-info">
+                                <div class="member-info-content">
+                                    <h4>Fy</h4>
+                                    <span>Développeur</span>
+                                    <div class="social">
+                                        <a href=""><i class="fa fa-twitter"></i></a>
+                                        <a href=""><i class="fa fa-facebook"></i></a>
+                                        <a href=""><i class="fa fa-google-plus"></i></a>
+                                        <a href=""><i class="fa fa-linkedin"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="member">
+                            <img src="https://avatars2.githubusercontent.com/u/45585022?s=400&v=4" class="img-fluid"
+                                 alt="">
+                            <div class="member-info">
+                                <div class="member-info-content">
+                                    <h4>Vatosoa</h4>
+                                    <span>Développeur</span>
+                                    <div class="social">
+                                        <a href=""><i class="fa fa-twitter"></i></a>
+                                        <a href=""><i class="fa fa-facebook"></i></a>
+                                        <a href=""><i class="fa fa-google-plus"></i></a>
+                                        <a href=""><i class="fa fa-linkedin"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="member">
+                            <img src="https://avatars1.githubusercontent.com/u/30557565?s=460&v=4" class="img-fluid"
+                                 alt="">
+                            <div class="member-info">
+                                <div class="member-info-content">
+                                    <h4>Julien</h4>
+                                    <span>Développeur</span>
+                                    <div class="social">
+                                        <a href=""><i class="fa fa-twitter"></i></a>
+                                        <a href=""><i class="fa fa-facebook"></i></a>
+                                        <a href=""><i class="fa fa-google-plus"></i></a>
+                                        <a href=""><i class="fa fa-linkedin"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section><!-- #team -->
+
+        <!--==========================
+          Clients Section
+        ============================-->
+        {#<section id="clients" class="section-bg">#}
+
+        {#<div class="container">#}
+
+        {#<div class="section-header">#}
+        {#<h3>Our CLients</h3>#}
+        {#<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque dere santome nida.</p>#}
+        {#</div>#}
+
+        {#<div class="row no-gutters clients-wrap clearfix wow fadeInUp">#}
+
+        {#<div class="col-lg-3 col-md-4 col-xs-6">#}
+        {#<div class="client-logo">#}
+        {#<img src="img/clients/client-1.png" class="img-fluid" alt="">#}
+        {#</div>#}
+        {#</div>#}
+
+        {#<div class="col-lg-3 col-md-4 col-xs-6">#}
+        {#<div class="client-logo">#}
+        {#<img src="img/clients/client-2.png" class="img-fluid" alt="">#}
+        {#</div>#}
+        {#</div>#}
+
+        {#<div class="col-lg-3 col-md-4 col-xs-6">#}
+        {#<div class="client-logo">#}
+        {#<img src="img/clients/client-3.png" class="img-fluid" alt="">#}
+        {#</div>#}
+        {#</div>#}
+
+        {#<div class="col-lg-3 col-md-4 col-xs-6">#}
+        {#<div class="client-logo">#}
+        {#<img src="img/clients/client-4.png" class="img-fluid" alt="">#}
+        {#</div>#}
+        {#</div>#}
+
+        {#<div class="col-lg-3 col-md-4 col-xs-6">#}
+        {#<div class="client-logo">#}
+        {#<img src="img/clients/client-5.png" class="img-fluid" alt="">#}
+        {#</div>#}
+        {#</div>#}
+
+        {#<div class="col-lg-3 col-md-4 col-xs-6">#}
+        {#<div class="client-logo">#}
+        {#<img src="img/clients/client-6.png" class="img-fluid" alt="">#}
+        {#</div>#}
+        {#</div>#}
+
+        {#<div class="col-lg-3 col-md-4 col-xs-6">#}
+        {#<div class="client-logo">#}
+        {#<img src="img/clients/client-7.png" class="img-fluid" alt="">#}
+        {#</div>#}
+        {#</div>#}
+
+        {#<div class="col-lg-3 col-md-4 col-xs-6">#}
+        {#<div class="client-logo">#}
+        {#<img src="img/clients/client-8.png" class="img-fluid" alt="">#}
+        {#</div>#}
+        {#</div>#}
+
+        {#</div>#}
+
+        {#</div>#}
+
+        {#</section>#}
+
+        <!--==========================
+          Contact Section
+        ============================-->
+        <section id="contact">
+            <div class="container-fluid">
+
+                <div class="section-header">
+                    <h3>Contact Us</h3>
+                </div>
+
+                <div class="row wow fadeInUp">
+
+                    <div class="col-lg-6">
+                        <div class="map mb-4 mb-lg-0">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26901.234018943578!2d47.52158043417662!3d-18.911384522877157!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x21f07e024205b64f%3A0x692e3a59431e519a!2sAntananarivo!5e0!3m2!1sfr!2smg!4v1555447853929!5m2!1sfr!2smg"
+                                    width="100%" height="312" frameborder="0" style="border:0" allowfullscreen></iframe>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-md-5 info">
+                                <i class="ion-ios-location-outline"></i>
+                                <p>Sekoliko Madagascar</p>
+                            </div>
+                            <div class="col-md-4 info">
+                                <i class="ion-ios-email-outline"></i>
+                                <p>sekoliko.mada@gmail.com</p>
+                            </div>
+                            <div class="col-md-3 info">
+                                <i class="ion-ios-telephone-outline"></i>
+                                <p>032 94 730 33</p>
+                            </div>
+                        </div>
+
+                        <div class="form">
+
+                            <div id="errormessage"></div>
+                            <form action="" method="post" role="form" class="contactForm">
+                                <div class="form-row">
+                                    <div class="form-group col-lg-6">
+                                        <input type="text" name="name" class="form-control" id="name"
+                                               placeholder="Your Name" data-rule="minlen:4"
+                                               data-msg="Please enter at least 4 chars"/>
+                                        <div class="validation"></div>
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <input type="email" class="form-control" name="email" id="email"
+                                               placeholder="Your Email" data-rule="email"
+                                               data-msg="Please enter a valid email"/>
+                                        <div class="validation"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="subject" id="subject"
+                                           placeholder="Subject" data-rule="minlen:4"
+                                           data-msg="Please enter at least 8 chars of subject"/>
+                                    <div class="validation"></div>
+                                </div>
+                                <div class="form-group">
+                                    <textarea class="form-control" name="message" rows="5" data-rule="required"
+                                              data-msg="Please write something for us" placeholder="Message"></textarea>
+                                    <div class="validation"></div>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" title="Send Message">Envoyée</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section><!-- #contact -->
+
+    </main>
 {% endblock %}
