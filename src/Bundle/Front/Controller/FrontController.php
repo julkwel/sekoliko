@@ -57,7 +57,7 @@ class FrontController extends Controller
         try{
             $message->setContentType('text/html');
             $_result = $this->get('mailer')->send($message);
-            $this->get('mailer')->send($message_client);
+//            $this->get('mailer')->send($message_client);
         }catch (\Exception $exception){
             dump($exception->getMessage());die();
         }
@@ -70,6 +70,7 @@ class FrontController extends Controller
         $_headers->addParameterizedHeader('Content-type', 'text/html', ['charset' => 'utf-8']);
 
         if ($_result) {
+            dump($_result);die();
             return $this->render('FrontBundle::index.html.twig');
         }
     }
