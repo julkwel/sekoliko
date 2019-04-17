@@ -111,9 +111,10 @@ jQuery(document).ready(function ($) {
                     window.location.reload();
                 }
             },
-            error: function () {
-                alert("Un erreur se produite , veuillez réessayer")
-            }
+            error: function (request, error) {
+                console.log(arguments);
+                alert(" Can't do because: " + error);
+            },
         });
         return false;
     });
