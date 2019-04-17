@@ -45,23 +45,18 @@ class FrontController extends Controller
                 'text/html'
             );
 
-//        $message_client = (new \Swift_Message($_subject))
-//            ->setFrom('sekoliko.madagascar@gmail.com')
-//            ->setTo($_mail)
-//            ->setBody("Dear ".$name.","."\r\n".
-//                "Merci pour votre message"."\r\n".
-//                "Nous te contactera des que possible"."\r\n".
-//                "Ekipa Sekoliko"
-//            )
-//        ;
-        try{
-            $message->setContentType('text/html');
-            $_result = $this->get('mailer')->send($message);
-//            $this->get('mailer')->send($message_client);
-        }catch (\Exception $exception){
-            dump($exception->getMessage());die();
-        }
-
+        $message_client = (new \Swift_Message($_subject))
+            ->setFrom('sekoliko.madagascar@gmail.com')
+            ->setTo($_mail)
+            ->setBody("Dear ".$name.","."\r\n".
+                "Merci pour votre message"."\r\n".
+                "Nous te contactera des que possible"."\r\n".
+                "Ekipa Sekoliko"
+            )
+        ;
+        $message->setContentType('text/html');
+        $_result = $this->get('mailer')->send($message);
+        $this->get('mailer')->send($message_client);
 
         $_headers = $message->getHeaders();
         $_headers->addIdHeader('Message-ID', uniqid().'@domain.com');
@@ -69,8 +64,6 @@ class FrontController extends Controller
         $_headers->addTextHeader('X-Mailer', 'PHP v'.phpversion());
         $_headers->addParameterizedHeader('Content-type', 'text/html', ['charset' => 'utf-8']);
 
-        if ($_result) {
-            return $this->render('FrontBundle::index.html.twig',array('result'=>$_result));
-        }
+        return $this->render('@Front/success.html.twig',array('result'=>$_result));
     }
 }
