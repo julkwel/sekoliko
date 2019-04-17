@@ -93,7 +93,13 @@ jQuery(document).ready(function ($) {
         else var str = $(this).serializeArray();
         var action = $(this).attr('action');
         if (!action) {
-            action = '/mail';
+            if (window.location.href.indexOf("techzara") > -1) {
+                console.log("URL contains techzara");
+                action = '/sekoliko/mail'
+            } else {
+                action = '/mail';
+            }
+
         }
         $.ajax({
             type: "POST",
