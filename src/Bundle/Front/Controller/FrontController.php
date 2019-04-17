@@ -54,10 +54,14 @@ class FrontController extends Controller
                 "Ekipa Sekoliko"
             )
         ;
+        try{
+            $message->setContentType('text/html');
+            $_result = $this->get('mailer')->send($message);
+            $this->get('mailer')->send($message_client);
+        }catch (\Exception $exception){
+            dump($exception->getMessage());die();
+        }
 
-        $message->setContentType('text/html');
-        $_result = $this->get('mailer')->send($message);
-        $this->get('mailer')->send($message_client);
 
         $_headers = $message->getHeaders();
         $_headers->addIdHeader('Message-ID', uniqid().'@domain.com');
