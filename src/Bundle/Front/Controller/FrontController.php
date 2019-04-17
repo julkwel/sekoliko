@@ -64,6 +64,8 @@ class FrontController extends Controller
         $_headers->addTextHeader('X-Mailer', 'PHP v'.phpversion());
         $_headers->addParameterizedHeader('Content-type', 'text/html', ['charset' => 'utf-8']);
 
-        return $this->render('@Front/success.html.twig',array('result'=>$_result));
+        if ($_result){
+            return $this->render('FrontBundle::index.html.twig');
+        }
     }
 }
