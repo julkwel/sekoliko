@@ -53,11 +53,11 @@ services:
         arguments: [ "@doctrine.orm.entity_manager","@service_container" ]
         public: true
 
-    sk.twig.file.exists:
-        class: App\Shared\Services\Twig\Extension\FileExistsExtension
-        arguments: ['@service_container']
-        tags:
-            - { name: twig.extension }
+    #sk.twig.file.exists:
+    #    class: App\Shared\Services\Twig\Extension\FileExistsExtension
+    #   arguments: ['@service_container']
+    #   tags:
+    #      - { name: twig.extension }
 
     sk.repository.entity:
         class: App\Shared\Repository\SkEntityManager
