@@ -45,15 +45,15 @@ class FrontController extends Controller
                 'text/html'
             );
 
-        $message_client = (new \Swift_Message($_subject))
-            ->setFrom('sekoliko.madagascar@gmail.com')
-            ->setTo($_mail)
-            ->setBody("Dear ".$name.","."\r\n".
-                "Merci pour votre message"."\r\n".
-                "Nous te contactera des que possible"."\r\n".
-                "Ekipa Sekoliko"
-            )
-        ;
+//        $message_client = (new \Swift_Message($_subject))
+//            ->setFrom('sekoliko.madagascar@gmail.com')
+//            ->setTo($_mail)
+//            ->setBody("Dear ".$name.","."\r\n".
+//                "Merci pour votre message"."\r\n".
+//                "Nous te contactera des que possible"."\r\n".
+//                "Ekipa Sekoliko"
+//            )
+//        ;
         try{
             $message->setContentType('text/html');
             $_result = $this->get('mailer')->send($message);
@@ -70,8 +70,7 @@ class FrontController extends Controller
         $_headers->addParameterizedHeader('Content-type', 'text/html', ['charset' => 'utf-8']);
 
         if ($_result) {
-            dump($_result);die();
-            return $this->render('FrontBundle::index.html.twig');
+            return $this->render('FrontBundle::index.html.twig',array('result'=>$_result));
         }
     }
 }
