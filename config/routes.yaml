@@ -1,6 +1,6 @@
 user:
     resource: "@UserBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /login
 
 sk_admin:
     resource: "@AdminBundle/Resources/config/routing.yml"
@@ -8,7 +8,7 @@ sk_admin:
 
 sk_front:
     resource: "@FrontBundle/Resources/config/routing.yml"
-    prefix:   /front
+    prefix:   /
 
 sk_api:
     resource: "@ApiBundle/Ressources/config/routing/api.yml"

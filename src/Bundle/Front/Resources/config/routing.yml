@@ -1,3 +1,8 @@
 sk_front:
   path: /
   defaults: { _controller: FrontBundle:Front:index }
+
+sk_send_mail:
+  path: /mail
+  defaults: { _controller: FrontBundle:Front:sendMail }
+  methods: [GET,POST]

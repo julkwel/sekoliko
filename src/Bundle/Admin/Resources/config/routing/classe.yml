@@ -53,6 +53,11 @@ etudiant_renvoi:
     defaults: {_controller: 'AdminBundle:SkEtudiant:renvoie'}
     methods: [GET, POST]
 
+etudiant_restore:
+    path:   /{id}/restore
+    defaults: {_controller: 'AdminBundle:SkEtudiant:restoreUser'}
+    methods: [GET, POST]
+
 classe_delete_matiere:
     path:     /delete/{id_class}/{id_mat}
     defaults: { _controller: "AdminBundle:SkClass:deleteClassMatiere" }

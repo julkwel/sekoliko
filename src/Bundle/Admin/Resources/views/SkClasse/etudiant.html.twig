@@ -25,7 +25,8 @@
         <form action="" method="POST" class="form-search">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary text-center">Liste des étudiants en {{ classe.classeNom }}</h6>
+                    <h6 class="m-0 font-weight-bold text-primary text-center">Liste des étudiants
+                        en {{ classe.classeNom }}</h6>
                     {# Bouton création #}
                     {% if is_granted('ROLE_ADMIN') %}
                         <div class="row add-btn-top-list">
@@ -35,7 +36,8 @@
                                 </a>
                             </div>
                             <div class="m-2">
-                                <a class="btn btn-secondary" href="{{ path('etudiant_search') }}">Nouvel classe d'étudiant</a>
+                                <a class="btn btn-secondary" href="{{ path('etudiant_search') }}">Nouvel classe
+                                    d'étudiant</a>
                             </div>
 
                         </div>
@@ -78,23 +80,36 @@
                                             </a>
                                         {% endif %}
                                         {% if is_granted('ROLE_PROFS') %}
-                                            <a class="btn btn-secondary" title="Ajouter un note pour {{ etudiant.etudiant.usrFirstname }}"
+                                            <a class="btn btn-secondary"
+                                               title="Ajouter un note pour {{ etudiant.etudiant.usrFirstname }}"
                                                href="{{ path('note_new', { 'id': etudiant.id }) }}">
                                                 <i class="fa fa-book"></i>
                                             </a>
                                         {% endif %}
-                                        <a class="btn btn-primary" title="Voire les notes de {{ etudiant.etudiant.usrFirstname }}"
+                                        <a class="btn btn-primary"
+                                           title="Voire les notes de {{ etudiant.etudiant.usrFirstname }}"
                                            href="{{ path('etudiant_note', { 'id': etudiant.id }) }}">
                                             <i class="fa fa-list"></i>
                                         </a>
-                                        <a href="{{ path('etudiant_details', { 'id': etudiant.id }) }}"  title="Details de {{ etudiant.etudiant.usrFirstname }}"
+                                        <a href="{{ path('etudiant_details', { 'id': etudiant.id }) }}"
+                                           title="Details de {{ etudiant.etudiant.usrFirstname }}"
                                            class="btn btn-info"> <i class="fas fa-eye"></i>
                                         </a>
                                         {% if is_granted('ROLE_ADMIN') %}
-                                            <a onclick="renvoyer('{{ path('etudiant_renvoi', { 'id': etudiant.id }) }}')" class="btn btn-warning"
-                                               title="renvoyée {{ etudiant.etudiant.usrFirstname }}">
-                                                <i class="fas fa-trash-restore"></i>
-                                            </a>
+                                            {% if etudiant.isRenvoie == false %}
+                                                <a onclick="renvoyer('{{ path('etudiant_renvoi', { 'id': etudiant.id }) }}')"
+                                                   class="btn btn-warning"
+                                                   title="renvoyée {{ etudiant.etudiant.usrFirstname }}">
+                                                    <i class="fas fa-trash-restore"></i>
+                                                </a>
+                                            {% elseif etudiant.isRenvoie == true %}
+                                                <a href="{{ path('etudiant_restore', { 'id': etudiant.id }) }}"
+                                                   class="btn btn-success"
+                                                   title="voulez vous vraiment réstorer {{ etudiant.etudiant.usrFirstname }}">
+                                                    <i class="fas fa-window-restore"></i>
+                                                </a>
+                                            {% endif %}
+
                                             <a class="btn btn-danger remove-elt"
                                                onclick="supprimer('{{ path('classe_etudiant_delete', { 'id_class': classe.id,'id_user': etudiant.etudiant.id}) }}')">
                                                 <i class="fa fa-trash"></i>

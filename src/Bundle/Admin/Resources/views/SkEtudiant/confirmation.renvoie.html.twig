@@ -1,0 +1,21 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% set menu_classe = true %}
+
+{% block body %}
+
+    <div class="card">
+        <div class="card-header">
+            <h6>Confirmation renvoie du {{ etudiant.etudiant.usrFullname }}</h6>
+        </div>
+        <div class="card-body">
+            <form action="" method="POST">
+                <div class="form-group">
+                    <label for="">Motifs de renvoie</label>
+                    <textarea type="text" class="form-control" name="motif" required></textarea>
+                </div>
+                <input type="submit" class="btn btn-block btn-google" value="renvoyer">
+            </form>
+        </div>
+    </div>
+{% endblock %}

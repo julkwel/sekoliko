@@ -42,10 +42,6 @@ class SecurityController extends BaseSecurityController
             if ($authChecker->isGranted('ROLE_ADMIN') || $authChecker->isGranted('ROLE_SUPERADMIN')) {
                 return new RedirectResponse($router->generate('dashboard_index'));
             }
-
-            if ($authChecker->isGranted('ROLE_CLIENT')) {
-                return new RedirectResponse($router->generate('service_client_list'));
-            }
         }
 
         /** @var $session \Symfony\Component\HttpFoundation\Session\Session */

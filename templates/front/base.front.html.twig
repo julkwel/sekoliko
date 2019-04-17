@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>{% block title %}Sekoliko!{% endblock %}</title>
+    {% block stylesheets %}
+
+        <!-- Favicons -->
+        <link href="{{ asset('img/sekoliko.png') }}" rel="icon">
+        <link href="{{ asset('img/sekoliko.png') }}" rel="apple-touch-icon">
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700"
+              rel="stylesheet">
+
+        <!-- Bootstrap CSS File -->
+        <link href="{{ asset('front/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+
+        <!-- Libraries CSS Files -->
+        <link href="{{ asset('front/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('front/animate/animate.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('front/ionicons/css/ionicons.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('front/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('front/lightbox/css/lightbox.min.css') }}" rel="stylesheet">
+
+        <!-- Main Stylesheet File -->
+        <link href="{{ asset('front/css/style.css') }}" rel="stylesheet">
+    {% endblock %}
+</head>
+<body>
+{% include 'front/header.html.twig' %}
+{% block body %}
+
+{% endblock %}
+{% include 'front/footer.html.twig' %}
+{% block javascripts %}
+    <!-- JavaScript Libraries -->
+    <script src="{{ asset('front/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('front/jquery/jquery-migrate.min.js') }}"></script>
+    <script src="{{ asset('front/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('front/easing/easing.min.js') }}"></script>
+    <script src="{{ asset('front/mobile-nav/mobile-nav.js') }}"></script>
+    <script src="{{ asset('front/wow/wow.min.js') }}"></script>
+    <script src="{{ asset('front/waypoints/waypoints.min.js') }}"></script>
+    <script src="{{ asset('front/counterup/counterup.min.js') }}"></script>
+    <script src="{{ asset('front/owlcarousel/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('front/isotope/isotope.pkgd.min.js') }}"></script>
+    <script src="{{ asset('front/lightbox/js/lightbox.min.js') }}"></script>
+    <!-- Contact Form JavaScript File -->
+    <script src="{{ asset('front/contactform/contactform.js') }}"></script>
+
+    <!-- Template Main Javascript File -->
+    <script src="{{ asset('front/js/main.js') }}"></script>
+
+{% endblock %}
+</body>
+</html>
