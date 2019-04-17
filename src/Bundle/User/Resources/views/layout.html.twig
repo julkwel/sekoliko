@@ -157,6 +157,12 @@
 <!-- Custom scripts for all pages-->
 <script src="{{ asset('decoupe/js/sb-admin-2.min.js') }}"></script>
 <script>
+    $(document).ready(function () {
+        if (window.location.href.indexOf("techzara") > -1) {
+            console.log("URL contains techzara");
+        }
+    });
+
     $('.carousel').carousel({
         interval: 2000
     });
