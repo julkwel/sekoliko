@@ -139,6 +139,7 @@
 
                                     </div>
                                 </div>
+                                <div id="login-account"></div>
                             </div>
                         </div>
 
@@ -160,6 +161,7 @@
     $(document).ready(function () {
         if (window.location.href.indexOf("techzara") > -1) {
             console.log("URL contains techzara");
+            $('#login-account').html("<li>Login : admin</li><li>Password : admin</li>")
         }
     });
 
