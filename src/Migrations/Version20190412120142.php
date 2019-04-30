@@ -12,15 +12,15 @@ use Doctrine\Migrations\AbstractMigration;
  */
 final class Version20190412120142 extends AbstractMigration
 {
-    public function getDescription() : string
+    public function getDescription(): string
     {
         return '';
     }
 
-    public function up(Schema $schema) : void
+    public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('DROP TABLE sk_classe_matiere');
         $this->addSql('ALTER TABLE sk_salle ADD nombre_place INT DEFAULT NULL');
@@ -31,10 +31,10 @@ final class Version20190412120142 extends AbstractMigration
         $this->addSql('ALTER TABLE sk_note DROP classe_id, DROP prof_id, DROP coef');
     }
 
-    public function down(Schema $schema) : void
+    public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('CREATE TABLE sk_classe_matiere (id INT AUTO_INCREMENT NOT NULL, id_matiere_id INT DEFAULT NULL, id_classe_id INT DEFAULT NULL, id_prof_id INT DEFAULT NULL, coefficient INT NOT NULL, INDEX IDX_7D7CAB33F6B192E (id_classe_id), INDEX IDX_7D7CAB33755C5E8E (id_prof_id), INDEX IDX_7D7CAB3351E6528F (id_matiere_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB COMMENT = \'\' ');
         $this->addSql('ALTER TABLE sk_classe_matiere ADD CONSTRAINT FK_7D7CAB3351E6528F FOREIGN KEY (id_matiere_id) REFERENCES sk_matiere (id)');

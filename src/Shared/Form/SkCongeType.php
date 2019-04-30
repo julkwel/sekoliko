@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: julkwel
  * Date: 4/29/19
- * Time: 9:40 PM
+ * Time: 9:40 PM.
  */
 
 namespace App\Shared\Form;
-
 
 use App\Shared\Entity\SkConge;
 use Symfony\Component\Form\AbstractType;
@@ -24,14 +23,14 @@ class SkCongeType extends AbstractType
             ->add('type', ChoiceType::class, [
                 'choices' => [
                     'congé' => 0,
-                    'permission' => 1
-                ]
+                    'permission' => 1,
+                ],
             ])
             ->add('motif', TextType::class, [
                 'label' => 'Description de congé ou permission',
                 'attr' => [
-                    'class' => 'form-control'
-                ]
+                    'class' => 'form-control',
+                ],
             ]);
     }
 

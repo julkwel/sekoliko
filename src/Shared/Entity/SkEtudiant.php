@@ -295,6 +295,4 @@ class SkEtudiant
     {
         $this->addition = $addition;
     }
-
-
 }

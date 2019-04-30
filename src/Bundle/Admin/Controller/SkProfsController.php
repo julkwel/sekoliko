@@ -40,12 +40,12 @@ class SkProfsController extends Controller
         if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             $_profs_list = $this->getDoctrine()->getRepository(User::class)->findBy(array(
                 'skRole' => [RoleName::ID_ROLE_PROFS],
-                'etsNom' => $this->getUserConnected()->getEtsNom()
+                'etsNom' => $this->getUserConnected()->getEtsNom(),
             ));
 
             return $this->render('AdminBundle:SkProfs:index.html.twig', [
                 'profs' => $_profs_list,
-                'ets' => $this->getUserConnected()->getEtsNom()
+                'ets' => $this->getUserConnected()->getEtsNom(),
             ]);
         }
 
@@ -54,7 +54,9 @@ class SkProfsController extends Controller
 
     /**
      * @param Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\Response
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Exception
@@ -93,18 +95,20 @@ class SkProfsController extends Controller
 
     /**
      * @param Request $request
-     * @param User $_user
+     * @param User    $_user
+     *
      * @return \Symfony\Component\HttpFoundation\Response
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Exception
      */
-    public function editAction(Request $request,User $_user)
+    public function editAction(Request $request, User $_user)
     {
         $_form = $this->createForm(UserType::class, $_user);
         $_form->handleRequest($request);
-        if ($_form->isSubmitted() && $_form->isValid()){
-            $this->getEntityService()->saveEntity($_user,'update');
+        if ($_form->isSubmitted() && $_form->isValid()) {
+            $this->getEntityService()->saveEntity($_user, 'update');
             $this->getEntityService()->setFlash('success', 'Modification profs réussie');
 
             return $this->redirectToRoute('profs_index');
@@ -117,7 +121,9 @@ class SkProfsController extends Controller
 
     /**
      * @param User $user
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Exception
@@ -127,6 +133,7 @@ class SkProfsController extends Controller
         if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             if (true === $this->getEntityService()->deleteEntity($user, $user->getImgUrl())) {
                 $this->getEntityService()->setFlash('success', 'Suppression profs réussie');
+
                 return $this->redirectToRoute('profs_index');
             }
         }
@@ -136,18 +143,19 @@ class SkProfsController extends Controller
 
     /**
      * @param User $user
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function detailsAction(User $user)
     {
         $_prof_mat = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array(
-           'matProf'=>$user
+           'matProf' => $user,
         ));
 
 //        dump($_prof_mat);die();
-        return $this->render('@Admin/SkProfs/details.html.twig',[
-            'prof'=>$user,
-            'matiere'=>$_prof_mat
+        return $this->render('@Admin/SkProfs/details.html.twig', [
+            'prof' => $user,
+            'matiere' => $_prof_mat,
         ]);
     }
 }

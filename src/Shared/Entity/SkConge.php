@@ -3,17 +3,16 @@
  * Created by PhpStorm.
  * User: julkwel
  * Date: 4/29/19
- * Time: 9:10 PM
+ * Time: 9:10 PM.
  */
 
 namespace App\Shared\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use  Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class SkConge
- * @package App\Shared\Entity
+ * Class SkConge.
+ *
  * @ORM\Table(name="sk_conge")
  * @ORM\Entity
  */

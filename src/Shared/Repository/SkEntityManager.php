@@ -25,15 +25,16 @@ class SkEntityManager
      * ServiceMetierSkParticipants constructor.
      *
      * @param EntityManager $_entity_manager
-     * @param Container $_container
+     * @param Container     $_container
      * @param $_root_dir
+     *
      * @throws ORMException
      */
     public function __construct(EntityManager $_entity_manager, Container $_container, $_root_dir)
     {
         $this->_entity_manager = $_entity_manager;
         $this->_container = $_container;
-        $this->_web_root = realpath($_root_dir . '/../public');
+        $this->_web_root = realpath($_root_dir.'/../public');
 
         $_user_conge = $_entity_manager->getRepository(SkConge::class)->findBy(['isFin' => false]);
         foreach ($_user_conge as $_user) {
@@ -261,9 +262,9 @@ class SkEntityManager
         // Récupérer le répertoire image spécifique
         $_directory_image = PathName::UPLOAD_IMAGE;
         // Upload image
-        $_file_name_image = md5(uniqid()) . '.' . $_image->guessExtension();
-        $_uri_file = $_directory_image . $_file_name_image;
-        $_dir = $this->_web_root . $_directory_image;
+        $_file_name_image = md5(uniqid()).'.'.$_image->guessExtension();
+        $_uri_file = $_directory_image.$_file_name_image;
+        $_dir = $this->_web_root.$_directory_image;
         $_image->move(
             $_dir,
             $_file_name_image
@@ -280,7 +281,7 @@ class SkEntityManager
     public function deleteOnlyImage($_data)
     {
         if ($_data) {
-            $_path = $this->_web_root . $_data->getImgUrl();
+            $_path = $this->_web_root.$_data->getImgUrl();
 
             // Suppression du fichier
             @unlink($_path);
@@ -298,7 +299,7 @@ class SkEntityManager
     {
         if ($_data) {
             try {
-                $_path = $this->_web_root . $_data->getImgUrl();
+                $_path = $this->_web_root.$_data->getImgUrl();
 
                 // Suppression du fichier
                 @unlink($_path);

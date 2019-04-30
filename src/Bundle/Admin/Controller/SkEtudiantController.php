@@ -110,7 +110,7 @@ class SkEtudiantController extends Controller
 
     /**
      * @param Request $request
-     * @param User $user
+     * @param User    $user
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
@@ -159,7 +159,7 @@ class SkEtudiantController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param Request    $request
      * @param SkEtudiant $skEtudiant
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -202,32 +202,35 @@ class SkEtudiantController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param Request    $request
      * @param SkEtudiant $skEtudiant
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function detailsAction(Request $request, SkEtudiant $skEtudiant)
     {
         return $this->render('@Admin/SkEtudiant/details.html.twig', [
-            'etudiant' => $skEtudiant
+            'etudiant' => $skEtudiant,
         ]);
     }
 
     /**
-     * Renvoie un étudiant
+     * Renvoie un étudiant.
      *
-     * @param Request $request
+     * @param Request    $request
      * @param SkEtudiant $skEtudiant
+     *
      * @return \Symfony\Component\HttpFoundation\Response
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Exception
      */
-    public function renvoieAction(Request $request,SkEtudiant $skEtudiant)
+    public function renvoieAction(Request $request, SkEtudiant $skEtudiant)
     {
         if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-            if ($skEtudiant->getEtudiant()->isEnabled() === true){
-                if ($request->isMethod('POST')){
+            if (true === $skEtudiant->getEtudiant()->isEnabled()) {
+                if ($request->isMethod('POST')) {
                     $skEtudiant->setMotifRenvoie($request->request->get('motif'));
                     $skEtudiant->getEtudiant()->setEnabled(0);
                     $skEtudiant->setDateRenvoie(new \DateTime('now'));
@@ -238,19 +241,23 @@ class SkEtudiantController extends Controller
                     }
                 }
 
-                return $this->render('@Admin/SkEtudiant/confirmation.renvoie.html.twig',[
-                    'etudiant'=> $skEtudiant,
+                return $this->render('@Admin/SkEtudiant/confirmation.renvoie.html.twig', [
+                    'etudiant' => $skEtudiant,
                 ]);
             }
-            $this->getEntityService()->setFlash('error','l\'utilisateur est déja renvoyé');
+            $this->getEntityService()->setFlash('error', 'l\'utilisateur est déja renvoyé');
+
             return $this->redirect($this->generateUrl('etudiant_liste', array('id' => $skEtudiant->getClasse()->getId())));
         }
+
         return $this->redirectToRoute('fos_user_security_logout');
     }
 
     /**
      * @param SkEtudiant $skEtudiant
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -259,8 +266,8 @@ class SkEtudiantController extends Controller
         if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             $skEtudiant->getEtudiant()->setEnabled(1);
             $skEtudiant->setIsRenvoie(false);
-            $this->getEntityService()->saveEntity($skEtudiant,'update');
-            if ($skEtudiant->getEtudiant()->setEnabled(1)){
+            $this->getEntityService()->saveEntity($skEtudiant, 'update');
+            if ($skEtudiant->getEtudiant()->setEnabled(1)) {
                 return $this->redirect($this->generateUrl('etudiant_liste', array('id' => $skEtudiant->getClasse()->getId())));
             }
         }
@@ -269,7 +276,7 @@ class SkEtudiantController extends Controller
     }
 
     /**
-     * Liste des étudiants dans la classe de l'étudiant connecté
+     * Liste des étudiants dans la classe de l'étudiant connecté.
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */

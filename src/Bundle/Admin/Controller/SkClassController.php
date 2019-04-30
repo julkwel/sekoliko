@@ -16,7 +16,6 @@ use App\Shared\Entity\SkMatiere;
 use App\Shared\Entity\SkNiveau;
 use App\Shared\Entity\SkRole;
 use App\Shared\Form\SkClasseType;
-use App\Shared\Form\SkEtudiantType;
 use App\Shared\Form\SkMatiereType;
 use App\Shared\Services\Utils\RoleName;
 use App\Shared\Services\Utils\ServiceName;
@@ -410,7 +409,7 @@ class SkClassController extends Controller
                     $_etudiant->setIsRenvoie(false);
                     $_etudiant->setDateDeNaissance($value[6] ? $value[6] : 'Null');
                     $_etudiant->setSexe($value[7] ? $value[7] : 'Null');
-                    $_etudiant->setAddition($value[8]? $value[8] : 'Null');
+                    $_etudiant->setAddition($value[8] ? $value[8] : 'Null');
                     $_etudiant->setPere($value[9] ? $value[9] : 'Null');
                     $_etudiant->setMere($value[10] ? $value[10] : 'Null');
                     $_etudiant->setContactParent($value[11] ? $value[11] : 'Null');
@@ -443,13 +442,12 @@ class SkClassController extends Controller
             $_form = $this->createForm(UserType::class, $_user);
             $_role = $this->getDoctrine()->getRepository(SkRole::class)->find(2);
 
-
             if ($request->isMethod('POST')) {
                 try {
                     $_form->handleRequest($request);
                     if ($_form->isSubmitted()) {
                         $_date_de_naissance = $request->request->get('datedenaissance');
-                        $_dt_n= new \DateTime($_date_de_naissance);
+                        $_dt_n = new \DateTime($_date_de_naissance);
                         $_dt_n = $_dt_n->format('d/m/Y');
                         try {
                             $_pass = $_user->setPlainPassword('123456');

@@ -26,8 +26,8 @@ class SkSalleType extends AbstractType
             ->add('salleNumero', TextType::class, array(
                 'label' => 'Numero salle',
             ))
-            ->add('nombrePlace',NumberType::class,array(
-                'label' => 'Nombre des places dans la salle'
+            ->add('nombrePlace', NumberType::class, array(
+                'label' => 'Nombre des places dans la salle',
             ))
             ;
     }

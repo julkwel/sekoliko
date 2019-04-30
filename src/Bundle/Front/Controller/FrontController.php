@@ -25,6 +25,7 @@ class FrontController extends Controller
 
     /**
      * @param Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function sendMailAction(Request $request)
@@ -40,7 +41,7 @@ class FrontController extends Controller
             ->setBody(
                 $this->renderView(
                     'email/layout_email.email.twig',
-                    ['name' => $name,'message'=>$_message]
+                    ['name' => $name, 'message' => $_message]
                 ),
                 'text/html'
             );
@@ -48,10 +49,10 @@ class FrontController extends Controller
         $message_client = (new \Swift_Message($_subject))
             ->setFrom('sekoliko.madagascar@gmail.com')
             ->setTo($_mail)
-            ->setBody("Dear ".$name.","."\r\n".
-                "Merci pour votre message"."\r\n".
-                "Nous te contactera des que possible"."\r\n".
-                "Ekipa Sekoliko"
+            ->setBody('Dear '.$name.','."\r\n".
+                'Merci pour votre message'."\r\n".
+                'Nous te contactera des que possible'."\r\n".
+                'Ekipa Sekoliko'
             )
         ;
         $message->setContentType('text/html');
@@ -64,7 +65,7 @@ class FrontController extends Controller
         $_headers->addTextHeader('X-Mailer', 'PHP v'.phpversion());
         $_headers->addParameterizedHeader('Content-type', 'text/html', ['charset' => 'utf-8']);
 
-        if ($_result){
+        if ($_result) {
             return $this->render('FrontBundle::index.html.twig');
         }
     }

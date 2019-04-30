@@ -207,6 +207,4 @@ class SkSalle
     {
         $this->nombrePlace = $nombrePlace;
     }
-
-
 }

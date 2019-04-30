@@ -117,7 +117,6 @@ class User extends BaseUser
      */
     private $isConge;
 
-
     /**
      * Constructor.
      */
@@ -307,5 +306,4 @@ class User extends BaseUser
     {
         $this->isConge = $isConge;
     }
-
 }

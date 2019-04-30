@@ -81,6 +81,4 @@ trait SkAnneScolaire
     {
         $this->asName = $asName;
     }
-
-
 }

@@ -61,11 +61,12 @@ class SkSalleController extends Controller
             $_verif = $_salle->getSalleNom();
             $_salle_exist = $this->getDoctrine()->getRepository(SkSalle::class)->findBy(array(
                 'salleNom' => $_verif,
-                'etsNom' => $this->getUser()->getEtsNom()
+                'etsNom' => $this->getUser()->getEtsNom(),
             ));
 
             if (null !== $_salle_exist) {
                 $this->getEntityService()->setFlash('error', 'ce salle existe déjà! ');
+
                 return $this->redirectToRoute('salle_new');
             }
             $this->getEntityService()->saveEntity($_salle, 'new');
@@ -215,7 +216,7 @@ class SkSalleController extends Controller
     public function detailsReservationAction(SkSalle $skSalle)
     {
         return $this->render('@Admin/SkSalle/details.reservation.html.twig', [
-            'reservation' => $skSalle
+            'reservation' => $skSalle,
         ]);
     }
 
