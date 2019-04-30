@@ -112,6 +112,13 @@ class User extends BaseUser
     private $skRole;
 
     /**
+     * @var
+     * @ORM\Column(type="boolean",nullable=true)
+     */
+    private $isConge;
+
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -284,4 +291,21 @@ class User extends BaseUser
     {
         $this->usrIsValid = $usrIsValid;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getIsConge()
+    {
+        return $this->isConge;
+    }
+
+    /**
+     * @param mixed $isConge
+     */
+    public function setIsConge($isConge)
+    {
+        $this->isConge = $isConge;
+    }
+
 }

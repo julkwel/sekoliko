@@ -69,13 +69,14 @@
                     <span>Utilisateurs</span>
                 </a>
                 <div id="user"
-                     class="collapse {% if menu_user is defined or menu_recherche is defined or menu_etd is defined %}show{% endif %}"
+                     class="collapse {% if menu_user is defined or menu_recherche is defined or menu_etd is defined or menu_conge is defined %}show{% endif %}"
                      aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Action:</h6>
                         {% if is_granted('ROLE_ADMIN') %}
                             <a class="collapse-item" href="{{ path('user_search') }}">Recherche utilisateur</a>
                             <a class="collapse-item" href="{{ path('user_index') }}">Liste des administrateurs</a>
+                            <a class="collapse-item" href="{{ path('conge_list') }}">Personne en congé</a>
                             <a class="collapse-item" href="{{ path('user_new') }}">Nouvel utilisateur</a>
                         {% endif %}
                         {% if is_granted('ROLE_ETUDIANT') or is_granted('ROLE_PROFS') %}

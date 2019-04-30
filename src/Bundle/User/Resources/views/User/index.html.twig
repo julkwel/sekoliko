@@ -57,7 +57,7 @@
                             </thead>
                             <tbody>
                             {% for user in users %}
-                                <tr>
+                                <tr {% if user.isConge == true %} style="background: lightskyblue" title="en congé" {% endif %}>
                                     <td class="text-center">
                                         <input type="checkbox" value="{{ user.id }}" name="delete[]"/>
                                     </td>

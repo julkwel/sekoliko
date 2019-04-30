@@ -36,9 +36,9 @@
             {{ form_start(form1, {attr: {novalidate: 'novalidate'}}) }}
             <div class="row">
                 <div class="col-md-6">
-                    {{ form_row(form1.usrLastname) }}
-                    {{ form_row(form1.usrFirstname) }}
-                    {{ form_row(form1.usrAddress) }}
+                    {{ form_row(form1.usrLastname, { 'attr': {'required': 'true'} }) }}
+                    {{ form_row(form1.usrFirstname, { 'attr': {'required': 'true'} }) }}
+                    {{ form_row(form1.usrAddress, { 'attr': {'required': 'true'} }) }}
 
                 </div>
                 <div class="col-md-6">
@@ -51,7 +51,7 @@
                     </div>
                     {{ form_row(form1.email) }}
                     {{ form_row(form1.usrPhone) }}
-                    {{ form_row(form1.username) }}
+                    {{ form_row(form1.username, { 'attr': {'required': 'true'} }) }}
                     <div class="form-group">
                         <label for="">Classe</label>
                         <input type="text" disabled class="form-control" value="{{ classe.classeNom }}" readonly>
@@ -71,7 +71,7 @@
                 </div>
                 <div class="form-group">
                     <label for="">Sexe de l'étudiant</label>
-                    <select name="sexe" class="form-control" id="">
+                    <select name="sexe" required="required" class="form-control" id="">
                         <option value="Male">Male</option>
                         <option value="Femme">Femme</option>
                     </select>

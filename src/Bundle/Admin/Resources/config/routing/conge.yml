@@ -1,0 +1,24 @@
+conge_list:
+    path:     /
+    defaults: { _controller: "AdminBundle:SkConge:index" }
+    methods:  [GET, POST]
+
+conge_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:SkConge:new" }
+    methods:  [GET, POST]
+
+conge_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:SkConge:edit" }
+    methods:  [GET, POST]
+
+conge_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:SkConge:delete" }
+    methods:  [GET, POST]
+
+conge_search:
+    path:     /{type}/filter
+    defaults: { _controller: "AdminBundle:SkConge:find" }
+    methods:  [GET, POST]

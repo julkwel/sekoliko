@@ -1,0 +1,74 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}{{ parent() }} | Réservation de livre {% endblock %}
+
+{% set menu_conge = true %}
+
+{% block body %}
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <div class="card bg-danger text-white shadow">
+            <div class="card-body">
+                {{ flashMessage }}
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="card  shadow mb-4">
+        <div class="card-body">
+            {{ form_start(form) }}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        {{ form_row(form.type) }}
+                        {{ form_row(form.motif) }}
+                    </div>
+                    <div class="form-group">
+                        <label for="_user">Identifiant de l'utilisateur</label>
+                        <select class="form-control" required="required" id="_user" name="user">
+                            <option value="AL">selectionner un utilisateur</option>
+                            {% for user in user %}
+                                <option value="{{ user.id }}">{{ user.usrFirstname }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Début du prêt</label>
+                        <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                            <input type="text" required="required"  name="debut" class="form-control datetimepicker-input"
+                                   data-target="#datetimepicker1"/>
+                            <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Fin du prêt</label>
+                        <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
+                            <input type="text"  required="required" name="fin" class="form-control datetimepicker-input"
+                                   data-target="#datetimepicker2"/>
+                            <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer">
+                <input type="submit" class="btn btn-primary btn-block" value="Enregistrer" name="new_reservation"/>
+                <a href="{{ path('conge_list') }}"
+                   class="btn btn-google btn-block">
+                    Annuler
+                </a>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker1').datetimepicker();
+            $('#datetimepicker2').datetimepicker();
+        });
+    </script>
+{% endblock %}

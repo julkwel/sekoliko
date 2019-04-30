@@ -18,6 +18,12 @@ trait SkAnneScolaire
 {
     /**
      * @var
+     * @ORM\Column(type="string",length=100,nullable=true)
+     */
+    private $asName;
+
+    /**
+     * @var
      * @ORM\Column(name="anne_scolaire_debut",type="datetime", nullable=true)
      */
     private $anneScolaireDebut;
@@ -59,4 +65,22 @@ trait SkAnneScolaire
     {
         $this->anneScolaireFin = $anneScolaireFin;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getAsName()
+    {
+        return $this->asName;
+    }
+
+    /**
+     * @param mixed $asName
+     */
+    public function setAsName($asName)
+    {
+        $this->asName = $asName;
+    }
+
+
 }

@@ -74,3 +74,7 @@ tz_profs:
 tz_paiement:
     resource: "@AdminBundle/Resources/config/routing/paiement.yml"
     prefix:   /paiement
+
+tz_conge:
+    resource: "@AdminBundle/Resources/config/routing/conge.yml"
+    prefix:   /conge

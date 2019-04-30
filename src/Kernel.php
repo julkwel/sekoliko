@@ -40,6 +40,12 @@ class Kernel extends BaseKernel
         }
     }
 
+    public function __construct($environment, $debug)
+    {
+        date_default_timezone_set( 'Indian/Antananarivo' );
+        parent::__construct($environment, $debug);
+    }
+
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader)
     {
         $container->setParameter('container.autowiring.strict_mode', true);

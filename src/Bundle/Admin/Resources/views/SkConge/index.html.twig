@@ -1,0 +1,89 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}{{ parent() }} | Classe {% endblock %}
+
+{% set menu_conge = true %}
+
+{% block body %}
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="card bg-success text-white shadow">
+            <div class="card-body">
+                {{ flashMessage }}
+            </div>
+        </div>
+    {% endfor %}
+
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <div class="card bg-warning text-white shadow">
+            <div class="card-body">
+                {{ flashMessage }}
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="row">
+        <form action="" method="POST" class="form-search">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary text-center">Liste des personnes en congé</h6>
+                    {# Bouton création #}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <div class="add-btn-top-list float-right">
+                            <a href="{{ path('conge_new') }}" class="btn btn-primary">
+                                Créer une congé
+                            </a>
+                        </div>
+                    {% endif %}
+                    <div class="box-header">
+                        <div class="list-count">
+                            <a href="{{ path('conge_list') }}">Total {{ congelist|length }}</a>
+                            <a href="{{ path('conge_search',{"type":0}) }}">Congé</a>
+                            <a href="{{ path('conge_search',{"type":1}) }}">Permission</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>Utilisateur</th>
+                                <th>Type</th>
+                                <th>Début</th>
+                                <th>Fin</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for conge in congelist %}
+                                <tr>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="{{ conge.id }}" name="delete[]"/>
+                                    </td>
+                                    <td>{{ conge.user ? conge.user.usrFirstname : 'null' }}</td>
+                                    <td>{{ conge.type ? 'Permission' : 'Congé' }}</td>
+                                    <td>{{ conge.dateDeb|date('Y-m-d H:i:s')}}</td>
+                                    <td>{{ conge.dateFin|date('Y-m-d H:i:s')}}</td>
+                                    <td class="kl-action-button-bloc">
+                                        <a class="btn btn-success btn-sm" title="Modifier ce classe"
+                                           href="{{ path('conge_edit', { 'id': conge.id }) }}">
+                                            <i class="fas fa-pen"></i>
+                                        </a>
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                            <a class="btn btn-danger remove-elt btn-sm" title="Supprimer"
+                                               onclick="supprimer('{{ path('conge_delete', { 'id': conge.id }) }}')">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
