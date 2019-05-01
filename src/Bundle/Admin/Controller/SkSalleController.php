@@ -36,6 +36,11 @@ class SkSalleController extends Controller
     public function indexAction()
     {
         $_salle_list = $this->getEntityService()->getAllListByEts(SkSalle::class);
+        foreach ($_salle_list as $salle) {
+            if ($salle->getFinReserve() < new \DateTime()) {
+                $this->annuleAction($salle);
+            }
+        }
 
         return $this->render('AdminBundle:SkSalle:index.html.twig', array(
             'salle_list' => $_salle_list,
