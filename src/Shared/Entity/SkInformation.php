@@ -46,6 +46,12 @@ class SkInformation
     private $description;
 
     /**
+     * @var
+     * @ORM\OneToMany(targetEntity="App\Shared\Entity\SkInfoComment",mappedBy="info")
+     */
+    private $comment;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="date_ajout",type="datetime",nullable=false)
@@ -114,5 +120,21 @@ class SkInformation
     public function setTitre($titre)
     {
         $this->titre = $titre;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @param mixed $comment
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
     }
 }

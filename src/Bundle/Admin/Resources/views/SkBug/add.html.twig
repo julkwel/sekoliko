@@ -12,7 +12,7 @@
             {#<h6 class="m-0 font-weight-bold text-primary text-center">Signaler un bug ou amélioration(s)</h6>#}
         {#</div>#}
         <div class="card-body">
-            {{ form_start(form) }}
+            {{ form_start(form,{"attr":{"id":"bug-add-info"}}) }}
             <div class="row">
                 <div class="col-md-12">
                     {{ form_row(form.titre) }}
@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="box-footer">
-                <input type="submit" class="btn btn-primary float-right" value="Envoyer" name="new_info"/>
+                <input type="submit" class="btn btn-primary float-right" id="add-bug" value="Envoyer" name="new_info"/>
                 <a href="{{ path('bug_index') }}"
                    class="btn btn-google">
                     Annuler

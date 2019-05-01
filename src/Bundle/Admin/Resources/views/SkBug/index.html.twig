@@ -20,80 +20,13 @@
             </div>
         </div>
     {% endfor %}
-
-    <div class="row">
-        <form action="" method="POST" class="form-search">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary text-center">Liste des bugs</h6>
-                    Bouton création
-                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPERADMIN') %}
-                        <div class="add-btn-top-list float-right">
-                            <a href="{{ path('bug_new') }}" class="btn btn-primary">
-                                Signaler un bug ou amélioration(s)
-                            </a>
-                        </div>
-                    {% endif %}
-                </div>
-                <div class="card-body table-responsive">
-                    {% for bug in bug %}
-                        <h4>{{ bug.titre }}</h4>
-                        <table class="table">
-                            <tr>
-                                <td style="width: 200px">{{ bug.description }}</td>
-                                <td style="width: 200px">{{ bug.dateAjout|date('Y-m-d H:m') }}</td>
-                                {% if is_granted('ROLE_SUPERADMIN') %}
-                                    <td style="width: 200px">{{ bug.user.usrLastname }}</td>
-                                {% endif %}
-                                <td class="status" style="color: {{ bug.color }};width: 100px">{{ bug.status }}</td>
-                                {% if bug.attachment %}
-                                    <td style="width:100px" class="img-fluid">
-                                        <a href="{{ asset('uploads/images/bug/'~ bug.attachment) }}"
-                                           data-toggle="lightbox">
-                                            <img src="{{ asset('uploads/images/bug/'~ bug.attachment) }}"
-                                                 class="img-fluid">
-                                        </a>
-                                    </td>
-                                {% endif %}
-                                {% if is_granted('ROLE_SUPERADMIN') %}
-                                    <td style="width: 200px">
-                                        <a href="{{ path('bug_edit',{"id":bug.id}) }}"
-                                           class="btn btn-circle btn-primary"><i class="fa fa-edit"></i></a>
-                                        <a href="{{ path('bug_delete',{"id":bug.id}) }}"
-                                           class="btn btn-circle btn-warning"><i
-                                                    class="fa fa-trash"></i></a>
-                                    </td>
-                                {% endif %}
-                            </tr>
-                        </table>
-                    {% endfor %}
-                </div>
-            </div>
-        </form>
-    </div>
     <div class="container-fluid gedf-wrapper">
         <div class="row">
             <div class="col-md-3">
                 <div class="card">
                     <div class="card-body">
-                        <div class="h5">@LeeCross</div>
-                        <div class="h7 text-muted">Fullname : Miracles Lee Cross</div>
-                        <div class="h7">Developer of web applications, JavaScript, PHP, Java, Python, Ruby, Java,
-                            Node.js,
-                            etc.
-                        </div>
+                        <div data-repo="julkwel/sekoliko"></div>
                     </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <div class="h6 text-muted">Followers</div>
-                            <div class="h5">5.2342</div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="h6 text-muted">Following</div>
-                            <div class="h5">6758</div>
-                        </li>
-                        <li class="list-group-item">Vestibulum at eros</li>
-                    </ul>
                 </div>
             </div>
             <div class="col-md-6 gedf-main">
@@ -162,8 +95,9 @@
                             <div id="comment-content{{ bug.id }}"></div>
                             <p class="card-text">
                                 {% for comment in bug.comment %}
-                                    <li>{{ comment.comment }}</li>
-                                {% endfor %}
+                            <li>{{ comment.comment }} par @{{ comment.user.username }}
+                                le {{ comment.date|date('Y-m-d H:i') }}</li>
+                            {% endfor %}
                             </p>
                         </div>
                     </div>
@@ -173,26 +107,9 @@
 
             </div>
             <div class="col-md-3">
-                <div class="card gedf-card">
+                <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the
-                            card's content.</p>
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
-                    </div>
-                </div>
-                <div class="card gedf-card">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the
-                            card's content.</p>
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
+                        <div data-repo="julkwel/sekoliko"></div>
                     </div>
                 </div>
             </div>
@@ -204,12 +121,31 @@
     {{ parent() }}
 
     <script>
+        $("[data-repo]").github();
+        $(document).ready(function () {
+            $('.repo-stars').append("Stars and  ")
+            $('.repo-forks').append(" Fork on github")
+        })
+
         $('#posts-tab').on('click', function () {
             $.ajax({
                 url: '{{ path('bug_new') }}',
                 type: 'POST',
                 success: function (data) {
                     $('#post-content').html(data);
+                    $(document).on('click', '#add-bug', function () {
+                        var data = $('#bug-add-info').serializeArray();
+                        $.ajax({
+                            type: 'POST',
+                            url: '{{ path('bug_new') }}',
+                            data: data,
+                            dataType: "json"
+                        }).done(function (data) {
+                            console.log(data)
+                        }).fail(function (err) {
+                            console.log(err)
+                        })
+                    });
                 },
                 fail: function () {
                     alert("une erreur se produite");

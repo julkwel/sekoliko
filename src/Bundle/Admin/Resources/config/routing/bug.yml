@@ -1,7 +1,7 @@
 bug_index:
     path:     /
     defaults: { _controller: "AdminBundle:SkBug:index" }
-    methods:  [GET, POST]
+    methods:  [GET]
 
 bug_new:
     path:     /new

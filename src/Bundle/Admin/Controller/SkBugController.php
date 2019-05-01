@@ -155,16 +155,12 @@ class SkBugController extends Controller
     /**
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Exception
      */
     public function commentAction(Request $request,SkBug $_bug)
     {
         $_comment = new SkBugComment();
 
-//        $_bug_id = $request->query->get('id');
-//        $_bug = $this->getDoctrine()->getRepository(SkBug::class)->find($_bug_id);
         $_form = $this->createForm(\App\Shared\Form\SkBugComment::class,$_comment);
         $_form->handleRequest($request);
 

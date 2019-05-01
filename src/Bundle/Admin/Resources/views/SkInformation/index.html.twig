@@ -2,6 +2,9 @@
 
 {% block title %}{{ parent() }} | Liste informations{% endblock %}
 
+
+{% form_theme form 'form/custom_fields.html.twig' %}
+
 {% set menu_info = true %}
 
 {% block body %}
@@ -20,47 +23,176 @@
             </div>
         </div>
     {% endfor %}
-
-    <div class="row">
-        <form action="" method="POST" class="form-search">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary text-center">Liste des informations</h6>
-                    {# Bouton création #}
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <div class="add-btn-top-list float-right">
-                            <a href="{{ path('info_new') }}" class="btn btn-primary">
-                                Ajouter une/des information(s)
-                            </a>
-                        </div>
-                    {% endif %}
-                </div>
-                <div class="card-body">
-                    {% for info in information %}
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <div class="row">
-                                <b>{{ info.titre }}</b> &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
-                                {{ info.dateAjout|date('Y-m-d H:m') }}
-                                {% if is_granted('ROLE_ADMIN') %}
-                                    <div class="text-right">
-                                    <span>
-                                        <a href="{{ path('info_edit',{"id":info.id}) }}"
-                                           class="btn btn-circle btn-primary"><i class="fa fa-edit"></i></a>
-                                        <a onclick="supprimer('{{ path('info_delete',{"id":info.id}) }}')"
-                                           class="btn btn-circle btn-warning"><i class="fa fa-trash"></i></a>
-                                    </span>
-                                    </div>
-                                {% endif %}
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            {{ info.description }}
-                        </div>
+    <div class="container-fluid gedf-wrapper">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div data-repo="julkwel/sekoliko"></div>
                     </div>
-                    {% endfor %}
                 </div>
             </div>
-        </form>
+            <div class="col-md-6 gedf-main">
+
+                <!--- \\\\\\\Post-->
+                <div class="card gedf-card">
+                    <div class="card-header">
+                        <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab"
+                                   aria-controls="posts" aria-selected="true">Make
+                                    a publication</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        {{ form_start(form) }}
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="posts" role="tabpanel"
+                                 aria-labelledby="posts-tab">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            {{ form_row(form.titre) }}
+                                            {{ form_row(form.description) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn-toolbar justify-content-between">
+                            <div class="btn-group">
+                                <input type="submit" class="btn btn-primary float-right" value="Enregistrer"
+                                       name="new_info"/>
+                            </div>
+                            <div class="btn-group">
+                                <button id="btnGroupDrop1" type="button" class="btn btn-link dropdown-toggle"
+                                        data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                    <i class="fa fa-cog"></i>
+                                </button>
+                            </div>
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+                <!-- Post /////-->
+
+                <!--- \\\\\\\Post-->
+                {% for info in information %}
+                    <div class="card gedf-card">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="mr-2">
+                                        <img class="rounded-circle" width="45"
+                                             src="https://www.techzara.org/front_site_office/images/techzara/icon.jpg"
+                                             alt="">
+                                    </div>
+                                    <div class="ml-2">
+                                        <div class="h5 m-0">@{{ info.titre }}</div>
+                                        <div class="h7 text-muted">{{ etablissement }}</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="dropdown">
+                                        <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fa fa-ellipsis-h"></i>
+                                        </button>
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
+                                                <div class="h6 dropdown-header">Configuration</div>
+                                                <a class="dropdown-item"
+                                                   href="{{ path('info_edit',{"id":info.id}) }}"><i
+                                                            class="fa fa-edit"></i> Edit</a>
+                                                <a class="dropdown-item text-black-50"
+                                                   onclick="supprimer('{{ path('info_delete',{"id":info.id}) }}')"><i
+                                                            class="fa fa-trash"></i> Delete</a>
+                                            </div>
+
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-body">
+                            <div class="text-muted h7 mb-2"><i
+                                        class="fa fa-clock-o"></i>{{ info.dateAjout|date('Y-m-d H:m') }}</div>
+                            <a class="card-link" href="#">
+                                <h5 class="card-title">{{ info.titre }}.</h5>
+                            </a>
+                            <p class="card-text">
+                                {{ info.description }}
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            <a onclick="addComment('{{ info.id }}')" class="card-link">
+                                <i class="fa fa-comment"></i> Comment
+                            </a>
+                            <div id="comment-content{{ info.id }}"></div>
+
+                            <p class="card-text">
+                                {% for comment in info.comment %}
+                            <li>
+                                {{ comment.comment }} commenter par @{{ comment.user.username }}
+                                le {{ comment.date|date('Y-m-d H:i') }}
+                            </li>
+                            {% endfor %}
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %}
+                <!-- Post /////-->
+
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div data-repo="julkwel/sekoliko"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $("[data-repo]").github();
+        $(document).ready(function () {
+            $('.repo-stars').append("Stars and  ")
+            $('.repo-forks').append(" Fork on github")
+        })
+
+        function addComment(id) {
+            var url = '{{ path('info_comment',{"id":"id"}) }}';
+            url = url.replace("id", id);
+
+            $.ajax({
+                url: url,
+                success: function (data) {
+                    $('#comment-content' + id).html(data);
+                    $(document).on('click', '#comment', function () {
+                        var data = $('#form-comment').serializeArray();
+                        $.ajax({
+                            type: 'POST',
+                            url: url,
+                            data: data,
+                            dataType: "json"
+                        }).done(function (data) {
+                            console.log(data)
+                        }).fail(function (err) {
+                            console.log(err)
+                        })
+                    });
+                },
+                fail: function () {
+                    alert("une erreur se produite");
+                }
+            })
+        }
+    </script>
 {% endblock %}
