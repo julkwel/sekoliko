@@ -25,20 +25,13 @@
         <form action="" method="POST" class="form-search">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary text-center">Liste des salles</h6>
+                    <h6 class="m-0 font-weight-bold text-primary text-center float-left">Liste des salles</h6>
                     {# Bouton création #}
                     {% if is_granted('ROLE_ADMIN') %}
-                        <div class="add-btn-top-list float-right">
-                            <a href="{{ path('salle_new') }}" class="btn btn-primary">
+                            <a href="{{ path('salle_new') }}" class="float-right">
                                 Ajouter une salle
                             </a>
-                        </div>
                     {% endif %}
-                    <div class="box-header">
-                        <div class="list-count">
-                            <h4><span class="title-count-text"> TOTAL : </span><span class="title-count"></span></h4>
-                        </div>
-                    </div>
                 </div>
                 {#<div class="card-body">#}
                 {#<div class="table-responsive">#}
@@ -111,7 +104,7 @@
                             {% for salle in salle_list %}
                                 <div class="card m-1" style="width: 18rem;">
                                     <div class="card-header">
-                                        <stron>{{ salle.salleNom|upper }}</stron>
+                                        <strong>{{ salle.salleNom|upper }}</strong>
                                         N
                                         <mark>{{ salle.salleNumero }}</mark>
                                     </div>
@@ -174,7 +167,7 @@
                                             {% endif %}
                                         </li>
 
-                                        <li class="list-group-item">
+                                        <li class="list-group-item text-center">
                                             {% if is_granted('ROLE_ADMIN') %}
                                                 <a class="btn btn-success btn-sm" title="Modifier"
                                                    href="{{ path('salle_edit', { 'id': salle.id }) }}">

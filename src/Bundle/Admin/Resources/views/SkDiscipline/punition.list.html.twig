@@ -25,20 +25,18 @@
         <form action="" method="POST" class="form-search">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary text-center">Liste des punitions</h6>
+                    <h6 class="m-0 font-weight-bold text-primary float-left">
+                        <a href="{{ path('discipline_index') }}">
+                            <i class="fas fa-arrow-left"></i>
+                        </a>
+                        Liste des punitions
+                    </h6>
                     {# Bouton création #}
                     {% if is_granted('ROLE_ADMIN') %}
-                        <div class="row add-btn-top-list">
-                            <a href="{{ path('punition_new',{'id':discipline.id}) }}" class="btn btn-primary">
-                                Créer un punition
-                            </a>
-                        </div>
+                        <a href="{{ path('punition_new',{'id':discipline.id}) }}" class="float-right">
+                            Créer un punition
+                        </a>
                     {% endif %}
-                    <div class="box-header">
-                        <div class="list-count">
-                            <span class="title-count-text"> TOTAL: </span><span class="title-count"></span>
-                        </div>
-                    </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -61,16 +59,16 @@
                                     <td>{{ punition.name }}</td>
 
                                     {% if is_granted('ROLE_ADMIN') %}
-                                    <td>
-                                        <a class="btn btn-success" title="Modifier"
-                                           href="{{ path('punition_edit', { 'id': punition.id }) }}">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
-                                        <a class="btn btn-danger remove-elt" title="Supprimer"
-                                           onclick="supprimer('{{ path('punition_delete', { 'id': punition.id }) }}')">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                    </td>
+                                        <td>
+                                            <a class="btn btn-success" title="Modifier"
+                                               href="{{ path('punition_edit', { 'id': punition.id }) }}">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                            <a class="btn btn-danger remove-elt" title="Supprimer"
+                                               onclick="supprimer('{{ path('punition_delete', { 'id': punition.id }) }}')">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </td>
                                     {% endif %}
 
                                 </tr>

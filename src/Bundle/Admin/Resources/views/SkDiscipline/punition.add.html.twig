@@ -15,13 +15,13 @@
             {{ form_start(form) }}
             <div class="row">
                 <div class="col-md-12">
-                    {{ form_row(form.name) }}
                     <div class="form-group ">
                         <label for="">Selectionner le discipline</label>
                         <select name="niveau" id="" disabled class="form-control">
-                                <option value="{{ discipline.id }}" >{{ discipline.name }}</option>
+                            <option value="{{ discipline.id }}" >{{ discipline.name }}</option>
                         </select>
                     </div>
+                    {{ form_row(form.name) }}
                 </div>
             </div>
             <div class="box-footer">

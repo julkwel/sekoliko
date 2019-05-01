@@ -38,9 +38,15 @@ class SkBookController extends Controller
     public function indexAction()
     {
         $_book_list = $this->getEntityService()->getAllListByEts(SkBook::class);
+        foreach ($_book_list as $_book_reservation) {
+            $_book_reservation->retour = true;
+            if ($_book_reservation->getDateFin() < new \DateTime() && $_book_reservation->getisReserved() === true) {
+                $_book_reservation->retour = false;
+            }
+        }
 
         return $this->render('AdminBundle:SkBook:index.html.twig', array(
-            '_book_list' => $_book_list,
+            '_book_list' => $_book_list
         ));
     }
 
@@ -63,7 +69,7 @@ class SkBookController extends Controller
                 $this->getEntityService()->setFlash('success', 'Ajout du livre effectuée');
             } catch (\Exception $exception) {
                 try {
-                    $this->getEntityService()->setFlash('error', 'Une erreur s\'est produite, veuiller réessayez ultérieurement'.$exception->getMessage());
+                    $this->getEntityService()->setFlash('error', 'Une erreur s\'est produite, veuiller réessayez ultérieurement' . $exception->getMessage());
                 } catch (\Exception $e) {
                 }
             }
@@ -78,7 +84,7 @@ class SkBookController extends Controller
 
     /**
      * @param Request $request
-     * @param SkBook  $skBook
+     * @param SkBook $skBook
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
@@ -99,7 +105,7 @@ class SkBookController extends Controller
                 $this->getEntityService()->setFlash('success', 'Modification du livre effectueé');
             } catch (\Exception $exception) {
                 try {
-                    $this->getEntityService()->setFlash('error', 'Une erreur s\'est produite, veuiller réessayez ultérieurement'.$exception->getMessage());
+                    $this->getEntityService()->setFlash('error', 'Une erreur s\'est produite, veuiller réessayez ultérieurement' . $exception->getMessage());
                 } catch (\Exception $e) {
                 }
             }
@@ -147,7 +153,7 @@ class SkBookController extends Controller
 
     /**
      * @param Request $request
-     * @param SkBook  $skBook
+     * @param SkBook $skBook
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
@@ -182,7 +188,7 @@ class SkBookController extends Controller
                     $this->getEntityService()->saveEntity($skBook, 'update');
                     $this->getEntityService()->setFlash('success', 'Réservation effectuée');
                 } catch (\Exception $exception) {
-                    $this->getEntityService()->setFlash('error', 'Une erreur s\'est produite, veuiller réessayez ultérieurement'.$exception->getMessage());
+                    $this->getEntityService()->setFlash('error', 'Une erreur s\'est produite, veuiller réessayez ultérieurement' . $exception->getMessage());
                 }
 
                 return $this->redirectToRoute('book_index');
@@ -222,18 +228,12 @@ class SkBookController extends Controller
                 $this->getEntityService()->saveEntity($skBook, 'update');
             } catch (\Exception $exception) {
                 try {
-                    $this->getEntityService()->setFlash('error', 'Une erreur s\'est produite, veuiller réessayez ultérieurement'.$exception->getMessage());
+                    $this->getEntityService()->setFlash('error', 'Une erreur s\'est produite, veuiller réessayez ultérieurement' . $exception->getMessage());
                 } catch (\Exception $e) {
                 }
             }
 
             return $this->redirectToRoute('book_index');
-        } else {
-            try {
-                $this->getEntityService()->setFlash('error', 'Ce livre est déjà réservée');
-            } catch (\Exception $e) {
-                $e->getMessage();
-            }
         }
 
         return $this->redirectToRoute('book_index');

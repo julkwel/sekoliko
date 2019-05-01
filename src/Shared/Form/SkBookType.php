@@ -23,6 +23,14 @@ class SkBookType extends AbstractType
                 'label' => 'Nom du livre',
                 'required' => true,
             ))
+            ->add('author', TextType::class, array(
+                'label' => 'Auteur',
+                'required' => true,
+            ))
+            ->add('edition', TextType::class, array(
+                'label' => 'Edition ou type de livre',
+                'required' => true,
+            ))
         ;
     }
 

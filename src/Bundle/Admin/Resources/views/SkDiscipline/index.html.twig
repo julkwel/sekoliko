@@ -25,14 +25,12 @@
         <form action="" method="POST" class="form-search">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary text-center">Liste des disciplines</h6>
+                    <h6 class="m-0 font-weight-bold text-primary float-left">Liste des disciplines</h6>
                     {# Bouton création #}
                     {% if is_granted('ROLE_ADMIN') %}
-                        <div class="add-btn-top-list float-right">
-                            <a href="{{ path('discipline_new') }}" class="btn btn-primary">
+                            <a href="{{ path('discipline_new') }}" class=" float-right">
                                 Créer un discipline
                             </a>
-                        </div>
                     {% endif %}
 
                 </div>

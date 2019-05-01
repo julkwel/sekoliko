@@ -7,13 +7,21 @@
 {% block body %}
     <div class="card mb-4">
         <div class="card-header text-center">
+            <div class="float-left">
+
+                <a href="{{ path('book_index') }}">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
+            Details reservation livre
         </div>
         <div class="card-body">
             <ul>
                 <li>Titre : {{ book.bookName }}</li>
-                <li>Prénom : {{ book.user.usrFirstname }}</li>
-                <li>Début : {{ book.dateDebut | date('Y-m-d') }}</li>
-                <li>Fin : {{ book.dateFin | date('Y-m-d') }}</li>
+                <li>Username : {{ book.user?book.user.username }}</li>
+                <li>Téléphone : {{ book.user?book.user.usrPhone }}</li>
+                <li>Début : {{ book.dateDebut | date('Y-m-d H:m') }}</li>
+                <li>Fin : {{ book.dateFin | date('Y-m-d H:m') }}</li>
             </ul>
         </div>
     </div>

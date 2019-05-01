@@ -39,6 +39,18 @@ class SkBook
     private $bookName;
 
     /**
+     * @var
+     * @ORM\Column(type="string",length=200,nullable=true)
+     */
+    private $author;
+
+    /**
+     * @var
+     * @ORM\Column(type="string",length=200,nullable=true)
+     */
+    private $edition;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Bundle\User\Entity\User")
      * @ORM\JoinColumn(nullable=true,onDelete="SET NULL")
      */
@@ -159,5 +171,37 @@ class SkBook
     public function setDateFin($dateFin)
     {
         $this->dateFin = $dateFin;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * @param mixed $author
+     */
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEdition()
+    {
+        return $this->edition;
+    }
+
+    /**
+     * @param mixed $edition
+     */
+    public function setEdition($edition)
+    {
+        $this->edition = $edition;
     }
 }
