@@ -9,6 +9,7 @@
 namespace App\Bundle\Admin\Controller;
 
 use App\Shared\Entity\SkBug;
+use App\Shared\Entity\SkBugComment;
 use App\Shared\Form\SkBugType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -39,9 +40,48 @@ class SkBugController extends Controller
     {
         $_bug_list = $this->getEntityService()->getAllList(SkBug::class);
 
+        $_comment = $this->getDoctrine()->getRepository(SkBugComment::class)->findAll();
+
+        foreach ($_bug_list as $_bug) {
+            $_date_add = $this->time_elapsed_string($_bug->getDateAjout());
+        }
+
+
         return $this->render('@Admin/SkBug/index.html.twig', array(
             'bug' => $_bug_list,
+            'dateAdd' => $_date_add,
+            'comment'=>$_comment
         ));
+    }
+
+    function time_elapsed_string($datetime, $full = false)
+    {
+        $now = new \DateTime();
+        $ago = $datetime;
+        $diff = $now->diff($ago);
+
+        $diff->w = floor($diff->d / 7);
+        $diff->d -= $diff->w * 7;
+
+        $string = array(
+            'y' => 'year',
+            'm' => 'month',
+            'w' => 'week',
+            'd' => 'day',
+            'h' => 'hour',
+            'i' => 'minute',
+            's' => 'second',
+        );
+        foreach ($string as $k => &$v) {
+            if ($diff->$k) {
+                $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+            } else {
+                unset($string[$k]);
+            }
+        }
+
+        if (!$full) $string = array_slice($string, 0, 1);
+        return $string ? implode(', ', $string) . ' ago' : 'just now';
     }
 
     /**
@@ -86,7 +126,7 @@ class SkBugController extends Controller
             $_file = $_form['attachment']->getData();
             if ($_file) {
                 $_extension = $_file->guessExtension();
-                $_fileName = $this->generateUniqueFileName().'.'.$_extension;
+                $_fileName = $this->generateUniqueFileName() . '.' . $_extension;
                 try {
                     $_file->move($this->getParameter('bug_images_upload_directory'), $_fileName);
                     $_bug->setAttachment($_fileName);
@@ -114,7 +154,40 @@ class SkBugController extends Controller
 
     /**
      * @param Request $request
-     * @param SkBug   $_bug
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Exception
+     */
+    public function commentAction(Request $request,SkBug $_bug)
+    {
+        $_comment = new SkBugComment();
+
+//        $_bug_id = $request->query->get('id');
+//        $_bug = $this->getDoctrine()->getRepository(SkBug::class)->find($_bug_id);
+        $_form = $this->createForm(\App\Shared\Form\SkBugComment::class,$_comment);
+        $_form->handleRequest($request);
+
+        if ($_form->isSubmitted() && $_form->isValid()){
+                $_comment->setUser($this->getUserConnected());
+                $_comment->setBug($_bug);
+                $_comment->setDate(new \DateTime());
+
+                try{
+                    $this->getEntityService()->saveEntity($_comment,'new');
+                } catch (\Exception $exception){
+                    $this->getEntityService()->setFlash('error',$exception->getMessage());
+                }
+
+            return $this->redirectToRoute('bug_index');
+        }
+
+        return $this->render('AdminBundle:SkBug:comment.html.twig',['form'=>$_form->createView()]);
+    }
+
+    /**
+     * @param Request $request
+     * @param SkBug $_bug
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      *
@@ -151,7 +224,7 @@ class SkBugController extends Controller
 
             if ($_file) {
                 $_extension = $_file->guessExtension();
-                $_fileName = $this->generateUniqueFileName().'.'.$_extension;
+                $_fileName = $this->generateUniqueFileName() . '.' . $_extension;
                 try {
                     $_file->move($this->getParameter('bug_images_upload_directory'), $_fileName);
                     $_bug->setAttachment($_fileName);

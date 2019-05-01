@@ -28,7 +28,9 @@ class SkBugType extends AbstractType
             ->add('description', TextareaType::class, array(
                 'label' => 'Description de bug',
             ))
-            ->add('attachment', FileType::class, array('data_class' => null, 'required' => false))
+            ->add('attachment', FileType::class, [
+                'required' => false
+            ])
             ;
     }
 

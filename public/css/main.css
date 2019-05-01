@@ -10,7 +10,7 @@
     border-radius: 5px;
     display: inline-block;
 }
-#sk_guide_attachment, #sk_bug_attachment, #sk_userbundle_user_imgUrl {display: none;}
+#sk_guide_attachment, #sk_userbundle_user_imgUrl {display: none;}
 
 @media screen and (max-width: 600px){
     .kl-action-button-bloc{
@@ -170,4 +170,24 @@ Checkbox
     width: 50px;
     height: 50px!important;
     border-radius: 50%
+}
+
+.gedf-wrapper {
+    margin-top: 0.97rem;
+}
+
+@media (min-width: 992px) {
+    .gedf-main {
+        padding-left: 4rem;
+        padding-right: 4rem;
+    }
+    .gedf-card {
+        margin-bottom: 2.77rem;
+    }
+}
+
+/**Reset Bootstrap*/
+.dropdown-toggle::after {
+    content: none;
+    display: none;
 }

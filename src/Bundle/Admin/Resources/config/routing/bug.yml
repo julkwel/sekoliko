@@ -1,16 +1,21 @@
 bug_index:
     path:     /
     defaults: { _controller: "AdminBundle:SkBug:index" }
-    methods:  GET
+    methods:  [GET, POST]
 
 bug_new:
     path:     /new
     defaults: { _controller: "AdminBundle:SkBug:new" }
-    methods:  [GET, POST]
+    methods:  [POST]
 
 bug_edit:
     path:     /{id}/edit
     defaults: { _controller: "AdminBundle:SkBug:update" }
+    methods:  [GET, POST]
+
+bug_comment:
+    path:     /{id}/comment
+    defaults: { _controller: "AdminBundle:SkBug:comment" }
     methods:  [GET, POST]
 
 #bug_liste:

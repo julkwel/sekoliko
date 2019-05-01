@@ -39,6 +39,12 @@ class SkBug
     private $user;
 
     /**
+     * @var
+     * @ORM\OneToMany(targetEntity="App\Shared\Entity\SkBugComment",mappedBy="bug")
+     */
+    private $comment;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="titre", type="string", length=200, nullable=false)
@@ -208,5 +214,21 @@ class SkBug
     public function setAttachment($attachment): void
     {
         $this->attachment = $attachment;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @param mixed $comment
+     */
+    public function setComment($comment): void
+    {
+        $this->comment = $comment;
     }
 }

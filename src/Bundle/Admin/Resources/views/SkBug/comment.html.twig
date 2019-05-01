@@ -1,0 +1,7 @@
+
+{% form_theme form 'form/custom_fields.html.twig' %}
+
+{{ form_start(form,{"attr":{"id":"form-comment"}}) }}
+    {{ form_row(form.comment) }}
+    <input type="submit" class="btn btn-primary" id="comment" value="commenter">
+{{ form_end(form) }}
