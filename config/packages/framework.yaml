@@ -10,7 +10,7 @@ framework:
     # Remove or comment this section to explicitly disable session support.
     session:
         cookie_lifetime: 0
-        name: LIVENEXXSESSID
+        name: SEKOLIKO
 
     #esi: true
     #fragments: true

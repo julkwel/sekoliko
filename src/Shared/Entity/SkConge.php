@@ -62,14 +62,14 @@ class SkConge
 
     /**
      * @var
-     * @ORM\Column(type="boolean",nullable=true,options={"defaults":"0"})
+     * @ORM\Column(name="is_fin",type="boolean",options={"default"= 0})
      */
     private $isFin;
 
-    public function __construct()
-    {
-        $this->isFin = 0;
-    }
+//    public function __construct()
+//    {
+//        $this->isFin = 0;
+//    }
 
     /**
      * @return int
