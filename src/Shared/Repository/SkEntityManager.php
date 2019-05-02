@@ -25,7 +25,7 @@ class SkEntityManager
      * ServiceMetierSkParticipants constructor.
      *
      * @param EntityManager $_entity_manager
-     * @param Container     $_container
+     * @param Container $_container
      * @param $_root_dir
      *
      * @throws ORMException
@@ -34,7 +34,7 @@ class SkEntityManager
     {
         $this->_entity_manager = $_entity_manager;
         $this->_container = $_container;
-        $this->_web_root = realpath($_root_dir.'/../public');
+        $this->_web_root = realpath($_root_dir . '/../public');
 
         $_user_conge = $_entity_manager->getRepository(SkConge::class)->findBy(['isFin' => false]);
         foreach ($_user_conge as $_user) {
@@ -103,8 +103,17 @@ class SkEntityManager
     public function getAllListByEts($_entity_name)
     {
         $_user_ets = $this->getUserConnected()->getEtsNom();
+        $_as_nom = $this->getUserConnected()->getAsName();
+        $_array_find = [];
 
-        return $this->getRepository($_entity_name)->findBy(array('etsNom' => $_user_ets), array('id' => 'DESC'));
+        if (is_callable($_entity_name, 'getEtsNom')) {
+            $_array_find['etsNom'] = $_user_ets;
+        }
+        if (is_callable($_entity_name, 'getAsName')) {
+            $_array_find['asName'] = $_as_nom;
+        }
+
+        return $this->getRepository($_entity_name)->findBy($_array_find, array('id' => 'DESC'));
     }
 
     /**
@@ -148,9 +157,11 @@ class SkEntityManager
             try {
                 $_ann_scolaire_debut = $this->getUserConnected()->getAnneScolaireDebut();
                 $_ann_scolaire_fin = $this->getUserConnected()->getAnneScolaireFin();
+                $_as_name = $this->getUserConnected()->getAsName();
                 $_user_ets = $this->getUserConnected()->getEtsNom();
+
             } finally {
-                if ($_ann_scolaire_debut || $_ann_scolaire_fin || $_user_ets) {
+                if ($_ann_scolaire_debut || $_ann_scolaire_fin || $_user_ets || $_as_name) {
                     if ($_ann_scolaire_debut) {
                         if (method_exists($_data, 'setAnneScolaireDebut')) {
                             $_data->setAnneScolaireDebut($_ann_scolaire_debut);
@@ -164,6 +175,11 @@ class SkEntityManager
                     if ($_user_ets) {
                         if (method_exists($_data, 'setEtsNom')) {
                             $_data->setEtsNom($_user_ets);
+                        }
+                    }
+                    if ($_as_name) {
+                        if (method_exists($_data, 'setAsName')) {
+                            $_data->setAsName($_as_name);
                         }
                     }
                 }
@@ -262,9 +278,9 @@ class SkEntityManager
         // Récupérer le répertoire image spécifique
         $_directory_image = PathName::UPLOAD_IMAGE;
         // Upload image
-        $_file_name_image = md5(uniqid()).'.'.$_image->guessExtension();
-        $_uri_file = $_directory_image.$_file_name_image;
-        $_dir = $this->_web_root.$_directory_image;
+        $_file_name_image = md5(uniqid()) . '.' . $_image->guessExtension();
+        $_uri_file = $_directory_image . $_file_name_image;
+        $_dir = $this->_web_root . $_directory_image;
         $_image->move(
             $_dir,
             $_file_name_image
@@ -281,7 +297,7 @@ class SkEntityManager
     public function deleteOnlyImage($_data)
     {
         if ($_data) {
-            $_path = $this->_web_root.$_data->getImgUrl();
+            $_path = $this->_web_root . $_data->getImgUrl();
 
             // Suppression du fichier
             @unlink($_path);
@@ -299,7 +315,7 @@ class SkEntityManager
     {
         if ($_data) {
             try {
-                $_path = $this->_web_root.$_data->getImgUrl();
+                $_path = $this->_web_root . $_data->getImgUrl();
 
                 // Suppression du fichier
                 @unlink($_path);

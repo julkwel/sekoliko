@@ -21,10 +21,8 @@
                     </div>
                     <div class="form-group">
                         <label for="">Classe</label>
-                        <select name="classe" id="" class="form-control">
-                            {% for classe in classe %}
+                        <select name="classe" id="" class="form-control" disabled>
                                 <option value="{{ classe.id }}">{{ classe.classeNom }}</option>
-                            {% endfor %}
                         </select>
                     </div>
                     {{ form_row(form.addition) }}

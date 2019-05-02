@@ -90,7 +90,11 @@ class SkCongeController extends Controller
             if ($_user->getDateFin() < new \DateTime('now')) {
                 $_user->setIsFin(true);
                 $_user->getUser()->setIsConge(false);
+                $_user_en_conge = $this->getDoctrine()->getRepository(User::class)->find($_user->getUser()->getId());
+                $_user_en_conge->setIsConge(false);
+
                 $this->getEntityManager()->saveEntity($_user, 'update');
+                $this->getEntityManager()->saveEntity($_user_en_conge, 'update');
             }
         }
 
@@ -116,6 +120,7 @@ class SkCongeController extends Controller
             'etsNom' => $this->getUserConnected()->getEtsNom(),
             'asName' => $this->getUserConnected()->getAsName(),
         ]);
+
         $_date_deb = $request->request->get('debut');
         $_date_fin = $request->request->get('fin');
         $_user = $request->request->get('user');
@@ -140,15 +145,18 @@ class SkCongeController extends Controller
             $_user->setIsConge(true);
             $conge->setDateDeb(new \DateTime($_date_deb));
             $conge->setDateFin(new \DateTime($_date_fin));
-            $conge->setAsName($this->getUserConnected()->getAsName());
-            $conge->setEtsNom($this->getUserConnected()->getEtsNom());
             $conge->setUser($_user);
 
-            $this->getEntityManager()->saveEntity($_user, 'update');
-            $this->getEntityManager()->saveEntity($conge, 'new');
-            $this->getEntityManager()->setFlash('success', 'Conge ajouté pour');
+            try {
+                $this->getEntityManager()->saveEntity($_user, 'update');
+                $this->getEntityManager()->saveEntity($conge, 'new');
 
-            return $this->redirectToRoute('conge_list');
+                $this->getEntityManager()->setFlash('success', 'Conge ajouté pour ' . $conge->getUser()->getUserName());
+            } catch (\Exception $exception) {
+                $this->getEntityManager()->setFlash('error', 'Une erreur se produite ' . $exception->getMessage());
+            } finally {
+                return $this->redirectToRoute('conge_list');
+            }
         }
 
         return $this->render('AdminBundle:SkConge:add.html.twig', [

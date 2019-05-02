@@ -154,16 +154,20 @@ class UserController extends Controller
                 $_ets_nom = $_request->request->get('etsNom');
                 $_ann_deb = $_request->request->get('annDebut');
                 $_ann_fin = $_request->request->get('annFin');
+                $_as_name = $_request->request->get('asName');
 
                 $_user->setAnneScolaireDebut(new \DateTime($_ann_deb));
                 $_user->setAnneScolaireFin(new \DateTime($_ann_fin));
                 $_user->setEtsNom($_ets_nom);
+                $_user->setAsName($_as_name);
+
             } else {
                 try {
                     $_ann_scolaire_debut = $this->getUserConnected()->getAnneScolaireDebut();
                     $_ann_scolaire_fin = $this->getUserConnected()->getAnneScolaireFin();
+                    $_as_name = $this->getUserConnected()->getAsName();
                 } finally {
-                    if ($_ann_scolaire_debut || $_ann_scolaire_fin || $_user_ets) {
+                    if ($_ann_scolaire_debut || $_ann_scolaire_fin || $_user_ets || $_as_name) {
                         if ($_ann_scolaire_debut) {
                             $_user->setAnneScolaireDebut($_ann_scolaire_debut);
                         }
@@ -172,6 +176,9 @@ class UserController extends Controller
                         }
                         if ($_user_ets) {
                             $_user->setEtsNom($_user_ets);
+                        }
+                        if ($_as_name) {
+                            $_user->setAsName($_as_name);
                         }
                     }
                 }

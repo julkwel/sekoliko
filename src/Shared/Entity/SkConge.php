@@ -66,10 +66,10 @@ class SkConge
      */
     private $isFin;
 
-//    public function __construct()
-//    {
-//        $this->isFin = 0;
-//    }
+    public function __construct()
+    {
+        $this->isFin = 0;
+    }
 
     /**
      * @return int

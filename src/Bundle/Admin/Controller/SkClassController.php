@@ -78,8 +78,7 @@ class SkClassController extends Controller
         $_form = $this->createForm(SkClasseType::class, $_classe);
         $_form->handleRequest($request);
 
-        $_user_ets = $this->container->get('security.token_storage')->getToken()->getUser()->getEtsNom();
-        $_niveau_list = $this->getDoctrine()->getRepository(SkNiveau::class)->findBy(array('etsNom' => $_user_ets));
+        $_niveau_list = $this->getEntityService()->getAllListByEts(SkNiveau::class);
 
         if ($_form->isSubmitted() && $_form->isValid()) {
             $_niveau = $request->get('niveau');
@@ -101,7 +100,7 @@ class SkClassController extends Controller
     }
 
     /**
-     * @param Request  $request
+     * @param Request $request
      * @param SkClasse $skClasse
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -123,7 +122,7 @@ class SkClassController extends Controller
         $_form->handleRequest($request);
 
         $_user_ets = $this->container->get('security.token_storage')->getToken()->getUser()->getEtsNom();
-        $_niveau_list = $this->getDoctrine()->getRepository(SkNiveau::class)->findBy(array('etsNom' => $_user_ets));
+        $_niveau_list = $this->getEntityService()->getAllListByEts(SkNiveau::class);
 
         if ($_form->isSubmitted() && $_form->isValid()) {
             $_niveau = $request->get('niveau');
@@ -177,6 +176,7 @@ class SkClassController extends Controller
     public function getListeEtudiantAction(SkClasse $skClasse)
     {
         $_etudiant_liste = $this->getDoctrine()->getRepository(SkEtudiant::class)->findBy(array(
+            'asName' => $this->getUserConnected()->getAsName(),
             'classe' => $skClasse,
         ));
 
@@ -193,7 +193,10 @@ class SkClassController extends Controller
      */
     public function getMatiereAction(SkClasse $skClasse)
     {
-        $_matiere_liste = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array('matClasse' => $skClasse));
+        $_matiere_liste = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy([
+            'matClasse' => $skClasse,
+            'asName' => $this->getUserConnected()->getAsName()
+        ]);
 
         return $this->render('@Admin/SkClasse/class.mat.html.twig', array(
             'liste_matiere' => $_matiere_liste,
@@ -202,7 +205,7 @@ class SkClassController extends Controller
     }
 
     /**
-     * @param Request  $_request
+     * @param Request $_request
      * @param SkClasse $skClasse
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -245,13 +248,14 @@ class SkClassController extends Controller
             'etsNom' => array(
                 $_user_ets,
             ),
+            'asName' => $this->getUserConnected()->getAsName()
         );
 
         return $this->getDoctrine()->getRepository(User::class)->findBy($_array_type, array('id' => 'DESC'));
     }
 
     /**
-     * @param Request  $request
+     * @param Request $request
      * @param SkClasse $skClasse
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -283,7 +287,7 @@ class SkClassController extends Controller
 
             $_save_data = $this->getEntityService()->saveEntity($_matiere, 'new');
             if (true === $_save_data) {
-                $this->getEntityService()->setFlash('success', 'Ajout matiere pour'.$skClasse->getClasseNom().'a réussi');
+                $this->getEntityService()->setFlash('success', 'Ajout matiere pour' . $skClasse->getClasseNom() . 'a réussi');
 
                 return $this->redirect($this->generateUrl('classe_matiere_liste', array('id' => $skClasse->getId())));
             }
@@ -299,7 +303,7 @@ class SkClassController extends Controller
     }
 
     /**
-     * @param SkClasse  $skClasse
+     * @param SkClasse $skClasse
      * @param SkMatiere $skMatiere
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -332,7 +336,7 @@ class SkClassController extends Controller
 
     /**
      * @param SkClasse $skClasse
-     * @param User     $user
+     * @param User $user
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *
@@ -362,7 +366,7 @@ class SkClassController extends Controller
     }
 
     /**
-     * @param Request  $request
+     * @param Request $request
      * @param SkClasse $skClasse
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -426,11 +430,11 @@ class SkClassController extends Controller
                             $this->getEntityService()->saveEntity($_etudiant, 'new');
                         } catch (\Exception $exception) {
                             $exception->getMessage();
-                            $this->getEntityService()->setFlash('error', 'Une erreur s\'est produite, veuiller réessayez ultérieurement'.$exception->getMessage());
+                            $this->getEntityService()->setFlash('error', 'Une erreur s\'est produite, veuiller réessayez ultérieurement' . $exception->getMessage());
                         }
                     }
                 }
-                $this->getEntityService()->setFlash('success', 'Ajout de l\'étudiant(e) dans la classe '.$skClasse->getClasseNom().' effectuée');
+                $this->getEntityService()->setFlash('success', 'Ajout de l\'étudiant(e) dans la classe ' . $skClasse->getClasseNom() . ' effectuée');
 
                 return $this->redirect($this->generateUrl('etudiant_liste', array('id' => $skClasse->getId())));
             }
@@ -470,14 +474,14 @@ class SkClassController extends Controller
                             try {
                                 $this->getEntityService()->saveEntity($_user, 'new');
                             } catch (\Exception $exception) {
-                                $this->getEntityService()->setFlash('error', 'Email ou nom d\'utilisateur déjà prise'.$exception->getMessage());
+                                $this->getEntityService()->setFlash('error', 'Email ou nom d\'utilisateur déjà prise' . $exception->getMessage());
 
                                 return $this->redirect($this->generateUrl('classe_etudiant_new', array('id' => $skClasse->getId())));
                             }
                             try {
                                 $this->getEntityService()->saveEntity($_etudiant, 'new');
                             } catch (\Exception $exception) {
-                                $this->getEntityService()->setFlash('error', 'error'.$exception->getMessage());
+                                $this->getEntityService()->setFlash('error', 'error' . $exception->getMessage());
 
                                 return $this->redirect($this->generateUrl('classe_etudiant_new', array('id' => $skClasse->getId())));
                             }
@@ -485,7 +489,7 @@ class SkClassController extends Controller
                             $exception->getMessage();
                         }
 
-                        $this->getEntityService()->setFlash('success', 'Ajout de l\'étudiant(e) dans la classe '.$skClasse->getClasseNom().' effectuée');
+                        $this->getEntityService()->setFlash('success', 'Ajout de l\'étudiant(e) dans la classe ' . $skClasse->getClasseNom() . ' effectuée');
 
                         return $this->redirect($this->generateUrl('etudiant_liste', array('id' => $skClasse->getId())));
                     }

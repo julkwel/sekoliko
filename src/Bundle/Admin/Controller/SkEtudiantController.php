@@ -125,7 +125,10 @@ class SkEtudiantController extends Controller
 
         try {
             $_ets = $this->getUserConnected()->getEtsNom();
-            $_classe_list = $this->getDoctrine()->getRepository(SkClasse::class)->findBy(array('etsNom' => $_ets));
+            $_classe_list = $this->getDoctrine()->getRepository(SkClasse::class)->findBy(array(
+                'etsNom' => $_ets,
+                'asName' => $this->getUserConnected()->getAsName()
+            ));
 
             $_etudiant = new SkEtudiant();
             $_form = $this->createForm(SkEtudiantType::class, $_etudiant);
@@ -134,12 +137,14 @@ class SkEtudiantController extends Controller
             if ($_form->isSubmitted() && $_form->isValid()) {
                 $_class = $request->request->get('classe');
                 $_class = $this->getDoctrine()->getRepository(SkClasse::class)->find($_class);
-
                 $_etudiant->setClasse($_class);
                 $_etudiant->setEtudiant($user);
+//                dump($_etudiant);die();
+
                 try {
                     $this->getEntityService()->saveEntity($_etudiant, 'new');
                     $this->getEntityService()->setFlash('success', 'Ajout de l\'etudiant(e) effectué(e)');
+
                 } catch (\Exception $exception) {
                     $exception->getMessage();
                 }
@@ -166,6 +171,7 @@ class SkEtudiantController extends Controller
      */
     public function updateAction(Request $request, SkEtudiant $skEtudiant)
     {
+//        dump($skEtudiant->getClasse());die();
         /*
          * Secure to etudiant connected
          */
@@ -197,7 +203,7 @@ class SkEtudiantController extends Controller
         return $this->render('@Admin/SkEtudiant/edit.etudiant.html.twig', array(
             'form' => $_form->createView(),
             'etudiant' => $skEtudiant,
-            'classe' => $_classe_list,
+            'classe' => $skEtudiant->getClasse(),
         ));
     }
 

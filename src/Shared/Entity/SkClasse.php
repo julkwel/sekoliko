@@ -9,6 +9,7 @@
 namespace App\Shared\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * SkClasse.
@@ -54,6 +55,16 @@ class SkClasse
      * })
      */
     private $niveau;
+
+
+//    public function __construct($security)
+//    {
+//        $_user_as =  $security->getToken()->getUser()->getAsName();
+//        $_user_ets =  $security->getToken()->getUser()->getEtsNom();
+//
+//        $this->asName = $_user_as;
+//        $this->etsNom = $_user_ets;
+//    }
 
     /**
      * @return int

@@ -10,6 +10,7 @@ namespace App\Shared\Entity;
 
 use App\Bundle\User\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * SkRole.
@@ -20,6 +21,8 @@ use Doctrine\ORM\Mapping as ORM;
 class SkAbsence
 {
     use SkEtablissement;
+
+    use SkAnneScolaire;
 
     /**
      * @var int
@@ -59,6 +62,15 @@ class SkAbsence
      * @ORM\Column(name="abs_date_fin", type="datetime", nullable=true)
      */
     private $absDateFin;
+
+    public function __construct(Security $security)
+    {
+      $_user_as =  $security->getToken()->getUser()->getAsName();
+      $_user_ets =  $security->getToken()->getUser()->getEtsNom();
+
+      $this->asName = $_user_as;
+      $this->etsNom = $_user_ets;
+    }
 
     /**
      * @return int

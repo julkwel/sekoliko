@@ -38,6 +38,7 @@ class SkBookController extends Controller
     public function indexAction()
     {
         $_book_list = $this->getEntityService()->getAllListByEts(SkBook::class);
+
         foreach ($_book_list as $_book_reservation) {
             $_book_reservation->retour = true;
             if ($_book_reservation->getDateFin() < new \DateTime() && $_book_reservation->getisReserved() === true) {

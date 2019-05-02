@@ -28,11 +28,9 @@
                     <h6 class="m-0 font-weight-bold text-primary text-center">Liste des personnes en congé</h6>
                     {# Bouton création #}
                     {% if is_granted('ROLE_ADMIN') %}
-                        <div class="add-btn-top-list float-right">
-                            <a href="{{ path('conge_new') }}" class="btn btn-primary">
+                            <a href="{{ path('conge_new') }}" class="float-right">
                                 Créer une congé
                             </a>
-                        </div>
                     {% endif %}
                     <div class="box-header">
                         <div class="list-count">

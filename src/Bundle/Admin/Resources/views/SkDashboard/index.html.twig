@@ -26,7 +26,7 @@
             <h1 class="h3 mb-0 text-white">Bienvenue sur le tableau de bord de {{ ets }}</h1>
         </div>
     </div>
-<div class="pb-2"></div>
+    <div class="pb-2"></div>
     <div class="row">
         <!-- Earnings (Monthly) Card Example -->
         <a href="{{ path('etudiant_search') }}" class="col-xl-3 col-md-6 mb-4" style="text-decoration: none">
@@ -102,5 +102,65 @@
                 </div>
             </div>
         </a>
+    </div>
+
+    <div class="row">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary text-center">Liste des personnes en congé</h6>
+                {# Bouton création #}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('conge_new') }}" class="float-right">
+                        Créer une congé
+                    </a>
+                {% endif %}
+                <div class="box-header">
+                    <div class="list-count">
+                        <a href="{{ path('conge_list') }}">Total {{ congelist|length }}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>Utilisateur</th>
+                            <th>Type</th>
+                            <th>Début</th>
+                            <th>Fin</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for conge in congelist %}
+                            <tr>
+                                <td class="text-center">
+                                    <input type="checkbox" value="{{ conge.id }}" name="delete[]"/>
+                                </td>
+                                <td>{{ conge.user ? conge.user.usrFirstname : 'null' }}</td>
+                                <td>{{ conge.type ? 'Permission' : 'Congé' }}</td>
+                                <td>{{ conge.dateDeb|date('Y-m-d H:i:s') }}</td>
+                                <td>{{ conge.dateFin|date('Y-m-d H:i:s') }}</td>
+                                <td class="kl-action-button-bloc">
+                                    <a class="btn btn-success btn-sm" title="Modifier ce classe"
+                                       href="{{ path('conge_edit', { 'id': conge.id }) }}">
+                                        <i class="fas fa-pen"></i>
+                                    </a>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <a class="btn btn-danger remove-elt btn-sm" title="Supprimer"
+                                           onclick="supprimer('{{ path('conge_delete', { 'id': conge.id }) }}')">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
