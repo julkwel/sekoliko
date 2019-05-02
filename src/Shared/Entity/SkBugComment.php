@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: julkwel
  * Date: 5/1/19
- * Time: 8:09 PM
+ * Time: 8:09 PM.
  */
 
 namespace App\Shared\Entity;
@@ -11,14 +11,13 @@ namespace App\Shared\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class SkBugComment
- * @package App\Shared\Entity
+ * Class SkBugComment.
+ *
  * @ORM\Entity
  * @ORM\Table(name="sk_bug_comment")
  */
 class SkBugComment
 {
-
     /**
      * @var int
      *

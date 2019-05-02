@@ -45,7 +45,11 @@ class SkNoteController extends Controller
     public function indexAction(SkEtudiant $skEtudiant)
     {
         $_trim_list = $this->getEntityService()->getAllListByEts(SkTrimestre::class);
-        $_note_liste = $this->getDoctrine()->getRepository(SkNote::class)->findBy(array('etudiant' => $skEtudiant));
+        $_note_liste = $this->getDoctrine()->getRepository(SkNote::class)->findBy(array(
+            'etudiant' => $skEtudiant,
+            'asName' => $this->getUserConnected()->getAsName(),
+        ));
+
         $_classe = $skEtudiant->getClasse();
 
         return $this->render('@Admin/SkEtudiant/listnote.html.twig', array(
@@ -71,7 +75,12 @@ class SkNoteController extends Controller
     public function noteTrimAction(SkEtudiant $skEtudiant, SkTrimestre $skTrimestre)
     {
         $_trim_list = $this->getEntityService()->getAllListByEts(SkTrimestre::class);
-        $_note_liste = $this->getDoctrine()->getRepository(SkNote::class)->findBy(array('etudiant' => $skEtudiant, 'trimestre' => $skTrimestre));
+        $_note_liste = $this->getDoctrine()->getRepository(SkNote::class)->findBy(array(
+            'etudiant' => $skEtudiant,
+            'trimestre' => $skTrimestre,
+            'asName' => $this->getUserConnected()->getAsName(),
+        ));
+
         $_classe = $skEtudiant->getClasse();
 
         return $this->render('@Admin/SkEtudiant/trim.note.details.html.twig', array(
@@ -109,6 +118,7 @@ class SkNoteController extends Controller
             $_matiere_liste = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array(
                 'matProf' => $_profs,
                 'etsNom' => $_ets_nom,
+                'asName' => $this->getUserConnected()->getAsName(),
             ));
         } else {
             $_ets_nom = $this->getUserConnected()->getEtsNom();
@@ -117,6 +127,7 @@ class SkNoteController extends Controller
             $_matiere_liste = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array(
                 'etsNom' => $_ets_nom,
                 'matClasse' => $_etudiant_classe,
+                'asName' => $this->getUserConnected()->getAsName(),
             ));
         }
 
@@ -185,15 +196,18 @@ class SkNoteController extends Controller
             $_matiere_liste = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array(
                 'matProf' => $_profs,
                 'etsNom' => $_ets_nom,
+                'asName' => $this->getUserConnected()->getAsName(),
             ));
         } else {
             $_matiere_liste = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array(
                 'etsNom' => $_ets_nom,
                 'matClasse' => $_etudiant_classe,
+                'asName' => $this->getUserConnected()->getAsName(),
             ));
         }
         $_trimestre_list = $this->getDoctrine()->getRepository(SkTrimestre::class)->findBy(array(
             'etsNom' => $_ets_nom,
+            'asName' => $this->getUserConnected()->getAsName(),
         ));
 
         $_form = $this->createForm(SkNoteType::class, $skNote);
@@ -265,6 +279,7 @@ class SkNoteController extends Controller
         $_user_classe = $this->getDoctrine()->getRepository(SkEtudiant::class)->findBy(array(
             'etsNom' => $this->getUserConnected()->getEtsNom(),
             'etudiant' => $this->getUserConnected(),
+            'asName' => $this->getUserConnected()->getAsName(),
         ));
 
         $_note_liste = $this->getDoctrine()->getRepository(SkNote::class)->findBy(array(
@@ -287,6 +302,7 @@ class SkNoteController extends Controller
         $_user_classe = $this->getDoctrine()->getRepository(SkEtudiant::class)->findBy(array(
             'etsNom' => $this->getUserConnected()->getEtsNom(),
             'etudiant' => $this->getUserConnected(),
+            'asName' => $this->getUserConnected()->getAsName(),
         ));
 
         $_note_liste = $this->getDoctrine()->getRepository(SkNote::class)->findBy(array(

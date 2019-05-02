@@ -153,9 +153,11 @@ class SkDisciplineController extends Controller
     public function indexPunitionAction(SkDiscipline $skDiscipline)
     {
         $_user_ets = $this->getUserConnected()->getEtsNom();
+        $_user_as = $this->getUserConnected()->getAsName();
         $_array_search = array(
-          'etsNom' => $_user_ets,
-          'discipline' => $skDiscipline,
+            'etsNom' => $_user_ets,
+            'discipline' => $skDiscipline,
+            'asName' => $_user_as,
         );
         $_punition_list = $this->getDoctrine()->getRepository(SkDisciplineList::class)->findBy($_array_search, array('id' => 'DESC'));
 

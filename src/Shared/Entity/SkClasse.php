@@ -56,7 +56,6 @@ class SkClasse
      */
     private $niveau;
 
-
 //    public function __construct($security)
 //    {
 //        $_user_as =  $security->getToken()->getUser()->getAsName();

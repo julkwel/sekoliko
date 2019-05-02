@@ -65,11 +65,11 @@ class SkAbsence
 
     public function __construct(Security $security)
     {
-      $_user_as =  $security->getToken()->getUser()->getAsName();
-      $_user_ets =  $security->getToken()->getUser()->getEtsNom();
+        $_user_as = $security->getToken()->getUser()->getAsName();
+        $_user_ets = $security->getToken()->getUser()->getEtsNom();
 
-      $this->asName = $_user_as;
-      $this->etsNom = $_user_ets;
+        $this->asName = $_user_as;
+        $this->etsNom = $_user_ets;
     }
 
     /**

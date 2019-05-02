@@ -67,6 +67,7 @@ class SkSalleController extends Controller
             $_salle_exist = $this->getDoctrine()->getRepository(SkSalle::class)->findBy(array(
                 'salleNom' => $_verif,
                 'etsNom' => $this->getUser()->getEtsNom(),
+                'asName' => $this->getUserConnected()->getAsName(),
             ));
 
             if (null !== $_salle_exist) {

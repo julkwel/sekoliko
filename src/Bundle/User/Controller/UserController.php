@@ -160,7 +160,6 @@ class UserController extends Controller
                 $_user->setAnneScolaireFin(new \DateTime($_ann_fin));
                 $_user->setEtsNom($_ets_nom);
                 $_user->setAsName($_as_name);
-
             } else {
                 try {
                     $_ann_scolaire_debut = $this->getUserConnected()->getAnneScolaireDebut();

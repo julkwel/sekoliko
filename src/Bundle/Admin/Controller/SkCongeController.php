@@ -151,9 +151,9 @@ class SkCongeController extends Controller
                 $this->getEntityManager()->saveEntity($_user, 'update');
                 $this->getEntityManager()->saveEntity($conge, 'new');
 
-                $this->getEntityManager()->setFlash('success', 'Conge ajouté pour ' . $conge->getUser()->getUserName());
+                $this->getEntityManager()->setFlash('success', 'Conge ajouté pour '.$conge->getUser()->getUserName());
             } catch (\Exception $exception) {
-                $this->getEntityManager()->setFlash('error', 'Une erreur se produite ' . $exception->getMessage());
+                $this->getEntityManager()->setFlash('error', 'Une erreur se produite '.$exception->getMessage());
             } finally {
                 return $this->redirectToRoute('conge_list');
             }

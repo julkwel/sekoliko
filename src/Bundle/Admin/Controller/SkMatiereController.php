@@ -42,7 +42,11 @@ class SkMatiereController extends Controller
     {
         if ($this->get('security.authorization_checker')->isGranted('ROLE_PROFS')) {
             $_profs = $this->getUserConnected();
-            $_matier_liste = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array('matProf' => $_profs));
+            $_matier_liste = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array(
+                'matProf' => $_profs,
+                'etsNom' => $this->getUserConnected()->getEtsNom(),
+                'asName' => $this->getUserConnected()->getAsName(),
+            ));
 
             return $this->render('AdminBundle:SkMatiere:index.html.twig', array(
                 'matiere_liste' => $_matier_liste,
@@ -63,11 +67,13 @@ class SkMatiereController extends Controller
     {
         $_user_classe = $this->getDoctrine()->getRepository(SkEtudiant::class)->findBy(array(
             'etsNom' => $this->getUserConnected()->getEtsNom(),
+            'asName' => $this->getUserConnected()->getAsName(),
             'etudiant' => $this->getUserConnected(),
         ));
 
         $_matiere_list = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array(
             'etsNom' => $this->getUserConnected()->getEtsNom(),
+            'asName' => $this->getUserConnected()->getAsName(),
             'matClasse' => $_user_classe[0]->getClasse(),
         ));
 
@@ -91,14 +97,14 @@ class SkMatiereController extends Controller
     public function getProfs()
     {
         $_user_ets = $this->getUserConected()->getEtsNom();
+        $_user_as = $this->getUserConected()->getAsName();
 
         $_array_type = array(
             'skRole' => array(
                 RoleName::ID_ROLE_PROFS,
             ),
-            'etsNom' => array(
-                $_user_ets,
-            ),
+            'etsNom' => $_user_ets,
+            'asName' => $_user_as,
         );
 
         return $this->getDoctrine()->getRepository(User::class)->findBy($_array_type, array('id' => 'DESC'));
@@ -124,7 +130,10 @@ class SkMatiereController extends Controller
 
         $_user_ets = $this->getUserConected()->getEtsNom();
         $_profs_list = $this->getProfs();
-        $_classe_list = $this->getDoctrine()->getRepository(SkClasse::class)->findBy(array('etsNom' => $_user_ets));
+        $_classe_list = $this->getDoctrine()->getRepository(SkClasse::class)->findBy(array(
+            'etsNom' => $_user_ets,
+            'asName' => $this->getUserConnected()->getAsName(),
+        ));
 
         $_matiere = new SkMatiere();
         $_form = $this->createForm(SkMatiereType::class, $_matiere);
@@ -174,7 +183,10 @@ class SkMatiereController extends Controller
 
         $_profs_liste = $this->getProfs();
         $_user_ets = $this->getUserConected()->getEtsNom();
-        $_classe_list = $this->getDoctrine()->getRepository(SkClasse::class)->findBy(array('etsNom' => $_user_ets));
+        $_classe_list = $this->getDoctrine()->getRepository(SkClasse::class)->findBy(array(
+            'etsNom' => $_user_ets,
+            'asName' => $this->getUserConnected()->getAsName(),
+        ));
 
         $_form = $this->createForm(SkMatiereType::class, $skMatiere);
         $_form->handleRequest($request);

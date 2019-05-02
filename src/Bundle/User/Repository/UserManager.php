@@ -390,9 +390,9 @@ class UserManager
         $_result = $this->_container->get('mailer')->send($_message);
 
         $_headers = $_message->getHeaders();
-        $_headers->addIdHeader('Message-ID', uniqid() . '@domain.com');
+        $_headers->addIdHeader('Message-ID', uniqid().'@domain.com');
         $_headers->addTextHeader('MIME-Version', '1.0');
-        $_headers->addTextHeader('X-Mailer', 'PHP v' . phpversion());
+        $_headers->addTextHeader('X-Mailer', 'PHP v'.phpversion());
         $_headers->addParameterizedHeader('Content-type', 'text/html', ['charset' => 'utf-8']);
 
         if ($_result) {
@@ -411,7 +411,7 @@ class UserManager
      */
     public function generatePassword($_length)
     {
-        $_caracter = str_split('abcdefghijklmnopqrstuvwxyz' . 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' . '0123456789');
+        $_caracter = str_split('abcdefghijklmnopqrstuvwxyz'.'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.'0123456789');
         $_special_caracter = str_split('!/\@#$^&*()?');
 
         shuffle($_caracter);
@@ -444,9 +444,9 @@ class UserManager
         $_user_as = $this->_container->get('security.token_storage')->getToken()->getUser()->getAsName();
 
         return $this->_entity_manager->createQuery(
-            "SELECT e FROM UserBundle:User e WHERE e.username LIKE :str AND e.etsNom='" . $_user_ets . "' AND e.asName='" . $_user_as . "'"
+            "SELECT e FROM UserBundle:User e WHERE e.username LIKE :str AND e.etsNom='".$_user_ets."' AND e.asName='".$_user_as."'"
         )
-            ->setParameter('str', '%' . $str . '%')
+            ->setParameter('str', '%'.$str.'%')
             ->getResult();
     }
 

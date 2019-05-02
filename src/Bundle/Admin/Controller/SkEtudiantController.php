@@ -53,6 +53,7 @@ class SkEtudiantController extends Controller
             ->add('username', TextType::class, array('required' => false))
             ->getForm();
         $_user_ets = $this->container->get('security.token_storage')->getToken()->getUser()->getEtsNom();
+        $_user_as = $this->container->get('security.token_storage')->getToken()->getUser()->getAsName();
 
         $_form->handleRequest($request);
         $_nom = $_form['nom']->getData();
@@ -72,6 +73,7 @@ class SkEtudiantController extends Controller
                 $_list = $this->getDoctrine()->getRepository(User::class)->findBy(array(
                     'usrLastname' => $_nom,
                     'etsNom' => $_user_ets,
+                    'asName' => $_user_as,
                     'skRole' => array(
                         RoleName::ID_ROLE_ETUDIANT,
                     ),
@@ -80,6 +82,7 @@ class SkEtudiantController extends Controller
                 $_list = $this->getDoctrine()->getRepository(User::class)->findBy(array(
                     'usrFirstname' => $_usrFirstname,
                     'etsNom' => $_user_ets,
+                    'asName' => $_user_as,
                     'skRole' => array(
                         RoleName::ID_ROLE_ETUDIANT,
                     ),
@@ -88,6 +91,7 @@ class SkEtudiantController extends Controller
                 $_list = $this->getDoctrine()->getRepository(User::class)->findBy(array(
                     'username' => $_username,
                     'etsNom' => $_user_ets,
+                    'asName' => $_user_as,
                     'skRole' => array(
                         RoleName::ID_ROLE_ETUDIANT,
                     ),
@@ -127,7 +131,7 @@ class SkEtudiantController extends Controller
             $_ets = $this->getUserConnected()->getEtsNom();
             $_classe_list = $this->getDoctrine()->getRepository(SkClasse::class)->findBy(array(
                 'etsNom' => $_ets,
-                'asName' => $this->getUserConnected()->getAsName()
+                'asName' => $this->getUserConnected()->getAsName(),
             ));
 
             $_etudiant = new SkEtudiant();
@@ -144,7 +148,6 @@ class SkEtudiantController extends Controller
                 try {
                     $this->getEntityService()->saveEntity($_etudiant, 'new');
                     $this->getEntityService()->setFlash('success', 'Ajout de l\'etudiant(e) effectué(e)');
-
                 } catch (\Exception $exception) {
                     $exception->getMessage();
                 }
@@ -290,11 +293,13 @@ class SkEtudiantController extends Controller
         $_user_classe = $this->getDoctrine()->getRepository(SkEtudiant::class)->findBy(array(
             'etsNom' => $this->getUserConnected()->getEtsNom(),
             'etudiant' => $this->getUserConnected(),
+            'asName' => $this->getUserConnected()->getAsName(),
         ));
 
         $_user_col = $this->getDoctrine()->getRepository(SkEtudiant::class)->findBy(array(
             'etsNom' => $this->getUserConnected()->getEtsNom(),
             'classe' => $_user_classe[0]->getClasse(),
+            'asName' => $this->getUserConnected()->getAsName(),
         ));
 
         return $this->render('@Admin/SkEtudiant/collegue.html.twig', array(

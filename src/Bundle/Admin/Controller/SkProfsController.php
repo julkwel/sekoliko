@@ -41,6 +41,7 @@ class SkProfsController extends Controller
             $_profs_list = $this->getDoctrine()->getRepository(User::class)->findBy(array(
                 'skRole' => [RoleName::ID_ROLE_PROFS],
                 'etsNom' => $this->getUserConnected()->getEtsNom(),
+                'asName' => $this->getUserConnected()->getAsName(),
             ));
 
             return $this->render('AdminBundle:SkProfs:index.html.twig', [

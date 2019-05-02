@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: julkwel
  * Date: 5/2/19
- * Time: 12:22 AM
+ * Time: 12:22 AM.
  */
 
 namespace App\Shared\Form;
-
 
 use App\Shared\Entity\SkInfoComment;
 use Symfony\Component\Form\AbstractType;
@@ -23,6 +22,6 @@ class SkInfoCommentType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array('data_class'=>SkInfoComment::class));
+        $resolver->setDefaults(array('data_class' => SkInfoComment::class));
     }
 }

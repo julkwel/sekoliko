@@ -36,7 +36,10 @@ class SkEdtController extends Controller
      */
     public function indexAction(SkClasse $skClasse)
     {
-        $_edt = $this->getDoctrine()->getRepository(SkEdt::class)->findBy(array('edtClasse' => $skClasse));
+        $_edt = $this->getDoctrine()->getRepository(SkEdt::class)->findBy(array(
+            'edtClasse' => $skClasse,
+            'asName' => $this->getUserConnected()->getAsName(), )
+        );
 
         return $this->render('@Admin/SkClasse/edt.html.twig', array(
             'classe' => $skClasse,
@@ -52,9 +55,13 @@ class SkEdtController extends Controller
         $_user_classe = $this->getDoctrine()->getRepository(SkEtudiant::class)->findBy(array(
             'etsNom' => $this->getUserConnected()->getEtsNom(),
             'etudiant' => $this->getUserConnected(),
+            'asName' => $this->getUserConnected()->getAsName(),
         ));
 
-        $_edt = $this->getDoctrine()->getRepository(SkEdt::class)->findBy(array('edtClasse' => $_user_classe[0]->getClasse()->getId()));
+        $_edt = $this->getDoctrine()->getRepository(SkEdt::class)->findBy(array(
+            'edtClasse' => $_user_classe[0]->getClasse()->getId(),
+            'asName' => $this->getUserConnected()->getAsName(),
+        ));
 
         return $this->render('@Admin/SkClasse/etudiant.edt.html.twig', array(
             'classe' => $_user_classe,
@@ -81,7 +88,10 @@ class SkEdtController extends Controller
             $_edt = new SkEdt();
             $_form = $this->createForm(SkEdtType::class, $_edt);
             $_form->handleRequest($request);
-            $_mat_list = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array('matClasse' => $skClasse));
+            $_mat_list = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array(
+                'matClasse' => $skClasse,
+                'asName' => $this->getUserConnected()->getAsName(),
+            ));
 
             if ($_form->isSubmitted() && $_form->isValid()) {
                 try {
@@ -135,12 +145,16 @@ class SkEdtController extends Controller
     {
         $_form = $this->createForm(SkEdtType::class, $skEdt);
         $_form->handleRequest($request);
-        $_mat_list = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array('matClasse' => $skEdt->getEdtClasse()->getId()));
+        $_mat_list = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array(
+            'matClasse' => $skEdt->getEdtClasse()->getId(),
+            'asName' => $this->getUserConnected()->getAsName(),
+        ));
 
         if ('POST' == $request->getMethod()) {
             $_mat = $request->request->get('matiere');
             $_date_debut = $request->request->get('start');
             $_date_fin = $request->request->get('end');
+
             if (new \DateTime($_date_debut) > new \DateTime($_date_fin)) {
                 $this->getEntityService()->setFlash('error', 'Date début > Date Fin');
             }
@@ -153,7 +167,6 @@ class SkEdtController extends Controller
             } catch (\Exception $exception) {
                 $exception->getMessage();
             }
-//            $this->getEntityService()->setFlash('success', 'Ajout de l\'emplois du temps effectué');
 
             return new JsonResponse('ok', 200);
         }

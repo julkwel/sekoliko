@@ -106,17 +106,17 @@
 
     <div class="row">
         <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary text-center">Liste des personnes en congé</h6>
+            <div class="card-header py-3 bg-secondary">
+                <h6 class="m-0 font-weight-bold text-center text-white">Liste des personnes en congé</h6>
                 {# Bouton création #}
                 {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('conge_new') }}" class="float-right">
+                    <a href="{{ path('conge_new') }}" class="float-right text-white">
                         Créer une congé
                     </a>
                 {% endif %}
                 <div class="box-header">
-                    <div class="list-count">
-                        <a href="{{ path('conge_list') }}">Total {{ congelist|length }}</a>
+                    <div class="list-count text-white">
+                        <a class=" text-white">Total {{ congelist|length }}</a>
                     </div>
                 </div>
             </div>
@@ -125,7 +125,6 @@
                     <table class="table table-bordered" width="100%" cellspacing="0">
                         <thead>
                         <tr>
-                            <th></th>
                             <th>Utilisateur</th>
                             <th>Type</th>
                             <th>Début</th>
@@ -136,9 +135,6 @@
                         <tbody>
                         {% for conge in congelist %}
                             <tr>
-                                <td class="text-center">
-                                    <input type="checkbox" value="{{ conge.id }}" name="delete[]"/>
-                                </td>
                                 <td>{{ conge.user ? conge.user.usrFirstname : 'null' }}</td>
                                 <td>{{ conge.type ? 'Permission' : 'Congé' }}</td>
                                 <td>{{ conge.dateDeb|date('Y-m-d H:i:s') }}</td>

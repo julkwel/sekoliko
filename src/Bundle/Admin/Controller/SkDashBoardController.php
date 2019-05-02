@@ -41,7 +41,6 @@ class SkDashBoardController extends Controller
                 'nombre_user' => $_nombre_user,
                 'ets_liste' => $_ets_count,
             ));
-
         } elseif ($this->get('security.authorization_checker')->isGranted('ROLE_ETUDIANT')) {
             $_user_ets = $this->get('security.token_storage')->getToken()->getUser()->getEtsNom();
             $_user_as = $this->get('security.token_storage')->getToken()->getUser()->getAsName();
@@ -49,7 +48,7 @@ class SkDashBoardController extends Controller
 
             $_matiere_liste = $this->getDoctrine()->getRepository(SkEtudiant::class)->findBy(array(
                 'etudiant' => $_user_name,
-                'asName' => $_user_as
+                'asName' => $_user_as,
             ));
 
             $_etd_classe = $_matiere_liste[0]->getClasse()->getId();
@@ -85,7 +84,7 @@ class SkDashBoardController extends Controller
                     RoleName::ID_ROLE_PROFS,
                 ),
                 'etsNom' => $_user_ets,
-                'asName' => $_user_as
+                'asName' => $_user_as,
             );
 
             $_etd_list = $this->getDoctrine()->getRepository(User::class)->findBy($_etd_filter);
@@ -104,9 +103,8 @@ class SkDashBoardController extends Controller
                 'salle' => $_list_salle,
                 'classe' => $_list_classe,
                 'ets' => $_user_ets,
-                'congelist' => $_conge_list
+                'congelist' => $_conge_list,
             ));
         }
     }
-
 }

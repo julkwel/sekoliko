@@ -29,7 +29,7 @@ class SkBugType extends AbstractType
                 'label' => 'Description de bug',
             ))
             ->add('attachment', FileType::class, [
-                'required' => false
+                'required' => false,
             ])
             ;
     }
