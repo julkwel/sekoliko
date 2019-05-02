@@ -9,8 +9,10 @@
 namespace App\Bundle\Admin\Controller;
 
 use App\Bundle\User\Entity\User;
+use App\Shared\Entity\SkBook;
 use App\Shared\Entity\SkClasse;
 use App\Shared\Entity\SkConge;
+use App\Shared\Entity\SkDisciplineList;
 use App\Shared\Entity\SkEtudiant;
 use App\Shared\Entity\SkMatiere;
 use App\Shared\Entity\SkSalle;
@@ -91,6 +93,9 @@ class SkDashBoardController extends Controller
             $_prof_list = $this->getDoctrine()->getRepository(User::class)->findBy($_prof_filter);
             $_salle_list = $this->getDoctrine()->getRepository(SkSalle::class)->findBy(array('etsNom' => $_user_ets, 'asName' => $_user_as));
             $_classe_list = $this->getDoctrine()->getRepository(SkClasse::class)->findBy(array('etsNom' => $_user_ets, 'asName' => $_user_as));
+            $_matiere_list = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array('etsNom' => $_user_ets, 'asName' => $_user_as));
+            $_discipline_list = $this->getDoctrine()->getRepository(SkDisciplineList::class)->findBy(array('etsNom' => $_user_ets, 'asName' => $_user_as));
+            $_book_list = $this->getDoctrine()->getRepository(SkBook::class)->findBy(array('etsNom' => $_user_ets, 'asName' => $_user_as));
 
             $_list_etudiant = count($_etd_list);
             $_list_profs = count($_prof_list);
@@ -104,6 +109,9 @@ class SkDashBoardController extends Controller
                 'classe' => $_list_classe,
                 'ets' => $_user_ets,
                 'congelist' => $_conge_list,
+                'matiere' => $_matiere_list,
+                'discipline' => $_discipline_list,
+                'book' => $_book_list,
             ));
         }
     }

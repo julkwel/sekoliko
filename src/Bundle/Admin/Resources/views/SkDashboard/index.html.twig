@@ -34,9 +34,7 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Nombre d'étudiants
-                            </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ etudiant }}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ etudiant }} Etudiants</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-user-alt fa-2x text-gray-300"></i>
@@ -53,8 +51,7 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Nombre de profs</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ profs }}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ profs }} Professeurs</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-user fa-2x text-gray-300"></i>
@@ -70,10 +67,9 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Nombre de salles</div>
                             <div class="row no-gutters align-items-center">
                                 <div class="col-auto">
-                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ salle }}</div>
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ salle }} Salles</div>
                                 </div>
                             </div>
                         </div>
@@ -91,9 +87,7 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Nombre de classes
-                            </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ classe }}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ classe }} Classe</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-home fa-2x text-gray-300"></i>
@@ -105,56 +99,155 @@
     </div>
 
     <div class="row">
-        <div class="card shadow mb-4">
-            <div class="card-header py-3 bg-secondary">
-                <h6 class="m-0 font-weight-bold text-center text-white">Liste des personnes en congé</h6>
-                {# Bouton création #}
-                {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('conge_new') }}" class="float-right text-white">
-                        Créer une congé
-                    </a>
-                {% endif %}
-                <div class="box-header">
-                    <div class="list-count text-white">
-                        <a class=" text-white">Total {{ congelist|length }}</a>
+        <div class="col-md-6 ">
+            <div class="card shadow ">
+                <div class="card-header py-3 bg-secondary">
+                    <h6 class="m-0 font-weight-bold text-center text-white">Liste des personnes en congé</h6>
+                </div>
+                <div class="card-body">
+                    {# Bouton création #}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('conge_new') }}" class="float-right pb-2">
+                            Créer une congé
+                        </a>
+                    {% endif %}
+                    <div class="box-header">
+                        <div class="list-count ">
+                            <a class=" text-gray">Total {{ congelist|length }}</a>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>Utilisateur</th>
+                                <th>Type</th>
+                                <th>Début</th>
+                                <th>Fin</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for conge in congelist %}
+                                <tr>
+                                    <td>{{ conge.user ? conge.user.usrFirstname : 'null' }}</td>
+                                    <td>{{ conge.type ? 'Permission' : 'Congé' }}</td>
+                                    <td>{{ conge.dateDeb|date('Y-m-d H:i:s') }}</td>
+                                    <td>{{ conge.dateFin|date('Y-m-d H:i:s') }}</td>
+                                    <td class="kl-action-button-bloc">
+                                        <a class="btn btn-success btn-sm" title="Modifier ce classe"
+                                           href="{{ path('conge_edit', { 'id': conge.id }) }}">
+                                            <i class="fas fa-pen"></i>
+                                        </a>
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                            <a class="btn btn-danger remove-elt btn-sm" title="Supprimer"
+                                               onclick="supprimer('{{ path('conge_delete', { 'id': conge.id }) }}')">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" width="100%" cellspacing="0">
-                        <thead>
-                        <tr>
-                            <th>Utilisateur</th>
-                            <th>Type</th>
-                            <th>Début</th>
-                            <th>Fin</th>
-                            <th>Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for conge in congelist %}
-                            <tr>
-                                <td>{{ conge.user ? conge.user.usrFirstname : 'null' }}</td>
-                                <td>{{ conge.type ? 'Permission' : 'Congé' }}</td>
-                                <td>{{ conge.dateDeb|date('Y-m-d H:i:s') }}</td>
-                                <td>{{ conge.dateFin|date('Y-m-d H:i:s') }}</td>
-                                <td class="kl-action-button-bloc">
-                                    <a class="btn btn-success btn-sm" title="Modifier ce classe"
-                                       href="{{ path('conge_edit', { 'id': conge.id }) }}">
-                                        <i class="fas fa-pen"></i>
-                                    </a>
-                                    {% if is_granted('ROLE_ADMIN') %}
-                                        <a class="btn btn-danger remove-elt btn-sm" title="Supprimer"
-                                           onclick="supprimer('{{ path('conge_delete', { 'id': conge.id }) }}')">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header text-center bg-secondary text-white">
+                    <h6 class="m-0 font-weight-bold text-center text-white">Menu utile</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <a href="{{ path('niveau_index') }}" class="col-md-6 " style="text-decoration: none">
+                            <div class="card shadow py-2 bg-danger">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="h5 mb-0 font-weight-bold text-white">Niveau ({{ classe }})</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-school fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="{{ path('matiere_index') }}" class="col-md-6" style="text-decoration: none">
+                            <div class="card shadow py-2 bg-danger">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="h5 mb-0 font-weight-bold text-white">Matieres ({{ matiere|length }})</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-book fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="{{ path('book_index') }}" class="col-md-6 mt-1" style="text-decoration: none">
+                            <div class="card shadow py-2 bg-success">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="h5 mb-0 font-weight-bold  text-white ">Livres({{ book|length }}) </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-book fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="{{ path('discipline_index') }}" class="col-md-6 mt-1" style="text-decoration: none">
+                            <div class="card shadow py-2 bg-success">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="h5 mb-0 font-weight-bold  text-white ">Disciplines ({{ discipline|length }}) </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-cog fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="{{ path('profs_index') }}" class="col-md-6 mt-1" style="text-decoration: none">
+                            <div class="card shadow py-2 bg-info">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="h5 mb-0 font-weight-bold text-white">Professeurs ({{ profs }})</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-user-secret fa-2x text-white"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="{{ path('salle_index') }}" class="col-md-6 mt-1" style="text-decoration: none">
+                            <div class="card shadow py-2 bg-info">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="h5 mb-0 font-weight-bold text-white">Salle({{ salle }})</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-home fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
