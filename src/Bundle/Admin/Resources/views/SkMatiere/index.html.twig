@@ -25,20 +25,13 @@
         <form action="" method="POST" class="form-search">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary text-center">Liste des matières</h6>
+                    <h6 class="m-0 font-weight-bold text-primary float-left">Liste des matières</h6>
                     {# Bouton création #}
                     {% if is_granted('ROLE_ADMIN') %}
-                        <div class="add-btn-top-list float-right">
-                            <a href="{{ path('matiere_new') }}" class="btn btn-primary">
-                                Ajouter une matière
-                            </a>
-                        </div>
+                        <a href="{{ path('matiere_new') }}" class="float-right">
+                            Ajouter une matière
+                        </a>
                     {% endif %}
-                    <div class="box-header">
-                        <div class="list-count">
-                            <h4><span class="title-count-text"> TOTAL : </span><span class="title-count"></span></h4>
-                        </div>
-                    </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">

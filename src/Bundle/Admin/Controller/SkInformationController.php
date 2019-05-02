@@ -28,6 +28,8 @@ class SkInformationController extends Controller
     }
 
     /**
+     * @param Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @throws \Exception
@@ -37,6 +39,7 @@ class SkInformationController extends Controller
         $_user_information = $this->getEntityService()->getAllListByEts(SkInformation::class);
 
         $_new_info = new SkInformation();
+
         $_form = $this->createForm(SkInformationType::class, $_new_info);
         $_form->handleRequest($request);
 

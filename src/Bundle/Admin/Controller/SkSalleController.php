@@ -64,13 +64,14 @@ class SkSalleController extends Controller
 
         if ($_form->isSubmitted() && $_form->isValid()) {
             $_verif = $_salle->getSalleNom();
+
             $_salle_exist = $this->getDoctrine()->getRepository(SkSalle::class)->findBy(array(
                 'salleNom' => $_verif,
                 'etsNom' => $this->getUser()->getEtsNom(),
                 'asName' => $this->getUserConnected()->getAsName(),
             ));
 
-            if (null !== $_salle_exist) {
+            if ($_salle_exist) {
                 $this->getEntityService()->setFlash('error', 'ce salle existe déjà! ');
 
                 return $this->redirectToRoute('salle_new');

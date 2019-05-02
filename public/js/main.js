@@ -31,11 +31,13 @@ $(document).ready(function() {
             "sInfo": "Voir _TOTAL_ de _PAGE_ pour _PAGES_ entrées",
         }
     });
+
     //Lightbox activation
     $(document).on('click', '[data-toggle="lightbox"]', function(event) {
         event.preventDefault();
         $(this).ekkoLightbox();
     });
+
     //File input action
     $('#sk_bug_attachment, #sk_guide_attachment, #sk_userbundle_user_imgUrl').on('change', function (e) {
         var file = e.originalEvent.target.value;
@@ -47,3 +49,7 @@ $(document).ready(function() {
         }
     });
 });
+
+
+
+
