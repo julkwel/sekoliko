@@ -58,9 +58,9 @@
                                     <td class="text-center">
                                         <input type="checkbox" value="{{ matiere.id }}" name="delete[]"/>
                                     </td>
-                                    <td>{{ matiere.matNom }}</td>
+                                    <td>{{ matiere.matiere.matNom }}</td>
                                     <td>{{ matiere.matCoeff }}</td>
-                                    <td>{{ matiere.matProf ?  matiere.matProf.usrFirstname : '' }}</td>
+                                    <td>{{ matiere.matProf ?  matiere.matProf.usrFirstName : '' }}</td>
                                     <td class="kl-action-button-bloc">
                                         <a class="btn btn-success" title="Modifier"
                                            href="{{ path('matiere_edit', { 'id': matiere.id }) }}">

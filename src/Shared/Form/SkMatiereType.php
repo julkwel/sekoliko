@@ -22,9 +22,6 @@ class SkMatiereType extends AbstractType
                 ->add('matNom', TextType::class, array(
                     'label' => 'Nom matiere',
                 ))
-                ->add('matCoeff', TextType::class, array(
-                    'label' => 'Coefficient Matiere',
-                ))
             ;
     }
 

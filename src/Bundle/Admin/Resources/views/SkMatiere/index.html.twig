@@ -40,14 +40,7 @@
                             <tr>
                                 <th></th>
                                 <th>Matières</th>
-                                <th>Coefficients</th>
-                                <th>
-                                    {% if is_granted('ROLE_PROFS') %}
-                                        classe
-                                    {% else %}
-                                        Profs
-                                    {% endif %}
-                                </th>
+                                <th>Classe Professeurs et coefficient</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
@@ -58,13 +51,19 @@
                                         <input type="checkbox" value="{{ matiere.id }}" name="delete[]"/>
                                     </td>
                                     <td>{{ matiere.matNom }}</td>
-                                    <td>{{ matiere.matCoeff }}</td>
                                     <td>
-                                        {% if is_granted('ROLE_PROFS') %}
-                                            {{ matiere.matClasse.classeNom }}
-                                        {% else %}
-                                            {{ matiere.matProf ?  matiere.matProf.usrFirstname : '' }}
+                                        {#{{ dump(matiere.matclass) }}#}
+                                        {% if matiere.matclass != null %}
+                                            {% for matierea in matiere.matclass %}
+                                                {{ matierea.matClasse ? matierea.matClasse.classeNom }}
+                                                {{ matierea.matProf ? matierea.matProf.username }}
+                                                {{ matierea ? matierea.matCoeff }}
+                                            {% endfor %}
                                         {% endif %}
+                                        <a class="btn btn-success btn-sm" title="Ajouter des classes"
+                                           href="{{ path('matiere_mat_class') }}">
+                                            <i class="fa fa-plus"></i>
+                                        </a>
                                     </td>
                                     <td class="kl-action-button-bloc">
                                         {% if is_granted('ROLE_PROFS') %}

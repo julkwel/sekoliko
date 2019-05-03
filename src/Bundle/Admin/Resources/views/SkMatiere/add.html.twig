@@ -16,23 +16,6 @@
             <div class="row">
                 <div class="col-md-12">
                     {{ form_row(form.matNom) }}
-                    {{ form_row(form.matCoeff, {'attr': {'class': 'col-3'}}) }}
-                    <div class="form-group ">
-                        <label for="">Selectionner un profs</label>
-                        <select name="profs" id="" class="form-control">
-                            {% for prof in profs  %}
-                                <option value="{{ prof.id }}" >{{ prof.usrFirstname }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="form-group ">
-                        <label for="">Selectionner un classe</label>
-                        <select name="classe" id="" class="form-control">
-                            {% for classe in classe  %}
-                                <option value="{{ classe.id }}" >{{ classe.classeNom }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
                 </div>
             </div>
             <div class="box-footer">

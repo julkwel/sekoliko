@@ -18,6 +18,11 @@ matiere_etudiant:
     defaults: { _controller: "AdminBundle:SkMatiere:matiereEtudiant" }
     methods:  [GET, POST]
 
+matiere_mat_class:
+    path:     /mat/classe
+    defaults: { _controller: "AdminBundle:SkMatiere:addMatClass" }
+    methods:  [GET, POST]
+
 matiere_delete:
     path:     /{id}/delete
     defaults: { _controller: "AdminBundle:SkMatiere:delete" }

@@ -40,29 +40,10 @@ class SkMatiere
     private $matNom;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="mat_coeff", type="string", length=100, nullable=true)
+     * @var
+     * @ORM\OneToMany(targetEntity="App\Shared\Entity\SkClasseMatiere",mappedBy="matiere")
      */
-    private $matCoeff;
-
-    /**
-     * @var User
-     * @ORM\ManyToOne(targetEntity="App\Bundle\User\Entity\User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="matProf", referencedColumnName="id", onDelete="CASCADE",nullable=true)
-     * })
-     */
-    private $matProf;
-
-    /**
-     * @var SkClasse
-     * @ORM\ManyToOne(targetEntity="App\Shared\Entity\SkClasse")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="matClasse", referencedColumnName="id", onDelete="CASCADE",nullable=true)
-     * })
-     */
-    private $matClasse;
+    private $matclass;
 
     /**
      * @return int
@@ -97,50 +78,18 @@ class SkMatiere
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getMatCoeff()
+    public function getMatclass()
     {
-        return $this->matCoeff;
+        return $this->matclass;
     }
 
     /**
-     * @param string $matCoeff
+     * @param mixed $matclass
      */
-    public function setMatCoeff($matCoeff)
+    public function setMatclass($matclass)
     {
-        $this->matCoeff = $matCoeff;
-    }
-
-    /**
-     * @return User
-     */
-    public function getMatProf()
-    {
-        return $this->matProf;
-    }
-
-    /**
-     * @param User $matProf
-     */
-    public function setMatProf($matProf)
-    {
-        $this->matProf = $matProf;
-    }
-
-    /**
-     * @return SkClasse
-     */
-    public function getMatClasse()
-    {
-        return $this->matClasse;
-    }
-
-    /**
-     * @param SkClasse $matClasse
-     */
-    public function setMatClasse($matClasse)
-    {
-        $this->matClasse = $matClasse;
+        $this->matclass = $matclass;
     }
 }
