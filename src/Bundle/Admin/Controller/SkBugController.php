@@ -42,13 +42,12 @@ class SkBugController extends Controller
 
         $_comment = $this->getDoctrine()->getRepository(SkBugComment::class)->findAll();
 
-        foreach ($_bug_list as $_bug) {
-            $_date_add = $this->time_elapsed_string($_bug->getDateAjout());
-        }
+//        foreach ($_bug_list as $_bug) {
+//            $_date_add = $this->time_elapsed_string($_bug->getDateAjout());
+//        }
 
         return $this->render('@Admin/SkBug/index.html.twig', array(
             'bug' => $_bug_list,
-            'dateAdd' => $_date_add,
             'comment' => $_comment,
         ));
     }
