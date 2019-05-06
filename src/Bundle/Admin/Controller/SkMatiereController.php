@@ -47,7 +47,7 @@ class SkMatiereController extends Controller
     {
         if ($this->get('security.authorization_checker')->isGranted('ROLE_PROFS')) {
             $_profs = $this->getUserConnected();
-            $_matier_liste = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array(
+            $_matier_liste = $this->getDoctrine()->getRepository(SkClasseMatiere::class)->findBy(array(
                 'matProf' => $_profs,
                 'etsNom' => $this->getUserConnected()->getEtsNom(),
                 'asName' => $this->getUserConnected()->getAsName(),
@@ -76,7 +76,7 @@ class SkMatiereController extends Controller
             'etudiant' => $this->getUserConnected(),
         ));
 
-        $_matiere_list = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array(
+        $_matiere_list = $this->getDoctrine()->getRepository(SkClasseMatiere::class)->findBy(array(
             'etsNom' => $this->getUserConnected()->getEtsNom(),
             'asName' => $this->getUserConnected()->getAsName(),
             'matClasse' => $_user_classe[0]->getClasse(),

@@ -95,24 +95,34 @@ class SkInformationController extends Controller
      */
     public function commentAction(Request $request, SkInformation $skInformation)
     {
-        $_comment = new SkInfoComment();
 
+        $_comment = new SkInfoComment();
         $_form = $this->createForm(SkInfoCommentType::class, $_comment);
         $_form->handleRequest($request);
 
-        if ($_form->isSubmitted() && $_form->isValid()) {
-            $_comment->setUser($this->getUserConnected());
-            $_comment->setInfo($skInformation);
-            $_comment->setDate(new \DateTime());
+        try{
+            if ($_form->isSubmitted() && $_form->isValid()) {
+                try{
+                    $_comment->setUser($this->getUserConnected());
+                    $_comment->setInfo($skInformation);
+                    $_comment->setDate(new \DateTime());
 
-            try {
-                $this->getEntityService()->saveEntity($_comment, 'new');
-            } catch (\Exception $exception) {
-                $this->getEntityService()->setFlash('error', $exception->getMessage());
+                    try {
+                        $this->getEntityService()->saveEntity($_comment, 'new');
+                    } catch (\Exception $exception) {
+                        $this->getEntityService()->setFlash('error', $exception->getMessage());
+                    }
+
+                    return $this->redirect($request->getUri());
+                } catch (\Exception $exception){
+                    $exception->getMessage();
+                }
+
             }
-
-            return $this->redirect($request->getUri());
+        } catch (\Exception $exception){
+            $exception->getMessage();
         }
+
 
         return $this->render('AdminBundle:SkInformation:comment.html.twig', ['form' => $_form->createView()]);
     }

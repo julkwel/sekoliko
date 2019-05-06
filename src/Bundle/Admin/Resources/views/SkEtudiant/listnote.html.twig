@@ -49,7 +49,6 @@
                                 <th></th>
                                 <th>Matiere</th>
                                 <th>Note obténue</th>
-                                <th>Coefficient</th>
                                 <th>Trimestre</th>
                                 <th>Action</th>
                             </tr>
@@ -60,9 +59,8 @@
                                     <td class="text-center">
                                         <input type="checkbox" value="{{ note.id }}" name="delete[]"/>
                                     </td>
-                                    <td>{{ note.matNom.matNom }}</td>
+                                    <td>{{ note.matNom?note.matNom.matNom }}</td>
                                     <td>{{ note.noteVal }}</td>
-                                    <td>{{ note.matNom.matCoeff }}</td>
                                     <td>{{ note.trimestre.name }}</td>
                                     <td class="kl-action-button-bloc">
                                         {% if is_granted('ROLE_PROFS') %}

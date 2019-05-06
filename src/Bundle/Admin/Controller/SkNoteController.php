@@ -8,6 +8,7 @@
 
 namespace App\Bundle\Admin\Controller;
 
+use App\Shared\Entity\SkClasseMatiere;
 use App\Shared\Entity\SkEtudiant;
 use App\Shared\Entity\SkMatiere;
 use App\Shared\Entity\SkNote;
@@ -109,13 +110,14 @@ class SkNoteController extends Controller
         }
 
         $_classe = $etudiant->getClasse();
+
         /*
          * Check if profs is connected
          */
         if ($this->get('security.authorization_checker')->isGranted('ROLE_PROFS')) {
             $_profs = $this->getUserConnected();
             $_ets_nom = $this->getUserConnected()->getEtsNom();
-            $_matiere_liste = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array(
+            $_matiere_liste = $this->getDoctrine()->getRepository(SkClasseMatiere::class)->findBy(array(
                 'matProf' => $_profs,
                 'etsNom' => $_ets_nom,
                 'asName' => $this->getUserConnected()->getAsName(),
@@ -193,13 +195,13 @@ class SkNoteController extends Controller
          */
         if ($this->get('security.authorization_checker')->isGranted('ROLE_PROFS')) {
             $_profs = $this->getUserConnected();
-            $_matiere_liste = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array(
+            $_matiere_liste = $this->getDoctrine()->getRepository(SkClasseMatiere::class)->findBy(array(
                 'matProf' => $_profs,
                 'etsNom' => $_ets_nom,
                 'asName' => $this->getUserConnected()->getAsName(),
             ));
         } else {
-            $_matiere_liste = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array(
+            $_matiere_liste = $this->getDoctrine()->getRepository(SkClasseMatiere::class)->findBy(array(
                 'etsNom' => $_ets_nom,
                 'matClasse' => $_etudiant_classe,
                 'asName' => $this->getUserConnected()->getAsName(),
@@ -219,7 +221,10 @@ class SkNoteController extends Controller
             $_trimestre = $request->request->get('trimestre');
             $_trimestre = $this->getDoctrine()->getRepository(SkTrimestre::class)->find($_trimestre);
 
-            $_matiere = $this->getDoctrine()->getRepository(SkMatiere::class)->find($_matiere);
+            $_matiere = $this->getDoctrine()->getRepository(SkClasseMatiere::class)->find($_matiere);
+
+//            dump($_matiere);die();
+
             try {
                 $skNote->setEtudiant($skNote->getEtudiant());
                 $skNote->setMatNom($_matiere);

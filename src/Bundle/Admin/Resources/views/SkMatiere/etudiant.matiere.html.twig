@@ -53,7 +53,7 @@
                             <tbody>
                             {% for matiere in matiere_liste %}
                                 <tr>
-                                    <td>{{ matiere.matNom }}</td>
+                                    <td>{{ matiere.matiere.matNom }}</td>
                                     <td>{{ matiere.matCoeff }}</td>
                                     <td>{{ matiere.matProf ?  matiere.matProf.usrFirstname : '' }}</td>
                                 </tr>

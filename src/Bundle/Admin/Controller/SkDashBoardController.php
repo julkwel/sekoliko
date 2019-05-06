@@ -11,6 +11,7 @@ namespace App\Bundle\Admin\Controller;
 use App\Bundle\User\Entity\User;
 use App\Shared\Entity\SkBook;
 use App\Shared\Entity\SkClasse;
+use App\Shared\Entity\SkClasseMatiere;
 use App\Shared\Entity\SkConge;
 use App\Shared\Entity\SkDisciplineList;
 use App\Shared\Entity\SkEtudiant;
@@ -52,17 +53,24 @@ class SkDashBoardController extends Controller
                 'etudiant' => $_user_name,
                 'asName' => $_user_as,
             ));
+//            dump($_matiere_liste);die();
+            if ($_matiere_liste){
+                $_etd_classe = $_matiere_liste[0]->getClasse()->getId();
+                $_matiere_liste = count($this->getDoctrine()->getRepository(SkClasseMatiere::class)->findBy(['matClasse' => $_etd_classe, 'asName' => $_user_as]));
+                $_etudiant_liste = count($this->getDoctrine()->getRepository(SkEtudiant::class)->findBy(array('classe' => $_etd_classe, 'asName' => $_user_as)));
 
-            $_etd_classe = $_matiere_liste[0]->getClasse()->getId();
-
-            $_matiere_liste = count($this->getDoctrine()->getRepository(SkMatiere::class)->findBy(['matClasse' => $_etd_classe, 'asName' => $_user_as]));
-
-            $_etudiant_liste = count($this->getDoctrine()->getRepository(SkEtudiant::class)->findBy(array('classe' => $_etd_classe, 'asName' => $_user_as)));
+                return $this->render('@Admin/SkDashboard/etudiant.dashboard.html.twig', array(
+                    'mat_liste' => $_matiere_liste,
+                    'liste_etudiant' => $_etudiant_liste,
+                    'etudiant' => true
+                ));
+            }
 
             return $this->render('@Admin/SkDashboard/etudiant.dashboard.html.twig', array(
-                'mat_liste' => $_matiere_liste,
-                'liste_etudiant' => $_etudiant_liste,
+                'error_classe' => 'Vous n\'etes pas encore assigné dans une classe',
+                'etudiant' => false
             ));
+
         } else {
             $_user_ets = $this->get('security.token_storage')->getToken()->getUser()->getEtsNom();
             $_user_as = $this->get('security.token_storage')->getToken()->getUser()->getAsName();

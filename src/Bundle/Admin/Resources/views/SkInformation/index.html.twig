@@ -35,6 +35,8 @@
             <div class="col-md-6 gedf-main">
 
                 <!--- \\\\\\\Post-->
+
+                {% if is_granted('ROLE_ADMIN') %}
                 <div class="card gedf-card">
                     <div class="card-header">
                         <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
@@ -46,37 +48,39 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="card-body">
-                        {{ form_start(form) }}
-                        <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="posts" role="tabpanel"
-                                 aria-labelledby="posts-tab">
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            {{ form_row(form.titre) }}
-                                            {{ form_row(form.description) }}
+                        <div class="card-body">
+                            {{ form_start(form) }}
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="posts" role="tabpanel"
+                                     aria-labelledby="posts-tab">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                {{ form_row(form.titre) }}
+                                                {{ form_row(form.description) }}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="btn-toolbar justify-content-between">
-                            <div class="btn-group">
-                                <input type="submit" class="btn btn-primary float-right" value="Enregistrer"
-                                       name="new_info"/>
-                            </div>
-                            {#<div class="btn-group">#}
+                            <div class="btn-toolbar justify-content-between">
+                                <div class="btn-group">
+                                    <input type="submit" class="btn btn-primary float-right" value="Enregistrer"
+                                           name="new_info"/>
+                                </div>
+                                {#<div class="btn-group">#}
                                 {#<button id="btnGroupDrop1" type="button" class="btn btn-link dropdown-toggle"#}
-                                        {#data-toggle="dropdown" aria-haspopup="true"#}
-                                        {#aria-expanded="false">#}
-                                    {#<i class="fa fa-cog"></i>#}
+                                {#data-toggle="dropdown" aria-haspopup="true"#}
+                                {#aria-expanded="false">#}
+                                {#<i class="fa fa-cog"></i>#}
                                 {#</button>#}
-                            {#</div>#}
+                                {#</div>#}
+                            </div>
+                            {{ form_end(form) }}
                         </div>
-                        {{ form_end(form) }}
-                    </div>
                 </div>
+
+                {% endif %}
                 <!-- Post /////-->
 
                 <!--- \\\\\\\Post-->
@@ -133,11 +137,10 @@
                                 <i class="fa fa-comment"></i> Comment
                             </a>
                             <div id="comment-content{{ info.id }}"></div>
-
                             <p class="card-text">
                                 {% for comment in info.comment %}
                             <li>
-                                {{ comment.comment }} commenter par @{{ comment.user.username }}
+                                {{ comment.comment }} commenter par @{{ comment.user?comment.user.username }}
                                 le {{ comment.date|date('Y-m-d H:i') }}
                             </li>
                             {% endfor %}
@@ -189,9 +192,6 @@
                             console.log(err)
                         })
                     });
-                },
-                fail: function () {
-                    alert("une erreur se produite");
                 }
             })
         }

@@ -50,7 +50,7 @@ class SkNote
 
     /**
      * @var SkMatiere
-     * @ORM\ManyToOne(targetEntity="App\Shared\Entity\SkMatiere")
+     * @ORM\ManyToOne(targetEntity="App\Shared\Entity\SkClasseMatiere")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="matNom", referencedColumnName="id", onDelete="CASCADE")
      * })
