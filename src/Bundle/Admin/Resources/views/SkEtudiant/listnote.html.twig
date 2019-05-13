@@ -55,11 +55,12 @@
                             </thead>
                             <tbody>
                             {% for note in note_liste %}
+                                {#{{ dump(note_liste) }}#}
                                 <tr>
                                     <td class="text-center">
                                         <input type="checkbox" value="{{ note.id }}" name="delete[]"/>
                                     </td>
-                                    <td>{{ note.matNom?note.matNom.matNom }}</td>
+                                    <td>{{ note.matNom ? note.matNom.matiere.matNom }}</td>
                                     <td>{{ note.noteVal }}</td>
                                     <td>{{ note.trimestre.name }}</td>
                                     <td class="kl-action-button-bloc">

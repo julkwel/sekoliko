@@ -147,7 +147,7 @@ class SkNoteController extends Controller
             $_valeur = $request->request->get('noteVal');
             $_trimestre = $request->request->get('trimestre');
             $_trimestre = $this->getDoctrine()->getRepository(SkTrimestre::class)->find($_trimestre);
-            $_matiere = $this->getDoctrine()->getRepository(SkMatiere::class)->find($_matiere);
+            $_matiere = $this->getDoctrine()->getRepository(SkClasseMatiere::class)->find($_matiere);
             $_note->setEtudiant($etudiant);
             $_note->setMatNom($_matiere);
             $_note->setNoteVal($_valeur);
@@ -223,14 +223,13 @@ class SkNoteController extends Controller
 
             $_matiere = $this->getDoctrine()->getRepository(SkClasseMatiere::class)->find($_matiere);
 
-//            dump($_matiere);die();
-
             try {
                 $skNote->setEtudiant($skNote->getEtudiant());
                 $skNote->setMatNom($_matiere);
                 $skNote->setNoteVal($_valeur);
                 $skNote->setTrimestre($_trimestre);
                 $this->getEntityService()->saveEntity($skNote, 'update');
+
             } catch (\Exception $exception) {
                 $exception->getMessage();
             }

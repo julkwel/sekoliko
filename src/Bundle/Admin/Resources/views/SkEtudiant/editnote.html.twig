@@ -23,7 +23,6 @@
                     </div>
                     <div class="form-group">
                         <select name="matiere" id="" class="form-control">
-                            <option value="{{ note.matNom ? note.matNom.id }}">{{ note.matNom ? note.matNom.matNom }}</option>
                             {% for matiere in matiere %}
                                 <option value="{{ matiere.id }}">{{ matiere.matiere.matNom }}</option>
                             {% endfor %}

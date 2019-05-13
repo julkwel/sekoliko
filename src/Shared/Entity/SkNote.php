@@ -49,7 +49,7 @@ class SkNote
     private $trimestre;
 
     /**
-     * @var SkMatiere
+     * @var SkClasseMatiere
      * @ORM\ManyToOne(targetEntity="App\Shared\Entity\SkClasseMatiere")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="matNom", referencedColumnName="id", onDelete="CASCADE")
@@ -81,7 +81,7 @@ class SkNote
     }
 
     /**
-     * @return SkMatiere
+     * @return SkClasseMatiere
      */
     public function getMatNom()
     {
@@ -89,7 +89,7 @@ class SkNote
     }
 
     /**
-     * @param SkMatiere $matNom
+     * @param SkClasseMatiere $matNom
      */
     public function setMatNom($matNom)
     {
