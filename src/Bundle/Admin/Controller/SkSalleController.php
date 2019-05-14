@@ -175,7 +175,6 @@ class SkSalleController extends Controller
 
             if ($_form->isSubmitted() && $_form->isValid()) {
                 try {
-
                     $debut_reservation = $request->request->get('debut');
                     $fin_reservation = $request->request->get('fin');
                     $motif_reservation = $request->request->get('motif');

@@ -75,7 +75,7 @@ class SkNiveauController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param Request  $request
      * @param SkNiveau $skNiveau
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -140,7 +140,7 @@ class SkNiveauController extends Controller
     }
 
     /**
-     * @param Request $_request
+     * @param Request  $_request
      * @param SkNiveau $skNiveau
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -174,7 +174,7 @@ class SkNiveauController extends Controller
      */
 
     /**
-     * @param Request $request
+     * @param Request  $request
      * @param SkNiveau $skNiveau
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response

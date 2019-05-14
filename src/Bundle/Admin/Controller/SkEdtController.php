@@ -12,7 +12,6 @@ use App\Shared\Entity\SkClasse;
 use App\Shared\Entity\SkClasseMatiere;
 use App\Shared\Entity\SkEdt;
 use App\Shared\Entity\SkEtudiant;
-use App\Shared\Entity\SkMatiere;
 use App\Shared\Form\SkEdtType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;

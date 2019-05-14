@@ -18,14 +18,12 @@ use App\Shared\Entity\SkNiveau;
 use App\Shared\Entity\SkRole;
 use App\Shared\Form\SkClasseMatiereType;
 use App\Shared\Form\SkClasseType;
-use App\Shared\Form\SkMatiereType;
 use App\Shared\Services\Utils\RoleName;
 use App\Shared\Services\Utils\ServiceName;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
 
 class SkClassController extends Controller
 {
@@ -308,19 +306,21 @@ class SkClassController extends Controller
             'form' => $_form->createView(),
             'classe' => $skClasse,
             'prof' => $_prof_list,
-            'matiere' => $_matiere_list
+            'matiere' => $_matiere_list,
         ));
     }
 
     /**
-     * @param Request $request
+     * @param Request         $request
      * @param SkClasseMatiere $skClasseMatiere
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Exception
      */
-    public function editMatiereClasseAction(Request $request,SkClasseMatiere $skClasseMatiere)
+    public function editMatiereClasseAction(Request $request, SkClasseMatiere $skClasseMatiere)
     {
         $_prof_list = $this->getProfs();
         $_form = $this->createForm(SkClasseMatiereType::class, $skClasseMatiere);
@@ -348,7 +348,7 @@ class SkClassController extends Controller
             'form' => $_form->createView(),
             'classe' => $skClasseMatiere->getMatClasse(),
             'prof' => $_prof_list,
-            'matiere' => $skClasseMatiere
+            'matiere' => $skClasseMatiere,
         ));
     }
 

@@ -10,7 +10,6 @@ namespace App\Bundle\Admin\Controller;
 
 use App\Shared\Entity\SkClasseMatiere;
 use App\Shared\Entity\SkEtudiant;
-use App\Shared\Entity\SkMatiere;
 use App\Shared\Entity\SkNote;
 use App\Shared\Entity\SkTrimestre;
 use App\Shared\Form\SkNoteType;
@@ -126,7 +125,7 @@ class SkNoteController extends Controller
             $_ets_nom = $this->getUserConnected()->getEtsNom();
 
             $_etudiant_classe = $etudiant->getClasse()->getId();
-            $_matiere_liste = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array(
+            $_matiere_liste = $this->getDoctrine()->getRepository(SkClasseMatiere::class)->findBy(array(
                 'etsNom' => $_ets_nom,
                 'matClasse' => $_etudiant_classe,
                 'asName' => $this->getUserConnected()->getAsName(),
@@ -136,7 +135,8 @@ class SkNoteController extends Controller
         $_note = new SkNote();
 
         $_trimestre_list = $this->getDoctrine()->getRepository(SkTrimestre::class)->findBy(array(
-           'etsNom' => $_ets_nom,
+            'etsNom' => $_ets_nom,
+            'asName' => $this->getUserConnected()->getAsName(),
         ));
 
         $_form = $this->createForm(SkNoteType::class, $_note);
@@ -237,7 +237,7 @@ class SkNoteController extends Controller
         }
 
         return $this->render('@Admin/SkEtudiant/editnote.html.twig', array(
-           'form' => $_form->createView(),
+            'form' => $_form->createView(),
             'note' => $skNote,
             'matiere' => $_matiere_liste,
             'trimestre' => $_trimestre_list,
@@ -286,7 +286,7 @@ class SkNoteController extends Controller
         ));
 
         $_note_liste = $this->getDoctrine()->getRepository(SkNote::class)->findBy(array(
-           'etudiant' => $_user_classe[0],
+            'etudiant' => $_user_classe[0],
         ));
 
         return $this->render('@Admin/SkEtudiant/etudiant.note.html.twig', array(
