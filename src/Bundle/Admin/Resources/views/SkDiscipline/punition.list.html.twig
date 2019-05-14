@@ -22,63 +22,77 @@
     {% endfor %}
 
     <div class="row">
-        <form action="" method="POST" class="form-search">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary float-left">
-                        <a href="{{ path('discipline_index') }}">
-                            <i class="fas fa-arrow-left"></i>
-                        </a>
-                        Liste des punitions
-                    </h6>
-                    {# Bouton création #}
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{ path('punition_new',{'id':discipline.id}) }}" class="float-right">
-                            Créer un punition
-                        </a>
-                    {% endif %}
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                            <tr>
-                                <th></th>
-                                <th>Punitions</th>
-                                {% if is_granted('ROLE_ADMIN') %}
-                                    <th>Action</th>
-                                {% endif %}
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for punition in punition_list %}
-                                <tr>
-                                    <td class="text-center">
-                                        <input type="checkbox" value="{{ punition.id }}" name="delete[]"/>
-                                    </td>
-                                    <td>{{ punition.name }}</td>
-
-                                    {% if is_granted('ROLE_ADMIN') %}
-                                        <td>
-                                            <a class="btn btn-success" title="Modifier"
-                                               href="{{ path('punition_edit', { 'id': punition.id }) }}">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <a class="btn btn-danger remove-elt" title="Supprimer"
-                                               onclick="supprimer('{{ path('punition_delete', { 'id': punition.id }) }}')">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </td>
-                                    {% endif %}
-
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
+        <div class="card col-md-12 shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary float-left">
+                    <a href="{{ path('discipline_index') }}">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                    Liste des punitions
+                </h6>
+                {# Bouton création #}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="#" onclick="gestPunition('{{ path('punition_new',{'id':discipline.id}) }}')"
+                       data-toggle="modal" data-target="#modalPunition" class="float-right">
+                        Créer un punition
+                    </a>
+                    <!-- Modal -->
+                    <div class="modal fade" id="modalPunition" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Gestion punition</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body"></div>
+                            </div>
+                        </div>
                     </div>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>Punitions</th>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <th>Action</th>
+                            {% endif %}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for punition in punition_list %}
+                            <tr>
+                                <td class="text-center">
+                                    <input type="checkbox" value="{{ punition.id }}" name="delete[]"/>
+                                </td>
+                                <td>{{ punition.name }}</td>
+
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <td>
+                                        <a class="btn btn-success" title="Modifier" data-toggle="modal" data-target="#modalPunition"
+                                           href="#" onclick="gestPunition('{{ path('punition_edit', { 'id': punition.id }) }}')">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        <a class="btn btn-danger remove-elt" title="Supprimer"
+                                           onclick="supprimer('{{ path('punition_delete', { 'id': punition.id }) }}')">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </td>
+                                {% endif %}
+
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
 {% endblock %}
 
@@ -87,32 +101,26 @@
     {{ parent() }}
 
     <script type="text/javascript">
-        // Call the dataTables jQuery plugin
-        $(document).ready(function () {
-            $('#dataTable').DataTable();
-        });
-
-        $(function () {
-            $('#list-user').DataTable(
-                {
-                    "order": [[0, "desc"]],
-                    "bProcessing": true,
-                    "bFilter": true,
-                    "oLanguage": {
-                        "sProcessing": "Traitement...",
-                        "oPaginate": {
-                            "sPrevious": "Précédente", // This is the link to the previous page
-                            "sNext": "Suivante", // This is the link to the next page
-                        },
-                        "sSearch": "Filtrer: ",
-                        "sLengthMenu": "Afficher _MENU_ enregistrement par page",
-                        "sEmptyTable": "Aucun utilisateur trouvé",
-                        "sInfo": "Voir _TOTAL_ de _PAGE_ pour _PAGES_ entrées",
-                    },
-                    "footerCallback": function (row, data, start, end, display) {
-                        $('.title-count').html(display.length);
-                    }
-                });
-        });
+        function gestPunition(url) {
+            $.ajax({
+                url: url,
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-body').html(data)
+                    $('#modalPunition').on('shown.bs.modal', function () {
+                        $('#newPunition').on('click', function () {
+                            $.ajax({
+                                url: url,
+                                type: 'POST',
+                                data: $('#formPunition').serializeArray(),
+                                error: function () {
+                                    alert("Une erreur se produite")
+                                }
+                            })
+                        })
+                    })
+                }
+            })
+        }
     </script>
 {% endblock %}

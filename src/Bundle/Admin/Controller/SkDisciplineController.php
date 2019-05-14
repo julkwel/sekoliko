@@ -111,7 +111,7 @@ class SkDisciplineController extends Controller
             return $this->redirectToRoute('discipline_index');
         }
 
-        return $this->render('@Admin/SkDiscipline/edit.html.twig', array('form' => $_form->createView()));
+        return $this->render('@Admin/SkDiscipline/add.html.twig', array('form' => $_form->createView()));
     }
 
     /**
@@ -221,9 +221,10 @@ class SkDisciplineController extends Controller
             return $this->redirect($this->generateUrl('punition_index', array('id' => $skDisciplineList->getDiscipline()->getId())));
         }
 
-        return $this->render('@Admin/SkDiscipline/punition.edit.html.twig', array(
+        return $this->render('@Admin/SkDiscipline/punition.add.html.twig', array(
             'form' => $_form->createView(),
             'punition' => $skDisciplineList,
+            'discipline' => $skDisciplineList->getDiscipline(),
         ));
     }
 

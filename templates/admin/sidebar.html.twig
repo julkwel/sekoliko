@@ -246,9 +246,6 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Actions:</h6>
                         <a class="collapse-item" href="{{ path('discipline_index') }}">Liste des disciplines</a>
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <a class="collapse-item" href="{{ path('discipline_new') }}">Nouvelle Discipline</a>
-                        {% endif %}
                     </div>
                 </div>
             </li>
@@ -265,9 +262,6 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Actions:</h6>
                         <a class="collapse-item" href="{{ path('book_index') }}">Liste des livres</a>
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <a class="collapse-item" href="{{ path('book_new') }}">Nouveau livre</a>
-                        {% endif %}
                     </div>
                 </div>
             </li>

@@ -1,7 +1,7 @@
 discipline_index:
     path:     /
     defaults: { _controller: "AdminBundle:SkDiscipline:index" }
-    methods:  GET
+    methods:  [GET, POST]
 
 discipline_new:
     path:     /new
@@ -21,7 +21,7 @@ discipline_delete:
 punition_index:
     path:     /{id}/list
     defaults: { _controller: "AdminBundle:SkDiscipline:indexPunition" }
-    methods:  GET
+    methods:  [GET, POST]
 
 punition_new:
     path:     /punition/{id}/new
