@@ -142,13 +142,6 @@ class SkMatiereController extends Controller
         $_form = $this->createForm(SkMatiereType::class, $_matiere);
         $_form->handleRequest($request);
         if ($_form->isSubmitted() && $_form->isValid()) {
-//            $_profs_user = $request->request->get('profs');
-//            $_classe = $request->request->get('classe');
-//
-//            $_profs_user = $this->getDoctrine()->getRepository(User::class)->find($_profs_user);
-//            $_classe = $this->getDoctrine()->getRepository(SkClasse::class)->find($_classe);
-//            $_matiere->setMatProf($_profs_user);
-//            $_matiere->setMatClasse($_classe);
             $this->getEntityService()->saveEntity($_matiere, 'new');
             $this->getEntityService()->setFlash('success', 'Ajout du matière effectuée');
 
@@ -279,13 +272,6 @@ class SkMatiereController extends Controller
         $_form->handleRequest($request);
 
         if ($_form->isSubmitted() && $_form->isValid()) {
-//            $_profs_user = $request->request->get('profs');
-//            $_classe = $request->request->get('classe');
-//
-//            $_profs_user = $this->getDoctrine()->getRepository(User::class)->find($_profs_user);
-//            $_classe = $this->getDoctrine()->getRepository(SkClasse::class)->find($_classe);
-//            $skMatiere->setMatProf($_profs_user);
-//            $skMatiere->setMatClasse($_classe);
             $this->getEntityService()->saveEntity($skMatiere, 'update');
             $this->getEntityService()->setFlash('success', 'Matière mis à jour');
 
@@ -294,7 +280,7 @@ class SkMatiereController extends Controller
             $this->redirectToRoute('matiere_new');
         }
 
-        return $this->render('@Admin/SkMatiere/edit.html.twig', array(
+        return $this->render('@Admin/SkMatiere/add.html.twig', array(
             'form' => $_form->createView(),
             'profs' => $_profs_liste,
             'matiere' => $skMatiere,

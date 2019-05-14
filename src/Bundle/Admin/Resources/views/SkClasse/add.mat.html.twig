@@ -9,9 +9,9 @@
                     <input type="text" class="form-control" value="{{ classe.classeNom }}" disabled readonly>
                 </div>
                 <div class="form-group ">
-                    <label for="">Selectionner un profs</label>
+                    <label for="">Selectionner une matiere</label>
                     <select name="matiere" id="" class="form-control" required>
-                        <option value="">Veuillez selectionner un profs</option>
+                        <option value="">Veuillez selectionner une matiere</option>
                         {% for mat in matiere %}
                             <option value="{{ mat.id }}">{{ mat.matNom }}</option>
                         {% endfor %}

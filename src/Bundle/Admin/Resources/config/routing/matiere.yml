@@ -1,7 +1,7 @@
 matiere_index:
     path:     /
     defaults: { _controller: "AdminBundle:SkMatiere:index" }
-    methods:  GET
+    methods:  [GET, POST]
 
 matiere_new:
     path:     /new
