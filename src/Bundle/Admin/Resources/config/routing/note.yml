@@ -13,10 +13,10 @@ note_edit:
     defaults: { _controller: "AdminBundle:SkNote:edit" }
     methods:  [GET, POST]
 
-note_trim:
-    path:     /{id_etd}/{id_trim}
-    defaults: { _controller: "AdminBundle:SkNote:noteTrim" }
-    methods:  [GET, POST]
+#note_trim:
+#    path:     /{id_etd}/{id_trim}
+#    defaults: { _controller: "AdminBundle:SkNote:noteTrim" }
+#    methods:  [GET, POST]
 
 note_etd_trim:
     path:     /{id}/my/
