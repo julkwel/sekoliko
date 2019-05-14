@@ -16,6 +16,7 @@ use App\Shared\Entity\SkEtudiant;
 use App\Shared\Entity\SkMatiere;
 use App\Shared\Entity\SkNiveau;
 use App\Shared\Entity\SkRole;
+use App\Shared\Form\SkClasseMatiereType;
 use App\Shared\Form\SkClasseType;
 use App\Shared\Form\SkMatiereType;
 use App\Shared\Services\Utils\RoleName;
@@ -24,6 +25,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 class SkClassController extends Controller
 {
@@ -267,13 +269,16 @@ class SkClassController extends Controller
      */
     public function addMatiereAction(Request $request, SkClasse $skClasse)
     {
-        $_matiere = new SkMatiere();
+        $_matiere = new SkClasseMatiere();
         $_prof_list = $this->getProfs();
-        $_form = $this->createForm(SkMatiereType::class, $_matiere);
+        $_form = $this->createForm(SkClasseMatiereType::class, $_matiere);
         $_form->handleRequest($request);
+        $_matiere_list = $this->getEntityService()->getAllListByEts(SkMatiere::class);
 
         if ($_form->isSubmitted() && $_form->isValid()) {
             $_prof = $request->request->get('prof');
+            $_coeff = $request->request->get('coeff');
+            $_mat = $request->request->get('matiere');
 
             if (!($_prof)) {
                 $this->getEntityService()->setFlash('error', 'Veuillez sélectionner un prof');
@@ -282,9 +287,12 @@ class SkClassController extends Controller
             }
 
             $_prof = $this->getDoctrine()->getRepository(User::class)->find($_prof);
+            $_mat = $this->getDoctrine()->getRepository(SkMatiere::class)->find($_mat);
 
             $_matiere->setMatProf($_prof);
             $_matiere->setMatClasse($skClasse);
+            $_matiere->setMatiere($_mat);
+            $_matiere->setMatCoeff($_coeff);
 
             $_save_data = $this->getEntityService()->saveEntity($_matiere, 'new');
             if (true === $_save_data) {
@@ -300,6 +308,47 @@ class SkClassController extends Controller
             'form' => $_form->createView(),
             'classe' => $skClasse,
             'prof' => $_prof_list,
+            'matiere' => $_matiere_list
+        ));
+    }
+
+    /**
+     * @param Request $request
+     * @param SkClasseMatiere $skClasseMatiere
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Exception
+     */
+    public function editMatiereClasseAction(Request $request,SkClasseMatiere $skClasseMatiere)
+    {
+        $_prof_list = $this->getProfs();
+        $_form = $this->createForm(SkClasseMatiereType::class, $skClasseMatiere);
+        $_form->handleRequest($request);
+
+        if ($_form->isSubmitted() && $_form->isValid()) {
+            $_coeff = $request->request->get('coeff');
+            $_prof = $request->request->get('prof');
+
+            $_prof = $this->getDoctrine()->getRepository(User::class)->find($_prof);
+            $skClasseMatiere->setMatCoeff($_coeff);
+            $skClasseMatiere->setMatProf($_prof);
+
+            $_save_data = $this->getEntityService()->saveEntity($skClasseMatiere, 'update');
+            if (true === $_save_data) {
+                $this->getEntityService()->setFlash('success', 'Ajout matiere pour'.$skClasseMatiere->getMatClasse()->getClasseNom().'a réussi');
+
+                return $this->redirect($this->generateUrl('classe_matiere_liste', array('id' => $skClasseMatiere->getMatClasse()->getId())));
+            }
+
+            return $this->redirectToRoute('classe_add_matiere', array('id' => $skClasseMatiere->getMatClasse()->getId()));
+        }
+
+        return $this->render('@Admin/SkClasse/modal.edit.matiere.html.twig', array(
+            'form' => $_form->createView(),
+            'classe' => $skClasseMatiere->getMatClasse(),
+            'prof' => $_prof_list,
+            'matiere' => $skClasseMatiere
         ));
     }
 
@@ -315,7 +364,7 @@ class SkClassController extends Controller
      * @ParamConverter("skClasse", options={"id" = "id_class"})
      * @ParamConverter("skMatiere", options={"id" = "id_mat"})
      */
-    public function deleteClassMatiereAction(SkClasse $skClasse, SkMatiere $skMatiere)
+    public function deleteClassMatiereAction(SkClasse $skClasse, SkClasseMatiere $skMatiere)
     {
         /*
          * Secure to etudiant connected

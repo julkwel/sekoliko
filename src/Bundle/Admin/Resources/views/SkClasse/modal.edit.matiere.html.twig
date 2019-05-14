@@ -1,0 +1,27 @@
+{{ form_start(form,{"attr":{"id":"formMatClasse"}}) }}
+    <div class="form-group">
+        <input type="text" class="form-control" disabled name="classe" value="{{ matiere.matClasse.classeNom }}" required placeholder="coefficient">
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" disabled name="matiere" value="{{ matiere.matiere.matNom }}" required placeholder="coefficient">
+    </div>
+    <div class="form-group ">
+        <label for="">Selectionner un profs</label>
+        <select name="prof" class="form-control" required>
+            <option value="{{ matiere.matProf.id }}">{{ matiere.matProf.usrFirstName }}</option>
+            {% for profs in prof %}
+                <option value="{{ profs.id }}">{{ profs.usrFirstname }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" name="coeff" value="{{ matiere.matCoeff }}" required placeholder="coefficient">
+    </div>
+    <div class="box-footer">
+        <input type="submit" class="btn btn-primary float-right" id="modifMatClasse" value="Enregistrer" name="new_matiere"/>
+        <a data-dismiss="modal"
+           class="btn btn-google">
+            Annuler
+        </a>
+    </div>
+{{ form_end(form) }}

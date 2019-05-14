@@ -43,6 +43,11 @@ classe_matiere_liste:
     defaults: { _controller: "AdminBundle:SkClass:getMatiere" }
     methods:  [GET, POST]
 
+edit_classe_matiere:
+    path:     /class/matiere/{id}
+    defaults: { _controller: "AdminBundle:SkClass:editMatiereClasse" }
+    methods:  [GET, POST]
+
 classe_add_matiere:
     path:     /{id}/matiere/ajout
     defaults: { _controller: "AdminBundle:SkClass:addMatiere" }

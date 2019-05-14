@@ -1,53 +1,41 @@
-{% extends 'admin/admin.html.twig' %}
 
 {% form_theme form 'form/custom_fields.html.twig' %}
 
-{% block title %}{{ parent() }} | Ajouts matières {% endblock %}
-
-{% set menu_classe        = true %}
-
-{% block body %}
-
-    <div class="card shadow mb-4 col-md-4 col-xs-12 mx-auto">
-        {% for flashMessage in app.session.flashbag.get('error') %}
-            <div class="card bg-warning text-white shadow">
-                <div class="card-body">
-                    {{ flashMessage }}
+    {{ form_start(form,{"attr":{"id":"formMatClasse"}}) }}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group ">
+                    <label for="">Classe</label>
+                    <input type="text" class="form-control" value="{{ classe.classeNom }}" disabled readonly>
+                </div>
+                <div class="form-group ">
+                    <label for="">Selectionner un profs</label>
+                    <select name="matiere" id="" class="form-control" required>
+                        <option value="">Veuillez selectionner un profs</option>
+                        {% for mat in matiere %}
+                            <option value="{{ mat.id }}">{{ mat.matNom }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group ">
+                    <label for="">Selectionner un profs</label>
+                    <select name="prof" id="" class="form-control" required>
+                        <option value="">Veuillez selectionner un profs</option>
+                        {% for profs in prof %}
+                            <option value="{{ profs.id }}">{{ profs.usrFirstname }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="coeff" required placeholder="coefficient">
                 </div>
             </div>
-        {% endfor %}
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary text-center">Ajouter une matière</h6>
         </div>
-        <div class="card-body">
-            {{ form_start(form) }}
-            <div class="row">
-                <div class="col-md-12">
-                    {{ form_row(form.matNom) }}
-                    {{ form_row(form.matCoeff, {'attr': {'class': 'col-3'}}) }}
-                    <div class="form-group ">
-                        <label for="">Selectionner un profs</label>
-                        <select name="prof" id="" class="form-control">
-                            <option value="">Veuillez selectionner un profs</option>
-                            {% for profs in prof %}
-                                <option value="{{ profs.id }}">{{ profs.usrFirstname }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="form-group ">
-                        <label for="">Classe</label>
-                        <input type="text" class="form-control" value="{{ classe.classeNom }}" disabled readonly>
-                    </div>
-                </div>
-            </div>
-            <div class="box-footer">
-                <input type="submit" class="btn btn-primary float-right" value="Enregistrer" name="new_matiere"/>
-                <a href="{{ path('classe_matiere_liste',{"id":classe.id}) }}"
-                   class="btn btn-google">
-                    Annuler
-                </a>
-            </div>
-            {{ form_end(form) }}
+        <div class="box-footer">
+            <input type="submit" class="btn btn-primary float-right"  id="modifMatClasse" value="Enregistrer" name="new_matiere"/>
+            <a data-dismiss="modal"
+               class="btn btn-google">
+                Annuler
+            </a>
         </div>
-    </div>
-{% endblock %}
+    {{ form_end(form) }}
