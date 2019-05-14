@@ -256,6 +256,7 @@ class SkNoteController extends Controller
      */
     public function deleteAction(Request $request,SkNote $skNote)
     {
+        dump($skNote);die();
         /*
          * Secure to etudiant connected
          */
