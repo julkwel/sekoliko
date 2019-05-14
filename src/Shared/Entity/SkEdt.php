@@ -33,7 +33,7 @@ class SkEdt
 
     /**
      * @var SkClasseMatiere
-     * @ORM\ManyToOne(targetEntity="App\Shared\Entity\SkClasseMatiere",inversedBy="matCoeff")
+     * @ORM\ManyToOne(targetEntity="App\Shared\Entity\SkClasseMatiere")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="matNom", referencedColumnName="id", onDelete="CASCADE",nullable=true)
      * })
