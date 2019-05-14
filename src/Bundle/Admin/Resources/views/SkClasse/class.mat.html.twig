@@ -34,6 +34,24 @@
                             Ajouter une matière pour {{ classe.classeNom }}
                         </a>
                     </div>
+
+                    <div class="modal fade" id="modalMatClasse" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">
+                                        Classe Matiere
+                                    </h5>
+                                    <button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body"></div>
+                            </div>
+                        </div>
+                    </div>
                 {% endif %}
                 <div class="box-header">
                     <div class="list-count">
@@ -73,23 +91,7 @@
                                             <i class="fa fa-edit"></i>
                                         </a>
                                         <!-- Modal -->
-                                        <div class="modal fade" id="modalMatClasse" tabindex="-1" role="dialog"
-                                             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLongTitle">
-                                                            Classe Matiere
-                                                        </h5>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body"></div>
-                                                </div>
-                                            </div>
-                                        </div>
+
                                         <a class="btn btn-danger remove-elt" title="Supprimer"
                                            onclick="supprimer('{{ path('classe_delete_matiere', { 'id_class': classe.id ,'id_mat': matiere.id}) }}')">
                                             <i class="fa fa-trash"></i>
@@ -131,6 +133,7 @@
                 }
             })
         }
+
         function addClasseMatiere(url) {
             $.ajax({
                 url:url,
