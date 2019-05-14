@@ -1,7 +1,7 @@
 salle_index:
     path:     /
     defaults: { _controller: "AdminBundle:SkSalle:index" }
-    methods:  GET
+    methods:  [GET,POST]
 
 salle_new:
     path:     /new

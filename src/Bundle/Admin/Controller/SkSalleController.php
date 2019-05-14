@@ -122,7 +122,7 @@ class SkSalleController extends Controller
             return $this->redirectToRoute('salle_index');
         }
 
-        return $this->render('AdminBundle:SkSalle:edit.html.twig', array(
+        return $this->render('AdminBundle:SkSalle:add.html.twig', array(
             'form' => $_form->createView(),
             'salle' => $salle,
         ));
@@ -164,7 +164,7 @@ class SkSalleController extends Controller
     {
         if (true === $skSalle->getisReserve()) {
             try {
-                $this->getEntityService()->setFlash('error', 'Ce salle et déja réservé');
+                $this->getEntityService()->setFlash('error', 'Ce salle est déja réservé');
             } catch (\Exception $e) {
             }
 
@@ -174,43 +174,39 @@ class SkSalleController extends Controller
             $_form->handleRequest($request);
 
             if ($_form->isSubmitted() && $_form->isValid()) {
-                $debut_reservation = $request->request->get('debut');
-                $fin_reservation = $request->request->get('fin');
-                $motif_reservation = $request->request->get('motif');
-                $_nombre = $request->request->get('nombre');
-
-                if ($_nombre > $skSalle->getNombrePlace()) {
-                    $this->getEntityService()->setFlash('error', 'Ce salle ne supporte pas les nombres des personnes');
-
-                    return $this->redirect($this->generateUrl('salle_reservation', array(
-                        'id' => $skSalle->getId(),
-                    )));
-                } elseif (new \DateTime($debut_reservation) < new \DateTime('now')) {
-                    $this->getEntityService()->setFlash('error', 'La date début réservation et déjà passé');
-
-                    return $this->redirect($this->generateUrl('salle_reservation', array(
-                        'id' => $skSalle->getId(),
-                    )));
-                } elseif (new \DateTime($debut_reservation) > new \DateTime($fin_reservation)) {
-                    $this->getEntityService()->setFlash('error', 'Date debut > Date Fin');
-
-                    return $this->redirect($this->generateUrl('salle_reservation', array(
-                        'id' => $skSalle->getId(),
-                    )));
-                }
-
-                $skSalle->setIsReserve(true);
-                $skSalle->setDebReserve(new \DateTime($debut_reservation));
-                $skSalle->setFinReserve(new \DateTime($fin_reservation));
-                $skSalle->setMotifs($motif_reservation);
                 try {
+
+                    $debut_reservation = $request->request->get('debut');
+                    $fin_reservation = $request->request->get('fin');
+                    $motif_reservation = $request->request->get('motif');
+                    $_nombre = $request->request->get('nombre');
+
+                    if ($_nombre > $skSalle->getNombrePlace()) {
+                        $this->getEntityService()->setFlash('error', 'Ce salle ne supporte pas les nombres des personnes');
+
+                        return $this->redirect($this->generateUrl('salle_reservation', array(
+                            'id' => $skSalle->getId(),
+                        )));
+                    } elseif (new \DateTime($debut_reservation) > new \DateTime($fin_reservation)) {
+                        $this->getEntityService()->setFlash('error', 'Date debut > Date Fin');
+
+                        return $this->redirect($this->generateUrl('salle_reservation', array(
+                            'id' => $skSalle->getId(),
+                        )));
+                    }
+
+                    $skSalle->setIsReserve(true);
+                    $skSalle->setDebReserve(new \DateTime($debut_reservation));
+                    $skSalle->setFinReserve(new \DateTime($fin_reservation));
+                    $skSalle->setMotifs($motif_reservation);
+
                     $this->getEntityService()->saveEntity($skSalle, 'update');
                     $this->getEntityService()->setFlash('success', 'reservation ajouté');
-                } catch (\Exception $exception) {
-                    $exception->getMessage();
-                }
 
-                return $this->redirectToRoute('salle_index');
+                    return $this->redirectToRoute('salle_index');
+                } catch (\Exception $exception) {
+                    $this->getEntityService()->setFlash('error', 'Une erreur se produite');
+                }
             }
         }
 

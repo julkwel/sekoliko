@@ -22,174 +22,123 @@
     {% endfor %}
 
     <div class="row">
-        <form action="" method="POST" class="form-search">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary text-center float-left">Liste des salles</h6>
-                    {# Bouton création #}
-                    {% if is_granted('ROLE_ADMIN') %}
-                            <a href="{{ path('salle_new') }}" class="float-right">
-                                Ajouter une salle
-                            </a>
-                    {% endif %}
-                </div>
-                {#<div class="card-body">#}
-                {#<div class="table-responsive">#}
-                {#<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">#}
-                {#<thead>#}
-                {#<tr>#}
-                {#<th></th>#}
-                {#<th>Nom</th>#}
-                {#<th>Numéro</th>#}
-                {#<th>Nombre place</th>#}
-                {#<th>Réservation</th>#}
-                {#<th>Motifs</th>#}
-                {#<th>Actions</th>#}
-                {#</tr>#}
-                {#</thead>#}
-                {#<tbody>#}
-                {#{% for salle in salle_list %}#}
-                {#<tr>#}
-                {#<td class="text-center">#}
-                {#<input type="checkbox" value="{{ salle.id }}" name="delete[]"/>#}
-                {#</td>#}
-                {#<td>{{ salle.salleNom }}</td>#}
-                {#<td>{{ salle.salleNumero }}</td>#}
-                {#<td>{{ salle.nombrePlace }}</td>#}
-                {#<td>{{ salle.isReserve ? 'oui' : 'Non' }}</td>#}
-                {#<td>{{ salle.motifs ?salle.motifs : 'Non réservé' }}</td>#}
-                {#<td class="kl-action-button-bloc">#}
+        <div class="card col-md-12 shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary text-center float-left">Liste des salles</h6>
+                {# Bouton création #}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="#" data-toggle="modal" data-target="#modalSalle"
+                       onclick="addSalle('{{ path('salle_new') }}')" class="float-right">
+                        Ajouter une salle
+                    </a>
+                    <!-- Modal -->
+                    <div class="modal fade" id="modalSalle" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Gestion salle</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body"></div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="box">
+                <div class="container-fluid">
+                    <div class="row">
+                        {% for salle in salle_list %}
+                            <div class="card m-1" style="width: 18rem;">
+                                <div class="card-header">
+                                    <strong>{{ salle.salleNom|upper }}</strong>
+                                    Num
+                                    <mark>{{ salle.salleNumero }}</mark>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">Nombre de place {{ salle.nombrePlace }} </li>
+                                    <li class="list-group-item">{{ salle.isReserve ? 'Reservé' : 'Non reservé' }}
 
-                {#{% if is_granted('ROLE_ADMIN') %}#}
-                {#<a class="btn btn-success btn-sm" title="Modifier"#}
-                {#href="{{ path('salle_edit', { 'id': salle.id }) }}">#}
-                {#<i class="fas fa-pen"></i>#}
-                {#</a>#}
-                {#{% endif %}#}
-                {#{% if salle.isReserve == false %}#}
-                {#<a class="btn btn-secondary btn-sm" title="Réserver ce salle"#}
-                {#href="{{ path('salle_reservation', { 'id': salle.id }) }}">#}
-                {#<i class="fa fa-restroom"></i>#}
-                {#</a>#}
-                {#{% endif %}#}
-                {#{% if salle.isReserve == true %}#}
-                {#<a class="btn btn-primary btn-sm" title="Details réservations"#}
-                {#href="{{ path('details_reservation', { 'id': salle.id }) }}">#}
-                {#<i class="fa fa-lightbulb"></i>#}
-                {#</a>#}
-                {#{% if is_granted('ROLE_ADMIN') %}#}
-                {#<a class="btn btn-warning btn-sm" title="Annuler la réservation"#}
-                {#href="{{ path('salle_annule', { 'id': salle.id }) }}">#}
-                {#<i class="fa fa-ban"></i>#}
-                {#</a>#}
-                {#{% endif %}#}
-                {#{% endif %}#}
+                                        {% if salle.isReserve == false %}
+                                            <a class="btn btn-secondary btn-sm" title="Réserver ce salle" data-toggle="modal" data-target="#modalSalle"
+                                               href="#" onclick="reserveSalle('{{ path('salle_reservation', { 'id': salle.id }) }}')">
+                                                <i class="fa fa-restroom"></i>
+                                            </a>
+                                        {% endif %}
 
-                {#{% if is_granted('ROLE_ADMIN') %}#}
-                {#<a class="btn btn-danger remove-elt btn-sm" title="Supprimer"#}
-                {#onclick="supprimer('{{ path('salle_delete', { 'id': salle.id }) }}')">#}
-                {#<i class="fa fa-trash"></i>#}
-                {#</a>#}
-                {#{% endif %}#}
-                {#</td>#}
-                {#</tr>#}
-                {#{% endfor %}#}
-                {#</tbody>#}
-                {#</table>#}
-                {#</div>#}
-                {#</div>#}
-                <div class="box">
-                    <div class="container-fluid">
-                        <div class="row">
-                            {% for salle in salle_list %}
-                                <div class="card m-1" style="width: 18rem;">
-                                    <div class="card-header">
-                                        <strong>{{ salle.salleNom|upper }}</strong>
-                                        N
-                                        <mark>{{ salle.salleNumero }}</mark>
-                                    </div>
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">Nombre de place {{ salle.nombrePlace }} </li>
-                                        <li class="list-group-item">{{ salle.isReserve ? 'Reservé' : 'Non reservé' }}
+                                        {% if salle.isReserve == true %}
+                                            <a class="btn btn-primary btn-sm text-white" title="Details réservations"
+                                               data-toggle="modal" data-target="#exampleModal">
+                                                <i class="fa fa-lightbulb"></i>
+                                            </a>
 
-                                            {% if salle.isReserve == false %}
-                                                <a class="btn btn-secondary btn-sm" title="Réserver ce salle"
-                                                   href="{{ path('salle_reservation', { 'id': salle.id }) }}">
-                                                    <i class="fa fa-restroom"></i>
-                                                </a>
-                                            {% endif %}
-
-                                            {% if salle.isReserve == true %}
-                                                <a class="btn btn-primary btn-sm text-white" title="Details réservations"
-                                                   data-toggle="modal" data-target="#exampleModal">
-                                                    <i class="fa fa-lightbulb"></i>
-                                                </a>
-
-                                                {#Modal details reservations#}
-                                                <div class="modal fade bd-example-modal-sm" id="exampleModal"
-                                                     tabindex="-1" role="dialog"
-                                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog modal-sm" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">
-                                                                    Details réservation {{ salle.salleNom }}
-                                                                </h5>
-                                                                <button type="button" class="close" data-dismiss="modal"
-                                                                        aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <ul>
-                                                                    <li>Début {{ salle.debReserve|date('Y-m-d H:m') }}</li>
-                                                                    <li>Fin {{ salle.finReserve|date('Y-m-d H:m') }}</li>
-                                                                    <li>{{ salle.motifs }}</li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button"
-                                                                        class="d-block btn btn-secondary w-100"
-                                                                        data-dismiss="modal">Close
-                                                                </button>
-                                                            </div>
+                                            {#Modal details reservations#}
+                                            <div class="modal fade bd-example-modal-sm" id="exampleModal"
+                                                 tabindex="-1" role="dialog"
+                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-sm" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">
+                                                                Details réservation {{ salle.salleNom }}
+                                                            </h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <ul>
+                                                                <li>Début {{ salle.debReserve|date('Y-m-d H:m') }}</li>
+                                                                <li>Fin {{ salle.finReserve|date('Y-m-d H:m') }}</li>
+                                                                <li>{{ salle.motifs }}</li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button"
+                                                                    class="d-block btn btn-secondary w-100"
+                                                                    data-dismiss="modal">Close
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                {#end modal#}
-
-                                                {% if is_granted('ROLE_ADMIN') %}
-                                                    <a class="btn btn-warning btn-sm" title="Annuler la réservation"
-                                                       href="{{ path('salle_annule', { 'id': salle.id }) }}">
-                                                        <i class="fa fa-ban"></i>
-                                                    </a>
-                                                {% endif %}
-                                            {% endif %}
-                                        </li>
-
-                                        <li class="list-group-item text-center">
-                                            {% if is_granted('ROLE_ADMIN') %}
-                                                <a class="btn btn-success btn-sm" title="Modifier"
-                                                   href="{{ path('salle_edit', { 'id': salle.id }) }}">
-                                                    <i class="fas fa-pen"></i>
-                                                </a>
-                                            {% endif %}
+                                            </div>
+                                            {#end modal#}
 
                                             {% if is_granted('ROLE_ADMIN') %}
-                                                <a class="btn btn-danger remove-elt btn-sm" title="Supprimer"
-                                                   onclick="supprimer('{{ path('salle_delete', { 'id': salle.id }) }}')">
-                                                    <i class="fa fa-trash"></i>
+                                                <a class="btn btn-warning btn-sm" title="Annuler la réservation"
+                                                   href="#" onclick="annuleReserve('{{ path('salle_annule', { 'id': salle.id }) }}')">
+                                                    <i class="fa fa-ban"></i>
                                                 </a>
                                             {% endif %}
-                                        </li>
-                                    </ul>
-                                </div>
-                            {% endfor %}
-                        </div>
+                                        {% endif %}
+                                    </li>
+
+                                    <li class="list-group-item text-center">
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                            <a class="btn btn-success btn-sm" title="Modifier" data-toggle="modal" data-target="#modalSalle"
+                                               href="#" onclick="editSalle('{{ path('salle_edit', { 'id': salle.id }) }}')">
+                                                <i class="fas fa-pen"></i>
+                                            </a>
+                                        {% endif %}
+
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                            <a class="btn btn-danger remove-elt btn-sm" title="Supprimer"
+                                               onclick="supprimer('{{ path('salle_delete', { 'id': salle.id }) }}')">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        {% endif %}
+                                    </li>
+                                </ul>
+                            </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
 {% endblock %}
 
@@ -210,6 +159,64 @@
         }
         {% endfor %}
 
+        function addSalle(url) {
+            $.ajax({
+                url: url,
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-body').html(data)
+                    $('#modalSalle').on('shown.bs.modal', function () {
+                        $('#newSalle').on('click', function () {
+                            $.ajax({
+                                url: url,
+                                data: $('#formSalle').serializeArray(),
+                                type: 'POST'
+                            })
+                        })
+                    })
+                }
+            })
+        }
 
+        function editSalle(url) {
+            $.ajax({
+                url: url,
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-body').html(data)
+                    $('#modalSalle').on('shown.bs.modal', function () {
+                        $('#newSalle').on('click', function () {
+                            $.ajax({
+                                url: url,
+                                data: $('#formSalle').serializeArray(),
+                                type: 'POST'
+                            })
+                        })
+                    })
+                }
+            })
+        }
+
+        function reserveSalle(url) {
+            $.ajax({
+                url:url,
+                type:'POST',
+                success: function (data) {
+                    $('.modal-body').html(data)
+                    $('#modalSalle').on('shown.bs.modal', function () {
+                        $('#newReserve').on('click', function () {
+                            $.ajax({
+                                url: url,
+                                type: 'POST',
+                                data: $('#formReserveSalle').serializeArray(),
+                                success:function (data) {
+                                    console.log(data)
+                                }
+                            })
+                        })
+                    })
+                }
+            })
+        }
     </script>
 {% endblock %}

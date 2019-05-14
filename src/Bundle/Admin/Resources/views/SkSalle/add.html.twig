@@ -1,43 +1,19 @@
-{% extends 'admin/admin.html.twig' %}
 
 {% form_theme form 'form/custom_fields.html.twig' %}
 
-{% block title %}{{ parent() }} | Ajouts salles {% endblock %}
-
-{% set menu_salle       = true %}
-
-{% block body %}
-
-
-    {% for flashMessage in app.session.flashbag.get('error') %}
-        <div class="card bg-warning text-white shadow">
-            <div class="card-body">
-                {{ flashMessage }}
-            </div>
-        </div>
-    {% endfor %}
-
-    <div class="card shadow mb-4 col-md-4 col-xs-12 mx-auto">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary text-center">Ajouter une salle</h6>
-        </div>
-        <div class="card-body">
-            {{ form_start(form) }}
-            <div class="row">
-                <div class="col-md-12">
-                    {{ form_row(form.salleNom) }}
-                    {{ form_row(form.salleNumero) }}
-                    {{ form_row(form.nombrePlace) }}
-                </div>
-            </div>
-            <div class="box-footer">
-                <input type="submit" class="btn btn-primary float-right" value="Enregistrer" name="new_salle"/>
-                <a href="{{ path('salle_index') }}"
-                   class="btn btn-google">
-                    Annuler
-                </a>
-            </div>
-            {{ form_end(form) }}
+    {{ form_start(form,{"attr":{"id":"formSalle"}}) }}
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_row(form.salleNom) }}
+            {{ form_row(form.salleNumero) }}
+            {{ form_row(form.nombrePlace) }}
         </div>
     </div>
-{% endblock %}
+    <div class="box-footer">
+        <input type="submit" class="btn btn-primary float-right" id="newSalle" value="Enregistrer" name="new_salle"/>
+        <a href="{{ path('salle_index') }}"
+           class="btn btn-google">
+            Annuler
+        </a>
+    </div>
+    {{ form_end(form) }}

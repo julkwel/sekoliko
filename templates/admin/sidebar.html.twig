@@ -231,9 +231,6 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Actions:</h6>
                         <a class="collapse-item" href="{{ path('salle_index') }}">Liste des salles</a>
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <a class="collapse-item" href="{{ path('salle_new') }}">Nouvelle salle</a>
-                        {% endif %}
                     </div>
                 </div>
             </li>
