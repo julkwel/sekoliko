@@ -62,7 +62,7 @@
                                     </td>
                                     <td>{{ note.matNom ? note.matNom.matiere.matNom }}</td>
                                     <td>{{ note.noteVal }}</td>
-                                    <td>{{ note.trimestre.name }}</td>
+                                    <td>{{ note.trimestre?note.trimestre.name }}</td>
                                     <td class="kl-action-button-bloc">
                                         {% if is_granted('ROLE_PROFS') %}
                                             <a class="btn btn-primary" title="Modifier"
