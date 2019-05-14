@@ -22,70 +22,114 @@
     {% endfor %}
 
     <div class="row">
-        <form action="" method="POST" class="form-search">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary text-center">Liste des professeurs</h6>
-                    {# Bouton création #}
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <div class="add-btn-top-list float-right">
-                            <a href="{{ path('profs_new') }}" class="btn btn-primary">
-                                Ajouter un(e) professeur
-                            </a>
-                        </div>
-                    {% endif %}
-                    <div class="box-header">
-                        <div class="list-count">
-                            <h4><span class="title-count-text"> TOTAL : {{ profs|length }}</span><span class="title-count"></span></h4>
+        <div class="col-md-12 card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary text-center">Liste des professeurs</h6>
+                {# Bouton création #}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <div class="add-btn-top-list float-right">
+                        <a class="float-right" id="addProf" data-toggle="modal" data-target="#exampleModalCenter">
+                            Ajouter un(e) professeur
+                        </a>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Ajouter un(e) professeur</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                            <tr>
-                                <th></th>
-                                <th>Nom</th>
-                                <th>Prénom</th>
-                                <th>Nom d'utilisateur</th>
-                                <th>Téléphone</th>
-                                <th>Actions</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for prof in profs %}
-                                <tr>
-                                    <td class="text-center">
-                                        <input type="checkbox" value="{{ prof.id }}" name="delete[]"/>
-                                    </td>
-                                    <td>{{ prof.usrLastname }}</td>
-                                    <td>{{ prof.usrFirstname }}</td>
-                                    <td>{{ prof.username }}</td>
-                                    <td>{{ prof.usrPhone ? prof.usrPhone : '' }}</td>
-                                    <td class="kl-action-button-bloc">
-                                        {% if is_granted('ROLE_ADMIN') %}
-                                            <a class="btn btn-success btn-sm" title="Modifier"
-                                               href="{{ path('profs_edit', { 'id': prof.id }) }}">
-                                                <i class="fas fa-pen"></i>
-                                            </a>
-                                            <a class="btn btn-info btn-sm" title="Modifier"
-                                               href="{{ path('profs_details', { 'id': prof.id }) }}">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
-                                            <a class="btn btn-danger remove-elt btn-sm" title="Supprimer"
-                                               onclick="supprimer('{{ path('profs_delete', { 'id': prof.id }) }}')">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
+                {% endif %}
+
+                <div class="box-header">
+                    <div class="list-count">
+                        <h4><span class="title-count-text"> TOTAL : {{ profs|length }}</span><span
+                                    class="title-count"></span></h4>
                     </div>
                 </div>
             </div>
-        </form>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Nom d'utilisateur</th>
+                            <th>Téléphone</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for prof in profs %}
+                            <tr>
+                                <td class="text-center">
+                                    <input type="checkbox" value="{{ prof.id }}" name="delete[]"/>
+                                </td>
+                                <td>{{ prof.usrLastname }}</td>
+                                <td>{{ prof.usrFirstname }}</td>
+                                <td>{{ prof.username }}</td>
+                                <td>{{ prof.usrPhone ? prof.usrPhone : '' }}</td>
+                                <td class="kl-action-button-bloc">
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <a class="btn btn-success btn-sm" title="Modifier"
+                                           href="{{ path('profs_edit', { 'id': prof.id }) }}">
+                                            <i class="fas fa-pen"></i>
+                                        </a>
+                                        <a class="btn btn-info btn-sm" title="Modifier"
+                                           href="{{ path('profs_details', { 'id': prof.id }) }}">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a class="btn btn-danger remove-elt btn-sm" title="Supprimer"
+                                           onclick="supprimer('{{ path('profs_delete', { 'id': prof.id }) }}')">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $("#addProf").click(function () {
+            $.ajax({
+                url: '{{ path('profs_new') }}',
+                type: 'GET',
+                success: function (data) {
+                    console.log(data)
+                    $('.modal-body').html(data)
+                    $('#addNewProf').on('click', function () {
+                        $.ajax({
+                            url: '{{ path('profs_new') }}',
+                            type: 'POST',
+                            data: $('#newProf').serializeArray(),
+                            success:function () {
+                                location.reload()
+                            },
+                            error:function () {
+                                alert("une erreur se produite");
+                            }
+                        })
+                    })
+                }
+            })
+        })
+    </script>
 {% endblock %}

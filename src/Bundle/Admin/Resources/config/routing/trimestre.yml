@@ -1,7 +1,7 @@
 trim_index:
     path:     /
     defaults: { _controller: "AdminBundle:SkTrimestre:index" }
-    methods:  GET
+    methods:  [GET, POST]
 
 trim_new:
     path:     /new

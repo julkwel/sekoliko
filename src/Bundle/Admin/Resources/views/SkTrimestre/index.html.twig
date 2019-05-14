@@ -29,14 +29,32 @@
                     {# Bouton création #}
                     {% if is_granted('ROLE_ADMIN') %}
                         <div class="add-btn-top-list float-right">
-                            <a href="{{ path('trim_new') }}" class="btn btn-primary">
+                            <a  data-toggle="modal" id="addTrim" data-target="#newtrim">
                                 Ajouter une trimestre
                             </a>
+                            <!-- Modal -->
+                            <div class="modal fade" id="newtrim" tabindex="-1" role="dialog"
+                                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">Ajouter une
+                                                trimestre</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     {% endif %}
+
                     <div class="box-header">
                         <div class="list-count">
-                            <h4><span class="title-count-text"> TOTAL : {{ trimestre|length }}</span><span class="title-count"></span></h4>
+                            <h4><span class="title-count-text"> TOTAL : {{ trimestre|length }}</span><span
+                                        class="title-count"></span></h4>
                         </div>
                     </div>
                 </div>
@@ -63,8 +81,8 @@
                                     <td>{{ trim.trimFin|date('Y-m-d') }}</td>
                                     <td class="kl-action-button-bloc">
                                         {% if is_granted('ROLE_ADMIN') %}
-                                            <a class="btn btn-success btn-sm" title="Modifier"
-                                               href="{{ path('trim_edit', { 'id': trim.id }) }}">
+                                            <a class="btn btn-success btn-sm" title="Modifier" data-toggle="modal" data-target="#newtrim"
+                                               onclick="editTrim('{{ path('trim_edit', { 'id': trim.id }) }}')">
                                                 <i class="fas fa-pen"></i>
                                             </a>
                                             <a class="btn btn-danger remove-elt btn-sm" title="Supprimer"
@@ -82,4 +100,55 @@
             </div>
         </form>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $('#addTrim').on('click', function () {
+            $.ajax({
+                url: '{{ path('trim_new') }}',
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-body').html(data);
+                    $('#newTrimestre').on('click', function () {
+                        $.ajax({
+                            url: '{{ path('trim_new') }}',
+                            type: 'POST',
+                            data: $('#formTrim').serializeArray(),
+                            success: function () {
+                                alert("Ajout profs avec success ! ")
+                            },
+                            error: function () {
+                                alert("Une érreur se produite");
+                            }
+                        })
+                    })
+                }
+            })
+        })
+
+        function editTrim(url) {
+            $.ajax({
+                url: url,
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-body').html(data);
+                    $('#newTrimestre').on('click', function () {
+                        $.ajax({
+                            url: url,
+                            type: 'POST',
+                            data: $('#formTrim').serializeArray(),
+                            success: function () {
+                                alert("Modification profs avec success ! ")
+                            },
+                            error: function () {
+                                alert("Une érreur se produite");
+                            }
+                        })
+                    })
+                }
+            })
+        }
+    </script>
 {% endblock %}

@@ -57,6 +57,7 @@ class SkTrimestreController extends Controller
         $_trim = new SkTrimestre();
         $_form = $this->createForm(SkTrimestreType::class, $_trim);
         $_form->handleRequest($request);
+
         if ($_form->isSubmitted() && $_form->isValid()) {
             $_date_debut = $request->request->get('debut');
             $_date_fin = $request->request->get('fin');

@@ -1,7 +1,7 @@
 profs_index:
     path:     /
     defaults: { _controller: "AdminBundle:SkProfs:index" }
-    methods:  GET
+    methods:  [GET,POST]
 
 profs_new:
     path:     /new

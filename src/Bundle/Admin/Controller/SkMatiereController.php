@@ -13,13 +13,11 @@ use App\Shared\Entity\SkClasse;
 use App\Shared\Entity\SkClasseMatiere;
 use App\Shared\Entity\SkEtudiant;
 use App\Shared\Entity\SkMatiere;
-use App\Shared\Form\SkClasseMatiereType;
 use App\Shared\Form\SkMatiereType;
 use App\Shared\Services\Utils\RoleName;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 
 class SkMatiereController extends Controller
@@ -169,13 +167,15 @@ class SkMatiereController extends Controller
 
     /**
      * @param Request $request
-     * @param null $id_matiere
-     * @param null $id_class
+     * @param null    $id_matiere
+     * @param null    $id_class
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function addMatClassAction(Request $request, $id_matiere = null,$id_class = null)
+    public function addMatClassAction(Request $request, $id_matiere = null, $id_class = null)
     {
         if ($this->get('security.authorization_checker')->isGranted('ROLE_ETUDIANT')) {
             return $this->redirectToRoute('sk_login');
@@ -202,7 +202,7 @@ class SkMatiereController extends Controller
                         ->orderBy('m.id', 'ASC');
                 },
                 'choice_label' => 'matNom',
-                'multiple' => false
+                'multiple' => false,
             ])
             ->add('matCoeff')
             ->add('matClasse', EntityType::class, [
@@ -215,7 +215,7 @@ class SkMatiereController extends Controller
                         ->setParameter('asname', $this->getUserConected()->getAsName())
                         ->orderBy('c.id', 'ASC');
                 },
-                'choice_label' => 'classeNom'
+                'choice_label' => 'classeNom',
             ])
             ->add('matProf', EntityType::class, [
                 'class' => User::class,
@@ -233,7 +233,6 @@ class SkMatiereController extends Controller
 
         $_form->handleRequest($request);
         if ($_form->isSubmitted() && $_form->isValid()) {
-
             $this->getEntityService()->saveEntity($_matiere, 'new');
             $this->getEntityService()->setFlash('success', 'Ajout du matière effectuée');
 
@@ -251,7 +250,7 @@ class SkMatiereController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param Request   $request
      * @param SkMatiere $skMatiere
      *
      * @return \Symfony\Component\HttpFoundation\Response

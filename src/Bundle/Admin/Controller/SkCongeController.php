@@ -207,7 +207,7 @@ class SkCongeController extends Controller
      *
      * @throws \Exception
      */
-    public function deleteAction(Request $request,SkConge $skConge)
+    public function deleteAction(Request $request, SkConge $skConge)
     {
         try {
             $skConge->getUser()->setIsConge(false);

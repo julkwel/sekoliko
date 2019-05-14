@@ -229,7 +229,6 @@ class SkNoteController extends Controller
                 $skNote->setNoteVal($_valeur);
                 $skNote->setTrimestre($_trimestre);
                 $this->getEntityService()->saveEntity($skNote, 'update');
-
             } catch (\Exception $exception) {
                 $exception->getMessage();
             }

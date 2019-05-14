@@ -21,9 +21,9 @@
                         <tr>
                             {% for matiere in matiere %}
                                 <td class="p-2">
-                                    <li><strong>{{ matiere.matNom }}</strong></li>
-                                    <li>{{ matiere.matCoeff }}</li>
-                                    <li>{{ matiere.matClasse.classeNom }}</li>
+                                    <li><strong>{{ matiere.matiere ? matiere.matiere.matNom }}</strong></li>
+                                    <li>{{ matiere ? matiere.matCoeff }}</li>
+                                    <li>{{ matiere ? matiere.matClasse.classeNom }}</li>
                                 </td>
                             {% endfor %}
                         </tr>

@@ -1,0 +1,30 @@
+
+{% form_theme form 'form/custom_fields.html.twig' %}
+{{ form_start(form, {"attr":{"id":"newProf"}}) }}
+<div class="row">
+    <div class="col-md-6">
+        {{ form_row(form.usrLastname) }}
+        {{ form_row(form.usrFirstname) }}
+        {{ form_row(form.usrAddress) }}
+    </div>
+    <div class="col-md-6">
+        <div class="hide" style="display: none">
+            {{ form_row(form.imgUrl, { 'attr': {'required': 'false'} }) }}
+            {{ form_row(form.skRole, { 'attr': {'required': 'false'} }) }}
+            {{ form_row(form.enabled, { 'attr': {'required': 'false'} }) }}
+            {{ form_row(form.plainPassword.first, { 'attr': {'required': 'false'} }) }}
+            {{ form_row(form.plainPassword.second, { 'attr': {'required': 'false'} }) }}
+        </div>
+        {{ form_row(form.username) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.usrPhone) }}
+    </div>
+</div>
+<div class="box-footer">
+    <input type="submit" class="btn btn-primary float-right" id="addNewProf" value="Enregistrer" name="new_user"/>
+    <a data-dismiss="modal"
+       class="btn btn-google">
+        Annuler
+    </a>
+</div>
+{{ form_end(form) }}

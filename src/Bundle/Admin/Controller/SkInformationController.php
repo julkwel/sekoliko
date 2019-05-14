@@ -95,14 +95,13 @@ class SkInformationController extends Controller
      */
     public function commentAction(Request $request, SkInformation $skInformation)
     {
-
         $_comment = new SkInfoComment();
         $_form = $this->createForm(SkInfoCommentType::class, $_comment);
         $_form->handleRequest($request);
 
-        try{
+        try {
             if ($_form->isSubmitted() && $_form->isValid()) {
-                try{
+                try {
                     $_comment->setUser($this->getUserConnected());
                     $_comment->setInfo($skInformation);
                     $_comment->setDate(new \DateTime());
@@ -114,15 +113,13 @@ class SkInformationController extends Controller
                     }
 
                     return $this->redirect($request->getUri());
-                } catch (\Exception $exception){
+                } catch (\Exception $exception) {
                     $exception->getMessage();
                 }
-
             }
-        } catch (\Exception $exception){
+        } catch (\Exception $exception) {
             $exception->getMessage();
         }
-
 
         return $this->render('AdminBundle:SkInformation:comment.html.twig', ['form' => $_form->createView()]);
     }

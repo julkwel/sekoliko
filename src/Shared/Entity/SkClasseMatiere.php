@@ -3,18 +3,17 @@
  * Created by PhpStorm.
  * User: julkwel
  * Date: 5/2/19
- * Time: 11:16 PM
+ * Time: 11:16 PM.
  */
 
 namespace App\Shared\Entity;
-
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User;
 
 /**
- * Class SkClasseMatiere
- * @package App\Shared\Entity
+ * Class SkClasseMatiere.
+ *
  * @ORM\Table(name="sk_classe_matiere")
  * @ORM\Entity
  */

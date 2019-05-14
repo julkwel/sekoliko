@@ -10,7 +10,7 @@ namespace App\Bundle\Admin\Controller;
 
 use App\Bundle\User\Entity\User;
 use App\Bundle\User\Form\UserType;
-use App\Shared\Entity\SkMatiere;
+use App\Shared\Entity\SkClasseMatiere;
 use App\Shared\Entity\SkRole;
 use App\Shared\Services\Utils\RoleName;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -79,6 +79,7 @@ class SkProfsController extends Controller
                     $_user->setRoles(array($_user_role));
                     $_user->setEnabled(1);
                     $_user->setPassword($_pass);
+
                     $this->getEntityService()->saveEntity($_user, 'new');
                     $this->getEntityService()->setFlash('success', 'Ajout profs réussie');
 
@@ -86,7 +87,7 @@ class SkProfsController extends Controller
                 }
             }
 
-            return $this->render('@Admin/SkProfs/add.html.twig', array(
+            return $this->render('@Admin/SkProfs/modal.add.html.twig', array(
                 'form' => $_form->createView(),
             ));
         }
@@ -149,7 +150,7 @@ class SkProfsController extends Controller
      */
     public function detailsAction(User $user)
     {
-        $_prof_mat = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array(
+        $_prof_mat = $this->getDoctrine()->getRepository(SkClasseMatiere::class)->findBy(array(
            'matProf' => $user,
         ));
 
