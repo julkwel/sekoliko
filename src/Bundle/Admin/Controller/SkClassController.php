@@ -445,7 +445,6 @@ class SkClassController extends Controller
 
                     $_user_role = RoleName::ROLE_ETUDIANT;
                     $_role = $this->getDoctrine()->getRepository(SkRole::class)->find(2);
-                    $_pass = $_etudiant_data->setPlainPassword('123456');
                     $_etudiant_data->setRoles(array($_user_role));
                     $_etudiant_data->setskRole($_role);
                     $_etudiant_data->setUsrLastname($value[0] ? $value[0] : 'Null');
@@ -455,7 +454,7 @@ class SkClassController extends Controller
                     $_etudiant_data->setUsername($value[3]);
                     $_etudiant_data->setUsrAddress($value[4] ? $value[4] : 'Null');
                     $_etudiant_data->setUsrPhone($value[5] ? $value[5] : 'Null');
-                    $_etudiant_data->setPassword($_pass);
+                    $_etudiant_data->setPlainPassword('123456');
 
                     $_etudiant->setClasse($skClasse);
                     $_etudiant->setClasse($skClasse);
@@ -504,11 +503,10 @@ class SkClassController extends Controller
                         $_dt_n = new \DateTime($_date_de_naissance);
                         $_dt_n = $_dt_n->format('d/m/Y');
                         try {
-                            $_pass = $_user->setPlainPassword('123456');
-                            $_user->setPassword($_pass);
                             $_user->setskRole($_role);
                             $_user->setRoles(array($_user_role));
                             $_user->setEnabled(1);
+                            $_user->setPlainPassword('123456');
 
                             $_etudiant->setClasse($skClasse);
                             $_etudiant->setClasse($skClasse);

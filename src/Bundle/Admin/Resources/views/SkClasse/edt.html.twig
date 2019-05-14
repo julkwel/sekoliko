@@ -51,7 +51,7 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title text-center" id="exampleModalLabel">Emplois aaaaaadu temps</h5>
+                            <h5 class="modal-title text-center" id="exampleModalLabel">Emplois du temps</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -143,9 +143,6 @@
                     });
 
             });
-
-
-
         </script>
         <script>
             $(function () {
@@ -159,7 +156,7 @@
                     },
 
                     weekNumbers: true,
-                    eventLimit: true,
+                    eventLimit: false,
                     events: [
                         {% for edt in edt %}
                         {
@@ -169,8 +166,7 @@
                             start: '{{ edt.etdDateDeb | date('Y-m-d H:i:s') }}',
                             end: '{{ edt.etdDateFin | date('Y-m-d H:i:s') }}'
                         }
-                        {% if not loop.last %},
-                        {% endif %}
+                        {% if not loop.last %},{% endif %}
                         {% endfor %}
                     ],
                     eventAfterRender: function (event, element) {

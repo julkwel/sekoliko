@@ -78,7 +78,7 @@ class SkProfsController extends Controller
                     $_user->setskRole($_role);
                     $_user->setRoles(array($_user_role));
                     $_user->setEnabled(1);
-                    $_user->setPassword($_pass);
+                    $_user->setPlainPassword('123456');
 
                     $this->getEntityService()->saveEntity($_user, 'new');
                     $this->getEntityService()->setFlash('success', 'Ajout profs réussie');
