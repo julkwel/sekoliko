@@ -94,14 +94,21 @@
                     events: [
                         {% for edt in edt %}
                         {
+                            id: '{{ edt.id }}',
                             title: '{{ edt.matNom?edt.matNom.matiere.matNom :'null' }}',
+                            id_mat: '{{ edt.matNom ? edt.matNom.id }}',
                             start: '{{ edt.etdDateDeb | date('Y-m-d H:i:s') }}',
                             end: '{{ edt.etdDateFin | date('Y-m-d H:i:s') }}'
                         }
-                        {% if not loop.last %},
-                        {% endif %}
+                        {% if not loop.last %},{% endif %}
                         {% endfor %}
-                    ]
+                    ],
+                    eventAfterRender: function (event, element) {
+                        $(element).tooltip({
+                            title: event.title,
+                            container: "body"
+                        });
+                    },
                 });
             });
         </script>
