@@ -253,7 +253,7 @@ class SkNoteController extends Controller
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Exception
      */
-    public function deleteAction(SkNote $skNote)
+    public function deleteAction(Request $request,SkNote $skNote)
     {
         /*
          * Secure to etudiant connected
@@ -266,7 +266,7 @@ class SkNoteController extends Controller
         if (true === $_delete_note) {
             $this->getEntityService()->setFlash('success', 'Suppression du note effectuée');
 
-            return $this->redirect($this->generateUrl('etudiant_note', array('id' => $skNote->getEtudiant()->getId())));
+            return $this->redirect($request->getUri());
         }
     }
 
