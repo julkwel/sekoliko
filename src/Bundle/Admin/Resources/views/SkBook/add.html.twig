@@ -1,33 +1,18 @@
-{% extends 'admin/admin.html.twig' %}
 
 {% form_theme form 'form/custom_fields.html.twig' %}
-
-{% block title %}{{ parent() }} | Ajouts livres {% endblock %}
-
-{% set menu_bibliotheque        = true %}
-
-{% block body %}
-    <div class="card shadow mb-4 col-md-4 col-xs-12 mx-auto">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary text-center">Ajouter un livre</h6>
-        </div>
-        <div class="card-body">
-            {{ form_start(form) }}
-            <div class="row">
-                <div class="col-md-12">
-                    {{ form_row(form.bookName) }}
-                    {{ form_row(form.author) }}
-                    {{ form_row(form.edition) }}
-                </div>
-            </div>
-            <div class="box-footer">
-                <input type="submit" class="btn btn-primary float-right" value="Enregistrer" name="new_book"/>
-                <a href="{{ path('book_index') }}"
-                   class="btn btn-google">
-                    Annuler
-                </a>
-            </div>
-            {{ form_end(form) }}
-        </div>
+{{ form_start(form,{"attr":{"id":"formBook"}}) }}
+<div class="row">
+    <div class="col-md-12">
+        {{ form_row(form.bookName) }}
+        {{ form_row(form.author) }}
+        {{ form_row(form.edition) }}
     </div>
-{% endblock %}
+</div>
+<div class="box-footer">
+    <input type="submit" class="btn btn-primary float-right" id="newBook" value="Enregistrer" name="new_book"/>
+    <a href="{{ path('book_index') }}"
+       class="btn btn-google">
+        Annuler
+    </a>
+</div>
+{{ form_end(form) }}

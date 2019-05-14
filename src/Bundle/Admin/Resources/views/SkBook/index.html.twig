@@ -22,91 +22,106 @@
     {% endfor %}
 
     <div class="row">
-        <form action="" method="POST" class="form-search">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="float-left">Liste des livres</h6>
-                    {# Bouton création #}
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{ path('book_new') }}" class="float-right">
-                            Ajouter un livre
-                        </a>
-                    {% endif %}
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                            <tr>
-                                <th></th>
-                                <th>Titre du livre</th>
-                                <th>Reservé</th>
-                                <th>Début</th>
-                                <th>Fin</th>
+        <div class="card col-md-12 shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="float-left">Liste des livres</h6>
+                {# Bouton création #}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="#" onclick="addBook('{{ path('book_new') }}')" class="float-right" data-toggle="modal"
+                       data-target="#modalBook">
+                        Ajouter un livre
+                    </a>
+
+                    <div class="modal fade" id="modalBook" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Gestion livre</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body"></div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>Titre du livre</th>
+                            <th>Reservé</th>
+                            <th>Début</th>
+                            <th>Fin</th>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <th>Actions</th>
+                            {% endif %}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for book in _book_list %}
+                            <tr {% if book.retour == false %} class="bg-danger" title="Livre non retourné" {% endif %}>
+                                <td class="text-center">
+                                    <input type="checkbox" value="{{ book.id }}" name="delete[]"/>
+                                </td>
+                                <td>{{ book.bookName }}</td>
+                                <td>{{ book.isReserved ? 'OUI' : 'NON' }}</td>
+                                <td>
+                                    {% if book.isReserved == true %}
+                                        {{ book.dateDebut | date('Y-m-d') }}
+                                    {% else %}
+                                        Non reservé
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if book.isReserved == true %}
+                                        {{ book.dateFin | date('Y-m-d') }}
+                                    {% else %}
+                                        Non reservé
+                                    {% endif %}
+                                </td>
                                 {% if is_granted('ROLE_ADMIN') %}
-                                    <th>Actions</th>
+                                    <td class="kl-action-button-bloc">
+                                        <a class="btn btn-primary btn-sm" title="Modifier ce livre"
+                                           data-toggle="modal" data-target="#modalBook"
+                                           href="#" onclick="editBook('{{ path('book_edit', { 'id': book.id }) }}')">
+                                            <i class="fas fa-pen"></i>
+                                        </a>
+                                        {% if book.isReserved == false %}
+                                            <a class="btn btn-success btn-sm" title="Reserver"
+                                               href="{{ path('book_reservation', { 'id': book.id }) }}">
+                                                <i class="fa fa-book"></i>
+                                            </a>
+                                        {% endif %}
+                                        {% if book.isReserved == true %}
+                                            <a class="btn btn-info btn-sm" title="Details de la réservations"
+                                               href="{{ path('book_reservation_details', { 'id': book.id }) }}">
+                                                <i class="fas fa-info-circle"></i>
+                                            </a>
+                                            <a class="btn btn-warning btn-sm" title="Supprimer la réservation"
+                                               onclick="confirm('Voulez vous vraiment supprimer?')"
+                                               href="{{ path('book_unreserve', { 'id': book.id }) }}">
+                                                <i class="fa fa-undo"></i>
+                                            </a>
+                                        {% endif %}
+                                        <a class="btn btn-danger remove-elt btn-sm" title="Supprimer"
+                                           onclick="supprimer('{{ path('book_delete', { 'id': book.id }) }}')">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </td>
                                 {% endif %}
                             </tr>
-                            </thead>
-                            <tbody>
-                            {% for book in _book_list %}
-                                <tr {% if book.retour == false %} class="bg-danger" title="Livre non retourné" {% endif %}>
-                                    <td class="text-center">
-                                        <input type="checkbox" value="{{ book.id }}" name="delete[]"/>
-                                    </td>
-                                    <td>{{ book.bookName }}</td>
-                                    <td>{{ book.isReserved ? 'OUI' : 'NON' }}</td>
-                                    <td>
-                                        {% if book.isReserved == true %}
-                                            {{ book.dateDebut | date('Y-m-d') }}
-                                        {% else %}
-                                            Non reservé
-                                        {% endif %}
-                                    </td>
-                                    <td>
-                                        {% if book.isReserved == true %}
-                                            {{ book.dateFin | date('Y-m-d') }}
-                                        {% else %}
-                                            Non reservé
-                                        {% endif %}
-                                    </td>
-                                    {% if is_granted('ROLE_ADMIN') %}
-                                        <td class="kl-action-button-bloc">
-                                            <a class="btn btn-primary btn-sm" title="Modifier ce livre"
-                                               href="{{ path('book_edit', { 'id': book.id }) }}">
-                                                <i class="fas fa-pen"></i>
-                                            </a>
-                                            {% if book.isReserved == false %}
-                                                <a class="btn btn-success btn-sm" title="Reserver"
-                                                   href="{{ path('book_reservation', { 'id': book.id }) }}">
-                                                    <i class="fa fa-book"></i>
-                                                </a>
-                                            {% endif %}
-                                            {% if book.isReserved == true %}
-                                                <a class="btn btn-info btn-sm" title="Details de la réservations"
-                                                   href="{{ path('book_reservation_details', { 'id': book.id }) }}">
-                                                    <i class="fas fa-info-circle"></i>
-                                                </a>
-                                                <a class="btn btn-warning btn-sm" title="Supprimer la réservation"
-                                                   onclick="confirm('Voulez vous vraiment supprimer?')"
-                                                   href="{{ path('book_unreserve', { 'id': book.id }) }}">
-                                                    <i class="fa fa-undo"></i>
-                                                </a>
-                                            {% endif %}
-                                            <a class="btn btn-danger remove-elt btn-sm" title="Supprimer"
-                                               onclick="supprimer('{{ path('book_delete', { 'id': book.id }) }}')">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </td>
-                                    {% endif %}
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
+                        {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
 {% endblock %}
 
@@ -114,32 +129,42 @@
     {{ parent() }}
 
     <script type="text/javascript">
-        // Call the dataTables jQuery plugin
-        $(document).ready(function () {
-            $('#dataTable').DataTable();
-        });
+        function addBook(url) {
+            $.ajax({
+                url: url,
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-body').html(data);
+                    $('#modalBook').on('shown.bs.modal', function () {
+                        $('#newBook').on('click', function () {
+                            $.ajax({
+                                url: url,
+                                data: $('#formBook').serializeArray(),
+                                type: 'POST'
+                            })
+                        })
+                    })
+                }
+            })
+        }
 
-        $(function () {
-            $('#list-user').DataTable(
-                {
-                    "order": [[0, "desc"]],
-                    "bProcessing": true,
-                    "bFilter": true,
-                    "oLanguage": {
-                        "sProcessing": "Traitement...",
-                        "oPaginate": {
-                            "sPrevious": "Précédente", // This is the link to the previous page
-                            "sNext": "Suivante", // This is the link to the next page
-                        },
-                        "sSearch": "Filtrer: ",
-                        "sLengthMenu": "Afficher _MENU_ enregistrement par page",
-                        "sEmptyTable": "Aucun utilisateur trouvé",
-                        "sInfo": "Voir _TOTAL_ de _PAGE_ pour _PAGES_ entrées",
-                    },
-                    "footerCallback": function (row, data, start, end, display) {
-                        $('.title-count').html(display.length);
-                    }
-                });
-        });
+        function editBook(url) {
+            $.ajax({
+                url: url,
+                type: 'POST',
+                success: function (data) {
+                    $('.modal-body').html(data);
+                    $('#modalBook').on('shown.bs.modal', function () {
+                        $('#newBook').on('click', function () {
+                            $.ajax({
+                                url: url,
+                                data: $('#formBook').serializeArray(),
+                                type: 'POST'
+                            })
+                        })
+                    })
+                }
+            })
+        }
     </script>
 {% endblock %}

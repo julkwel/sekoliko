@@ -1,7 +1,7 @@
 book_index:
     path:     /
     defaults: { _controller: "AdminBundle:SkBook:index" }
-    methods:  GET
+    methods:  [GET, POST]
 
 book_new:
     path:     /new

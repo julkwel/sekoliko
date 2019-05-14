@@ -114,7 +114,7 @@ class SkBookController extends Controller
             return $this->redirectToRoute('book_index');
         }
 
-        return $this->render('AdminBundle:SkBook:edit.html.twig', array(
+        return $this->render('AdminBundle:SkBook:add.html.twig', array(
             'form' => $_form->createView(),
             'book' => $skBook,
         ));
