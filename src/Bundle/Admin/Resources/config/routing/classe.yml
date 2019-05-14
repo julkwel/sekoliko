@@ -1,7 +1,7 @@
 classe_index:
     path:     /
     defaults: { _controller: "AdminBundle:SkClass:index" }
-    methods:  GET
+    methods:  [GET,POST]
 
 classe_new:
     path:     /new

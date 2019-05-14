@@ -6,6 +6,7 @@ function renvoyer(url){
     confirm("Voulez vous vraiment renvoié l'utilisateur ?") ? window.location = url : '';
 }
 
+$('.btn-success').addClass('text-white')
 
 /**
  * DataTables

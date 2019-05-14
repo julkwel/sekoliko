@@ -1,37 +1,20 @@
-{% extends 'admin/admin.html.twig' %}
-
 {% form_theme form 'form/custom_fields.html.twig' %}
 
-{% block title %}{{ parent() }} | Ajouts niveaux {% endblock %}
-
-{% set menu_niveau        = true %}
-
-{% block body %}
-    <div class="card shadow mb-4 col-md-4 col-xs-12 mx-auto">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary text-center">Ajouter un niveau</h6>
-        </div>
-        <div class="card-body">
-            {{ form_start(form) }}
-            <div class="row">
-                <div class="col-md-12">
-                    {{ form_row(form.niveauNom) }}
-                    <div class="funkyradio">
-                        <div class="funkyradio-primary">
-                            <input type="checkbox" name="classe" id="checkbox2" checked/>
-                            <label for="checkbox2">Ajouter des classes pour ce niveau ? </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="box-footer">
-                <input type="submit" class="btn btn-primary float-right" value="Enregistrer" name="new_niveau"/>
-                <a href="{{ path('niveau_index') }}"
-                   class="btn btn-google">
-                    Annuler
-                </a>
-            </div>
-            {{ form_end(form) }}
+{{ form_start(form,{"attr":{"id":"formNiveau"}}) }}
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_row(form.niveauNom) }}
+            {#<div class="custom-control custom-checkbox">#}
+                {#<input type="checkbox" class="custom-control-input" id="customCheck"  name="classe">#}
+                {#<label class="custom-control-label" for="customCheck">Ajouter des classes pour ce niveau ? </label>#}
+            {#</div>#}
         </div>
     </div>
-{% endblock %}
+    <div class="box-footer">
+        <input type="submit" class="btn btn-primary float-right" id="addNiveau" value="Enregistrer" name="new_niveau"/>
+        <a data-dismiss="modal"
+           class="btn btn-google">
+            Annuler
+        </a>
+    </div>
+{{ form_end(form) }}

@@ -1,7 +1,7 @@
 niveau_index:
     path:     /
     defaults: { _controller: "AdminBundle:SkNiveau:index" }
-    methods:  GET
+    methods:  [POST,GET]
 
 niveau_new:
     path:     /new

@@ -22,74 +22,142 @@
     {% endfor %}
 
     <div class="row">
-        <form action="" method="POST" class="form-search">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary text-center">Classes Étudiants Matières Emplois du temps</h6>
-                    {# Bouton création #}
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <div class="add-btn-top-list float-right">
-                            <a href="{{ path('classe_new') }}" class="btn btn-primary">
-                                Créer une classe
-                            </a>
-                        </div>
-                    {% endif %}
-                    <div class="box-header">
-                        <div class="list-count">
-                            <h4><span class="title-count-text"> TOTAL : {{ class_list|length }} </span><span class="title-count"></span></h4>
+        <div class="card shadow mb-4 col-md-12">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary text-center">Classes Étudiants Matières Emplois du temps</h6>
+                {# Bouton création #}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <div class="add-btn-top-list float-right">
+                        <a href="#" onclick="addNewClasse('{{ path('classe_new') }}')" id="addClass" data-toggle="modal" data-target="#modalClasse">
+                            Créer une classe
+                        </a>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="modalClasse" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Classe</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body"></div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                            <tr>
-                                <th></th>
-                                <th>Classes</th>
-                                <th>Niveaux</th>
-                                <th>Actions</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for classe in class_list %}
-                                <tr>
-                                    <td class="text-center">
-                                        <input type="checkbox" value="{{ classe.id }}" name="delete[]"/>
-                                    </td>
-                                    <td>{{ classe.classeNom }}</td>
-                                    <td>{{ classe.niveau ? classe.niveau.niveauNom : '' }}</td>
-                                    <td class="kl-action-button-bloc">
-                                        <a class="btn btn-success btn-sm" title="Modifier ce classe"
-                                           href="{{ path('classe_edit', { 'id': classe.id }) }}">
-                                            <i class="fas fa-pen"></i>
-                                        </a>
-                                        <a class="btn btn-secondary btn-sm" title="Liste des étudiants en {{ classe.classeNom }}"
-                                           href="{{ path('etudiant_liste', { 'id': classe.id }) }}">
-                                            <i class="fa fa-list"></i>
-                                        </a>
-                                        <a class="btn btn-info btn-sm" title="Liste des matieres du {{ classe.classeNom }}"
-                                           href="{{ path('classe_matiere_liste', { 'id': classe.id }) }}">
-                                            <i class="fa fa-book"></i>
-                                        </a>
-                                        <a class="btn btn-warning btn-sm" title="Emploi du temps du {{ classe.classeNom }}"
-                                           href="{{ path('classe_edt', { 'id': classe.id }) }}">
-                                            <i class="fa fa-calendar"></i>
-                                        </a>
-                                        {% if is_granted('ROLE_ADMIN') %}
-                                            <a class="btn btn-danger remove-elt btn-sm" title="Supprimer"
-                                               onclick="supprimer('{{ path('classe_delete', { 'id': classe.id }) }}')">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
+                {% endif %}
+                <div class="box-header">
+                    <div class="list-count">
+                        <h4><span class="title-count-text"> TOTAL : {{ class_list|length }} </span><span class="title-count"></span></h4>
                     </div>
                 </div>
             </div>
-        </form>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>Classes</th>
+                            <th>Niveaux</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for classe in class_list %}
+                            <tr>
+                                <td class="text-center">
+                                    <input type="checkbox" value="{{ classe.id }}" name="delete[]"/>
+                                </td>
+                                <td>{{ classe.classeNom }}</td>
+                                <td>{{ classe.niveau ? classe.niveau.niveauNom : '' }}</td>
+                                <td class="kl-action-button-bloc">
+                                    <a class="btn btn-success btn-sm" title="Modifier ce classe"
+                                       href="#" onclick="editClasse('{{ path('classe_edit', { 'id': classe.id }) }}')"
+                                       data-toggle="modal" data-target="#modalClasse">
+                                        <i class="fas fa-pen"></i>
+                                    </a>
+                                    <a class="btn btn-secondary btn-sm" title="Liste des étudiants en {{ classe.classeNom }}"
+                                       href="{{ path('etudiant_liste', { 'id': classe.id }) }}">
+                                        <i class="fa fa-list"></i>
+                                    </a>
+                                    <a class="btn btn-info btn-sm" title="Liste des matieres du {{ classe.classeNom }}"
+                                       href="{{ path('classe_matiere_liste', { 'id': classe.id }) }}">
+                                        <i class="fa fa-book"></i>
+                                    </a>
+                                    <a class="btn btn-warning btn-sm" title="Emploi du temps du {{ classe.classeNom }}"
+                                       href="{{ path('classe_edt', { 'id': classe.id }) }}">
+                                        <i class="fa fa-calendar"></i>
+                                    </a>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <a class="btn btn-danger remove-elt btn-sm" title="Supprimer"
+                                           onclick="supprimer('{{ path('classe_delete', { 'id': classe.id }) }}')">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+
+        function addNewClasse(url) {
+            $.ajax({
+                url:url,
+                type:'POST',
+                success:function (data) {
+                    $('.modal-body').html(data)
+                    $('#modalClasse').on('shown.bs.modal',function () {
+                        $('#addClasse').on('click',function () {
+                            $.ajax({
+                                url:url,
+                                type:'POST',
+                                data:$('#formClasse').serializeArray(),
+                                success:function () {
+                                    alert("Ajout classe avec success!")
+                                },
+                                error:function () {
+                                    alert("Une erreur se produite")
+                                }
+                            })
+                        })
+                    })
+                }
+            })
+        }
+
+        function editClasse(url) {
+            $.ajax({
+                url:url,
+                type:'POST',
+                success:function (data) {
+                    $('.modal-body').html(data)
+                    $('#modalClasse').on('shown.bs.modal',function () {
+                        $('#addClasse').on('click',function () {
+                            $.ajax({
+                                url:url,
+                                type:'POST',
+                                data:$('#formClasse').serializeArray(),
+                                success:function () {
+                                    location.reload()
+                                },
+                                error:function () {
+                                    alert("Une erreur se produite")
+                                }
+                            })
+                        })
+                    })
+                }
+            })
+        }
+    </script>
 {% endblock %}

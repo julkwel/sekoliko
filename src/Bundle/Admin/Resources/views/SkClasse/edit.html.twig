@@ -1,38 +1,23 @@
-{% extends 'admin/admin.html.twig' %}
 
 {% form_theme form 'form/custom_fields.html.twig' %}
-
-{% block title %}{{ parent() }} | Modifications classes {% endblock %}
-
-{% set menu_classe       = true %}
-
-{% block body %}
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary text-center">Modifier la classe</h6>
-        </div>
-        <div class="card-body">
-            {{ form_start(form) }}
-            <div class="row">
-                <div class="col-md-12">
-                    {{ form_row(form.classeNom) }}
-                    <div class="form-group ">
-                        <select name="niveau" id="" class="form-control">
-                            {% for niveau in niveau  %}
-                                <option value="{{ niveau.id }}" >{{ niveau.niveauNom }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div>
+    {{ form_start(form,{"attr":{"id":"formClasse"}}) }}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group ">
+                <select name="niveau" id="" class="form-control">
+                    {% for niveau in niveau  %}
+                        <option value="{{ niveau.id }}" >{{ niveau.niveauNom }}</option>
+                    {% endfor %}
+                </select>
             </div>
-            <div class="box-footer">
-                <input type="submit" class="btn btn-primary btn-block" value="Modifier" name="update_classe"/>
-                <a href="{{ path('classe_index') }}"
-                   class="btn btn-google btn-block">
-                    Annuler
-                </a>
-            </div>
-            {{ form_end(form) }}
+            {{ form_row(form.classeNom) }}
         </div>
     </div>
-{% endblock %}
+    <div class="box-footer">
+        <input type="submit" class="btn btn-primary btn-block" id="addClasse"  value="Modifier" name="update_classe"/>
+        <a href="" data-dismiss="modal"
+           class="btn btn-google btn-block">
+            Annuler
+        </a>
+    </div>
+    {{ form_end(form) }}

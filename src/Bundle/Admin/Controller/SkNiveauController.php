@@ -57,15 +57,8 @@ class SkNiveauController extends Controller
         $_form->handleRequest($request);
 
         if ($_form->isSubmitted() && $_form->isValid()) {
-            $_add_class = $request->request->get('classe');
-
             try {
                 $this->getEntityService()->saveEntity($_niveau, 'new');
-
-                if ('on' === $_add_class) {
-                    return $this->redirect($this->generateUrl('niveau_add_class', array('id' => $_niveau->getId())));
-                }
-
                 $this->getEntityService()->setFlash('success', 'Ajout de niveau effectué');
             } catch (\Exception $exception) {
                 $this->getEntityService()->setFlash('error', 'Une erreur s\'est produite, veuiller réessayez ultérieurement');
@@ -82,7 +75,7 @@ class SkNiveauController extends Controller
     }
 
     /**
-     * @param Request  $request
+     * @param Request $request
      * @param SkNiveau $skNiveau
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -147,7 +140,7 @@ class SkNiveauController extends Controller
     }
 
     /**
-     * @param Request  $_request
+     * @param Request $_request
      * @param SkNiveau $skNiveau
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -181,7 +174,7 @@ class SkNiveauController extends Controller
      */
 
     /**
-     * @param Request  $request
+     * @param Request $request
      * @param SkNiveau $skNiveau
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response

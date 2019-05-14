@@ -1,39 +1,27 @@
-{% extends 'admin/admin.html.twig' %}
+
 
 {% form_theme form 'form/custom_fields.html.twig' %}
 
-{% block title %}{{ parent() }} | Création classe {% endblock %}
+{{ form_start(form,{"attr":{"id":"formClasse"}}) }}
+<div class="row">
+    <div class="col-md-12">
 
-{% set menu_classe        = true %}
-
-{% block body %}
-    <div class="card shadow mb-4 col-4 mx-auto">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary text-center">Créer une classe</h6>
+        <div class="form-group ">
+            <label for="">Selectionner le niveau</label>
+            <select name="niveau" id="" class="form-control">
+                {% for niveau in niveau  %}
+                    <option value="{{ niveau.id }}" >{{ niveau.niveauNom }}</option>
+                {% endfor %}
+            </select>
         </div>
-        <div class="card-body">
-            {{ form_start(form) }}
-            <div class="row">
-                <div class="col-md-12">
-                    {{ form_row(form.classeNom) }}
-                    <div class="form-group ">
-                        <label for="">Selectionner le niveau</label>
-                        <select name="niveau" id="" class="form-control">
-                            {% for niveau in niveau  %}
-                                <option value="{{ niveau.id }}" >{{ niveau.niveauNom }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="box-footer">
-                <input type="submit" class="btn btn-primary float-right" value="Enregistrer" name="new_classe"/>
-                <a href="{{ path('classe_index') }}"
-                   class="btn btn-google">
-                    Annuler
-                </a>
-            </div>
-            {{ form_end(form) }}
-        </div>
+        {{ form_row(form.classeNom) }}
     </div>
-{% endblock %}
+</div>
+<div class="box-footer">
+    <input type="submit" class="btn btn-primary float-right" id="addClasse" value="Enregistrer" name="new_classe"/>
+    <a data-dismiss="modal"
+       class="btn btn-google">
+        Annuler
+    </a>
+</div>
+{{ form_end(form) }}
