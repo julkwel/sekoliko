@@ -116,7 +116,7 @@
             var href = $(this).attr('href');
             var text = href.replace('#', '');
             var id_trim = href.replace('#nav-', '');
-            var url = '{{ path('note_trim',{"id_etd":etudiant.id,"id_trim":'trimId'}) }}';
+            {#var url = '{{ path('note_trim',{"id_etd":etudiant.id,"id_trim":'trimId'}) }}';#}
             url = url.replace('trimId', id_trim);
             $('.sk-nav-tabs').attr('id', text);
             $.ajax({
