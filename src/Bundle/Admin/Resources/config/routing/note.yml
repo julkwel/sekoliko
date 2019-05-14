@@ -24,9 +24,9 @@ note_etd_trim:
     methods:  [GET, POST]
 
 note_delete:
-    path:     /{id}/delete
+    path:     /note/delete/{id}
     defaults: { _controller: "AdminBundle:SkNote:delete" }
-    methods:  [GET, DELETE]
+    methods:  [GET, POST]
 
 note_etudiant:
     path:     /my

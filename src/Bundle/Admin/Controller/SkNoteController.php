@@ -245,6 +245,7 @@ class SkNoteController extends Controller
     }
 
     /**
+     * @param Request $request
      * @param SkNote $skNote
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
