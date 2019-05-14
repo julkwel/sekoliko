@@ -88,10 +88,9 @@ class SkCongeController extends Controller
 
         foreach ($_user_conge as $_user) {
             if ($_user->getDateFin() < new \DateTime('now')) {
-                $_user->setIsFin(true);
-                $_user->getUser()->setIsConge(false);
+                $_user->setIsFin(1);
                 $_user_en_conge = $this->getDoctrine()->getRepository(User::class)->find($_user->getUser()->getId());
-                $_user_en_conge->setIsConge(false);
+                $_user_en_conge->setIsConge(0);
 
                 $this->getEntityManager()->saveEntity($_user, 'update');
                 $this->getEntityManager()->saveEntity($_user_en_conge, 'update');
@@ -106,8 +105,6 @@ class SkCongeController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Exception
      */
     public function newAction(Request $request)
@@ -155,11 +152,11 @@ class SkCongeController extends Controller
             } catch (\Exception $exception) {
                 $this->getEntityManager()->setFlash('error', 'Une erreur se produite '.$exception->getMessage());
             } finally {
-                return $this->redirectToRoute('conge_list');
+                return $this->redirectToRoute($request->getUri());
             }
         }
 
-        return $this->render('AdminBundle:SkConge:add.html.twig', [
+        return $this->render('@Admin/SkConge/modal.add.html.twig', [
             'form' => $form->createView(),
             'user' => $_list_admin,
         ]);
@@ -203,23 +200,26 @@ class SkCongeController extends Controller
     }
 
     /**
+     * @param Request $request
      * @param SkConge $skConge
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *
      * @throws \Exception
      */
-    public function deleteAction(SkConge $skConge)
+    public function deleteAction(Request $request,SkConge $skConge)
     {
         try {
             $skConge->getUser()->setIsConge(false);
             $user = $skConge->getUser();
             if (true === $this->getEntityManager()->deleteEntity($skConge, '')) {
-                $user->setIsConge(false);
+                $_user_conge = $this->getDoctrine()->getRepository(User::class)->find($user);
+                $_user_conge->setIsConge(0);
                 $this->getEntityManager()->saveEntity($user, 'update');
+                $this->getEntityManager()->saveEntity($_user_conge, 'update');
                 $this->getEntityManager()->setFlash('success', 'suppression congé réussie');
 
-                return $this->redirectToRoute('conge_list');
+                return $this->redirectToRoute($request->getUri());
             }
         } catch (OptimisticLockException $e) {
             $e->getMessage();

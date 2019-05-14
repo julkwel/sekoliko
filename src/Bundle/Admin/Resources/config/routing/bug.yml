@@ -1,7 +1,7 @@
 bug_index:
     path:     /
     defaults: { _controller: "AdminBundle:SkBug:index" }
-    methods:  [GET]
+    methods:  [GET,POST]
 
 bug_new:
     path:     /new
@@ -17,11 +17,6 @@ bug_comment:
     path:     /{id}/comment
     defaults: { _controller: "AdminBundle:SkBug:comment" }
     methods:  [GET, POST]
-
-#bug_liste:
-#    path:     /{id}/etudiant
-#    defaults: { _controller: "AdminBundle:SkInformation:index" }
-#    methods:  [GET, POST]
 
 bug_delete:
     path:     /{id}/delete

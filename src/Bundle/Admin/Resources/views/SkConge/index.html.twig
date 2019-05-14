@@ -28,14 +28,27 @@
                     <h6 class="m-0 font-weight-bold text-primary text-center">Liste des personnes en congé</h6>
                     {# Bouton création #}
                     {% if is_granted('ROLE_ADMIN') %}
-                            <a href="{{ path('conge_new') }}" class="float-right">
-                                Créer une congé
-                            </a>
+                        <a href="" id="addConge" class="float-right pb-2"  data-toggle="modal" data-target="#congeModal">
+                            Créer une congé
+                        </a>
+                        <div class="modal fade" id="congeModal" tabindex="-1" role="dialog" aria-labelledby="congeModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="congeModalLongTitle">Modal title</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body"></div>
+                                </div>
+                            </div>
+                        </div>
                     {% endif %}
                     <div class="box-header">
                         <div class="list-count">
-                            <a href="{{ path('conge_list') }}">Total {{ congelist|length }}</a>
-                            <a href="{{ path('conge_search',{"type":0}) }}">Congé</a>
+                            <a href="{{ path('conge_list') }}" class="text-info">Congé actuelle</a>
+                            <a href="{{ path('conge_search',{"type":0}) }}" class="text-success">Congé</a>
                             <a href="{{ path('conge_search',{"type":1}) }}">Permission</a>
                         </div>
                     </div>
@@ -84,4 +97,26 @@
             </div>
         </form>
     </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $("#addConge").click(function () {
+            $.ajax({
+                url: '{{ path('conge_new') }}',
+                type: 'GET',
+                success: function (data) {
+                    console.log(data)
+                    $('.modal-body').html(data)
+                    $('#addNewConge').on('click',function () {
+                        $.ajax({
+                            url: '{{ path('conge_new') }}',
+                            type: 'POST',
+                            data:$('#formConge').serializeArray()
+                        })
+                    })
+                }
+            })
+        })
+    </script>
 {% endblock %}
