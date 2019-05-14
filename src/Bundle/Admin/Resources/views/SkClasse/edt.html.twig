@@ -94,7 +94,7 @@
                     events: [
                         {% for edt in edt %}
                         {
-                            title: '{{ edt.matNom.matNom }}',
+                            title: '{{ edt.matNom?edt.matNom.matiere.matNom :'null' }}',
                             start: '{{ edt.etdDateDeb | date('Y-m-d H:i:s') }}',
                             end: '{{ edt.etdDateFin | date('Y-m-d H:i:s') }}'
                         }
@@ -164,7 +164,7 @@
                         {% for edt in edt %}
                         {
                             id: '{{ edt.id }}',
-                            title: '{{ edt.matNom ?  edt.matNom.matNom : "null" }}',
+                            title: '{{ edt.matNom?edt.matNom.matiere.matNom :'null' }}',
                             id_mat: '{{ edt.matNom ? edt.matNom.id }}',
                             start: '{{ edt.etdDateDeb | date('Y-m-d H:i:s') }}',
                             end: '{{ edt.etdDateFin | date('Y-m-d H:i:s') }}'

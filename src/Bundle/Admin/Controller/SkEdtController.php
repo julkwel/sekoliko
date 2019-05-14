@@ -9,6 +9,7 @@
 namespace App\Bundle\Admin\Controller;
 
 use App\Shared\Entity\SkClasse;
+use App\Shared\Entity\SkClasseMatiere;
 use App\Shared\Entity\SkEdt;
 use App\Shared\Entity\SkEtudiant;
 use App\Shared\Entity\SkMatiere;
@@ -88,7 +89,7 @@ class SkEdtController extends Controller
             $_edt = new SkEdt();
             $_form = $this->createForm(SkEdtType::class, $_edt);
             $_form->handleRequest($request);
-            $_mat_list = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array(
+            $_mat_list = $this->getDoctrine()->getRepository(SkClasseMatiere::class)->findBy(array(
                 'matClasse' => $skClasse,
                 'asName' => $this->getUserConnected()->getAsName(),
             ));
@@ -103,7 +104,8 @@ class SkEdtController extends Controller
 
                         return $this->redirect($this->generateUrl('edt_new', array('id' => $skClasse->getId())));
                     }
-                    $_mat = $this->getDoctrine()->getRepository(SkMatiere::class)->find($_mat);
+                    $_mat = $this->getDoctrine()->getRepository(SkClasseMatiere::class)->find($_mat);
+
                     $_edt->setMatNom($_mat);
                     $_edt->setEdtClasse($skClasse);
                     $_edt->setEtdDateDeb(new \DateTime($_date_debut));
@@ -145,7 +147,7 @@ class SkEdtController extends Controller
     {
         $_form = $this->createForm(SkEdtType::class, $skEdt);
         $_form->handleRequest($request);
-        $_mat_list = $this->getDoctrine()->getRepository(SkMatiere::class)->findBy(array(
+        $_mat_list = $this->getDoctrine()->getRepository(SkClasseMatiere::class)->findBy(array(
             'matClasse' => $skEdt->getEdtClasse()->getId(),
             'asName' => $this->getUserConnected()->getAsName(),
         ));
@@ -158,7 +160,7 @@ class SkEdtController extends Controller
             if (new \DateTime($_date_debut) > new \DateTime($_date_fin)) {
                 $this->getEntityService()->setFlash('error', 'Date début > Date Fin');
             }
-            $_mat = $this->getDoctrine()->getRepository(SkMatiere::class)->find($_mat);
+            $_mat = $this->getDoctrine()->getRepository(SkClasseMatiere::class)->find($_mat);
             $skEdt->setMatNom($_mat);
             $skEdt->setEtdDateDeb(new \DateTime($_date_debut));
             $skEdt->setEtdDateFin(new \DateTime($_date_fin));

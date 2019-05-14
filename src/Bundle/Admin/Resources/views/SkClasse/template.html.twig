@@ -22,7 +22,7 @@
         <label for="">Selectionner la matiere</label>
         <select name="matiere" id="" class="form-control">
             {% for matiere in matieres %}
-                <option value="{{ matiere.id }}">{{ matiere.matNom }}</option>
+                <option value="{{ matiere.id }}">{{ matiere.matiere?matiere.matiere.matNom }}</option>
             {% endfor %}
         </select>
     </div>

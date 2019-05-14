@@ -24,9 +24,9 @@
     <div class="form-group ">
         <label for="">Selectionner la matiere</label>
         <select name="matiere" id="" class="form-control">
-            <option value="{{ edt.matNom ? edt.matNom.id : 'selectionner le matiere' }}">{{ edt.matNom ? edt.matNom.matNom : 'selectionner le matiere' }}</option>
+            <option value="{{ edt.matNom ? edt.matNom.id : 'selectionner le matiere' }}">{{ edt.matNom ? edt.matNom.matiere.matNom : 'selectionner le matiere' }}</option>
             {% for matiere in matieres %}
-                <option value="{{ matiere.id }}">{{ matiere.matNom }}</option>
+                <option value="{{ matiere.id }}">{{ matiere.matiere.matNom }}</option>
             {% endfor %}
         </select>
     </div>
