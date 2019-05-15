@@ -24,7 +24,7 @@ note_trim:
     methods:  [GET, POST]
 
 note_etd_trim:
-    path:     /{id}/my/
+    path:     /{id}/my
     defaults: { _controller: "AdminBundle:SkNote:etudiantNoteTrim" }
     methods:  [GET, POST]
 
