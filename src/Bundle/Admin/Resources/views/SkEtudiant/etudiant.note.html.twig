@@ -41,10 +41,10 @@
                             <tbody>
                             {% for note in note_liste %}
                                 <tr>
-                                    <td>{{ note.matNom.matNom }}</td>
+                                    <td>{{ note.matiere?note.matiere.matiere.matNom }}</td>
                                     <td>{{ note.noteVal }}</td>
-                                    <td>{{ note.matNom.matCoeff }}</td>
-                                    <td>{{ note.trimestre.name }}</td>
+                                    <td>{{ note.matiere?note.matiere.matCoeff }}</td>
+                                    <td>{{ note.trimestre?note.trimestre.name }}</td>
                                 </tr>
                             {% endfor %}
                             </tbody>
