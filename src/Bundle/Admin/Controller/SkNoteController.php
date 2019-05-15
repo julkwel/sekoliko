@@ -267,7 +267,7 @@ class SkNoteController extends Controller
         if (true === $_delete_note) {
             $this->getEntityService()->setFlash('success', 'Suppression du note effectuée');
 
-            return $this->redirectToRoute($request->getUri());
+            return $this->redirectToRoute('etudiant_note');
         }
     }
 
