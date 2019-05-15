@@ -20,10 +20,10 @@
                         <td class="text-center">
                             <input type="checkbox" value="{{ note.id }}" name="delete[]"/>
                         </td>
-                        <td>{{ note.matNom.matNom }}</td>
+                        <td>{{ note.matiere.matiere.matNom }}</td>
                         <td>{{ note.noteVal }}</td>
-                        <td>{{ note.matNom.matCoeff }}</td>
-                        <td>{{ note.trimestre.name }}</td>
+                        <td>{{ note.matiere.matCoeff }}</td>
+                        <td>{{ note.trimestre?note.trimestre.name }}</td>
                         <td class="kl-action-button-bloc">
                             {% if is_granted('ROLE_PROFS') %}
                                 <a class="btn btn-primary" title="Modifier"
