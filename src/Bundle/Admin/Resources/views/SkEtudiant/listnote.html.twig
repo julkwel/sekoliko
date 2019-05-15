@@ -85,43 +85,24 @@
         </form>
     </div>
 
-    {% if is_granted('ROLE_ETUDIANT') %}
-        <section id="tabs" class="project-tab" style="width: 100%">
-            <div class="card shadow mb-4">
-                <nav>
+    <section id="tabs" class="project-tab" style="width: 100%">
+        <div class="card shadow mb-4">
+            <nav>
+                <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                     {% for trim in trimestre %}
-                        <a class="nav-item nav-link sk-tabs active" data-toggle="tab"
-                           href="{{ path('note_etd_trim',{"id":trim.id}) }}" role="tab"
+                        <a class="nav-item nav-link sk-tabs active" id="nav-{{ trim.id }}" data-toggle="tab"
+                           href="#nav-{{ trim.id }}" role="tab" aria-controls="nav-{{ trim.id }}"
                            aria-selected="true">{{ trim.name }}</a>
                     {% endfor %}
-                </nav>
-                <div class="tab-content" id="nav-tabContent">
-                    <div class="card-body text-center">
-                        Filtrer par trimestre
-                    </div>
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="card-body text-center">
+                    Filtrer par trimestre
                 </div>
             </div>
-        </section>
-    {% else %}
-        <section id="tabs" class="project-tab" style="width: 100%">
-            <div class="card shadow mb-4">
-                <nav>
-                    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                        {% for trim in trimestre %}
-                            <a class="nav-item nav-link sk-tabs active" id="nav-{{ trim.id }}" data-toggle="tab"
-                               href="#nav-{{ trim.id }}" role="tab" aria-controls="nav-{{ trim.id }}"
-                               aria-selected="true">{{ trim.name }}</a>
-                        {% endfor %}
-                    </div>
-                </nav>
-                <div class="tab-content" id="nav-tabContent">
-                    <div class="card-body text-center">
-                        Filtrer par trimestre
-                    </div>
-                </div>
-            </div>
-        </section>
-    {% endif %}
+        </div>
+    </section>
 
 {% endblock %}
 

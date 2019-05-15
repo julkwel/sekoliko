@@ -75,7 +75,6 @@ class SkNoteController extends Controller
     public function noteTrimAction(SkEtudiant $skEtudiant, SkTrimestre $skTrimestre)
     {
         $_trim_list = $this->getEntityService()->getAllListByEts(SkTrimestre::class);
-
         $_note_liste = $this->getDoctrine()->getRepository(SkNote::class)->findBy(array(
             'etudiant' => $skEtudiant,
             'trimestre' => $skTrimestre,
