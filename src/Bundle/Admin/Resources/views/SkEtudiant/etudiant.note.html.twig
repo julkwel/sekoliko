@@ -87,6 +87,7 @@
             var url = '{{ path('note_etd_trim',{"id":'trimId'}) }}';
             url = url.replace('trimId', id_trim);
             $('.sk-nav-tabs').attr('id', text);
+            console.log(url);
             $.ajax({
                 type: 'POST',
                 url: url,
