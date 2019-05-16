@@ -15,34 +15,59 @@
             {{ form_start(form) }}
             <div class="row">
                 <div class="col-md-12">
-                    {{ form_row(form.commentaire) }}
                     <div class="form-group">
-                        <label for="">Utilisateur</label>
-                        <select name="user" id="" class="form-control">
-                            {% for user in user %}
-                                <option value="{{ user.id }}">{{ user.username }}</option>
+                        <label for="sk_paiement_reference">Type de paiement</label>
+                        <select name="reference" class="form-control" id="sk_paiement_reference">
+                            <option value="">Sélectionner le type de paiement</option>
+                            <option value="Ecolage">Ecolage</option>
+                            <option value="Salaire">Salaire</option>
+                            <option value="Achats">Achats</option>
+                            <option value="Autres">Autres</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="classe">
+                        <label for="">Classe</label>
+                        <select name="classe" id="classe_etudiant" onchange="listUser(this.value);$('#userList').empty()" class="form-control">
+                            <option value="">Selectionner la classe de l'étudiant</option>
+                            {% for classe in classe %}
+                                <option value="{{ classe.id }}">{{ classe.classeNom }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group" id="moisList">
+                        <label for="">Mois</label>
+                        <select name="mois" class="form-control">
+                            {% for key , month in month %}
+                                <option value="{{ month }}">{{ month }}</option>
                             {% endfor %}
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="">Réference de paiement</label>
-                        <input type="text" class="form-control"  name="reference">
+                        <label for="userList">Utilisateur</label>
+                        <select name="user" id="userList" class="form-control">
+                        </select>
                     </div>
+                    <div class="form-group">
+                        <label for="">Remarques</label>
+                        <input type="text" class="form-control" id="sk_paiement_commentaire" name="commentaire">
+                    </div>
+
                     <div class="form-group">
                         <label for="">Montant de paiement</label>
                         <input type="text" class="form-control" name="montant">
                     </div>
 
+
                     <div class="form-group">
                         <label for="">Date de paiement</label>
                         <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
-                            <input type="text" name="date" class="form-control datetimepicker-input" data-target="#datetimepicker2"/>
+                            <input type="text" name="date" class="form-control datetimepicker-input"
+                                   data-target="#datetimepicker2"/>
                             <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
             <div class="box-footer">
@@ -55,12 +80,70 @@
             {{ form_end(form) }}
         </div>
     </div>
-    <script src="{{ asset('js/jquery.min.js') }}"></script>
-    <script>
-        $(function () {
-            $('#datetimepicker1').datetimepicker();
-            $('#datetimepicker2').datetimepicker();
-        });
-    </script>
 {% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        $('#classe').css("display", "none");
+        $('#sk_paiement_commentaire').parent().hide();
+        $('#datetimepicker1').datetimepicker();
+
+        function listUser(classe) {
+            if (classe == null) {
+                $.ajax({
+                    url: '{{ path('paiement_user') }}',
+                    type: 'POST',
+                    success: function (data) {
+                        $.each(data, function (item, value) {
+                            $('#userList').append($('<option>', {
+                                value: value.id,
+                                text: value.username
+                            }));
+                        });
+                    }
+                });
+            } else {
+                var url = '{{ path('paiement_etudiant',{"classe":"classe"}) }}';
+                url = url.replace("classe", classe);
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    success: function (data) {
+                        $.each(data, function (item, value) {
+                            $('#userList').empty();
+                            $('#userList').append($('<option>', {
+                                value: value.id,
+                                text: value.username
+                            }));
+                        });
+                    }
+                });
+            }
+        }
+
+        listUser();
+
+        $(document).on('change','#sk_paiement_reference', function () {
+            if (this.value == "Ecolage") {
+                $('#classe').show()
+                $('#sk_paiement_commentaire').parent().hide();
+                $('#userList').show()
+                $('#moisList').show()
+                $('#userList').empty();
+            } else if (this.value == "Achats" || this.value == "Autres") {
+                $('#sk_paiement_commentaire').parent().show()
+                $('#userList').parent().hide();
+                $('#moisList').hide();
+                $('#classe').hide();
+            } else if (this.value == "Salaire") {
+                $('#classe').hide();
+                $('#sk_paiement_commentaire').parent().hide();
+                $('#userList').parent().show()
+                $('#moisList').show()
+                listUser()
+            }
+        })
+    </script>
+{% endblock %}

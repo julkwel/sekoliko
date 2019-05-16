@@ -34,9 +34,9 @@ class SkPaiement
 
     /**
      * @var User
-     * @ORM\ManyToMany(targetEntity="App\Bundle\User\Entity\User")
+     * @ORM\ManyToOne(targetEntity="App\Bundle\User\Entity\User")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="user", referencedColumnName="id", onDelete="SET NULL")
+     *   @ORM\JoinColumn(name="user", referencedColumnName="id", onDelete="SET NULL",nullable=true)
      * })
      */
     private $user;
@@ -65,7 +65,7 @@ class SkPaiement
     /**
      * @var string
      *
-     * @ORM\Column(name="commentaire", type="text",nullable=true)
+     * @ORM\Column(name="commentaire", type="text", nullable=true)
      */
     private $commentaire;
 

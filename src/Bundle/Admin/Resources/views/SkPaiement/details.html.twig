@@ -1,0 +1,19 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}{{ parent() }} | Tableau de bord {% endblock %}
+
+{% set menu_dashboard = true %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-body">
+            <li>Réference de paiement : {{ paiement.reference }}</li>
+            <li>Date de paiement : {{ paiement.date|date('Y-m-d H:m') }}</li>
+            <li>Montant : {{ paiement.montant }}</li>
+            {% if paiement.user %}
+                <li>Mois de {{ paiement.commentaire }}</li>
+            {% endif %}
+            <li>{{ paiement.user ? 'Utilisateur : ' ~ paiement.user.username : 'Motifs ' ~ paiement.commentaire }}</li>
+        </div>
+    </div>
+{% endblock %}

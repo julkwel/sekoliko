@@ -13,10 +13,18 @@ paiement_edit:
     defaults: { _controller: "AdminBundle:SkPaiement:edit" }
     methods:  [GET, POST]
 
-paiement_fin:
-    path:     /terminer
-    defaults: { _controller: "AdminBundle:SkPaiement:terminerPaiement" }
-    methods:  [GET, POST]
+#paiement_fin:
+#    path:     /terminer
+#    defaults: { _controller: "AdminBundle:SkPaiement:terminerPaiement" }
+#    methods:  [GET, POST]
+
+paiement_etudiant:
+  path: /ecolage/{classe}
+  defaults: {_controller: "AdminBundle:SkPaiement:findEtudiant"}
+
+paiement_user:
+  path: /paiement/admin
+  defaults: {_controller: "AdminBundle:SkPaiement:findUser"}
 
 paiement_delete:
     path:     /{id}/delete
@@ -25,5 +33,5 @@ paiement_delete:
 
 paiement_details:
     path:     /{id}/details
-    defaults: { _controller: "AdminBundle:SkPaiement:details" }
+    defaults: { _controller: "AdminBundle:SkPaiement:show" }
     methods:  [GET, POST]
