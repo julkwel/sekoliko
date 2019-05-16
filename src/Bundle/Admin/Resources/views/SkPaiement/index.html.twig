@@ -1,8 +1,8 @@
 {% extends 'admin/admin.html.twig' %}
 
-{% block title %}{{ parent() }} | Tableau de bord {% endblock %}
+{% block title %}{{ parent() }} | Paiement liste {% endblock %}
 
-{% set menu_dashboard = true %}
+{% set menu_paiement = true %}
 
 {% block body %}
     {% for flashMessage in app.session.flashbag.get('success') %}
