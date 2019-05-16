@@ -88,18 +88,19 @@ class SkPaiementController extends Controller
         return $this->render('AdminBundle:SkPaiement:add.html.twig', array(
             'form' => $_form->createView(),
             'classe' => $_classe_list,
-            'month' => $_month_list
+            'month' => $_month_list,
         ));
     }
 
     /**
      * @param SkPaiement $skPaiement
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showAction(SkPaiement $skPaiement)
     {
-        return $this->render('AdminBundle:SkPaiement:details.html.twig',array(
-            'paiement' => $skPaiement
+        return $this->render('AdminBundle:SkPaiement:details.html.twig', array(
+            'paiement' => $skPaiement,
         ));
     }
 
@@ -125,12 +126,12 @@ class SkPaiementController extends Controller
             $_user_list_item[$key]['id'] = $value->getId();
         }
 
-
         return new JsonResponse($_user_list_item);
     }
 
     /**
      * @param $classe
+     *
      * @return JsonResponse
      */
     public function findEtudiantAction($classe)
@@ -139,7 +140,7 @@ class SkPaiementController extends Controller
         $_user_list = $this->getDoctrine()->getRepository(SkEtudiant::class)->findBy(array(
             'asName' => $this->getUserConnected()->getAsName(),
             'classe' => $this->getDoctrine()->getRepository(SkClasse::class)->find($classe),
-            'etsNom' => $this->getUserConnected()->getEtsNom()
+            'etsNom' => $this->getUserConnected()->getEtsNom(),
         ));
 
         foreach ($_user_list as $key => $value) {

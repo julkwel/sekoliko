@@ -246,7 +246,7 @@ class SkNoteController extends Controller
 
     /**
      * @param Request $request
-     * @param SkNote $skNote
+     * @param SkNote  $skNote
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *
@@ -254,7 +254,7 @@ class SkNoteController extends Controller
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Exception
      */
-    public function deleteAction(Request $request,SkNote $skNote)
+    public function deleteAction(Request $request, SkNote $skNote)
     {
         /*
          * Secure to etudiant connected

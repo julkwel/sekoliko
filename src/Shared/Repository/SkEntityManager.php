@@ -51,15 +51,15 @@ class SkEntityManager
     }
 
     /**
-     * Get Month List
+     * Get Month List.
      *
      * @return array
      */
     public function getMonthList()
     {
         $_month = [];
-        for($m=1; $m<=12; ++$m){
-            array_push($_month,date('F', mktime(0, 0, 0, $m, 1)));
+        for ($m = 1; $m <= 12; ++$m) {
+            array_push($_month, date('F', mktime(0, 0, 0, $m, 1)));
         }
 
         return $_month;
