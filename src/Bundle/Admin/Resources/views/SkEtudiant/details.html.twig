@@ -1,37 +1,65 @@
 {% extends 'admin/admin.html.twig' %}
 
 {% block body %}
-    <div class="card">
-        <div class="card-header">
-            <h6 class="text-center">Details étudiants</h6>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-6">
-                    <h4>Details personnels</h4>
-                    <li>Nom : {{ etudiant.etudiant.usrLastname }}</li>
-                    <li>Prénom : {{ etudiant.etudiant.usrFirstname }}</li>
-                    <li>Phone : {{ etudiant.etudiant.usrPhone }}</li>
-                    <li>Email : {{ etudiant.etudiant.email ? etudiant.etudiant.email : '' }}</li>
-                    <li>Date d'ajout : {{ etudiant.etudiant.usrDateCreate |date('Y-m-d') }}</li>
-                    {% if etudiant.isRenvoie == true %}
-                        <li>Renvoyé le {{ etudiant.dateRenvoie | date('Y-m-d') }}</li>
-                        <li>Motifs de renvoie : {{ etudiant.motifRenvoie }}</li>
-                    {% endif %}
-                </div>
-                <div class="col-md-6">
-                    <h4>Domaine details</h4>
-                    <li>Sexe : {{ etudiant.sexe }}</li>
-                    <li>Addition : {{ etudiant.addition }}</li>
-                    <li>Classe : {{ etudiant.sexe }}</li>
-                    <li>Date de naissance : {{ etudiant.dateDeNaissance }}</li>
-                    <li>Niveau : {{ etudiant.classe.niveau.niveauNom }}</li>
-                    <li>Mere : {{ etudiant.mere }}</li>
-                    <li>Pere : {{ etudiant.pere }}</li>
-                    <li>Contact Parent : {{ etudiant.contactParent }}</li>
-                </div>
+    <div class="container">
+        <div class="panel bg-gradient-info text-white shadow">
+            <div class="card-body center">
+                <img src="{{ asset('img/images.jpeg') }}" width="150px">
+
+                <h2 class="h3 text-white mt-5">
+                    {{ etudiant.etudiant.usrFirstname }} {{ etudiant.etudiant.usrLastname }} <br>
+                    <span>Etudiant</span>
+                </h2>
             </div>
 
         </div>
+        <div class="panel-body mt-2">
+            <h2 class="title-info">Information Personnel :</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>N° de Matriculation :</label> <span>99</span><br><br>
+                    <label>Nom :</label> <span>{{ etudiant.etudiant.usrLastname }}</span><br><br>
+                    <label>Prenom :</label> <span>{{ etudiant.etudiant.usrFirstname }}</span><br><br>
+                    <label>Date de naissance :</label> <span>{{ etudiant.dateDeNaissance }}</span><br><br>
+                </div>
+                <div class="col-md-6">
+                    <label>Sexe :</label> <span>{{ etudiant.sexe }}</span><br><br>
+                    <label>Addresse :</label> <span>Antananarivo</span><br><br>
+                    <label>Telephone :</label> <span>{{ etudiant.etudiant.usrPhone }}</span><br><br>
+                    <label>Email :</label> <span>{{ etudiant.etudiant.email ? etudiant.etudiant.email : '' }}</span><br><br>
+                </div>
+            </div>
+            <h2 class="title-info">Information Scolarité :</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Classe :</label> <span>{{ etudiant.classe.niveau.niveauNom }}</span><br><br>
+                    <label>Niveau :</label> <span>{{ etudiant.classe.niveau.niveauNom }}</span><br><br>
+                    <label>Date d'inscription :</label> <span>{{ etudiant.etudiant.usrDateCreate |date('Y-m-d') }}</span><br><br>
+                    {% if etudiant.isRenvoie == true %}
+                        <label>Renvoyé le :</label> <span> {{ etudiant.dateRenvoie | date('Y-m-d') }}</span><br><br>
+                        <label>Motifs de renvoie :</label> <span>{{ etudiant.motifRenvoie }}</span><br><br>
+                    {% endif %}
+                </div>
+                <div class="col-md-6">
+                    <label>Statut :</label> <span>{{ etudiant.addition }}</span><br><br>
+                </div>
+            </div>
+            <h2 class="title-info">Information des parents :</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Mère :</label> <span>{{ etudiant.mere }}</span><br><br>
+                    <label>Père :</label> <span>{{ etudiant.pere }}</span><br><br>
+                    <label>Date d'inscription :</label> <span>{{ etudiant.etudiant.usrDateCreate |date('Y-m-d') }}</span><br><br>
+                    {% if etudiant.isRenvoie == true %}
+                        <label>Renvoyé le :</label> <span> {{ etudiant.dateRenvoie | date('Y-m-d') }}</span><br><br>
+                        <label>Motifs de renvoie :</label> <span>{{ etudiant.motifRenvoie }}</span><br><br>
+                    {% endif %}
+                </div>
+                <div class="col-md-6">
+                    <label>Contact Parent :</label> <span>{{ etudiant.contactParent }}</span><br><br>
+                </div>
+            </div>
+        </div>
     </div>
+
 {% endblock %}

@@ -97,3 +97,33 @@ WIP DESIGN
     background-color: #36b9cc;
     color: white;
 }
+.container .panel-body h2.title-info{
+    color: #fff;
+    background-color: #4b4b4b;
+
+    -moz-box-shadow: 0 5px 3px rgba(0,0,0,.2), inset 0 -2px 0 rgba(0,0,0,.06);
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.2), inset 0 -2px 0 rgba(0,0,0,.06);
+    box-shadow: 0 1px 3px rgba(0,0,0,.2), inset 0 -2px 0 rgba(0,0,0,.06);
+
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+
+    padding: 8px;
+}
+.container .panel .center {
+    overflow: hidden;
+}
+.container .panel .center img {
+    float: left;
+    margin-left: 20px;
+}
+.container .panel .center span {
+    float: left;
+    font-size: 16px;
+}
+.container .panel .center h2 {
+    float: left;
+    margin-left: 20px;
+    font-size: 32px;
+}
