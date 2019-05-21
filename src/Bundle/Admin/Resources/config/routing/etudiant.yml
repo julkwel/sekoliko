@@ -18,6 +18,11 @@ etudiant_details:
     defaults: {_controller: 'AdminBundle:SkEtudiant:details'}
     methods: [GET, POST]
 
+etudiant_pdf:
+    path:   /{id}/fiche
+    defaults: {_controller: 'AdminBundle:SkEtudiant:fichePdf'}
+    methods: [GET,POST]
+
 etudiant_collegue:
     path:   /collegue
     defaults: {_controller: 'AdminBundle:SkEtudiant:myCollegue'}

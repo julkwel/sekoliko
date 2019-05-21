@@ -1,7 +1,8 @@
 {% extends 'admin/admin.html.twig' %}
 
 {% block body %}
-    <div class="container">
+
+    <div class="container mt-2">
         <div class="panel bg-gradient-info text-white shadow">
             <div class="card-body center">
                 <img src="{{ asset('img/images.jpeg') }}" width="150px">
@@ -10,6 +11,12 @@
                     {{ etudiant.etudiant.usrFirstname }} {{ etudiant.etudiant.usrLastname }} <br>
                     <span>Etudiant</span>
                 </h2>
+                <a href="{{ path('etudiant_pdf',{'id': etudiant.id}) }}" class="btn btn-primary btn-icon-split print">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-print"></i>
+                    </span>
+                    <span class="text">Exporter pdf</span>
+                </a>
             </div>
 
         </div>

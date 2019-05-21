@@ -97,6 +97,9 @@ WIP DESIGN
     background-color: #36b9cc;
     color: white;
 }
+/**
+Fiche etudiant
+ */
 .container .panel-body h2.title-info{
     color: #fff;
     background-color: #4b4b4b;
@@ -126,4 +129,10 @@ WIP DESIGN
     float: left;
     margin-left: 20px;
     font-size: 32px;
+}
+.container .panel .center a.print{
+    float: right;
+    margin: 45px 25px 0px 0px;
+    font-size: 24px;
+    padding-top: 5px;
 }

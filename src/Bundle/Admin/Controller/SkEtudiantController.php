@@ -13,6 +13,8 @@ use App\Shared\Entity\SkClasse;
 use App\Shared\Entity\SkEtudiant;
 use App\Shared\Form\SkEtudiantType;
 use App\Shared\Services\Utils\RoleName;
+use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
+use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
@@ -219,6 +221,22 @@ class SkEtudiantController extends Controller
         return $this->render('@Admin/SkEtudiant/details.html.twig', [
             'etudiant' => $skEtudiant,
         ]);
+    }
+
+    /**
+     * generate pdf fiche etudiant
+     * @param SkEtudiant $skEtudiant
+     * @return PdfResponse
+     */
+    public function fichePdfAction(SkEtudiant $skEtudiant){
+        $html =  $this->renderView('pdf/ficheEtudiant.html.twig',[
+           'etudiant' => $skEtudiant
+        ]);
+
+        return new PdfResponse(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            'fiche_etudiant'
+        );
     }
 
     /**

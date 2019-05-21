@@ -26,5 +26,6 @@ return [
     Sonata\SeoBundle\SonataSeoBundle::class => ['all' => true],
     Symfony\Bundle\WebServerBundle\WebServerBundle::class => ['dev' => true],
     Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle::class => ['all' => true],
-    Sinner\Phpseclib\PhpseclibBundle::class => ['all'=>true],
+    Sinner\Phpseclib\PhpseclibBundle::class => ['all' => true],
+    Knp\Bundle\SnappyBundle\KnpSnappyBundle::class => ['all' => true],
 ];
