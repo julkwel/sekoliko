@@ -1,0 +1,5 @@
+.bg-sk-login-image{
+    background-image: url("../images/sekoliko.png")!important;
+    background-size: cover;
+    background-position: center;
+}
