@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Sekoliko</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="{{ asset('admin/vendor/fontawesome-free/css/all.min.css') }}">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="{{ asset('admin/css/sb-admin-2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.css') }}">
+    <link rel="icon" href="{{ asset('admin/images/sekoliko.png') }}">
+</head>
+<body>
+<div id="wrapper">
+    {% include 'admin/Menu/sidebar.html.twig' %}
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+            {% include 'admin/Menu/top.menu.html.twig' %}
+            <div class="container-fluid">
+            {% block body %}{% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{{ asset('admin/vendor/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('admin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('admin/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+<script src="{{ asset('admin/js/sb-admin-2.min.js') }}"></script>
+<script src="{{ asset('admin/vendor/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('admin/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('admin/js/demo/datatables-demo.js') }}"></script>
+<script src="{{ asset('admin/vendor/chart.js/Chart.min.js') }}"></script>
+<script src="{{ asset('admin/js/demo/chart-area-demo.js') }}"></script>
+<script src="{{ asset('admin/js/demo/chart-pie-demo.js') }}"></script>
+</body>
+</html>

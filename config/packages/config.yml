@@ -2,6 +2,10 @@ fos_user:
   db_driver: orm # other valid values are 'mongodb' and 'couchdb'
   firewall_name: main
   user_class: App\Entity\User
+  registration:
+    form:
+      type: App\Form\Type\RegistrationFormType
+
   from_email:
     address: "julienrajerison5@gmail.com"
     sender_name: "julien"
