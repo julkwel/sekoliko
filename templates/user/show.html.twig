@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User{% endblock %}
+
+{% block body %}
+    <h1>User</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Username</th>
+                <td>{{ user.username }}</td>
+            </tr>
+            <tr>
+                <th>UsernameCanonical</th>
+                <td>{{ user.usernameCanonical }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th>EmailCanonical</th>
+                <td>{{ user.emailCanonical }}</td>
+            </tr>
+            <tr>
+                <th>Enabled</th>
+                <td>{{ user.enabled ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Salt</th>
+                <td>{{ user.salt }}</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td>{{ user.password }}</td>
+            </tr>
+            <tr>
+                <th>LastLogin</th>
+                <td>{{ user.lastLogin ? user.lastLogin|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>ConfirmationToken</th>
+                <td>{{ user.confirmationToken }}</td>
+            </tr>
+            <tr>
+                <th>PasswordRequestedAt</th>
+                <td>{{ user.passwordRequestedAt ? user.passwordRequestedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Roles</th>
+                <td>{{ user.roles ? user.roles|join(', ') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Id</th>
+                <td>{{ user.id }}</td>
+            </tr>
+            <tr>
+                <th>DateDeNaissance</th>
+                <td>{{ user.dateDeNaissance ? user.dateDeNaissance|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ user.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ user.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Sexe</th>
+                <td>{{ user.sexe }}</td>
+            </tr>
+            <tr>
+                <th>Contact</th>
+                <td>{{ user.contact }}</td>
+            </tr>
+            <tr>
+                <th>AsName</th>
+                <td>{{ user.asName }}</td>
+            </tr>
+            <tr>
+                <th>AsDateDebut</th>
+                <td>{{ user.asDateDebut ? user.asDateDebut|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>AsDateFin</th>
+                <td>{{ user.asDateFin ? user.asDateFin|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>EtsNom</th>
+                <td>{{ user.etsNom }}</td>
+            </tr>
+            <tr>
+                <th>EtsAddresse</th>
+                <td>{{ user.etsAddresse }}</td>
+            </tr>
+            <tr>
+                <th>EtsContact</th>
+                <td>{{ user.etsContact }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('user_index') }}">back to list</a>
+
+    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
+
+    {{ include('user/_delete_form.html.twig') }}
+{% endblock %}

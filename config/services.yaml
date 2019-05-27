@@ -34,6 +34,11 @@ services:
     #        arguments:
     #            $formFactory: '@fos_user.registration.form.factory'
 
+    App\Services\EntityServices:
+        autowire: false
+        public: false
+        arguments: ['@doctrine.orm.entity_manager','@service_container']
+
     App\Controller\User\RegistrationController:
         decorates: fos_user.registration.controller
         tags:

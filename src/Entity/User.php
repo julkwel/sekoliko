@@ -13,6 +13,16 @@ use Doctrine\ORM\Mapping as ORM;
 class User extends BaseUser
 {
     /**
+     * @uses AnneScolaire
+     */
+    use AnneScolaire;
+
+    /**
+     * @uses Etablissement
+     */
+    use Etablissement;
+
+    /**
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")

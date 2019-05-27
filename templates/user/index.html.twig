@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User index{% endblock %}
+
+{% block body %}
+    <h1>User index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>UsernameCanonical</th>
+                <th>Email</th>
+                <th>EmailCanonical</th>
+                <th>Enabled</th>
+                <th>Salt</th>
+                <th>Password</th>
+                <th>LastLogin</th>
+                <th>ConfirmationToken</th>
+                <th>PasswordRequestedAt</th>
+                <th>Roles</th>
+                <th>Id</th>
+                <th>DateDeNaissance</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Sexe</th>
+                <th>Contact</th>
+                <th>AsName</th>
+                <th>AsDateDebut</th>
+                <th>AsDateFin</th>
+                <th>EtsNom</th>
+                <th>EtsAddresse</th>
+                <th>EtsContact</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.usernameCanonical }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.emailCanonical }}</td>
+                <td>{{ user.enabled ? 'Yes' : 'No' }}</td>
+                <td>{{ user.salt }}</td>
+                <td>{{ user.password }}</td>
+                <td>{{ user.lastLogin ? user.lastLogin|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ user.confirmationToken }}</td>
+                <td>{{ user.passwordRequestedAt ? user.passwordRequestedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ user.roles ? user.roles|join(', ') : '' }}</td>
+                <td>{{ user.id }}</td>
+                <td>{{ user.dateDeNaissance ? user.dateDeNaissance|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ user.nom }}</td>
+                <td>{{ user.prenom }}</td>
+                <td>{{ user.sexe }}</td>
+                <td>{{ user.contact }}</td>
+                <td>{{ user.asName }}</td>
+                <td>{{ user.asDateDebut ? user.asDateDebut|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ user.asDateFin ? user.asDateFin|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ user.etsNom }}</td>
+                <td>{{ user.etsAddresse }}</td>
+                <td>{{ user.etsContact }}</td>
+                <td>
+                    <a href="{{ path('user_show', {'id': user.id}) }}">show</a>
+                    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="24">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('user_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New ClasseMatiere{% endblock %}
+
+{% block body %}
+    <h1>Create new ClasseMatiere</h1>
+
+    {{ include('classe_matiere/_form.html.twig') }}
+
+    <a href="{{ path('classe_matiere_index') }}">back to list</a>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Matiere index{% endblock %}
+
+{% block body %}
+    <h1>Matiere index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>AsName</th>
+                <th>AsDateDebut</th>
+                <th>AsDateFin</th>
+                <th>EtsNom</th>
+                <th>EtsAddresse</th>
+                <th>EtsContact</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for matiere in matieres %}
+            <tr>
+                <td>{{ matiere.id }}</td>
+                <td>{{ matiere.nom }}</td>
+                <td>{{ matiere.asName }}</td>
+                <td>{{ matiere.asDateDebut ? matiere.asDateDebut|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ matiere.asDateFin ? matiere.asDateFin|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ matiere.etsNom }}</td>
+                <td>{{ matiere.etsAddresse }}</td>
+                <td>{{ matiere.etsContact }}</td>
+                <td>
+                    <a href="{{ path('matiere_show', {'id': matiere.id}) }}">show</a>
+                    <a href="{{ path('matiere_edit', {'id': matiere.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('matiere_new') }}">Create new</a>
+{% endblock %}

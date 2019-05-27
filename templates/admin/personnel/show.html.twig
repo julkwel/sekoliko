@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Personnel{% endblock %}
+
+{% block body %}
+    <h1>Personnel</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ personnel.id }}</td>
+            </tr>
+            <tr>
+                <th>Cin</th>
+                <td>{{ personnel.cin }}</td>
+            </tr>
+            <tr>
+                <th>Indice</th>
+                <td>{{ personnel.indice }}</td>
+            </tr>
+            <tr>
+                <th>Grade</th>
+                <td>{{ personnel.grade }}</td>
+            </tr>
+            <tr>
+                <th>NoteService</th>
+                <td>{{ personnel.noteService }}</td>
+            </tr>
+            <tr>
+                <th>Cisco</th>
+                <td>{{ personnel.cisco }}</td>
+            </tr>
+            <tr>
+                <th>Obs</th>
+                <td>{{ personnel.obs }}</td>
+            </tr>
+            <tr>
+                <th>AsName</th>
+                <td>{{ personnel.asName }}</td>
+            </tr>
+            <tr>
+                <th>AsDateDebut</th>
+                <td>{{ personnel.asDateDebut ? personnel.asDateDebut|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>AsDateFin</th>
+                <td>{{ personnel.asDateFin ? personnel.asDateFin|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>EtsNom</th>
+                <td>{{ personnel.etsNom }}</td>
+            </tr>
+            <tr>
+                <th>EtsAddresse</th>
+                <td>{{ personnel.etsAddresse }}</td>
+            </tr>
+            <tr>
+                <th>EtsContact</th>
+                <td>{{ personnel.etsContact }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('personnel_index') }}">back to list</a>
+
+    <a href="{{ path('personnel_edit', {'id': personnel.id}) }}">edit</a>
+
+    {{ include('personnel/_delete_form.html.twig') }}
+{% endblock %}

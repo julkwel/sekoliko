@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit ClasseMatiere{% endblock %}
+
+{% block body %}
+    <h1>Edit ClasseMatiere</h1>
+
+    {{ include('classe_matiere/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('classe_matiere_index') }}">back to list</a>
+
+    {{ include('classe_matiere/_delete_form.html.twig') }}
+{% endblock %}

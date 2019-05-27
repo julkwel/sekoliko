@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Etudiant{% endblock %}
+
+{% block body %}
+    <h1>Etudiant</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ etudiant.id }}</td>
+            </tr>
+            <tr>
+                <th>Numero</th>
+                <td>{{ etudiant.numero }}</td>
+            </tr>
+            <tr>
+                <th>NomPere</th>
+                <td>{{ etudiant.nomPere }}</td>
+            </tr>
+            <tr>
+                <th>NomMere</th>
+                <td>{{ etudiant.nomMere }}</td>
+            </tr>
+            <tr>
+                <th>PrenomPere</th>
+                <td>{{ etudiant.prenomPere }}</td>
+            </tr>
+            <tr>
+                <th>PrenomMere</th>
+                <td>{{ etudiant.prenomMere }}</td>
+            </tr>
+            <tr>
+                <th>ContactParent</th>
+                <td>{{ etudiant.contactParent }}</td>
+            </tr>
+            <tr>
+                <th>AsName</th>
+                <td>{{ etudiant.asName }}</td>
+            </tr>
+            <tr>
+                <th>AsDateDebut</th>
+                <td>{{ etudiant.asDateDebut ? etudiant.asDateDebut|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>AsDateFin</th>
+                <td>{{ etudiant.asDateFin ? etudiant.asDateFin|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>EtsNom</th>
+                <td>{{ etudiant.etsNom }}</td>
+            </tr>
+            <tr>
+                <th>EtsAddresse</th>
+                <td>{{ etudiant.etsAddresse }}</td>
+            </tr>
+            <tr>
+                <th>EtsContact</th>
+                <td>{{ etudiant.etsContact }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('etudiant_index') }}">back to list</a>
+
+    <a href="{{ path('etudiant_edit', {'id': etudiant.id}) }}">edit</a>
+
+    {{ include('etudiant/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Trimestre{% endblock %}
+
+{% block body %}
+    <h1>Trimestre</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ trimestre.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ trimestre.nom }}</td>
+            </tr>
+            <tr>
+                <th>AsName</th>
+                <td>{{ trimestre.asName }}</td>
+            </tr>
+            <tr>
+                <th>AsDateDebut</th>
+                <td>{{ trimestre.asDateDebut ? trimestre.asDateDebut|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>AsDateFin</th>
+                <td>{{ trimestre.asDateFin ? trimestre.asDateFin|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>EtsNom</th>
+                <td>{{ trimestre.etsNom }}</td>
+            </tr>
+            <tr>
+                <th>EtsAddresse</th>
+                <td>{{ trimestre.etsAddresse }}</td>
+            </tr>
+            <tr>
+                <th>EtsContact</th>
+                <td>{{ trimestre.etsContact }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('trimestre_index') }}">back to list</a>
+
+    <a href="{{ path('trimestre_edit', {'id': trimestre.id}) }}">edit</a>
+
+    {{ include('trimestre/_delete_form.html.twig') }}
+{% endblock %}

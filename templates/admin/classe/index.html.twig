@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Classe index{% endblock %}
+
+{% block body %}
+    <h1>Classe index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>AsName</th>
+                <th>AsDateDebut</th>
+                <th>AsDateFin</th>
+                <th>EtsNom</th>
+                <th>EtsAddresse</th>
+                <th>EtsContact</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for classe in classes %}
+            <tr>
+                <td>{{ classe.id }}</td>
+                <td>{{ classe.nom }}</td>
+                <td>{{ classe.asName }}</td>
+                <td>{{ classe.asDateDebut ? classe.asDateDebut|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ classe.asDateFin ? classe.asDateFin|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ classe.etsNom }}</td>
+                <td>{{ classe.etsAddresse }}</td>
+                <td>{{ classe.etsContact }}</td>
+                <td>
+                    <a href="{{ path('classe_show', {'id': classe.id}) }}">show</a>
+                    <a href="{{ path('classe_edit', {'id': classe.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('classe_new') }}">Create new</a>
+{% endblock %}

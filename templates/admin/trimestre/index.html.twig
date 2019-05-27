@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Trimestre index{% endblock %}
+
+{% block body %}
+    <h1>Trimestre index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>AsName</th>
+                <th>AsDateDebut</th>
+                <th>AsDateFin</th>
+                <th>EtsNom</th>
+                <th>EtsAddresse</th>
+                <th>EtsContact</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for trimestre in trimestres %}
+            <tr>
+                <td>{{ trimestre.id }}</td>
+                <td>{{ trimestre.nom }}</td>
+                <td>{{ trimestre.asName }}</td>
+                <td>{{ trimestre.asDateDebut ? trimestre.asDateDebut|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ trimestre.asDateFin ? trimestre.asDateFin|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ trimestre.etsNom }}</td>
+                <td>{{ trimestre.etsAddresse }}</td>
+                <td>{{ trimestre.etsContact }}</td>
+                <td>
+                    <a href="{{ path('trimestre_show', {'id': trimestre.id}) }}">show</a>
+                    <a href="{{ path('trimestre_edit', {'id': trimestre.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('trimestre_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Matiere{% endblock %}
+
+{% block body %}
+    <h1>Matiere</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ matiere.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ matiere.nom }}</td>
+            </tr>
+            <tr>
+                <th>AsName</th>
+                <td>{{ matiere.asName }}</td>
+            </tr>
+            <tr>
+                <th>AsDateDebut</th>
+                <td>{{ matiere.asDateDebut ? matiere.asDateDebut|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>AsDateFin</th>
+                <td>{{ matiere.asDateFin ? matiere.asDateFin|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>EtsNom</th>
+                <td>{{ matiere.etsNom }}</td>
+            </tr>
+            <tr>
+                <th>EtsAddresse</th>
+                <td>{{ matiere.etsAddresse }}</td>
+            </tr>
+            <tr>
+                <th>EtsContact</th>
+                <td>{{ matiere.etsContact }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('matiere_index') }}">back to list</a>
+
+    <a href="{{ path('matiere_edit', {'id': matiere.id}) }}">edit</a>
+
+    {{ include('matiere/_delete_form.html.twig') }}
+{% endblock %}

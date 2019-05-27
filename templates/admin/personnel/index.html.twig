@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Personnel index{% endblock %}
+
+{% block body %}
+    <h1>Personnel index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Cin</th>
+                <th>Indice</th>
+                <th>Grade</th>
+                <th>NoteService</th>
+                <th>Cisco</th>
+                <th>Obs</th>
+                <th>AsName</th>
+                <th>AsDateDebut</th>
+                <th>AsDateFin</th>
+                <th>EtsNom</th>
+                <th>EtsAddresse</th>
+                <th>EtsContact</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for personnel in personnels %}
+            <tr>
+                <td>{{ personnel.id }}</td>
+                <td>{{ personnel.cin }}</td>
+                <td>{{ personnel.indice }}</td>
+                <td>{{ personnel.grade }}</td>
+                <td>{{ personnel.noteService }}</td>
+                <td>{{ personnel.cisco }}</td>
+                <td>{{ personnel.obs }}</td>
+                <td>{{ personnel.asName }}</td>
+                <td>{{ personnel.asDateDebut ? personnel.asDateDebut|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ personnel.asDateFin ? personnel.asDateFin|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ personnel.etsNom }}</td>
+                <td>{{ personnel.etsAddresse }}</td>
+                <td>{{ personnel.etsContact }}</td>
+                <td>
+                    <a href="{{ path('personnel_show', {'id': personnel.id}) }}">show</a>
+                    <a href="{{ path('personnel_edit', {'id': personnel.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="14">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('personnel_new') }}">Create new</a>
+{% endblock %}

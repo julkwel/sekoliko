@@ -31,6 +31,16 @@ class Trimestre
      */
     private $nom;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $dateDebut;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $dateFin;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -46,5 +56,37 @@ class Trimestre
         $this->nom = $nom;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDateDebut()
+    {
+        return $this->dateDebut;
+    }
+
+    /**
+     * @param mixed $dateDebut
+     */
+    public function setDateDebut($dateDebut): void
+    {
+        $this->dateDebut = $dateDebut;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDateFin()
+    {
+        return $this->dateFin;
+    }
+
+    /**
+     * @param mixed $dateFin
+     */
+    public function setDateFin($dateFin): void
+    {
+        $this->dateFin = $dateFin;
     }
 }

@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Etudiant index{% endblock %}
+
+{% block body %}
+    <h1>Etudiant index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Numero</th>
+                <th>NomPere</th>
+                <th>NomMere</th>
+                <th>PrenomPere</th>
+                <th>PrenomMere</th>
+                <th>ContactParent</th>
+                <th>AsName</th>
+                <th>AsDateDebut</th>
+                <th>AsDateFin</th>
+                <th>EtsNom</th>
+                <th>EtsAddresse</th>
+                <th>EtsContact</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for etudiant in etudiants %}
+            <tr>
+                <td>{{ etudiant.id }}</td>
+                <td>{{ etudiant.numero }}</td>
+                <td>{{ etudiant.nomPere }}</td>
+                <td>{{ etudiant.nomMere }}</td>
+                <td>{{ etudiant.prenomPere }}</td>
+                <td>{{ etudiant.prenomMere }}</td>
+                <td>{{ etudiant.contactParent }}</td>
+                <td>{{ etudiant.asName }}</td>
+                <td>{{ etudiant.asDateDebut ? etudiant.asDateDebut|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ etudiant.asDateFin ? etudiant.asDateFin|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ etudiant.etsNom }}</td>
+                <td>{{ etudiant.etsAddresse }}</td>
+                <td>{{ etudiant.etsContact }}</td>
+                <td>
+                    <a href="{{ path('etudiant_show', {'id': etudiant.id}) }}">show</a>
+                    <a href="{{ path('etudiant_edit', {'id': etudiant.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="14">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('etudiant_new') }}">Create new</a>
+{% endblock %}

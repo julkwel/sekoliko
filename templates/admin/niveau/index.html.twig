@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Niveau index{% endblock %}
+
+{% block body %}
+    <h1>Niveau index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>AsName</th>
+                <th>AsDateDebut</th>
+                <th>AsDateFin</th>
+                <th>EtsNom</th>
+                <th>EtsAddresse</th>
+                <th>EtsContact</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for niveau in niveaux %}
+            <tr>
+                <td>{{ niveau.id }}</td>
+                <td>{{ niveau.nom }}</td>
+                <td>{{ niveau.asName }}</td>
+                <td>{{ niveau.asDateDebut ? niveau.asDateDebut|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ niveau.asDateFin ? niveau.asDateFin|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ niveau.etsNom }}</td>
+                <td>{{ niveau.etsAddresse }}</td>
+                <td>{{ niveau.etsContact }}</td>
+                <td>
+                    <a href="{{ path('niveau_show', {'id': niveau.id}) }}">show</a>
+                    <a href="{{ path('niveau_edit', {'id': niveau.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('niveau_new') }}">Create new</a>
+{% endblock %}

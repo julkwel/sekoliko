@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ClasseMatiere index{% endblock %}
+
+{% block body %}
+    <h1>ClasseMatiere index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Coefficient</th>
+                <th>Obs</th>
+                <th>AsName</th>
+                <th>AsDateDebut</th>
+                <th>AsDateFin</th>
+                <th>EtsNom</th>
+                <th>EtsAddresse</th>
+                <th>EtsContact</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for classe_matiere in classe_matieres %}
+            <tr>
+                <td>{{ classe_matiere.id }}</td>
+                <td>{{ classe_matiere.coefficient }}</td>
+                <td>{{ classe_matiere.obs }}</td>
+                <td>{{ classe_matiere.asName }}</td>
+                <td>{{ classe_matiere.asDateDebut ? classe_matiere.asDateDebut|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ classe_matiere.asDateFin ? classe_matiere.asDateFin|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ classe_matiere.etsNom }}</td>
+                <td>{{ classe_matiere.etsAddresse }}</td>
+                <td>{{ classe_matiere.etsContact }}</td>
+                <td>
+                    <a href="{{ path('classe_matiere_show', {'id': classe_matiere.id}) }}">show</a>
+                    <a href="{{ path('classe_matiere_edit', {'id': classe_matiere.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('classe_matiere_new') }}">Create new</a>
+{% endblock %}

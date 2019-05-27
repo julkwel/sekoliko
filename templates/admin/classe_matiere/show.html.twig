@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ClasseMatiere{% endblock %}
+
+{% block body %}
+    <h1>ClasseMatiere</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ classe_matiere.id }}</td>
+            </tr>
+            <tr>
+                <th>Coefficient</th>
+                <td>{{ classe_matiere.coefficient }}</td>
+            </tr>
+            <tr>
+                <th>Obs</th>
+                <td>{{ classe_matiere.obs }}</td>
+            </tr>
+            <tr>
+                <th>AsName</th>
+                <td>{{ classe_matiere.asName }}</td>
+            </tr>
+            <tr>
+                <th>AsDateDebut</th>
+                <td>{{ classe_matiere.asDateDebut ? classe_matiere.asDateDebut|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>AsDateFin</th>
+                <td>{{ classe_matiere.asDateFin ? classe_matiere.asDateFin|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>EtsNom</th>
+                <td>{{ classe_matiere.etsNom }}</td>
+            </tr>
+            <tr>
+                <th>EtsAddresse</th>
+                <td>{{ classe_matiere.etsAddresse }}</td>
+            </tr>
+            <tr>
+                <th>EtsContact</th>
+                <td>{{ classe_matiere.etsContact }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('classe_matiere_index') }}">back to list</a>
+
+    <a href="{{ path('classe_matiere_edit', {'id': classe_matiere.id}) }}">edit</a>
+
+    {{ include('classe_matiere/_delete_form.html.twig') }}
+{% endblock %}

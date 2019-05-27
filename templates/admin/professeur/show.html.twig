@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Professeur{% endblock %}
+
+{% block body %}
+    <h1>Professeur</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ professeur.id }}</td>
+            </tr>
+            <tr>
+                <th>Cin</th>
+                <td>{{ professeur.cin }}</td>
+            </tr>
+            <tr>
+                <th>DateCin</th>
+                <td>{{ professeur.dateCin ? professeur.dateCin|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>HeuresParSemaines</th>
+                <td>{{ professeur.heuresParSemaines }}</td>
+            </tr>
+            <tr>
+                <th>NumAe</th>
+                <td>{{ professeur.numAe }}</td>
+            </tr>
+            <tr>
+                <th>DatePriseService</th>
+                <td>{{ professeur.datePriseService }}</td>
+            </tr>
+            <tr>
+                <th>AsName</th>
+                <td>{{ professeur.asName }}</td>
+            </tr>
+            <tr>
+                <th>AsDateDebut</th>
+                <td>{{ professeur.asDateDebut ? professeur.asDateDebut|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>AsDateFin</th>
+                <td>{{ professeur.asDateFin ? professeur.asDateFin|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>EtsNom</th>
+                <td>{{ professeur.etsNom }}</td>
+            </tr>
+            <tr>
+                <th>EtsAddresse</th>
+                <td>{{ professeur.etsAddresse }}</td>
+            </tr>
+            <tr>
+                <th>EtsContact</th>
+                <td>{{ professeur.etsContact }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('professeur_index') }}">back to list</a>
+
+    <a href="{{ path('professeur_edit', {'id': professeur.id}) }}">edit</a>
+
+    {{ include('professeur/_delete_form.html.twig') }}
+{% endblock %}
