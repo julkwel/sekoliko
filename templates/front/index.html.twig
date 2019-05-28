@@ -1,3 +1,55 @@
-{% block body %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Sekoliko</title>
+    <meta charset="UTF-8"/>
 
-{% endblock %}
+    <!-- icon -->
+    <link rel="icon" href="{{ asset('admin/images/sekoliko.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('admin/images/sekolikologo.png') }}">
+
+    <!-- Google Fonts -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700">
+
+    <!-- Bootstrap CSS File -->
+    <link rel="stylesheet" href="{{ asset('front/lib/bootstrap/css/bootstrap.min.css') }}">
+
+    <!-- Libraries CSS Files -->
+    <link rel="stylesheet" href="{{ asset('front/lib/fontawesome-free/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/lib/animate/animate.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/lib/ionicons/css/ionicons.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/lib/owlcarousel/assets/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/lib/lightbox/css/lightbox.min.css') }}">
+
+    <!-- Main Stylesheet File -->
+    <link rel="stylesheet" href="{{ asset('front/css/style.css') }}">
+</head>
+<body>
+    {% include 'front/menu.html.twig' %}
+    {% block menu %} {% endblock %}
+    {% include 'front/base.html.twig' %}
+    {% block body %} {% endblock %}
+
+<script src="{{ asset('front/lib/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('front/lib/jquery/jquery-migrate.min.js') }}"></script>
+<script src="{{ asset('front/lib/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('front/lib/easing/easing.min.js') }}"></script>
+<script src="{{ asset('front/lib/mobile-nav/mobile-nav.js') }}"></script>
+<script src="{{ asset('front/lib/wow/wow.min.js') }}"></script>
+<script src="{{ asset('front/lib/waypoints/waypoints.min.js') }}"></script>
+<script src="{{ asset('front/lib/counterup/counterup.min.js') }}"></script>
+<script src="{{ asset('front/lib/owlcarousel/owl.carousel.min.js') }}"></script>
+<script src="{{ asset('front/lib/isotope/isotope.pkgd.min.js') }}"></script>
+<script src="{{ asset('front/lib/lightbox/js/lightbox.min.js') }}"></script>
+<script src="{{ asset('front/contactform/contactform.js') }}"></script>
+
+<script src="{{ asset('front/js/main.js') }}"></script>
+
+</body>
+</html>
