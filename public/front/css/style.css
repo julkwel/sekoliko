@@ -1411,3 +1411,17 @@ h6 {
     padding: 100px 0 20px 0;
   }
 }
+
+.intro-info h2{
+  color: #3f3d56!important;
+}
+
+.sk-row-img{
+  margin-top: 90%;
+}
+
+@media screen and (max-width: 600px) {
+  .sk-row-img{
+    margin-top: 0%;
+  }
+}
