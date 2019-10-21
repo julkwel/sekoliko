@@ -131,8 +131,7 @@ class SekolikoAuthenticator extends AbstractFormLoginAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-        // For example :
-         return new RedirectResponse($this->urlGenerator->generate('app_login'));
+         return new RedirectResponse($this->urlGenerator->generate('admin_dashboard'));
     }
 
     /**
