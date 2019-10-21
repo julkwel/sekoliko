@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="">
+        {% block sidebar %}
+            {% include 'admin/menu/_sidebar.html.twig' %}
+            <div class="page-container">
+                {% include 'admin/menu/_top_navbar.html.twig' %}
+                <main class="main-content bgc-grey-100">
+                    <div id="mainContent">
+                        <div class="container-fluid">
+                            {% block content %}{% endblock %}
+                        </div>
+                    </div>
+                </main>
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}
