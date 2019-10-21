@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  *
  * @package App\Controller
  */
-class AbstractBaseController extends AbstractController
+abstract class AbstractBaseController extends AbstractController
 {
     /**
      * @var EntityManagerInterface
