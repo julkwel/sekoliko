@@ -1,4 +1,4 @@
-# sekoliko
+# Sekoliko
 
 Sekoliko Web Application OPENSOURCE
 
