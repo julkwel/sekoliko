@@ -5,7 +5,7 @@
 {% block body %}
     <div class="peers ai-s fxw-nw h-100vh">
         <div class="col-12 col-md-4 peer pX-40 pY-80 h-100 bgc-white scrollable pos-r m-auto" style='min-width: 320px;'>
-            <h4 class="fw-300 c-grey-900 mB-40 text-center">Login</h4>
+            <h4 class="fw-300 c-grey-900 mB-40 text-center">SEKOLIKO LOGIN</h4>
             <form method="post">
                 {% if error %}
                     <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -18,20 +18,22 @@
                 {% endif %}
 
                 <div class="form-group">
-                    <label class="text-normal text-dark">Username</label>
-                    <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
+                    <label class="text-normal text-dark" for="inputUsername">Username</label>
+                    <input type="text" value="{{ last_username }}" name="username"
+                           id="inputUsername" class="form-control" placeholder="Username" required autofocus>
                 </div>
                 <div class="form-group">
-                    <label class="text-normal text-dark">Password</label>
-                    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                    <label class="text-normal text-dark" for="inputPassword">Password</label>
+                    <input type="password" name="password"
+                           id="inputPassword" class="form-control" placeholder="Password" required>
                 </div>
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                 <div class="form-group">
                     <div class="peers ai-c jc-sb fxw-nw">
                         <div class="peer">
                             <div class="checkbox checkbox-circle checkbox-info peers ai-c">
-                                <input type="checkbox" id="inputCall1" name="inputCheckboxesCall" class="peer">
-                                <label for="inputCall1" class=" peers peer-greed js-sb ai-c">
+                                <input id="remember_me" type="checkbox" name="_remember_me">
+                                <label for="remember_me" class=" peers peer-greed js-sb ai-c">
                                     <span class="peer peer-greed">Remember Me</span>
                                 </label>
                             </div>
@@ -44,39 +46,4 @@
             </form>
         </div>
     </div>
-
-{#<form method="post">#}
-{#    {% if error %}#}
-{#        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>#}
-{#    {% endif %}#}
-
-{#    {% if app.user %}#}
-{#        <div class="mb-3">#}
-{#            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>#}
-{#        </div>#}
-{#    {% endif %}#}
-
-{#    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>#}
-{#    <label for="inputUsername" class="sr-only">Username</label>#}
-{#    <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" placeholder="Username" required autofocus>#}
-{#    <label for="inputPassword" class="sr-only">Password</label>#}
-{#    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>#}
-
-{#    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">#}
-
-{#    #}{##}
-{#        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.#}
-{#        See https://symfony.com/doc/current/security/remember_me.html#}
-
-{#        <div class="checkbox mb-3">#}
-{#            <label>#}
-{#                <input type="checkbox" name="_remember_me"> Remember me#}
-{#            </label>#}
-{#        </div>#}
-{#    #}
-
-{#    <button class="btn btn-lg btn-primary" type="submit">#}
-{#        Sign in#}
-{#    </button>#}
-{#</form>#}
 {% endblock %}
