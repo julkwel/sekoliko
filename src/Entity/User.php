@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -41,6 +43,24 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\SchoolYear", mappedBy="user")
+     */
+    private $schoolYear;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateCreate;
+
+    /**
+     * User constructor.
+     */
+    public function __construct()
+    {
+        $this->schoolYear = new ArrayCollection();
+    }
 
     /**
      * @return int|null
@@ -144,6 +164,49 @@ class User implements UserInterface
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SchoolYear[]
+     */
+    public function getSchoolYear(): Collection
+    {
+        return $this->schoolYear;
+    }
+
+    public function addSchoolYear(SchoolYear $schoolYear): self
+    {
+        if (!$this->schoolYear->contains($schoolYear)) {
+            $this->schoolYear[] = $schoolYear;
+            $schoolYear->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSchoolYear(SchoolYear $schoolYear): self
+    {
+        if ($this->schoolYear->contains($schoolYear)) {
+            $this->schoolYear->removeElement($schoolYear);
+            // set the owning side to null (unless already changed)
+            if ($schoolYear->getUser() === $this) {
+                $schoolYear->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getDateCreate(): ?\DateTimeInterface
+    {
+        return $this->dateCreate;
+    }
+
+    public function setDateCreate(?\DateTimeInterface $dateCreate): self
+    {
+        $this->dateCreate = $dateCreate;
 
         return $this;
     }
