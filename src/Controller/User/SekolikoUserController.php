@@ -5,9 +5,15 @@
 
 namespace App\Controller\User;
 
+use App\Constant\EntityConstant;
 use App\Controller\AbstractBaseController;
 use App\Entity\User;
+use App\Form\UserType;
+use App\Manager\SekolikoEntityManager;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use phpDocumentor\Reflection\DocBlock\Tags\Throws;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -38,15 +44,34 @@ class SekolikoUserController extends AbstractBaseController
     }
 
     /**
-     * Ges
      * @Route("/manage/{id?}",name="user_management",methods={"POST","GET"})
      *
+     * @param Request   $request
      * @param User|null $user
+     *
+     * @return Response
      */
-    public function manageUser(User $user = null)
+    public function manageUser(Request $request, User $user = null)
     {
+        $user = $user ?: new User();
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $method = $user->getId() ? EntityConstant::UPDATE : EntityConstant::NEW;
+            if (true === $this->em->save($user, $this->getUser(), $method)) {
+                return $this->redirectToRoute('user_list');
+            }
+
+            return $this->redirectToRoute('user_management');
+        }
+
         return $this->render(
-            ''
+            'admin/content/user/_user_manage.html.twig',
+            [
+                'user' => $user,
+                'form' => $form->createView(),
+            ]
         );
     }
 }

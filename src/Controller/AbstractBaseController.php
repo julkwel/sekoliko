@@ -5,6 +5,7 @@
 
 namespace App\Controller;
 
+use App\Manager\SekolikoEntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -18,15 +19,22 @@ abstract class AbstractBaseController extends AbstractController
     /**
      * @var EntityManagerInterface
      */
-    private $manager;
+    protected $manager;
+
+    /**
+     * @var SekolikoEntityManager
+     */
+    protected $em;
 
     /**
      * AbstractBaseController constructor.
      *
      * @param EntityManagerInterface $manager
+     * @param SekolikoEntityManager  $entityManager
      */
-    public function __construct(EntityManagerInterface $manager)
+    public function __construct(EntityManagerInterface $manager, SekolikoEntityManager $entityManager)
     {
         $this->manager = $manager;
+        $this->em = $entityManager;
     }
 }

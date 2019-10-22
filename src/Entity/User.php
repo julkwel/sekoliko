@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -23,6 +24,8 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     *
+     * @Assert\Unique()
      */
     private $username;
 
@@ -30,6 +33,8 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(type="string",nullable=false)
+     *
+     * @Assert\NotBlank()
      */
     private $nom;
 
@@ -40,7 +45,10 @@ class User implements UserInterface
 
     /**
      * @var string The hashed password
+     *
      * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank()
      */
     private $password;
 
@@ -60,6 +68,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->schoolYear = new ArrayCollection();
+        $this->dateCreate = new \DateTime('now');
     }
 
     /**
@@ -75,7 +84,7 @@ class User implements UserInterface
      *
      * @see UserInterface
      */
-    public function getUsername(): string
+    public function getUsername(): ?string
     {
         return (string)$this->username;
     }
@@ -95,7 +104,7 @@ class User implements UserInterface
     /**
      * @see UserInterface
      */
-    public function getRoles(): array
+    public function getRoles(): ?array
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
@@ -119,7 +128,7 @@ class User implements UserInterface
     /**
      * @see UserInterface
      */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return (string)$this->password;
     }
@@ -151,7 +160,7 @@ class User implements UserInterface
     /**
      * @return string
      */
-    public function getNom(): string
+    public function getNom(): ?string
     {
         return $this->nom;
     }
@@ -169,13 +178,18 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|SchoolYear[]
+     * @return Collection|SchoolYear[]|null
      */
-    public function getSchoolYear(): Collection
+    public function getSchoolYear(): ?Collection
     {
         return $this->schoolYear;
     }
 
+    /**
+     * @param SchoolYear $schoolYear
+     *
+     * @return User
+     */
     public function addSchoolYear(SchoolYear $schoolYear): self
     {
         if (!$this->schoolYear->contains($schoolYear)) {
@@ -186,6 +200,11 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param SchoolYear $schoolYear
+     *
+     * @return User
+     */
     public function removeSchoolYear(SchoolYear $schoolYear): self
     {
         if ($this->schoolYear->contains($schoolYear)) {
@@ -199,11 +218,19 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return \DateTimeInterface|null
+     */
     public function getDateCreate(): ?\DateTimeInterface
     {
         return $this->dateCreate;
     }
 
+    /**
+     * @param \DateTimeInterface|null $dateCreate
+     *
+     * @return User
+     */
     public function setDateCreate(?\DateTimeInterface $dateCreate): self
     {
         $this->dateCreate = $dateCreate;
