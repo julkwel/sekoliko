@@ -19,7 +19,7 @@
                     <tr>
                         <th>Nom</th>
                         <th>Roles</th>
-                        <th>Office</th>
+                        <th>Etablissement</th>
                         <th>Age</th>
                         <th>Start date</th>
                         <th>Salary</th>
@@ -30,9 +30,9 @@
                         <tr>
                             <td>{{ user.nom }}</td>
                             <td>{{ user.roles|join(' ') }}</td>
-                            <td>Edinburgh</td>
+                            <td>{{ user.etsName }}</td>
                             <td>61</td>
-                            <td>2011/04/25</td>
+                            <td>{{ user.dateCreate|date('Y-m-d') }}</td>
                             <td>$320,800</td>
                         </tr>
                     {% endfor %}
