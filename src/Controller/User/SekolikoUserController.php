@@ -6,6 +6,7 @@
 namespace App\Controller\User;
 
 use App\Constant\EntityConstant;
+use App\Constant\RoleConstant;
 use App\Controller\AbstractBaseController;
 use App\Entity\User;
 use App\Form\UserType;
@@ -13,6 +14,7 @@ use App\Manager\SekolikoEntityManager;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use phpDocumentor\Reflection\DocBlock\Tags\Throws;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -38,7 +40,7 @@ class SekolikoUserController extends AbstractBaseController
         return $this->render(
             'admin/content/user/_user_list.html.twig',
             [
-                'users' => $repository->findBy(['etsName' => $this->getUser()->getEtsName()]),
+                'users' => $repository->findByRoles('ROLE_ADMIN',$this->getUser()->getEtsName()),
             ]
         );
     }
@@ -58,6 +60,10 @@ class SekolikoUserController extends AbstractBaseController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $pass = $form->get('password')->getData();
+            $user->setRoles([RoleConstant::ROLE_SEKOLIKO['Administrateur']]);
+
+            $user->setPassword($this->passencoder->encodePassword($user, $pass));
             $method = $user->getId() ? EntityConstant::UPDATE : EntityConstant::NEW;
             if (true === $this->em->save($user, $this->getUser(), $method)) {
                 return $this->redirectToRoute('user_list');
@@ -73,5 +79,20 @@ class SekolikoUserController extends AbstractBaseController
                 'form' => $form->createView(),
             ]
         );
+    }
+
+    /**
+     * @Route("/delete/{id}",name="user_delete",methods={"POST","GET"})
+     *
+     * @param User|null $user
+     *
+     * @return RedirectResponse
+     */
+    public function delete(User $user)
+    {
+        $this->manager->remove($user);
+        $this->manager->flush();
+
+        return $this->redirectToRoute('user_list');
     }
 }

@@ -2,14 +2,18 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ *
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  */
 class User implements UserInterface
 {
@@ -25,7 +29,6 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      *
-     * @Assert\Unique()
      */
     private $username;
 
@@ -59,8 +62,27 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     *
+     * @Gedmo\Timestampable(on="create")
      */
     private $dateCreate;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     *
+     * @Gedmo\Timestampable(on="update")
+     */
+    private $dateUpdate;
+
+    /**
+     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
+     */
+    private $deletedAt;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Administrator", mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $administrator;
 
     /**
      * User constructor.
@@ -68,7 +90,6 @@ class User implements UserInterface
     public function __construct()
     {
         $this->schoolYear = new ArrayCollection();
-        $this->dateCreate = new \DateTime('now');
     }
 
     /**
@@ -107,8 +128,6 @@ class User implements UserInterface
     public function getRoles(): ?array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
@@ -234,6 +253,60 @@ class User implements UserInterface
     public function setDateCreate(?\DateTimeInterface $dateCreate): self
     {
         $this->dateCreate = $dateCreate;
+
+        return $this;
+    }
+
+    /**
+     * @return DateTime|null
+     */
+    public function getDeletedAt(): ?DateTime
+    {
+        return $this->deletedAt;
+    }
+
+    /**
+     * @param $deletedAt
+     */
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+    }
+
+    /**
+     * @return DateTime|null
+     */
+    public function getDateUpdate(): ?DateTime
+    {
+        return $this->dateUpdate;
+    }
+
+    /**
+     * @param DateTime|null $dateUpdate
+     *
+     * @return User
+     */
+    public function setDateUpdate(?DateTime $dateUpdate): self
+    {
+        $this->dateUpdate = $dateUpdate;
+
+        return $this;
+    }
+
+    public function getAdministrator(): ?Administrator
+    {
+        return $this->administrator;
+    }
+
+    public function setAdministrator(?Administrator $administrator): self
+    {
+        $this->administrator = $administrator;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newUser = $administrator === null ? null : $this;
+        if ($newUser !== $administrator->getUser()) {
+            $administrator->setUser($newUser);
+        }
 
         return $this;
     }

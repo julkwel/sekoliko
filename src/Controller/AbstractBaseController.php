@@ -8,6 +8,8 @@ namespace App\Controller;
 use App\Manager\SekolikoEntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * Class AbstractBaseController
@@ -22,6 +24,11 @@ abstract class AbstractBaseController extends AbstractController
     protected $manager;
 
     /**
+     * @var UserPasswordEncoderInterface
+     */
+    protected $passencoder;
+
+    /**
      * @var SekolikoEntityManager
      */
     protected $em;
@@ -29,12 +36,14 @@ abstract class AbstractBaseController extends AbstractController
     /**
      * AbstractBaseController constructor.
      *
-     * @param EntityManagerInterface $manager
-     * @param SekolikoEntityManager  $entityManager
+     * @param EntityManagerInterface       $manager
+     * @param SekolikoEntityManager        $entityManager
+     * @param UserPasswordEncoderInterface $passwordEncoder
      */
-    public function __construct(EntityManagerInterface $manager, SekolikoEntityManager $entityManager)
+    public function __construct(EntityManagerInterface $manager, SekolikoEntityManager $entityManager,UserPasswordEncoderInterface $passwordEncoder)
     {
         $this->manager = $manager;
         $this->em = $entityManager;
+        $this->passencoder = $passwordEncoder;
     }
 }
