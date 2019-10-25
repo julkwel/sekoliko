@@ -32,16 +32,6 @@ class UserType extends AbstractType
                 ]
             )
             ->add(
-                'roles',
-                ChoiceType::class,
-                [
-                    'choices' => RoleConstant::ROLE_SEKOLIKO,
-                    'multiple' => true,
-                    'expanded' => false,
-                    'label' => 'Roles',
-                ]
-            )
-            ->add(
                 'username',
                 TextType::class,
                 [

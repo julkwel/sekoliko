@@ -6,10 +6,12 @@
 namespace App\Controller\User;
 
 use App\Constant\EntityConstant;
+use App\Constant\RoleConstant;
 use App\Controller\AbstractBaseController;
 use App\Entity\Administrator;
 use App\Form\AdministratorType;
 use App\Repository\AdministratorRepository;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,18 +53,53 @@ class SekolikoAdministratorController extends AbstractBaseController
      *
      * @return RedirectResponse|Response
      */
-    public function new(Request $request, Administrator $administrator=null)
+    public function new(Request $request, Administrator $administrator = null)
     {
         $admin = $administrator ?: new Administrator();
-        $form = $this->createForm(AdministratorType::class);
+        $form = $this->createForm(AdministratorType::class, $admin);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $method = $admin->getId() ? EntityConstant::UPDATE : EntityConstant::NEW;
+
             if (true === $this->em->save($admin, $this->getUser(), $method)) {
-                return $this->redirectToRoute('user_list');
+                $this->beforePersistAdmin($admin,$form);
+
+                return $this->redirectToRoute('administrator_list');
             };
         }
 
         return $this->render('admin/content/user/_administrator_manage.html.twig', ['form' => $form->createView()]);
+    }
+
+    /**
+     * @param Administrator $administrator
+     *
+     * @Route("/delete/{id}",name="administrator_delete",methods={"POST","GET"})
+     *
+     * @return RedirectResponse
+     */
+    public function delete(Administrator $administrator)
+    {
+        $this->manager->remove($administrator);
+        $this->manager->flush();
+
+        return $this->redirectToRoute('administrator_list');
+    }
+
+    /**
+     * @param Administrator $admin
+     * @param FormInterface $form
+     *
+     * @return Administrator
+     */
+    public function beforePersistAdmin(Administrator $admin, FormInterface $form)
+    {
+        /** @var FormInterface $form */
+        $pass = $form->getData()->getUser()->getPassword();
+        /** @var Administrator $admin */
+        $admin->getUser()->setPassword($this->passencoder->encodePassword($admin->getUser(), $pass));
+        $admin->getUser()->setRoles([RoleConstant::ROLE_SEKOLIKO['Administrateur']]);
+
+        return $admin;
     }
 }
