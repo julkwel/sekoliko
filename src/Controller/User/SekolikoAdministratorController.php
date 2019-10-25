@@ -19,6 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class SekolikoAdministratorController
+ *
  * @Route("/admin/administrator")
  *
  * @package App\Controller\User

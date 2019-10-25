@@ -17,6 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class AdministrationTypeController
+ *
  * @Route("admin/administration/type")
  *
  * @package App\Controller\User
