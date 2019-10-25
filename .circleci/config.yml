@@ -29,7 +29,7 @@ jobs:
           name: Install things we need
           command: |
             sudo apt-get update
-            sudo apt-get install -y libzip-dev
+            sudo apt-get install -y libzip-dev libpng-dev
             sudo apt-get install -y zlib1g-dev libicu-dev g++
             sudo apt-get install mysql-client
             sudo apt-get -y install mysql-server
@@ -62,17 +62,26 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: composer install -n --prefer-dist
+      - run:
+          name: Symfony depedencies install
+          command: |
+            composer install -n --prefer-dist
 
       - save_cache:
           key: v1-dependencies-{{ checksum "composer.json" }}
           paths:
             - ./vendor
+
       - restore_cache:
           keys:
             - node-v1-{{ checksum "package.json" }}
             - node-v1-
-      - run: yarn install
+
+      - run:
+          name: Install webpack depedencies
+          command: |
+            yarn install
+
       - save_cache:
           key: node-v1-{{ checksum "package.json" }}
           paths:

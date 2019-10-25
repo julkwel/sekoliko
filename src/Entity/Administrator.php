@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use DateTime;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -102,19 +103,19 @@ class Administrator
     }
 
     /**
-     * @return \DateTimeInterface|null
+     * @return DateTimeInterface|null
      */
-    public function getDateCreate(): ?\DateTimeInterface
+    public function getDateCreate(): ?DateTimeInterface
     {
         return $this->dateCreate;
     }
 
     /**
-     * @param \DateTimeInterface|null $dateCreate
+     * @param DateTimeInterface|null $dateCreate
      *
      * @return Administrator
      */
-    public function setDateCreate(?\DateTimeInterface $dateCreate): self
+    public function setDateCreate(?DateTimeInterface $dateCreate): self
     {
         $this->dateCreate = $dateCreate;
 
