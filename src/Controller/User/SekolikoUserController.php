@@ -14,6 +14,7 @@ use App\Manager\SekolikoEntityManager;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use phpDocumentor\Reflection\DocBlock\Tags\Throws;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,12 +36,12 @@ class SekolikoUserController extends AbstractBaseController
      *
      * @return Response
      */
-    public function list(UserRepository $repository)
+    public function list(UserRepository $repository) : Response
     {
         return $this->render(
             'admin/content/user/_user_list.html.twig',
             [
-                'users' => $repository->findByRoles('ROLE_ADMIN',$this->getUser()->getEtsName()),
+                'users' => $repository->findByRoles('ROLE_ADMIN', $this->getUser()->getEtsName()),
             ]
         );
     }
@@ -53,19 +54,15 @@ class SekolikoUserController extends AbstractBaseController
      *
      * @return Response
      */
-    public function manageUser(Request $request, User $user = null)
+    public function manageUser(Request $request, User $user = null) : Response
     {
-        $user = $user ?: new User();
+        $user = $user ? : new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $pass = $form->get('password')->getData();
-            $user->setRoles([RoleConstant::ROLE_SEKOLIKO['Administrateur']]);
-
-            $user->setPassword($this->passencoder->encodePassword($user, $pass));
-            $method = $user->getId() ? EntityConstant::UPDATE : EntityConstant::NEW;
-            if (true === $this->em->save($user, $this->getUser(), $method)) {
+            $this->beforePersistUser($user, $form);
+            if (true === $this->em->save($user, $this->getUser(), $user->getId() ? EntityConstant::UPDATE : EntityConstant::NEW)) {
                 return $this->redirectToRoute('user_list');
             }
 
@@ -88,11 +85,27 @@ class SekolikoUserController extends AbstractBaseController
      *
      * @return RedirectResponse
      */
-    public function delete(User $user)
+    public function delete(User $user) : RedirectResponse
     {
         $this->manager->remove($user);
         $this->manager->flush();
 
         return $this->redirectToRoute('user_list');
+    }
+
+    /**
+     * @param \App\Entity\User $user
+     * @param FormInterface    $form
+     *
+     * @return \App\Entity\User
+     */
+    public function beforePersistUser(User $user, FormInterface $form) : User
+    {
+        $pass = $form->get('password')->getData();
+        $user->setRoles([RoleConstant::ROLE_SEKOLIKO['Administrateur']]);
+
+        $user->setPassword($this->passencoder->encodePassword($user, $pass));
+
+        return $user;
     }
 }

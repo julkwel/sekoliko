@@ -33,7 +33,7 @@ class SekolikoAdministratorController extends AbstractBaseController
      *
      * @return Response
      */
-    public function list(AdministratorRepository $repository)
+    public function list(AdministratorRepository $repository) : Response
     {
         return $this->render(
             'admin/content/user/administrator_list.html.twig',
@@ -55,17 +55,18 @@ class SekolikoAdministratorController extends AbstractBaseController
      */
     public function new(Request $request, Administrator $administrator = null)
     {
-        $admin = $administrator ?: new Administrator();
+        $admin = $administrator ? : new Administrator();
         $form = $this->createForm(AdministratorType::class, $admin);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $method = $admin->getId() ? EntityConstant::UPDATE : EntityConstant::NEW;
 
-            if (true === $this->em->save($admin, $this->getUser(), $method)) {
-                $this->beforePersistAdmin($admin,$form);
+        if ($form->isSubmitted() && $form->isValid() &&
+            true === $this->em->save($admin, $this->getUser(),
+                $admin->getId() ? EntityConstant::UPDATE : EntityConstant::NEW)
+        ) {
+            $this->beforePersistAdmin($admin, $form);
+            $this->manager->flush();
 
-                return $this->redirectToRoute('administrator_list');
-            };
+            return $this->redirectToRoute('administrator_list');
         }
 
         return $this->render('admin/content/user/_administrator_manage.html.twig', ['form' => $form->createView()]);
@@ -78,7 +79,7 @@ class SekolikoAdministratorController extends AbstractBaseController
      *
      * @return RedirectResponse
      */
-    public function delete(Administrator $administrator)
+    public function delete(Administrator $administrator) : RedirectResponse
     {
         $this->manager->remove($administrator);
         $this->manager->flush();
@@ -92,7 +93,7 @@ class SekolikoAdministratorController extends AbstractBaseController
      *
      * @return Administrator
      */
-    public function beforePersistAdmin(Administrator $admin, FormInterface $form)
+    public function beforePersistAdmin(Administrator $admin, FormInterface $form) : Administrator
     {
         /** @var FormInterface $form */
         $pass = $form->getData()->getUser()->getPassword();

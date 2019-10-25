@@ -16,6 +16,7 @@ class RoleConstant
         'Administrateur' => 'ROLE_ADMIN',
         'Professeur'     => 'ROLE_PROFS',
         'Etudiant'       => 'ROLE_ETUDIANT',
-        'Direction'      => 'ROLE_DIRECTION'
+        'Direction'      => 'ROLE_DIRECTION',
+        'SuperAdmin'     => 'ROLE_SUPER_ADMIN',
     ];
 }
