@@ -5,6 +5,7 @@
 
 namespace App\Controller;
 
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -17,7 +18,7 @@ class SekolikoDashboardController extends AbstractBaseController
     /**
      * @Route("/admin/dashboard",name="admin_dashboard",methods={"POST","GET"})
      */
-    public function dashboardController()
+    public function dashboardController() : Response
     {
         return $this->render(
             'admin/content/_dashboard_admin.html.twig',
