@@ -6,8 +6,17 @@
         <div class="col-md-12">
             <div class="bgc-white bd bdrs-3 p-20 mB-20"><h4 class="c-grey-900 mB-20">Administration manage</h4>
                 {{ form_start(form) }}
-                {{ form_widget(form) }}
-                <input type="submit" value="Enregistrer">
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_widget(form.user) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_widget(form) }}
+                    </div>
+                </div>
+                <div class="col-md-12 text-right">
+                    <input type="submit" class="btn btn-primary" value="Enregistrer">
+                </div>
                 {{ form_end(form) }}
             </div>
         </div>

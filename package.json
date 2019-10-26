@@ -49,6 +49,7 @@
     "babel-polyfill": "^6.26.0",
     "bootstrap": "^4.0.0",
     "bootstrap-datepicker": "^1.7.1",
+    "bootstrap4-datetimepicker": "^5.2.3",
     "brand-colors": "^2.0.1",
     "chart.js": "^2.7.1",
     "datatables": "^1.10.13",
@@ -64,6 +65,7 @@
     "moment": "^2.19.1",
     "perfect-scrollbar": "^1.1.0",
     "popper.js": "^1.12.6",
+    "scriptjs": "^2.5.9",
     "skycons": "^1.0.0"
   }
 }

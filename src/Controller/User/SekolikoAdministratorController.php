@@ -65,7 +65,6 @@ class SekolikoAdministratorController extends AbstractBaseController
                 $admin->getId() ? EntityConstant::UPDATE : EntityConstant::NEW)
         ) {
             $this->beforePersistAdmin($admin, $form);
-            $this->manager->flush();
 
             return $this->redirectToRoute('administrator_list');
         }
@@ -101,6 +100,7 @@ class SekolikoAdministratorController extends AbstractBaseController
         /** @var Administrator $admin */
         $admin->getUser()->setPassword($this->passencoder->encodePassword($admin->getUser(), $pass));
         $admin->getUser()->setRoles([RoleConstant::ROLE_SEKOLIKO['Administrateur']]);
+        $this->manager->flush();
 
         return $admin;
     }

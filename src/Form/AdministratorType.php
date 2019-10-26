@@ -30,7 +30,10 @@ class AdministratorType extends AbstractType
         $builder
             ->add(
                 'user',
-                UserType::class
+                UserType::class,
+                [
+                    'label' => false,
+                ]
             )
             ->add(
                 'type',
@@ -52,7 +55,12 @@ class AdministratorType extends AbstractType
                 DateTimeType::class,
                 [
                     'html5' => false,
+                    'label' => 'Date d\'entrer',
                     'widget' => 'single_text',
+                    'attr' => [
+                        'class' => 'datetimepicker',
+                    ],
+                    'format' => 'Y-m-d H/:i'
                 ]
             );
     }
