@@ -64,7 +64,7 @@ class AdministrationTypeController extends AbstractBaseController
             } else {
                 $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
-                return $this->redirectToRoute('administration_type_manage', ['id' => $administrationType->getId() ?? '']);
+                return $this->redirectToRoute('administration_type_manage', ['id' => $administrationType->getId() ?? null]);
             }
         }
 

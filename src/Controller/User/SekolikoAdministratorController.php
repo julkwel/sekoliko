@@ -62,11 +62,13 @@ class SekolikoAdministratorController extends AbstractBaseController
         if ($form->isSubmitted() && $form->isValid() && true === $this->em->save($admin, $this->getUser())) {
             if (true === $this->beforePersistAdmin($admin, $form)) {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
+
+                return $this->redirectToRoute('administrator_list');
             } else {
                 $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
-            }
 
-            return $this->redirectToRoute('administrator_list');
+                return $this->redirectToRoute('administrator_manage', ['id' => $admin->getId() ?? null]);
+            }
         }
 
         return $this->render('admin/content/user/_administrator_manage.html.twig', ['form' => $form->createView()]);

@@ -29,6 +29,7 @@ class AdministratorRepository extends ServiceEntityRepository
     public function findBySchoolYear(User $user)
     {
         $list = $this->createQueryBuilder('a')
+            ->where('a.deletedAt is NULL')
             ->andWhere('a.schoolYear = :year')
             ->andWhere('a.etsName = :ets')
             ->setParameter('ets', $user->getEtsName())

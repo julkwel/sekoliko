@@ -66,7 +66,7 @@ class SekolikoUserController extends AbstractBaseController
             } else {
                 $this->addFlash(MessageConstant::ERROR_MESSAGE, MessageConstant::ERROR_MESSAGE);
 
-                return $this->redirectToRoute('user_management');
+                return $this->redirectToRoute('user_management', ['id' => $user->getId() ?? null]);
             }
         }
 

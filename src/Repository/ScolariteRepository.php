@@ -34,6 +34,7 @@ class ScolariteRepository extends ServiceEntityRepository
     public function findBySchoolYear(User $user, $type)
     {
         $list = $this->createQueryBuilder('s')
+            ->where('s.deletedAt is NULL')
             ->andWhere('s.schoolYear = :year')
             ->andWhere('s.etsName = :ets')
             ->andWhere('s.type = :type')

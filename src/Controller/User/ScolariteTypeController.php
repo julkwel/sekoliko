@@ -65,7 +65,7 @@ class ScolariteTypeController extends AbstractBaseController
             } else {
                 $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
-                return $this->redirectToRoute('scolarite_type_manage');
+                return $this->redirectToRoute('scolarite_type_manage', ['id' => $type->getId() ?? null]);
             }
         }
 
@@ -91,17 +91,13 @@ class ScolariteTypeController extends AbstractBaseController
         if (null === $repos) {
             if (true === $this->em->remove($scolariteType)) {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::SUPPRESSION_MESSAGE);
-
-                return $this->redirectToRoute('scolarite_type_list');
             } else {
                 $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
-
-                return $this->redirectToRoute('scolarite_type_list');
             }
         } else {
             $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_ASSOCIATION_MESSAGE);
-
-            return $this->redirectToRoute('scolarite_type_list');
         }
+
+        return $this->redirectToRoute('scolarite_type_list');
     }
 }

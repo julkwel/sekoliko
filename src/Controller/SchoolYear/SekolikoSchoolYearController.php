@@ -64,10 +64,11 @@ class SekolikoSchoolYearController extends AbstractBaseController
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
 
                 return $this->redirectToRoute('school_year_list');
-            }
-            $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
+            } else {
+                $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
-            return $this->redirectToRoute('school_year_list');
+                return $this->redirectToRoute('school_year_manage', ['id' => $schoolYear->getId() ?? null]);
+            }
         }
 
         return $this->render(

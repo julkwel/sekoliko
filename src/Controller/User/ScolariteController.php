@@ -69,11 +69,13 @@ class ScolariteController extends AbstractBaseController
             $this->beforeScolaritePersist($scolarite, $form, $type);
             if (true === $this->em->save($scolarite, $this->getUser())) {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
+
+                return $this->redirectToRoute('scolarite_list', ['type' => $type->getId()]);
             } else {
                 $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
-            }
 
-            return $this->redirectToRoute('scolarite_list', ['type' => $type->getId()]);
+                return $this->redirectToRoute('scolarite_manage', ['id' => $scolarite->getId() ?? null]);
+            }
         }
 
         return $this->render(
