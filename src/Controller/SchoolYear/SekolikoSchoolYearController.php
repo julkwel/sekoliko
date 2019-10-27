@@ -91,14 +91,12 @@ class SekolikoSchoolYearController extends AbstractBaseController
         if (null === $repos) {
             if (true === $this->em->remove($schoolYear)) {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::SUPPRESSION_MESSAGE);
-
-                return $this->redirectToRoute('school_year_list');
+            } else {
+                $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
             }
-            $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
-
-            return $this->redirectToRoute('school_year_list');
+        } else {
+            $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_ASSOCIATION_MESSAGE);
         }
-        $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_ASSOCIATION_MESSAGE);
 
         return $this->redirectToRoute('school_year_list');
     }

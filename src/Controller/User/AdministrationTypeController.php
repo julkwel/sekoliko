@@ -61,10 +61,11 @@ class AdministrationTypeController extends AbstractBaseController
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
 
                 return $this->redirectToRoute('administration_type_list');
-            }
-            $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
+            } else {
+                $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
-            return $this->redirectToRoute('administration_type_manage', ['id' => $administrationType->getId() ?? '']);
+                return $this->redirectToRoute('administration_type_manage', ['id' => $administrationType->getId() ?? '']);
+            }
         }
 
         return $this->render(
@@ -86,14 +87,12 @@ class AdministrationTypeController extends AbstractBaseController
         if (null === $repos) {
             if (true === $this->em->remove($administrationType)) {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::SUPPRESSION_MESSAGE);
-
-                return $this->redirectToRoute('administration_type_list');
+            } else {
+                $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
             }
-            $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
-
-            return $this->redirectToRoute('administration_type_list');
+        } else {
+            $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_ASSOCIATION_MESSAGE);
         }
-        $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_ASSOCIATION_MESSAGE);
 
         return $this->redirectToRoute('administration_type_list');
     }

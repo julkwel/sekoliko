@@ -11,6 +11,7 @@ use App\Controller\AbstractBaseController;
 use App\Entity\Administrator;
 use App\Form\AdministratorType;
 use App\Repository\AdministratorRepository;
+use Exception;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -59,12 +60,14 @@ class SekolikoAdministratorController extends AbstractBaseController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid() && true === $this->em->save($admin, $this->getUser())) {
-            $this->beforePersistAdmin($admin, $form);
-            $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
+            if (true === $this->beforePersistAdmin($admin, $form)) {
+                $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
+            } else {
+                $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
+            }
 
             return $this->redirectToRoute('administrator_list');
         }
-        $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
         return $this->render('admin/content/user/_administrator_manage.html.twig', ['form' => $form->createView()]);
     }
@@ -80,10 +83,9 @@ class SekolikoAdministratorController extends AbstractBaseController
     {
         if (true === $this->em->remove($administrator)) {
             $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::SUPPRESSION_MESSAGE);
-
-            return $this->redirectToRoute('administrator_list');
-        };
-        $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
+        } else {
+            $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
+        }
 
         return $this->redirectToRoute('administrator_list');
     }
@@ -92,17 +94,21 @@ class SekolikoAdministratorController extends AbstractBaseController
      * @param Administrator $admin
      * @param FormInterface $form
      *
-     * @return Administrator
+     * @return bool
      */
-    public function beforePersistAdmin(Administrator $admin, FormInterface $form): Administrator
+    public function beforePersistAdmin(Administrator $admin, FormInterface $form): bool
     {
-        /** @var FormInterface $form */
-        $pass = $form->getData()->getUser()->getPassword();
-        /** @var Administrator $admin */
-        $admin->getUser()->setPassword($this->passencoder->encodePassword($admin->getUser(), $pass));
-        $admin->getUser()->setRoles([RoleConstant::ROLE_SEKOLIKO['Administrateur']]);
-        $this->manager->flush();
+        try {
+            /** @var FormInterface $form */
+            $pass = $form->getData()->getUser()->getPassword();
+            /** @var Administrator $admin */
+            $admin->getUser()->setPassword($this->passencoder->encodePassword($admin->getUser(), $pass));
+            $admin->getUser()->setRoles([RoleConstant::ROLE_SEKOLIKO['Administrateur']]);
+            $this->manager->flush();
 
-        return $admin;
+            return true;
+        } catch (Exception $exception) {
+            return false;
+        }
     }
 }

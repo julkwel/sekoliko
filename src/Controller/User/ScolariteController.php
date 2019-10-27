@@ -7,6 +7,7 @@ namespace App\Controller\User;
 
 use App\Constant\EntityConstant;
 use App\Constant\MessageConstant;
+use App\Constant\RoleConstant;
 use App\Controller\AbstractBaseController;
 use App\Entity\Scolarite;
 use App\Entity\ScolariteType;
@@ -65,14 +66,12 @@ class ScolariteController extends AbstractBaseController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $scolarite->setType($type);
-            $this->beforeScolaritePersist($scolarite, $form);
-
+            $this->beforeScolaritePersist($scolarite, $form, $type);
             if (true === $this->em->save($scolarite, $this->getUser())) {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
-
-                return $this->redirectToRoute('scolarite_list', ['type' => $type->getId()]);
+            } else {
+                $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
             }
-            $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
             return $this->redirectToRoute('scolarite_list', ['type' => $type->getId()]);
         }
@@ -89,11 +88,17 @@ class ScolariteController extends AbstractBaseController
     /**
      * @param Scolarite     $scolarite
      * @param FormInterface $form
+     * @param ScolariteType $type
      *
      * @return Scolarite
      */
-    public function beforeScolaritePersist(Scolarite $scolarite, FormInterface $form)
+    public function beforeScolaritePersist(Scolarite $scolarite, FormInterface $form, ScolariteType $type)
     {
+        if (RoleConstant::ROLE_PROFS === $type->getId()) {
+            $scolarite->getUser()->setRoles([RoleConstant::ROLE_SEKOLIKO['Professeur']]);
+        } else {
+            $scolarite->getUser()->setRoles([RoleConstant::ROLE_SEKOLIKO['Scolarite']]);
+        }
         $plainPassword = $this->passencoder->encodePassword($scolarite->getUser(), $form->get('user')->getData()->getPassword());
         $scolarite->getUser()->setPassword($plainPassword);
 
@@ -112,10 +117,9 @@ class ScolariteController extends AbstractBaseController
         $type = $scolarite->getType()->getId();
         if (true === $this->em->remove($scolarite)) {
             $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::SUPPRESSION_MESSAGE);
-
-            return $this->redirectToRoute('scolarite_list', ['type' => $type]);
+        } else {
+            $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
         }
-        $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
         return $this->redirectToRoute('scolarite_list', ['type' => $type]);
     }

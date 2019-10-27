@@ -63,10 +63,11 @@ class SekolikoUserController extends AbstractBaseController
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
 
                 return $this->redirectToRoute('user_list');
-            }
-            $this->addFlash(MessageConstant::ERROR_MESSAGE, MessageConstant::ERROR_MESSAGE);
+            } else {
+                $this->addFlash(MessageConstant::ERROR_MESSAGE, MessageConstant::ERROR_MESSAGE);
 
-            return $this->redirectToRoute('user_management');
+                return $this->redirectToRoute('user_management');
+            }
         }
 
         return $this->render(
@@ -89,10 +90,9 @@ class SekolikoUserController extends AbstractBaseController
     {
         if ($this->em->remove($user)) {
             $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::SUPPRESSION_MESSAGE);
-
-            return $this->redirectToRoute('user_list');
+        } else {
+            $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
         }
-        $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
         return $this->redirectToRoute('user_list');
     }
