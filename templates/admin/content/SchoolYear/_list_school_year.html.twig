@@ -20,6 +20,7 @@
                         <th>Nom</th>
                         <th>Début </th>
                         <th>Fin</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tfoot>
@@ -27,6 +28,7 @@
                         <th>Nom</th>
                         <th>Début </th>
                         <th>Fin</th>
+                        <th>Action</th>
                     </tr>
                     </tfoot>
                     <tbody>
@@ -35,6 +37,14 @@
                             <td>{{ schoolyear.name }}</td>
                             <td>{{ schoolyear.startDate|date('Y-m-d') }}</td>
                             <td>{{ schoolyear.endDate|date('Y-m-d') }}</td>
+                            <td>
+                                <a href="{{ path('school_year_manage',{'id': schoolyear.id}) }}">
+                                    <i class="ti-pencil"></i>
+                                </a>
+                                <a href="{{ path('school_year_remove',{'id':schoolyear.id}) }}">
+                                    <i class="ti-trash"></i>
+                                </a>
+                            </td>
                         </tr>
                     {% endfor %}
                     </tbody>
