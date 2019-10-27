@@ -5,6 +5,7 @@
 
 namespace App\Controller\User;
 
+use App\Constant\MessageConstant;
 use App\Constant\RoleConstant;
 use App\Controller\AbstractBaseController;
 use App\Entity\Administrator;
@@ -59,9 +60,11 @@ class SekolikoAdministratorController extends AbstractBaseController
 
         if ($form->isSubmitted() && $form->isValid() && true === $this->em->save($admin, $this->getUser())) {
             $this->beforePersistAdmin($admin, $form);
+            $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
 
             return $this->redirectToRoute('administrator_list');
         }
+        $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
         return $this->render('admin/content/user/_administrator_manage.html.twig', ['form' => $form->createView()]);
     }
@@ -75,8 +78,12 @@ class SekolikoAdministratorController extends AbstractBaseController
      */
     public function delete(Administrator $administrator): RedirectResponse
     {
-        $this->manager->remove($administrator);
-        $this->manager->flush();
+        if (true === $this->em->remove($administrator)) {
+            $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::SUPPRESSION_MESSAGE);
+
+            return $this->redirectToRoute('administrator_list');
+        };
+        $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
         return $this->redirectToRoute('administrator_list');
     }

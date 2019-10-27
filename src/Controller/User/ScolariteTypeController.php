@@ -6,8 +6,10 @@
 namespace App\Controller\User;
 
 use App\Constant\EntityConstant;
+use App\Constant\MessageConstant;
 use App\Controller\AbstractBaseController;
 use App\Controller\Menu\MenuController;
+use App\Entity\Scolarite;
 use App\Entity\ScolariteType;
 use App\Form\ScolariteTypeType;
 use App\Repository\ScolariteTypeRepository;
@@ -59,8 +61,11 @@ class ScolariteTypeController extends AbstractBaseController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if (true === $this->em->save($type, $this->getUser())) {
+                $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
+
                 return $this->redirectToRoute('scolarite_type_list');
             }
+            $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
             return $this->redirectToRoute('scolarite_type_manage');
         }
@@ -83,8 +88,18 @@ class ScolariteTypeController extends AbstractBaseController
      */
     public function remove(ScolariteType $scolariteType)
     {
-        $this->manager->remove($scolariteType);
-        $this->manager->flush();
+        $repos = $this->manager->getRepository(Scolarite::class)->findBy(['type' => $scolariteType]);
+        if (null === $repos) {
+            if (true === $this->em->remove($scolariteType)) {
+                $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::SUPPRESSION_MESSAGE);
+
+                return $this->redirectToRoute('scolarite_type_list');
+            };
+            $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
+
+            return $this->redirectToRoute('scolarite_type_list');
+        }
+        $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_ASSOCIATION_MESSAGE);
 
         return $this->redirectToRoute('scolarite_type_list');
     }

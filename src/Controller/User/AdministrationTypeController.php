@@ -5,8 +5,10 @@
 
 namespace App\Controller\User;
 
+use App\Constant\MessageConstant;
 use App\Controller\AbstractBaseController;
 use App\Entity\AdministrationType;
+use App\Entity\Administrator;
 use App\Form\AdministrationTypeType;
 use App\Repository\AdministrationTypeRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -56,8 +58,13 @@ class AdministrationTypeController extends AbstractBaseController
 
         if ($form->isSubmitted() && $form->isValid()) {
             if (true === $this->em->save($admin, $this->getUser())) {
+                $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
+
                 return $this->redirectToRoute('administration_type_list');
-            };
+            }
+            $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
+
+            return $this->redirectToRoute('administration_type_manage', ['id' => $administrationType->getId() ?? '']);
         }
 
         return $this->render(
@@ -75,8 +82,18 @@ class AdministrationTypeController extends AbstractBaseController
      */
     public function delete(AdministrationType $administrationType)
     {
-        $this->manager->remove($administrationType);
-        $this->manager->flush();
+        $repos = $this->manager->getRepository(Administrator::class)->findBy(['type' => $administrationType]);
+        if (null === $repos) {
+            if (true === $this->em->remove($administrationType)) {
+                $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::SUPPRESSION_MESSAGE);
+
+                return $this->redirectToRoute('administration_type_list');
+            }
+            $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
+
+            return $this->redirectToRoute('administration_type_list');
+        }
+        $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_ASSOCIATION_MESSAGE);
 
         return $this->redirectToRoute('administration_type_list');
     }

@@ -5,6 +5,7 @@
 
 namespace App\Controller\User;
 
+use App\Constant\MessageConstant;
 use App\Constant\RoleConstant;
 use App\Controller\AbstractBaseController;
 use App\Entity\User;
@@ -59,8 +60,11 @@ class SekolikoUserController extends AbstractBaseController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->beforePersistUser($user, $form);
             if (true === $this->em->save($user, $this->getUser())) {
+                $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
+
                 return $this->redirectToRoute('user_list');
             }
+            $this->addFlash(MessageConstant::ERROR_MESSAGE, MessageConstant::ERROR_MESSAGE);
 
             return $this->redirectToRoute('user_management');
         }
@@ -83,13 +87,19 @@ class SekolikoUserController extends AbstractBaseController
      */
     public function delete(User $user): RedirectResponse
     {
-        $this->manager->remove($user);
-        $this->manager->flush();
+        if ($this->em->remove($user)) {
+            $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::SUPPRESSION_MESSAGE);
+
+            return $this->redirectToRoute('user_list');
+        }
+        $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
         return $this->redirectToRoute('user_list');
     }
 
     /**
+     * Action before manager flush
+     *
      * @param User          $user
      * @param FormInterface $form
      *

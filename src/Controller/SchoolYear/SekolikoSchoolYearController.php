@@ -6,6 +6,7 @@
 namespace App\Controller\SchoolYear;
 
 use App\Constant\EntityConstant;
+use App\Constant\MessageConstant;
 use App\Controller\AbstractBaseController;
 use App\Entity\SchoolYear;
 use App\Form\SchoolYearType;
@@ -59,8 +60,13 @@ class SekolikoSchoolYearController extends AbstractBaseController
 
         if ($form->isSubmitted() && $form->isValid()) {
             if (true === $this->em->save($schoolYear, $this->getUser())) {
+                $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
+
                 return $this->redirectToRoute('school_year_list');
             }
+            $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
+
+            return $this->redirectToRoute('school_year_list');
         }
 
         return $this->render(
@@ -69,5 +75,24 @@ class SekolikoSchoolYearController extends AbstractBaseController
                 'form' => $form->createView(),
             ]
         );
+    }
+
+    /**
+     * @Route("/remove/{id}",name="school_year_remove")
+     *
+     * @param SchoolYear $schoolYear
+     *
+     * @return RedirectResponse
+     */
+    public function remove(SchoolYear $schoolYear)
+    {
+        if (true === $this->em->remove($schoolYear)) {
+            $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::SUPPRESSION_MESSAGE);
+
+            return $this->redirectToRoute('school_year_list');
+        }
+        $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
+
+        return $this->redirectToRoute('school_year_list');
     }
 }

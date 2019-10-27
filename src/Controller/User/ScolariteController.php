@@ -6,11 +6,13 @@
 namespace App\Controller\User;
 
 use App\Constant\EntityConstant;
+use App\Constant\MessageConstant;
 use App\Controller\AbstractBaseController;
 use App\Entity\Scolarite;
 use App\Entity\ScolariteType;
 use App\Entity\User;
 use App\Repository\ScolariteRepository;
+use function Sodium\add;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -63,11 +65,14 @@ class ScolariteController extends AbstractBaseController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $scolarite->setType($type);
-            $this->beforeScolaritePersist($scolarite,$form);
+            $this->beforeScolaritePersist($scolarite, $form);
 
             if (true === $this->em->save($scolarite, $this->getUser())) {
+                $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
+
                 return $this->redirectToRoute('scolarite_list', ['type' => $type->getId()]);
             }
+            $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
             return $this->redirectToRoute('scolarite_list', ['type' => $type->getId()]);
         }
@@ -87,9 +92,9 @@ class ScolariteController extends AbstractBaseController
      *
      * @return Scolarite
      */
-    public function beforeScolaritePersist(Scolarite $scolarite,FormInterface $form)
+    public function beforeScolaritePersist(Scolarite $scolarite, FormInterface $form)
     {
-        $plainPassword = $this->passencoder->encodePassword($scolarite->getUser(),$form->get('user')->getData()->getPassword());
+        $plainPassword = $this->passencoder->encodePassword($scolarite->getUser(), $form->get('user')->getData()->getPassword());
         $scolarite->getUser()->setPassword($plainPassword);
 
         return $scolarite;
@@ -97,6 +102,7 @@ class ScolariteController extends AbstractBaseController
 
     /**
      * @param Scolarite $scolarite
+     *
      * @Route("/remove/{id}",name="scolarite_remove")
      *
      * @return RedirectResponse
@@ -104,8 +110,12 @@ class ScolariteController extends AbstractBaseController
     public function remove(Scolarite $scolarite)
     {
         $type = $scolarite->getType()->getId();
-        $this->manager->remove($scolarite);
-        $this->manager->flush();
+        if (true === $this->em->remove($scolarite)) {
+            $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::SUPPRESSION_MESSAGE);
+
+            return $this->redirectToRoute('scolarite_list', ['type' => $type]);
+        }
+        $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
         return $this->redirectToRoute('scolarite_list', ['type' => $type]);
     }
