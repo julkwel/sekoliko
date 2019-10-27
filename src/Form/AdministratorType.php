@@ -60,9 +60,12 @@ class AdministratorType extends AbstractType
                     'attr' => [
                         'class' => 'datetimepicker',
                     ],
-                    'format' => 'Y-m-d H/:i'
+                    'format' => 'Y-m-d H:i'
                 ]
-            );
+            )
+            ->add('adresse')
+            ->add('contact')
+        ;
     }
 
     /**

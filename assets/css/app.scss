@@ -1,4 +1,6 @@
-@import "../theme/styles/index.scss";
+@import "../theme/styles/index";
+@import "./module/datetimepicker";
+
 #loader {
     transition: all .3s ease-in-out;
     opacity: 1;

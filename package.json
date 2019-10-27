@@ -47,7 +47,6 @@
   "dependencies": {
     "babel-core": "^7.0.0-0",
     "babel-polyfill": "^6.26.0",
-    "bootstrap": "^4.0.0",
     "bootstrap-datepicker": "^1.7.1",
     "bootstrap4-datetimepicker": "^5.2.3",
     "brand-colors": "^2.0.1",

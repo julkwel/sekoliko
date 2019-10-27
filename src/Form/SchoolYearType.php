@@ -39,6 +39,7 @@ class SchoolYearType extends AbstractType
                     'attr' => [
                         'class' => 'datetimepicker',
                     ],
+                    'format' => 'Y-m-d H:i'
                 ]
             )
             ->add(
@@ -51,6 +52,7 @@ class SchoolYearType extends AbstractType
                     'attr' => [
                         'class' => 'datetimepicker',
                     ],
+                    'format' => 'Y-m-d H:i'
                 ]
             );
     }

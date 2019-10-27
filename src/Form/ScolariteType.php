@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -34,13 +35,16 @@ class ScolariteType extends AbstractType
                 [
                     'html5' => false,
                     'widget' => 'single_text',
+                    'label' => 'Date d\'entrer',
                     'attr' => [
                         'class' => 'datetimepicker'
                     ],
+                    'format' => 'Y-m-d H:i'
                 ]
             )
-            ->add('adresse')
-            ->add('contact');
+            ->add('adresse', TextType::class, ['label' => 'Adresse éxacte',])
+            ->add('contact', TextType::class, ['label' => 'Contact téléphonique',])
+            ->add('salary', TextType::class, ['label' => 'Montant salaires', 'required' => false]);
     }
 
     /**

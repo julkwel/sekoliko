@@ -63,6 +63,11 @@ class Administrator
      */
     private $contact;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\SchoolYear", inversedBy="administrators")
+     */
+    private $schoolYear;
+
 
     /**
      * @return int|null
@@ -180,6 +185,18 @@ class Administrator
     public function setContact(?string $contact): self
     {
         $this->contact = $contact;
+
+        return $this;
+    }
+
+    public function getSchoolYear(): ?SchoolYear
+    {
+        return $this->schoolYear;
+    }
+
+    public function setSchoolYear(?SchoolYear $schoolYear): self
+    {
+        $this->schoolYear = $schoolYear;
 
         return $this;
     }

@@ -17,7 +17,7 @@
             </div>
         </div>
         <ul class="sidebar-menu scrollable pos-r">
-            <li class="nav-item mT-30 actived">
+            <li class="nav-item mT-30  {% if menu_dashboard is defined %} actived{% endif %}">
                 <a class="sidebar-link" href="{{ path('admin_dashboard') }}">
                     <span class="icon-holder">
                         <i class="c-blue-500 ti-home"></i>
@@ -25,7 +25,7 @@
                     <span class="title">Dashboard</span>
                 </a>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown {% if menu_user is defined %} open actived{% endif %}">
                 <a class="dropdown-toggle" href="javascript:void(0);">
                     <span class="icon-holder">
                         <i class="c-red-500 ti-user"></i>
@@ -36,17 +36,20 @@
                     </span>
                 </a>
                 <ul class="dropdown-menu">
-{#                    <li><a class="sidebar-link" href="{{ path('user_list') }}">Direction générale</a></li>#}
                     <li><a class="sidebar-link" href="#">Professeurs</a></li>
-                    <li class="nav-item dropdown"><a href="javascript:void(0);"><span>Administration</span> <span
-                                    class="arrow">
-                                <i class="ti-angle-right"></i></span></a>
+                    <li class="nav-item dropdown {% if menu_administration is defined %} open actived{% endif %}">
+                        <a href="javascript:void(0);">
+                            <span>Administration</span>
+                            <span class="arrow">
+                                <i class="ti-angle-right"></i>
+                            </span>
+                        </a>
                         <ul class="dropdown-menu">
                             <li><a href="{{ path('administrator_list') }}">List</a></li>
                             <li><a href="{{ path('administration_type_list') }}">Type</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown {% if menu_scolarite is defined %} open actived{% endif %}">
                         <a href="javascript:void(0);">
                             <span>Scolarité</span>
                             <span class="arrow">
@@ -54,7 +57,7 @@
                             </span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="nav-item dropdown">
+                            <li class="nav-item dropdown {% if menu_scolarite_list is defined %} open actived{% endif %}">
                                 <a href="#">
                                     <span>List</span>
                                     <span class="arrow"><i class="ti-angle-right"></i></span>

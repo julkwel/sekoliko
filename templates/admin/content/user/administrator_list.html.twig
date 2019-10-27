@@ -1,5 +1,8 @@
 {% extends 'admin/_base_admin.html.twig' %}
 
+{% set menu_administration =true %}
+{% set menu_user =true %}
+
 {% block content %}
     <div class="row">
         <div class="col-md-12">
@@ -29,7 +32,7 @@
                     </tfoot>
                     <tbody>
                     {% for admin in admins %}
-                        {% if admin.deletedAt != null %}
+                        {% if admin.deletedAt == null %}
                             <tr>
                                 <td>{{ admin.user?admin.user.nom:'' }}</td>
                                 <td>{{ admin.type?admin.type.libelle:'' }}</td>

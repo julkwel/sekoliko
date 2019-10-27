@@ -61,10 +61,16 @@ class SchoolYear
      */
     private $scolarites;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Administrator", mappedBy="schoolYear")
+     */
+    private $administrators;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
         $this->scolarites = new ArrayCollection();
+        $this->administrators = new ArrayCollection();
     }
 
     /**
@@ -207,6 +213,37 @@ class SchoolYear
             // set the owning side to null (unless already changed)
             if ($scolarite->getSchoolYear() === $this) {
                 $scolarite->setSchoolYear(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Administrator[]
+     */
+    public function getAdministrators(): Collection
+    {
+        return $this->administrators;
+    }
+
+    public function addAdministrator(Administrator $administrator): self
+    {
+        if (!$this->administrators->contains($administrator)) {
+            $this->administrators[] = $administrator;
+            $administrator->setSchoolYear($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdministrator(Administrator $administrator): self
+    {
+        if ($this->administrators->contains($administrator)) {
+            $this->administrators->removeElement($administrator);
+            // set the owning side to null (unless already changed)
+            if ($administrator->getSchoolYear() === $this) {
+                $administrator->setSchoolYear(null);
             }
         }
 

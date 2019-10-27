@@ -38,9 +38,7 @@ class SekolikoAdministratorController extends AbstractBaseController
         return $this->render(
             'admin/content/user/administrator_list.html.twig',
             [
-                'admins' => $repository->findBy([
-                    'etsName' => $this->getUser()->getEtsName(),
-                ]),
+                'admins' => $repository->findBySchoolYear($this->getUser()),
             ]
         );
     }
