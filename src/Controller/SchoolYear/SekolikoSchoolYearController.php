@@ -9,6 +9,7 @@ use App\Constant\EntityConstant;
 use App\Constant\MessageConstant;
 use App\Controller\AbstractBaseController;
 use App\Entity\SchoolYear;
+use App\Entity\User;
 use App\Form\SchoolYearType;
 use App\Repository\SchoolYearRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -86,12 +87,18 @@ class SekolikoSchoolYearController extends AbstractBaseController
      */
     public function remove(SchoolYear $schoolYear)
     {
-        if (true === $this->em->remove($schoolYear)) {
-            $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::SUPPRESSION_MESSAGE);
+        $repos = $this->manager->getRepository(User::class)->findBy(['schoolYear' => $schoolYear]);
+        if (null === $repos) {
+            if (true === $this->em->remove($schoolYear)) {
+                $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::SUPPRESSION_MESSAGE);
+
+                return $this->redirectToRoute('school_year_list');
+            }
+            $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
             return $this->redirectToRoute('school_year_list');
         }
-        $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
+        $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_ASSOCIATION_MESSAGE);
 
         return $this->redirectToRoute('school_year_list');
     }
