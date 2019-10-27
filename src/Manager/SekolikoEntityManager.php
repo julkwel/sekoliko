@@ -8,6 +8,7 @@ namespace App\Manager;
 use App\Constant\EntityConstant;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 
 /**
  * Class SekolikoEntityManager
@@ -46,11 +47,27 @@ class SekolikoEntityManager
             $entity->setSchoolYear($user->getSchoolYear());
         }
 
-        if (!$entity->getId()) {
-            $this->em->persist($entity);
-        }
-        $this->em->flush();
+        try {
+            if (!$entity->getId()) {
+                $this->em->persist($entity);
+            }
+            $this->em->flush();
 
-        return true;
+            return true;
+        } catch (Exception $exception) {
+            return false;
+        }
+    }
+
+    public function remove($entity)
+    {
+        try {
+            $this->em->remove($entity);
+            $this->em->flush();
+
+            return true;
+        } catch (Exception $exception) {
+            return false;
+        }
     }
 }
