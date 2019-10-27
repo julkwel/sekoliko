@@ -10,10 +10,11 @@ jobs:
       # Specify the version you desire here
       - image: circleci/php:7.2-apache-stretch-node-browsers
         environment:
-            MYSQL_DB: sekoliko
-            MYSQL_USER: root
-            MYSQL_ALLOW_EMPTY_PASSWORD: true
-            MYSQL_PASSWORD:
+          MYSQL_HOST: 127.0.0.1
+          MYSQL_DB: sekoliko
+          MYSQL_USER: root
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
+          MYSQL_PASSWORD:
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -68,6 +69,7 @@ jobs:
           command: |
             cp .env.test .env
             composer install
+            mysql  -h 127.0.0.1 -u root -e "create database sekoliko;"
             ./bin/console doctrine:schema:update --force
 
       - save_cache:
