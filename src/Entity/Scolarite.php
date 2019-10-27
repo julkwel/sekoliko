@@ -197,7 +197,6 @@ class Scolarite
         return $this;
     }
 
-
     /**
      * @return DateTime|null
      */
@@ -214,11 +213,19 @@ class Scolarite
         $this->deletedAt = $deletedAt;
     }
 
+    /**
+     * @return SchoolYear|null
+     */
     public function getSchoolYear(): ?SchoolYear
     {
         return $this->schoolYear;
     }
 
+    /**
+     * @param SchoolYear|null $schoolYear
+     *
+     * @return Scolarite
+     */
     public function setSchoolYear(?SchoolYear $schoolYear): self
     {
         $this->schoolYear = $schoolYear;

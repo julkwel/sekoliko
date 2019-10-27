@@ -70,6 +70,14 @@
                     </li>
                 </ul>
             </li>
+            <li class="nav-item {% if menu_matiere is defined %} actived{% endif %}">
+                <a class="sidebar-link" href="{{ path('subject_list') }}">
+                    <span class="icon-holder">
+                        <i class="c-blue-500 ti-book"></i>
+                    </span>
+                    <span class="title">Matières</span>
+                </a>
+            </li>
             <li class="nav-item">
                 <a class="sidebar-link" href="{{ path('school_year_list') }}">
                     <span class="icon-holder">

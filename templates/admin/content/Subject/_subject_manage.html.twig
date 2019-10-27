@@ -1,10 +1,11 @@
 {# Manage school yearn #}
-
 {% extends 'admin/_base_admin.html.twig' %}
+{% set menu_matiere = true %}
 {% block content %}
     <div class="row">
-        <div class="col-md-12">
-            <div class="bgc-white bd bdrs-3 p-20 mB-20"><h4 class="c-grey-900 mB-20">Gestion années scolaire</h4>
+        <div class="col-md-4">
+            <div class="bgc-white bd bdrs-3 p-20 mB-20">
+                <h4 class="c-grey-900 mB-20">Gestion matières</h4>
                 {{ form_start(form) }}
                 {{ form_widget(form) }}
                 <div class="col-md-12 text-right">
