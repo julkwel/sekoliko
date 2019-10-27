@@ -69,8 +69,6 @@ jobs:
           command: |
             cp .env.test .env
             composer install
-            mysql  -h 127.0.0.1 -u root -e "create database sekoliko;"
-            ./bin/console doctrine:schema:update --force
 
       - save_cache:
           key: v1-dependencies-{{ checksum "composer.json" }}
@@ -91,7 +89,3 @@ jobs:
           key: node-v1-{{ checksum "package.json" }}
           paths:
             - node_modules
-
-      # run tests with phpunit or codecept
-      - run: composer require --dev symfony/phpunit-bridge
-      - run: ./bin/phpunit
