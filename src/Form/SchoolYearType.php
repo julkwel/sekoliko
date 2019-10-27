@@ -36,6 +36,9 @@ class SchoolYearType extends AbstractType
                     'label' => 'Date début',
                     'widget' => 'single_text',
                     'html5' => false,
+                    'attr'=>[
+                        'class'=>'datetimepicker',
+                    ],
                 ]
             )
             ->add(
@@ -45,6 +48,9 @@ class SchoolYearType extends AbstractType
                     'label' => 'Date fin',
                     'widget' => 'single_text',
                     'html5' => false,
+                    'attr'=>[
+                        'class'=>'datetimepicker',
+                    ],
                 ]
             );
     }
