@@ -28,38 +28,10 @@ class SubjectRepository extends ServiceEntityRepository
     public function findByEtsName(User $user)
     {
         return $this->createQueryBuilder('m')
+            ->where('m.deletedAt is NULL')
             ->andWhere('m.etsName = :val')
             ->setParameter('val', $user->getEtsName())
             ->getQuery()
             ->getResult();
     }
-
-    // /**
-    //  * @return Subject[] Returns an array of Subject objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Subject
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
