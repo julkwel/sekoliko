@@ -53,6 +53,16 @@ class Administrator
      */
     private $deletedAt;
 
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $adresse;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $contact;
+
 
     /**
      * @return int|null
@@ -148,5 +158,29 @@ class Administrator
     public function setDeletedAt($deletedAt)
     {
         $this->deletedAt = $deletedAt;
+    }
+
+    public function getAdresse(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(string $adresse): self
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    public function getContact(): ?string
+    {
+        return $this->contact;
+    }
+
+    public function setContact(?string $contact): self
+    {
+        $this->contact = $contact;
+
+        return $this;
     }
 }

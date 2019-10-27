@@ -5,7 +5,6 @@
 
 namespace App\Controller\User;
 
-use App\Constant\EntityConstant;
 use App\Controller\AbstractBaseController;
 use App\Entity\AdministrationType;
 use App\Form\AdministrationTypeType;
@@ -56,8 +55,7 @@ class AdministrationTypeController extends AbstractBaseController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $method = $admin->getId() ? EntityConstant::UPDATE : EntityConstant::NEW;
-            if (true === $this->em->save($admin, $this->getUser(), $method)) {
+            if (true === $this->em->save($admin, $this->getUser())) {
                 return $this->redirectToRoute('administration_type_list');
             };
         }

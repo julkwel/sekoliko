@@ -32,19 +32,21 @@ class SekolikoEntityManager
     }
 
     /**
-     * @param object      $entity
-     * @param User        $user
-     * @param string|null $method
+     * @param object $entity
+     * @param User   $user
      *
      * @return bool
      */
-    public function save($entity, User $user, $method = null)
+    public function save($entity, User $user)
     {
         if (method_exists($entity, 'setEtsName')) {
             $entity->setEtsName($user->getEtsName());
         }
+        if (method_exists($entity, 'setSchoolYear')) {
+            $entity->setSchoolYear($user->getSchoolYear());
+        }
 
-        if (EntityConstant::NEW === $method) {
+        if (!$entity->getId()) {
             $this->em->persist($entity);
         }
         $this->em->flush();

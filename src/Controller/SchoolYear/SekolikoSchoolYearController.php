@@ -58,8 +58,7 @@ class SekolikoSchoolYearController extends AbstractBaseController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $method = $schoolYear->getId() ? EntityConstant::UPDATE : EntityConstant::NEW;
-            if (true === $this->em->save($schoolYear, $this->getUser(), $method)) {
+            if (true === $this->em->save($schoolYear, $this->getUser())) {
                 return $this->redirectToRoute('school_year_list');
             }
         }

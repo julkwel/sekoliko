@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20191019160005 extends AbstractMigration
+final class Version20191027065017 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,7 +22,9 @@ final class Version20191019160005 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE user ADD nom VARCHAR(255) NOT NULL, ADD ets_name VARCHAR(255) DEFAULT NULL');
+        $this->addSql('ALTER TABLE scolarite_type ADD deletedAt DATETIME DEFAULT NULL');
+        $this->addSql('ALTER TABLE scolarite ADD deletedAt DATETIME DEFAULT NULL, ADD ets_name VARCHAR(255) DEFAULT NULL');
+        $this->addSql('ALTER TABLE school_year ADD deletedAt DATETIME DEFAULT NULL');
     }
 
     public function down(Schema $schema) : void
@@ -30,6 +32,8 @@ final class Version20191019160005 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE user DROP nom, DROP ets_name');
+        $this->addSql('ALTER TABLE school_year DROP deletedAt');
+        $this->addSql('ALTER TABLE scolarite DROP deletedAt, DROP ets_name');
+        $this->addSql('ALTER TABLE scolarite_type DROP deletedAt');
     }
 }

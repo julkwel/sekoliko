@@ -5,15 +5,11 @@
 
 namespace App\Controller\User;
 
-use App\Constant\EntityConstant;
 use App\Constant\RoleConstant;
 use App\Controller\AbstractBaseController;
 use App\Entity\User;
 use App\Form\UserType;
-use App\Manager\SekolikoEntityManager;
 use App\Repository\UserRepository;
-use Doctrine\ORM\EntityManagerInterface;
-use phpDocumentor\Reflection\DocBlock\Tags\Throws;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,7 +32,7 @@ class SekolikoUserController extends AbstractBaseController
      *
      * @return Response
      */
-    public function list(UserRepository $repository) : Response
+    public function list(UserRepository $repository): Response
     {
         return $this->render(
             'admin/content/user/_user_list.html.twig',
@@ -54,15 +50,15 @@ class SekolikoUserController extends AbstractBaseController
      *
      * @return Response
      */
-    public function manageUser(Request $request, User $user = null) : Response
+    public function manageUser(Request $request, User $user = null): Response
     {
-        $user = $user ? : new User();
+        $user = $user ?: new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->beforePersistUser($user, $form);
-            if (true === $this->em->save($user, $this->getUser(), $user->getId() ? EntityConstant::UPDATE : EntityConstant::NEW)) {
+            if (true === $this->em->save($user, $this->getUser())) {
                 return $this->redirectToRoute('user_list');
             }
 
@@ -85,7 +81,7 @@ class SekolikoUserController extends AbstractBaseController
      *
      * @return RedirectResponse
      */
-    public function delete(User $user) : RedirectResponse
+    public function delete(User $user): RedirectResponse
     {
         $this->manager->remove($user);
         $this->manager->flush();
@@ -94,16 +90,15 @@ class SekolikoUserController extends AbstractBaseController
     }
 
     /**
-     * @param \App\Entity\User $user
-     * @param FormInterface    $form
+     * @param User          $user
+     * @param FormInterface $form
      *
-     * @return \App\Entity\User
+     * @return User
      */
-    public function beforePersistUser(User $user, FormInterface $form) : User
+    public function beforePersistUser(User $user, FormInterface $form): User
     {
         $pass = $form->get('password')->getData();
         $user->setRoles([RoleConstant::ROLE_SEKOLIKO['Administrateur']]);
-
         $user->setPassword($this->passencoder->encodePassword($user, $pass));
 
         return $user;

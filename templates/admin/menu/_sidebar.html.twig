@@ -55,15 +55,15 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li class="nav-item dropdown">
-                                <a href="javascript:void(0);">
+                                <a href="#">
                                     <span>List</span>
                                     <span class="arrow"><i class="ti-angle-right"></i></span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="javascript:void(0);">Professeurs</a></li>
+                                    {{ render(controller('App\\Controller\\Menu\\MenuController::list')) }}
                                 </ul>
                             </li>
-                            <li><a href="{{ path('administration_type_list') }}">Type</a></li>
+                            <li><a href="{{ path('scolarite_type_list') }}">Type</a></li>
                         </ul>
                     </li>
                 </ul>

@@ -5,7 +5,6 @@
 
 namespace App\Controller\User;
 
-use App\Constant\EntityConstant;
 use App\Constant\RoleConstant;
 use App\Controller\AbstractBaseController;
 use App\Entity\Administrator;
@@ -34,7 +33,7 @@ class SekolikoAdministratorController extends AbstractBaseController
      *
      * @return Response
      */
-    public function list(AdministratorRepository $repository) : Response
+    public function list(AdministratorRepository $repository): Response
     {
         return $this->render(
             'admin/content/user/administrator_list.html.twig',
@@ -56,14 +55,11 @@ class SekolikoAdministratorController extends AbstractBaseController
      */
     public function new(Request $request, Administrator $administrator = null)
     {
-        $admin = $administrator ? : new Administrator();
+        $admin = $administrator ?: new Administrator();
         $form = $this->createForm(AdministratorType::class, $admin);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid() &&
-            true === $this->em->save($admin, $this->getUser(),
-                $admin->getId() ? EntityConstant::UPDATE : EntityConstant::NEW)
-        ) {
+        if ($form->isSubmitted() && $form->isValid() && true === $this->em->save($admin, $this->getUser())) {
             $this->beforePersistAdmin($admin, $form);
 
             return $this->redirectToRoute('administrator_list');
@@ -79,7 +75,7 @@ class SekolikoAdministratorController extends AbstractBaseController
      *
      * @return RedirectResponse
      */
-    public function delete(Administrator $administrator) : RedirectResponse
+    public function delete(Administrator $administrator): RedirectResponse
     {
         $this->manager->remove($administrator);
         $this->manager->flush();
@@ -93,7 +89,7 @@ class SekolikoAdministratorController extends AbstractBaseController
      *
      * @return Administrator
      */
-    public function beforePersistAdmin(Administrator $admin, FormInterface $form) : Administrator
+    public function beforePersistAdmin(Administrator $admin, FormInterface $form): Administrator
     {
         /** @var FormInterface $form */
         $pass = $form->getData()->getUser()->getPassword();

@@ -18,7 +18,6 @@ class AdministrationTypeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, AdministrationType::class);
     }
-
     // /**
     //  * @return AdministrationType[] Returns an array of AdministrationType objects
     //  */

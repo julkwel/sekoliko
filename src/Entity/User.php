@@ -56,11 +56,6 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\SchoolYear", mappedBy="user")
-     */
-    private $schoolYear;
-
-    /**
      * @ORM\Column(type="datetime", nullable=true)
      *
      * @Gedmo\Timestampable(on="create")
@@ -85,12 +80,9 @@ class User implements UserInterface
     private $administrator;
 
     /**
-     * User constructor.
+     * @ORM\ManyToOne(targetEntity="App\Entity\SchoolYear", inversedBy="users")
      */
-    public function __construct()
-    {
-        $this->schoolYear = new ArrayCollection();
-    }
+    private $schoolYear;
 
     /**
      * @return int|null
@@ -196,45 +188,9 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|SchoolYear[]|null
-     */
-    public function getSchoolYear(): ?Collection
+    public function getSchoolYear()
     {
         return $this->schoolYear;
-    }
-
-    /**
-     * @param SchoolYear $schoolYear
-     *
-     * @return User
-     */
-    public function addSchoolYear(SchoolYear $schoolYear): self
-    {
-        if (!$this->schoolYear->contains($schoolYear)) {
-            $this->schoolYear[] = $schoolYear;
-            $schoolYear->setUser($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param SchoolYear $schoolYear
-     *
-     * @return User
-     */
-    public function removeSchoolYear(SchoolYear $schoolYear): self
-    {
-        if ($this->schoolYear->contains($schoolYear)) {
-            $this->schoolYear->removeElement($schoolYear);
-            // set the owning side to null (unless already changed)
-            if ($schoolYear->getUser() === $this) {
-                $schoolYear->setUser(null);
-            }
-        }
-
-        return $this;
     }
 
     /**
@@ -307,6 +263,13 @@ class User implements UserInterface
         if ($newUser !== $administrator->getUser()) {
             $administrator->setUser($newUser);
         }
+
+        return $this;
+    }
+
+    public function setSchoolYear(?SchoolYear $schoolYear): self
+    {
+        $this->schoolYear = $schoolYear;
 
         return $this;
     }
