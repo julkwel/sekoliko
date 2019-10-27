@@ -86,6 +86,27 @@
                     <span class="title">Années scolaires</span>
                 </a>
             </li>
+            <li class="nav-item dropdown {% if menu_etablissement is defined or menu_room is defined %} open actived{% endif %}">
+                <a class="dropdown-toggle" href="javascript:void(0);">
+                    <span class="icon-holder">
+                        <i class="c-red-500 ti-user"></i>
+                    </span>
+                    <span class="title">Etablissement</span>
+                    <span class="arrow">
+                        <i class="ti-angle-right"></i>
+                    </span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li class="nav-item {% if menu_room is defined %}actived{% endif %}">
+                        <a href="{{ path('room_list') }}">
+                            <span class="icon-holder">
+                                <i class="c-blue-500 ti-harddrive"></i>
+                            </span>
+                            <span class="title">Salle</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
         </ul>
     </div>
 </div>

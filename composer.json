@@ -31,6 +31,8 @@
         "symfony/yaml": "4.3.*"
     },
     "require-dev": {
+        "symfony/browser-kit": "4.3.*",
+        "symfony/css-selector": "4.3.*",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
         "symfony/phpunit-bridge": "^4.3",

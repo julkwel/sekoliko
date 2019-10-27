@@ -1,0 +1,73 @@
+{# List school year #}
+
+{% extends 'admin/_base_admin.html.twig' %}
+{% set menu_room = true %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="bgc-white bd bdrs-3 p-20 mB-20">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="c-grey-900 mB-20">Liste des réservations</h4>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <a href="{{ path('room_reservation',{'id':room.id}) }}" class="btn btn-primary">Nouveau</a>
+                    </div>
+                </div>
+                <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Début</th>
+                        <th>Fin</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>Description</th>
+                        <th>Début</th>
+                        <th>Fin</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    {% for reservation in reservations %}
+                        <tr>
+                            <td>{{ reservation.description }}</td>
+                            <td>{{ reservation.start|date('Y-m-d H:i') }}</td>
+                            <td>{{ reservation.end|date('Y-m-d H:i') }}</td>
+                            <td>
+                                {% if reservation.isValid == false %}
+                                    <span class="badge badge-secondary">En attente validation</span>
+                                {% else %}
+                                    <span class="badge badge-success">Validé</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if reservation.fin != true %}
+                                    {% if reservation.isValid != true %}
+                                        <a href="{{ path('room_reservation_update',{'id':reservation.id}) }}">
+                                            <i class="ti-pencil"></i>
+                                        </a>
+                                        <a href="{{ path('reservation_room_valid',{'id':reservation.id}) }}">
+                                            <i class="ti-check-box"></i>
+                                        </a>
+                                    {% endif %}
+                                    <a href="{{ path('reservation_room_end',{'id':reservation.id}) }}">
+                                        <i class="ti-trash"></i>
+                                    </a>
+                                {% else %}
+                                    <span class="badge badge-success">Terminé</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
