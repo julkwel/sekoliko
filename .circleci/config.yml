@@ -10,9 +10,10 @@ jobs:
       # Specify the version you desire here
       - image: circleci/php:7.2-apache-stretch-node-browsers
         environment:
+            MYSQL_DB: sekoliko
+            MYSQL_USER: root
             MYSQL_ALLOW_EMPTY_PASSWORD: true
-            MYSQL_ROOT_PASSWORD:
-            MYSQL_HOST: 127.0.0.1
+            MYSQL_PASSWORD:
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -65,7 +66,9 @@ jobs:
       - run:
           name: Symfony depedencies install
           command: |
-            composer install -n --prefer-dist
+            cp .env.test .env
+            composer install
+            ./bin/console doctrine:schema:update --force
 
       - save_cache:
           key: v1-dependencies-{{ checksum "composer.json" }}
