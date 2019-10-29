@@ -145,6 +145,7 @@ class RoomController extends AbstractBaseController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $reservation->setRoom($id);
+            $reservation->addReservator($this->getUser());
             $id->setIsReserved(true);
             if (true === $this->em->save($reservation, $this->getUser())) {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);

@@ -66,11 +66,29 @@ class SchoolYear
      */
     private $administrators;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Reservation", mappedBy="schoolYear")
+     */
+    private $reservations;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Section", mappedBy="schoolYear")
+     */
+    private $sections;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ClassRoom", mappedBy="schoolYear")
+     */
+    private $classRooms;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
         $this->scolarites = new ArrayCollection();
         $this->administrators = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
+        $this->sections = new ArrayCollection();
+        $this->classRooms = new ArrayCollection();
     }
 
     /**
@@ -244,6 +262,99 @@ class SchoolYear
             // set the owning side to null (unless already changed)
             if ($administrator->getSchoolYear() === $this) {
                 $administrator->setSchoolYear(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Reservation[]
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): self
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations[] = $reservation;
+            $reservation->setSchoolYear($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): self
+    {
+        if ($this->reservations->contains($reservation)) {
+            $this->reservations->removeElement($reservation);
+            // set the owning side to null (unless already changed)
+            if ($reservation->getSchoolYear() === $this) {
+                $reservation->setSchoolYear(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Section[]
+     */
+    public function getSections(): Collection
+    {
+        return $this->sections;
+    }
+
+    public function addSection(Section $section): self
+    {
+        if (!$this->sections->contains($section)) {
+            $this->sections[] = $section;
+            $section->setSchoolYear($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSection(Section $section): self
+    {
+        if ($this->sections->contains($section)) {
+            $this->sections->removeElement($section);
+            // set the owning side to null (unless already changed)
+            if ($section->getSchoolYear() === $this) {
+                $section->setSchoolYear(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ClassRoom[]
+     */
+    public function getClassRooms(): Collection
+    {
+        return $this->classRooms;
+    }
+
+    public function addClassRoom(ClassRoom $classRoom): self
+    {
+        if (!$this->classRooms->contains($classRoom)) {
+            $this->classRooms[] = $classRoom;
+            $classRoom->setSchoolYear($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClassRoom(ClassRoom $classRoom): self
+    {
+        if ($this->classRooms->contains($classRoom)) {
+            $this->classRooms->removeElement($classRoom);
+            // set the owning side to null (unless already changed)
+            if ($classRoom->getSchoolYear() === $this) {
+                $classRoom->setSchoolYear(null);
             }
         }
 

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -48,6 +50,21 @@ class Reservation
      * @ORM\Column(type="boolean",nullable=true)
      */
     private $isFin;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="reservations")
+     */
+    private $reservator;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\SchoolYear", inversedBy="reservations")
+     */
+    private $schoolYear;
+
+    public function __construct()
+    {
+        $this->reservator = new ArrayCollection();
+    }
 
     /**
      * @return int|null
@@ -173,6 +190,44 @@ class Reservation
     public function setIsFin(bool $isFin): self
     {
         $this->isFin = $isFin;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getReservator(): Collection
+    {
+        return $this->reservator;
+    }
+
+    public function addReservator(User $reservator): self
+    {
+        if (!$this->reservator->contains($reservator)) {
+            $this->reservator[] = $reservator;
+        }
+
+        return $this;
+    }
+
+    public function removeReservator(User $reservator): self
+    {
+        if ($this->reservator->contains($reservator)) {
+            $this->reservator->removeElement($reservator);
+        }
+
+        return $this;
+    }
+
+    public function getSchoolYear(): ?SchoolYear
+    {
+        return $this->schoolYear;
+    }
+
+    public function setSchoolYear(?SchoolYear $schoolYear): self
+    {
+        $this->schoolYear = $schoolYear;
 
         return $this;
     }

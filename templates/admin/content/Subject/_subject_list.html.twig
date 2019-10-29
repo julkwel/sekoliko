@@ -32,10 +32,12 @@
                         <tr>
                             <td>{{ subject.name }}</td>
                             <td>
-                                <a href="{{ path('subject_manage',{'id': subject.id}) }}">
+                                <a class="btn btn-outline-success btn-sm" title="Modifier"
+                                   href="{{ path('subject_manage',{'id': subject.id}) }}">
                                     <i class="ti-pencil"></i>
                                 </a>
-                                <a href="{{ path('subject_remove',{'id':subject.id}) }}">
+                                <a class="btn btn-outline-danger btn-sm" title="Supprimer"
+                                   href="{{ path('subject_remove',{'id':subject.id}) }}">
                                     <i class="ti-trash"></i>
                                 </a>
                             </td>

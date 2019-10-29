@@ -37,6 +37,14 @@ class UserType extends AbstractType
                 ]
             )
             ->add(
+                'imatriculation',
+                TextType::class,
+                [
+                    'label' => 'Imatriculation de l\'utilisateur',
+                    'required' => 'required',
+                ]
+            )
+            ->add(
                 'password',
                 PasswordType::class,
                 [

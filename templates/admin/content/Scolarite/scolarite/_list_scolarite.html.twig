@@ -34,10 +34,12 @@
                             <tr>
                                 <td>{{ scolarite.user.nom }}</td>
                                 <td>
-                                    <a href="{{ path('scolarite_manage',{'id': scolarite.id,'type':types.id}) }}">
+                                    <a class="btn btn-outline-success btn-sm" title="Modifier"
+                                       href="{{ path('scolarite_manage',{'id': scolarite.id,'type':types.id}) }}">
                                         <i class="ti-pencil"></i>
                                     </a>
-                                    <a href="{{ path('scolarite_remove',{'id':scolarite.id}) }}">
+                                    <a class="btn btn-outline-danger btn-sm" title="Supprimer"
+                                       href="{{ path('scolarite_remove',{'id':scolarite.id}) }}">
                                         <i class="ti-trash"></i>
                                     </a>
                                 </td>

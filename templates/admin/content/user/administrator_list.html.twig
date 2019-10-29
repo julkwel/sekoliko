@@ -37,10 +37,12 @@
                                 <td>{{ admin.user?admin.user.nom:'' }}</td>
                                 <td>{{ admin.type?admin.type.libelle:'' }}</td>
                                 <td>
-                                    <a href="{{ path('administrator_manage',{'id':admin.id}) }}">
+                                    <a class="btn btn-outline-success btn-sm" title="Modifier"
+                                       href="{{ path('administrator_manage',{'id':admin.id}) }}">
                                         <i class="ti-pencil"></i>
                                     </a>
-                                    <a href="{{ path('administrator_delete',{'id':admin.id}) }}">
+                                    <a class="btn btn-outline-danger btn-sm" title="Supprimer"
+                                       href="{{ path('administrator_delete',{'id':admin.id}) }}">
                                         <i class="ti-trash"></i>
                                     </a>
                                 </td>

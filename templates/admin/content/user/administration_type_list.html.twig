@@ -30,17 +30,19 @@
                     </tfoot>
                     <tbody>
                     {% for type in types %}
-                            <tr>
-                                <td>{{ type.libelle }}</td>
-                                <td>
-                                    <a href="{{ path('administration_type_manage',{'id':type.id}) }}">
-                                        <i class="ti-pencil"></i>
-                                    </a>
-                                    <a href="{{ path('administration_type_delete',{'id':type.id}) }}">
-                                        <i class="ti-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>{{ type.libelle }}</td>
+                            <td>
+                                <a class="btn btn-outline-success btn-sm" title="Modifier"
+                                   href="{{ path('administration_type_manage',{'id':type.id}) }}">
+                                    <i class="ti-pencil"></i>
+                                </a>
+                                <a class="btn btn-outline-danger btn-sm" title="Supprimer"
+                                   href="{{ path('administration_type_delete',{'id':type.id}) }}">
+                                    <i class="ti-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
                     {% endfor %}
                     </tbody>
                 </table>

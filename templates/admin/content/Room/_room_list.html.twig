@@ -32,13 +32,16 @@
                         <tr>
                             <td>{{ room.name }}</td>
                             <td>
-                                <a href="{{ path('room_manage',{'id': room.id}) }}">
+                                <a class="btn btn-outline-success btn-sm" title="Modifier"
+                                   href="{{ path('room_manage',{'id': room.id}) }}">
                                     <i class="ti-pencil"></i>
                                 </a>
-                                <a href="{{ path('room_reservations_list',{'id':room.id}) }}">
+                                <a class="btn btn-outline-primary btn-sm" title="Reservation"
+                                   href="{{ path('room_reservations_list',{'id':room.id}) }}">
                                     <i class="ti-list"></i>
                                 </a>
-                                <a href="{{ path('remove_room',{'id':room.id}) }}">
+                                <a class="btn btn-outline-danger btn-sm" title="Supprimer"
+                                   href="{{ path('remove_room',{'id':room.id}) }}">
                                     <i class="ti-trash"></i>
                                 </a>
                             </td>

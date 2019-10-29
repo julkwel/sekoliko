@@ -85,6 +85,29 @@ class User implements UserInterface
     private $schoolYear;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Reservation", mappedBy="reservator")
+     */
+    private $reservations;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string",nullable=true)
+     */
+    private $imatriculation;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ClassRoom", mappedBy="createdBy")
+     */
+    private $classRooms;
+
+    public function __construct()
+    {
+        $this->reservations = new ArrayCollection();
+        $this->classRooms = new ArrayCollection();
+    }
+
+    /**
      * @return int|null
      */
     public function getId(): ?int
@@ -270,6 +293,85 @@ class User implements UserInterface
     public function setSchoolYear(?SchoolYear $schoolYear): self
     {
         $this->schoolYear = $schoolYear;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Reservation[]
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): self
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations[] = $reservation;
+            $reservation->addReservator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): self
+    {
+        if ($this->reservations->contains($reservation)) {
+            $this->reservations->removeElement($reservation);
+            $reservation->removeReservator($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getImatriculation(): ?string
+    {
+        return $this->imatriculation;
+    }
+
+    /**
+     * @param string|null $imatriculation
+     *
+     * @return User
+     */
+    public function setImatriculation(?string $imatriculation): self
+    {
+        $this->imatriculation = $imatriculation;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ClassRoom[]
+     */
+    public function getClassRooms(): Collection
+    {
+        return $this->classRooms;
+    }
+
+    public function addClassRoom(ClassRoom $classRoom): self
+    {
+        if (!$this->classRooms->contains($classRoom)) {
+            $this->classRooms[] = $classRoom;
+            $classRoom->setCreatedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClassRoom(ClassRoom $classRoom): self
+    {
+        if ($this->classRooms->contains($classRoom)) {
+            $this->classRooms->removeElement($classRoom);
+            // set the owning side to null (unless already changed)
+            if ($classRoom->getCreatedBy() === $this) {
+                $classRoom->setCreatedBy(null);
+            }
+        }
 
         return $this;
     }

@@ -59,6 +59,11 @@ class SekolikoEntityManager
         }
     }
 
+    /**
+     * @param $entity
+     *
+     * @return bool
+     */
     public function remove($entity)
     {
         try {

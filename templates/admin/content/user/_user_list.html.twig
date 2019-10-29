@@ -34,7 +34,8 @@
                                 <td>{{ user.etsName }}</td>
                                 <td>{{ user.dateCreate|date('Y-m-d') }}</td>
                                 <td>
-                                    <a href="{{ path('user_delete', {'id': user.id}) }}">
+                                    <a class="btn btn-outline-danger btn-sm" title="Supprimer"
+                                       href="{{ path('user_delete', {'id': user.id}) }}">
                                         <i class="ti-trash"></i>
                                     </a>
                                 </td>
