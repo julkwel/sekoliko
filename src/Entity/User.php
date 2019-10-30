@@ -28,7 +28,6 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     *
      */
     private $username;
 
@@ -122,7 +121,7 @@ class User implements UserInterface
      */
     public function getUsername(): ?string
     {
-        return (string)$this->username;
+        return (string) $this->username;
     }
 
     /**
@@ -164,7 +163,7 @@ class User implements UserInterface
      */
     public function getPassword(): ?string
     {
-        return (string)$this->password;
+        return (string) $this->password;
     }
 
     public function setPassword(string $password): self
@@ -282,7 +281,7 @@ class User implements UserInterface
         $this->administrator = $administrator;
 
         // set (or unset) the owning side of the relation if necessary
-        $newUser = $administrator === null ? null : $this;
+        $newUser = null === $administrator ? null : $this;
         if ($newUser !== $administrator->getUser()) {
             $administrator->setUser($newUser);
         }

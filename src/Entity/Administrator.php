@@ -68,7 +68,6 @@ class Administrator
      */
     private $schoolYear;
 
-
     /**
      * @return int|null
      */

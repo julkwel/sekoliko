@@ -1,6 +1,6 @@
 <?php
 /**
- * Julien Rajerison <julienrajerison5@gmail.com>
+ * Julien Rajerison <julienrajerison5@gmail.com>.
  **/
 
 namespace App\Controller\ClassRoom;
@@ -10,7 +10,6 @@ use App\Controller\AbstractBaseController;
 use App\Entity\ClassRoom;
 use App\Entity\Section;
 use App\Form\ClassRoomType;
-use App\Form\SectionType;
 use App\Repository\ClassRoomRepository;
 use Exception;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -19,17 +18,16 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class ClassRoomController
- * @Route("/admin/class/room")
+ * Class ClassRoomController.
  *
- * @package App\Controller\ClassRoom
+ * @Route("/admin/class/room")
  */
 class ClassRoomController extends AbstractBaseController
 {
     /**
      * @Route("/list/{id}",name="class_room_list")
-     * @param ClassRoomRepository $repository
      *
+     * @param ClassRoomRepository $repository
      * @param Section             $section
      *
      * @return Response
@@ -53,6 +51,7 @@ class ClassRoomController extends AbstractBaseController
      * @param ClassRoom $classRoom
      *
      * @return Response
+     *
      * @throws Exception
      */
     public function manage(Request $request, Section $section, ClassRoom $classRoom = null): Response
@@ -98,5 +97,4 @@ class ClassRoomController extends AbstractBaseController
             return $this->redirectToRoute('class_room_list', ['id' => $section]);
         }
     }
-
 }

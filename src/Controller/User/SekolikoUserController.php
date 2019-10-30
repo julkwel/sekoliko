@@ -1,6 +1,6 @@
 <?php
 /**
- * Julien Rajerison <julienrajerison5@gmail.com>
+ * Julien Rajerison <julienrajerison5@gmail.com>.
  **/
 
 namespace App\Controller\User;
@@ -18,9 +18,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class SekolikoUserController
+ * Class SekolikoUserController.
  *
- * @package App\Controller\User
  *
  * @Route("/admin/user")
  */
@@ -98,7 +97,7 @@ class SekolikoUserController extends AbstractBaseController
     }
 
     /**
-     * Action before manager flush
+     * Action before manager flush.
      *
      * @param User          $user
      * @param FormInterface $form

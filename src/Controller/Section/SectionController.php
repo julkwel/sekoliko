@@ -1,6 +1,6 @@
 <?php
 /**
- * Julien Rajerison <julienrajerison5@gmail.com>
+ * Julien Rajerison <julienrajerison5@gmail.com>.
  **/
 
 namespace App\Controller\Section;
@@ -16,10 +16,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class SectionController
- * @Route("/admin/section")
+ * Class SectionController.
  *
- * @package App\Controller\Section
+ * @Route("/admin/section")
  */
 class SectionController extends AbstractBaseController
 {

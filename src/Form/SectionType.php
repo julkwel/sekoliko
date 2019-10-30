@@ -1,6 +1,6 @@
 <?php
 /**
- * Julien Rajerison <julienrajerison5@gmail.com>
+ * Julien Rajerison <julienrajerison5@gmail.com>.
  **/
 
 namespace App\Form;
@@ -12,16 +12,14 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class SectionType
- *
- * @package App\Form
+ * Class SectionType.
  */
 class SectionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, ['label' => 'Nom du section',]);
+            ->add('name', TextType::class, ['label' => 'Nom du section']);
     }
 
     public function configureOptions(OptionsResolver $resolver)

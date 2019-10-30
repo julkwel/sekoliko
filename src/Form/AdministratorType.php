@@ -1,6 +1,6 @@
 <?php
 /**
- * Julien Rajerison <julienrajerison5@gmail.com>
+ * Julien Rajerison <julienrajerison5@gmail.com>.
  **/
 
 namespace App\Form;
@@ -15,9 +15,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class AdministratorType
- *
- * @package App\Form
+ * Class AdministratorType.
  */
 class AdministratorType extends AbstractType
 {
@@ -60,7 +58,7 @@ class AdministratorType extends AbstractType
                     'attr' => [
                         'class' => 'datetimepicker',
                     ],
-                    'format' => 'Y-m-d H:i'
+                    'format' => 'Y-m-d H:i',
                 ]
             )
             ->add('adresse')

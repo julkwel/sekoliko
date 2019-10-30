@@ -1,13 +1,11 @@
 <?php
 /**
- * Julien Rajerison <julienrajerison5@gmail.com>
+ * Julien Rajerison <julienrajerison5@gmail.com>.
  **/
 
 namespace App\Form;
 
 use App\Entity\Scolarite;
-use Doctrine\ORM\EntityRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -15,9 +13,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class ScolariteType
- *
- * @package App\Form
+ * Class ScolariteType.
  */
 class ScolariteType extends AbstractType
 {
@@ -37,13 +33,13 @@ class ScolariteType extends AbstractType
                     'widget' => 'single_text',
                     'label' => 'Date d\'entrer',
                     'attr' => [
-                        'class' => 'datetimepicker'
+                        'class' => 'datetimepicker',
                     ],
-                    'format' => 'Y-m-d H:i'
+                    'format' => 'Y-m-d H:i',
                 ]
             )
-            ->add('adresse', TextType::class, ['label' => 'Adresse éxacte',])
-            ->add('contact', TextType::class, ['label' => 'Contact téléphonique',])
+            ->add('adresse', TextType::class, ['label' => 'Adresse éxacte'])
+            ->add('contact', TextType::class, ['label' => 'Contact téléphonique'])
             ->add('salary', TextType::class, ['label' => 'Montant salaires', 'required' => false]);
     }
 
@@ -54,7 +50,7 @@ class ScolariteType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Scolarite::class,
-            'users' => null
+            'users' => null,
         ]);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Julien Rajerison <julienrajerison5@gmail.com>
+ * Julien Rajerison <julienrajerison5@gmail.com>.
  **/
 
 namespace App\Form;
@@ -13,9 +13,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class ReservationType
- *
- * @package App\Form
+ * Class ReservationType.
  */
 class ReservationType extends AbstractType
 {
@@ -26,7 +24,7 @@ class ReservationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('description', TextType::class, ['label' => 'Description',])
+            ->add('description', TextType::class, ['label' => 'Description'])
             ->add(
                 'start',
                 DateTimeType::class,

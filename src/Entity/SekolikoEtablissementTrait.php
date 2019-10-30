@@ -1,6 +1,6 @@
 <?php
 /**
- * Julien Rajerison <julienrajerison5@gmail.com>
+ * Julien Rajerison <julienrajerison5@gmail.com>.
  */
 
 namespace App\Entity;
@@ -8,9 +8,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Trait SekolikoEtablissementTrait
- *
- * @package App\Entity
+ * Trait SekolikoEtablissementTrait.
  */
 trait SekolikoEtablissementTrait
 {

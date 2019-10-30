@@ -1,19 +1,16 @@
 <?php
 /**
- * Julien Rajerison <julienrajerison5@gmail.com>
+ * Julien Rajerison <julienrajerison5@gmail.com>.
  **/
 
 namespace App\Manager;
 
-use App\Constant\EntityConstant;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 
 /**
- * Class SekolikoEntityManager
- *
- * @package App\Manager
+ * Class SekolikoEntityManager.
  */
 class SekolikoEntityManager
 {

@@ -1,6 +1,6 @@
 <?php
 /**
- * Julien Rajerison <julienrajerison5@gmail.com>
+ * Julien Rajerison <julienrajerison5@gmail.com>.
  **/
 
 namespace App\Form;
@@ -12,9 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class RoomType
- *
- * @package App\Form
+ * Class RoomType.
  */
 class RoomType extends AbstractType
 {
@@ -25,8 +23,8 @@ class RoomType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, ['label' => 'Nom de la salle',])
-            ->add('places', TextType::class, ['label' => 'Nombre des places',]);
+            ->add('name', TextType::class, ['label' => 'Nom de la salle'])
+            ->add('places', TextType::class, ['label' => 'Nombre des places']);
     }
 
     /**

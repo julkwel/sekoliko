@@ -1,6 +1,6 @@
 <?php
 /**
- * Julien Rajerison <julienrajerison5@gmail.com>
+ * Julien Rajerison <julienrajerison5@gmail.com>.
  **/
 
 namespace App\Controller\Subject;
@@ -8,7 +8,6 @@ namespace App\Controller\Subject;
 use App\Constant\MessageConstant;
 use App\Controller\AbstractBaseController;
 use App\Entity\Subject;
-use App\Entity\User;
 use App\Form\SubjectType;
 use App\Repository\SubjectRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -17,11 +16,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class SubjectController
+ * Class SubjectController.
  *
  * @Route("/admin/subject")
- *
- * @package App\Controller\Subject
  */
 class SubjectController extends AbstractBaseController
 {
@@ -53,7 +50,7 @@ class SubjectController extends AbstractBaseController
         $form = $this->createForm(SubjectType::class, $subject);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            if (true === $this->em->save($subject,$this->getUser())) {
+            if (true === $this->em->save($subject, $this->getUser())) {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
 
                 return $this->redirectToRoute('subject_list');

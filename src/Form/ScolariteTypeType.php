@@ -1,6 +1,6 @@
 <?php
 /**
- * Julien Rajerison <julienrajerison5@gmail.com>
+ * Julien Rajerison <julienrajerison5@gmail.com>.
  **/
 
 namespace App\Form;
@@ -11,9 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class ScolariteTypeType
- *
- * @package App\Form
+ * Class ScolariteTypeType.
  */
 class ScolariteTypeType extends AbstractType
 {
@@ -31,6 +29,6 @@ class ScolariteTypeType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(['data_class'=>ScolariteType::class]);
+        $resolver->setDefaults(['data_class' => ScolariteType::class]);
     }
 }

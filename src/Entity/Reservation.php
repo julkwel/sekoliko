@@ -45,7 +45,7 @@ class Reservation
     private $isValid;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(type="boolean",nullable=true)
      */

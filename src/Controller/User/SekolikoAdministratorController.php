@@ -1,6 +1,6 @@
 <?php
 /**
- * Julien Rajerison <julienrajerison5@gmail.com>
+ * Julien Rajerison <julienrajerison5@gmail.com>.
  **/
 
 namespace App\Controller\User;
@@ -19,16 +19,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class SekolikoAdministratorController
+ * Class SekolikoAdministratorController.
  *
  * @Route("/admin/administrator")
- *
- * @package App\Controller\User
  */
 class SekolikoAdministratorController extends AbstractBaseController
 {
     /**
-     *
      * @Route("/list/{id?}",name="administrator_list",methods={"POST","GET"})
      *
      * @param AdministratorRepository $repository
@@ -103,7 +100,7 @@ class SekolikoAdministratorController extends AbstractBaseController
         try {
             /** @var FormInterface $form */
             $pass = $form->getData()->getUser()->getPassword();
-            /** @var Administrator $admin */
+            /* @var Administrator $admin */
             $admin->getUser()->setPassword($this->passencoder->encodePassword($admin->getUser(), $pass));
             $admin->getUser()->setRoles([RoleConstant::ROLE_SEKOLIKO['Administrateur']]);
             $this->manager->flush();

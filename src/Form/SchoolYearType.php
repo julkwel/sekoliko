@@ -1,6 +1,6 @@
 <?php
 /**
- * Julien Rajerison <julienrajerison5@gmail.com>
+ * Julien Rajerison <julienrajerison5@gmail.com>.
  **/
 
 namespace App\Form;
@@ -13,9 +13,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Trait SchoolYearType
- *
- * @package App\Form
+ * Trait SchoolYearType.
  */
 class SchoolYearType extends AbstractType
 {
@@ -39,7 +37,7 @@ class SchoolYearType extends AbstractType
                     'attr' => [
                         'class' => 'datetimepicker',
                     ],
-                    'format' => 'Y-m-d H:i'
+                    'format' => 'Y-m-d H:i',
                 ]
             )
             ->add(
@@ -52,7 +50,7 @@ class SchoolYearType extends AbstractType
                     'attr' => [
                         'class' => 'datetimepicker',
                     ],
-                    'format' => 'Y-m-d H:i'
+                    'format' => 'Y-m-d H:i',
                 ]
             );
     }

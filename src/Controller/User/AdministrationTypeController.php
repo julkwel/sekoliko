@@ -1,6 +1,6 @@
 <?php
 /**
- * Julien Rajerison <julienrajerison5@gmail.com>
+ * Julien Rajerison <julienrajerison5@gmail.com>.
  **/
 
 namespace App\Controller\User;
@@ -17,11 +17,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class AdministrationTypeController
+ * Class AdministrationTypeController.
  *
  * @Route("admin/administration/type")
- *
- * @package App\Controller\User
  */
 class AdministrationTypeController extends AbstractBaseController
 {
@@ -37,7 +35,7 @@ class AdministrationTypeController extends AbstractBaseController
         return $this->render(
             'admin/content/user/administration_type_list.html.twig',
             [
-                'types' => $repository->findBy(['etsName' => $this->getUser()->getEtsName()])
+                'types' => $repository->findBy(['etsName' => $this->getUser()->getEtsName()]),
             ]
         );
     }
@@ -64,7 +62,7 @@ class AdministrationTypeController extends AbstractBaseController
             } else {
                 $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
-                return $this->redirectToRoute('administration_type_manage', ['id' => $administrationType->getId() ?? null]);
+                return $this->redirectToRoute('administration_type_manage', ['id' => $administrationType->getId() ?? null,]);
             }
         }
 

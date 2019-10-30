@@ -23,7 +23,6 @@ class ClassRoomRepository extends ServiceEntityRepository
 
     /**
      * @param User    $user
-     *
      * @param Section $section
      *
      * @return ClassRoom[] Returns an array of ClassRoom objects

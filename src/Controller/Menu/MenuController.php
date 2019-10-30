@@ -1,6 +1,6 @@
 <?php
 /**
- * Julien Rajerison <julienrajerison5@gmail.com>
+ * Julien Rajerison <julienrajerison5@gmail.com>.
  **/
 
 namespace App\Controller\Menu;
@@ -10,9 +10,7 @@ use App\Repository\ScolariteTypeRepository;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class MenuController
- *
- * @package App\Controller\Menu
+ * Class MenuController.
  */
 class MenuController extends AbstractBaseController
 {

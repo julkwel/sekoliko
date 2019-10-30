@@ -36,7 +36,7 @@ class SectionRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('s')
             ->where('s.deletedAt is NULL')
             ->andWhere('s.etsName = :ets')
-            ->innerJoin(SchoolYear::class,'c')
+            ->innerJoin(SchoolYear::class, 'c')
             ->andWhere('c = :year')
             ->setParameter('ets', $user->getEtsName())
             ->setParameter('year', $user->getSchoolYear())

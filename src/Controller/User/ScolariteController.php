@@ -1,19 +1,16 @@
 <?php
 /**
- * Julien Rajerison <julienrajerison5@gmail.com>
+ * Julien Rajerison <julienrajerison5@gmail.com>.
  **/
 
 namespace App\Controller\User;
 
-use App\Constant\EntityConstant;
 use App\Constant\MessageConstant;
 use App\Constant\RoleConstant;
 use App\Controller\AbstractBaseController;
 use App\Entity\Scolarite;
 use App\Entity\ScolariteType;
-use App\Entity\User;
 use App\Repository\ScolariteRepository;
-use function Sodium\add;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,11 +18,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class ScolariteController
+ * Class ScolariteController.
  *
  * @Route("/admin/scolarite")
- *
- * @package App\Controller\User
  */
 class ScolariteController extends AbstractBaseController
 {
@@ -56,7 +51,6 @@ class ScolariteController extends AbstractBaseController
      * @return Response
      *
      * @Route("/manage/{type}/{id?}",name="scolarite_manage")
-     *
      */
     public function manage(Request $request, ScolariteType $type, Scolarite $scolarite = null)
     {

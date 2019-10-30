@@ -20,7 +20,6 @@ class AdministratorRepository extends ServiceEntityRepository
         parent::__construct($registry, Administrator::class);
     }
 
-
     /**
      * @param User $user
      *

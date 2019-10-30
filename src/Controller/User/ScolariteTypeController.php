@@ -1,6 +1,6 @@
 <?php
 /**
- * Julien Rajerison <julienrajerison5@gmail.com>
+ * Julien Rajerison <julienrajerison5@gmail.com>.
  **/
 
 namespace App\Controller\User;
@@ -20,8 +20,6 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class ScolariteTypeController.
  *
  * @Route("/admin/scolarite/type")
- *
- * @package App\Controller\User
  */
 class ScolariteTypeController extends AbstractBaseController
 {
@@ -39,7 +37,7 @@ class ScolariteTypeController extends AbstractBaseController
         return $this->render(
             'admin/content/Scolarite/type/_list_type_scolarite.html.twig',
             [
-                'types' => $list
+                'types' => $list,
             ]
         );
     }

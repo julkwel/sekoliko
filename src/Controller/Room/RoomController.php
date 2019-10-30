@@ -1,6 +1,6 @@
 <?php
 /**
- * Julien Rajerison <julienrajerison5@gmail.com>
+ * Julien Rajerison <julienrajerison5@gmail.com>.
  **/
 
 namespace App\Controller\Room;
@@ -18,11 +18,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class RoomController
+ * Class RoomController.
  *
  * @Route("/admin/room")
- *
- * @package App\Controller\Room
  */
 class RoomController extends AbstractBaseController
 {
@@ -75,9 +73,8 @@ class RoomController extends AbstractBaseController
         $reservation->setIsValid(true);
         $this->manager->flush();
 
-        return $this->redirectToRoute('room_reservations_list', ['id' => $reservation->getRoom()->getId(),]);
+        return $this->redirectToRoute('room_reservations_list', ['id' => $reservation->getRoom()->getId()]);
     }
-
 
     /**
      * @param Reservation $reservation
@@ -92,9 +89,8 @@ class RoomController extends AbstractBaseController
         $reservation->setIsFin(true);
         $this->manager->flush();
 
-        return $this->redirectToRoute('room_reservations_list', ['id' => $reservation->getRoom()->getId(),]);
+        return $this->redirectToRoute('room_reservations_list', ['id' => $reservation->getRoom()->getId()]);
     }
-
 
     /**
      * @Route("/manage/{id?}",name="room_manage")
@@ -117,7 +113,7 @@ class RoomController extends AbstractBaseController
             } else {
                 $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
-                return $this->redirectToRoute('room_manage', ['id' => $room->getId() ?? null,]);
+                return $this->redirectToRoute('room_manage', ['id' => $room->getId() ?? null]);
             }
         }
 
@@ -150,13 +146,13 @@ class RoomController extends AbstractBaseController
             if (true === $this->em->save($reservation, $this->getUser())) {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
 
-                return $this->redirectToRoute('room_reservations_list', ['id' => $id->getId(),]);
+                return $this->redirectToRoute('room_reservations_list', ['id' => $id->getId()]);
             } else {
                 $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
                 return $this->redirectToRoute(
                     'room_reservation',
-                    ['id' => $id->getId(), 'res' => $reservation->getId() ?? null,]
+                    ['id' => $id->getId(), 'res' => $reservation->getId() ?? null]
                 );
             }
         }
@@ -182,12 +178,12 @@ class RoomController extends AbstractBaseController
             if (true === $this->em->save($reservations, $this->getUser())) {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
 
-                return $this->redirectToRoute('room_reservations_list', ['id' => $reservation->getRoom()->getId(),]);
+                return $this->redirectToRoute('room_reservations_list', ['id' => $reservation->getRoom()->getId()]);
             } else {
                 $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
                 return $this->redirectToRoute(
-                    'room_reservation', ['id' => $reservation->getRoom()->getId(),]
+                    'room_reservation', ['id' => $reservation->getRoom()->getId()]
                 );
             }
         }

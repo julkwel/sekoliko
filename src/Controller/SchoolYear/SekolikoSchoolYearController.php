@@ -1,27 +1,24 @@
 <?php
 /**
- * Julien Rajerison <julienrajerison5@gmail.com>
+ * Julien Rajerison <julienrajerison5@gmail.com>.
  **/
 
 namespace App\Controller\SchoolYear;
 
-use App\Constant\EntityConstant;
 use App\Constant\MessageConstant;
 use App\Controller\AbstractBaseController;
 use App\Entity\SchoolYear;
 use App\Entity\User;
 use App\Form\SchoolYearType;
 use App\Repository\SchoolYearRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class SekolikoSchoolYearController
+ * Class SekolikoSchoolYearController.
  *
- * @package App\Controller\SchoolYear
  *
  * @Route("/admin/school/year")
  */
@@ -39,13 +36,12 @@ class SekolikoSchoolYearController extends AbstractBaseController
         return $this->render(
             'admin/content/SchoolYear/_list_school_year.html.twig',
             [
-                'schoolYears' => $repository->findBy(['etsName' => $this->getUser()->getEtsName(),]),
+                'schoolYears' => $repository->findBy(['etsName' => $this->getUser()->getEtsName()]),
             ]
         );
     }
 
     /**
-     *
      * @Route("/manage/{id?}",methods={"GET","POST"},name="school_year_manage")
      *
      * @param Request         $request
