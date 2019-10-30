@@ -37,7 +37,7 @@ class SectionRepository extends ServiceEntityRepository
             ->where('s.deletedAt is NULL')
             ->andWhere('s.etsName = :ets')
             ->innerJoin(SchoolYear::class, 'c')
-            ->andWhere('c = :year')
+            ->andWhere(':year MEMBER OF s.schoolYear')
             ->setParameter('ets', $user->getEtsName())
             ->setParameter('year', $user->getSchoolYear())
             ->orderBy('s.id', 'ASC')
