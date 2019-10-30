@@ -46,6 +46,9 @@ class SekolikoEntityManager
         if (method_exists($entity, 'setSchoolYear')) {
             $entity->setSchoolYear($user->getSchoolYear());
         }
+        if (method_exists($entity, 'addSchoolYear')) {
+            $entity->addSchoolYear($user->getSchoolYear());
+        }
 
         try {
             if (!$entity->getId()) {

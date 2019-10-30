@@ -26,11 +26,6 @@ class Section
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\SchoolYear", inversedBy="sections")
-     */
-    private $schoolYear;
-
-    /**
      * @ORM\Column(type="string", length=255)
      *
      * @Assert\NotBlank()
@@ -47,9 +42,15 @@ class Section
      */
     private $classRooms;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\SchoolYear", inversedBy="sections")
+     */
+    private $schoolYear;
+
     public function __construct()
     {
         $this->classRooms = new ArrayCollection();
+        $this->schoolYear = new ArrayCollection();
     }
 
     /**
@@ -58,26 +59,6 @@ class Section
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    /**
-     * @return SchoolYear|null
-     */
-    public function getSchoolYear(): ?SchoolYear
-    {
-        return $this->schoolYear;
-    }
-
-    /**
-     * @param SchoolYear|null $schoolYear
-     *
-     * @return Section
-     */
-    public function setSchoolYear(?SchoolYear $schoolYear): self
-    {
-        $this->schoolYear = $schoolYear;
-
-        return $this;
     }
 
     /**
@@ -146,6 +127,32 @@ class Section
             if ($classRoom->getSection() === $this) {
                 $classRoom->setSection(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SchoolYear[]
+     */
+    public function getSchoolYear(): Collection
+    {
+        return $this->schoolYear;
+    }
+
+    public function addSchoolYear(SchoolYear $schoolYear): self
+    {
+        if (!$this->schoolYear->contains($schoolYear)) {
+            $this->schoolYear[] = $schoolYear;
+        }
+
+        return $this;
+    }
+
+    public function removeSchoolYear(SchoolYear $schoolYear): self
+    {
+        if ($this->schoolYear->contains($schoolYear)) {
+            $this->schoolYear->removeElement($schoolYear);
         }
 
         return $this;

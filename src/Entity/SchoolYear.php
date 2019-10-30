@@ -72,14 +72,14 @@ class SchoolYear
     private $reservations;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Section", mappedBy="schoolYear")
-     */
-    private $sections;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\ClassRoom", mappedBy="schoolYear")
      */
     private $classRooms;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Section", mappedBy="schoolYear")
+     */
+    private $sections;
 
     public function __construct()
     {
@@ -87,8 +87,8 @@ class SchoolYear
         $this->scolarites = new ArrayCollection();
         $this->administrators = new ArrayCollection();
         $this->reservations = new ArrayCollection();
-        $this->sections = new ArrayCollection();
         $this->classRooms = new ArrayCollection();
+        $this->sections = new ArrayCollection();
     }
 
     /**
@@ -300,37 +300,6 @@ class SchoolYear
     }
 
     /**
-     * @return Collection|Section[]
-     */
-    public function getSections(): Collection
-    {
-        return $this->sections;
-    }
-
-    public function addSection(Section $section): self
-    {
-        if (!$this->sections->contains($section)) {
-            $this->sections[] = $section;
-            $section->setSchoolYear($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSection(Section $section): self
-    {
-        if ($this->sections->contains($section)) {
-            $this->sections->removeElement($section);
-            // set the owning side to null (unless already changed)
-            if ($section->getSchoolYear() === $this) {
-                $section->setSchoolYear(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|ClassRoom[]
      */
     public function getClassRooms(): Collection
@@ -356,6 +325,34 @@ class SchoolYear
             if ($classRoom->getSchoolYear() === $this) {
                 $classRoom->setSchoolYear(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Section[]
+     */
+    public function getSections(): Collection
+    {
+        return $this->sections;
+    }
+
+    public function addSection(Section $section): self
+    {
+        if (!$this->sections->contains($section)) {
+            $this->sections[] = $section;
+            $section->addSchoolYear($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSection(Section $section): self
+    {
+        if ($this->sections->contains($section)) {
+            $this->sections->removeElement($section);
+            $section->removeSchoolYear($this);
         }
 
         return $this;

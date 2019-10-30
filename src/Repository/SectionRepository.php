@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\SchoolYear;
 use App\Entity\Section;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -15,6 +16,11 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  */
 class SectionRepository extends ServiceEntityRepository
 {
+    /**
+     * SectionRepository constructor.
+     *
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Section::class);
@@ -30,7 +36,8 @@ class SectionRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('s')
             ->where('s.deletedAt is NULL')
             ->andWhere('s.etsName = :ets')
-            ->andWhere('s.schoolYear = :year')
+            ->innerJoin(SchoolYear::class,'c')
+            ->andWhere('c = :year')
             ->setParameter('ets', $user->getEtsName())
             ->setParameter('year', $user->getSchoolYear())
             ->orderBy('s.id', 'ASC')
