@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use DateTime;
 use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Exception;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -58,6 +60,11 @@ class ClassRoom
     private $name;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ClassSubject", mappedBy="classRoom")
+     */
+    private $classSubjects;
+
+    /**
      * ClassRoom constructor.
      *
      * @throws Exception
@@ -65,6 +72,7 @@ class ClassRoom
     public function __construct()
     {
         $this->createdAt = new DateTime('now');
+        $this->classSubjects = new ArrayCollection();
     }
 
     /**
@@ -183,6 +191,37 @@ class ClassRoom
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ClassSubject[]
+     */
+    public function getClassSubjects(): Collection
+    {
+        return $this->classSubjects;
+    }
+
+    public function addClassSubject(ClassSubject $classSubject): self
+    {
+        if (!$this->classSubjects->contains($classSubject)) {
+            $this->classSubjects[] = $classSubject;
+            $classSubject->setClassRoom($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClassSubject(ClassSubject $classSubject): self
+    {
+        if ($this->classSubjects->contains($classSubject)) {
+            $this->classSubjects->removeElement($classSubject);
+            // set the owning side to null (unless already changed)
+            if ($classSubject->getClassRoom() === $this) {
+                $classSubject->setClassRoom(null);
+            }
+        }
 
         return $this;
     }

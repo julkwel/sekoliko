@@ -10,7 +10,6 @@ use App\Controller\AbstractBaseController;
 use App\Entity\SchoolYear;
 use App\Entity\Section;
 use App\Form\SectionType;
-use App\Repository\SchoolYearRepository;
 use App\Repository\SectionRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;

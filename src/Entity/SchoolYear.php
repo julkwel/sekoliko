@@ -81,6 +81,11 @@ class SchoolYear
      */
     private $sections;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ClassSubject", mappedBy="schoolYear")
+     */
+    private $classSubjects;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -89,6 +94,7 @@ class SchoolYear
         $this->reservations = new ArrayCollection();
         $this->classRooms = new ArrayCollection();
         $this->sections = new ArrayCollection();
+        $this->classSubjects = new ArrayCollection();
     }
 
     /**
@@ -353,6 +359,37 @@ class SchoolYear
         if ($this->sections->contains($section)) {
             $this->sections->removeElement($section);
             $section->removeSchoolYear($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ClassSubject[]
+     */
+    public function getClassSubjects(): Collection
+    {
+        return $this->classSubjects;
+    }
+
+    public function addClassSubject(ClassSubject $classSubject): self
+    {
+        if (!$this->classSubjects->contains($classSubject)) {
+            $this->classSubjects[] = $classSubject;
+            $classSubject->setSchoolYear($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClassSubject(ClassSubject $classSubject): self
+    {
+        if ($this->classSubjects->contains($classSubject)) {
+            $this->classSubjects->removeElement($classSubject);
+            // set the owning side to null (unless already changed)
+            if ($classSubject->getSchoolYear() === $this) {
+                $classSubject->setSchoolYear(null);
+            }
         }
 
         return $this;
