@@ -55,7 +55,7 @@ class AdministrationTypeController extends AbstractBaseController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if (true === $this->em->save($admin, $this->getUser())) {
+            if (true === $this->em->save($admin, $this->getUser(), $form)) {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
 
                 return $this->redirectToRoute('administration_type_list');

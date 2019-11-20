@@ -28,7 +28,8 @@
         "symfony/validator": "4.3.*",
         "symfony/web-link": "4.3.*",
         "symfony/webpack-encore-bundle": "^1.6",
-        "symfony/yaml": "4.3.*"
+        "symfony/yaml": "4.3.*",
+      "ext-intl": "*"
     },
     "require-dev": {
         "symfony/browser-kit": "4.3.*",

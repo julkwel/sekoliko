@@ -56,7 +56,7 @@ class SekolikoAdministratorController extends AbstractBaseController
         $form = $this->createForm(AdministratorType::class, $admin);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid() && true === $this->em->save($admin, $this->getUser())) {
+        if ($form->isSubmitted() && $form->isValid() && true === $this->em->save($admin, $this->getUser(), $form)) {
             if (true === $this->beforePersistAdmin($admin, $form)) {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
 

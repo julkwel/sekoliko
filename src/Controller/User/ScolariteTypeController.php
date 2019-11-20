@@ -56,7 +56,7 @@ class ScolariteTypeController extends AbstractBaseController
         $form = $this->createForm(ScolariteTypeType::class, $type);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            if (true === $this->em->save($type, $this->getUser())) {
+            if (true === $this->em->save($type, $this->getUser(), $form)) {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
 
                 return $this->redirectToRoute('scolarite_type_list');

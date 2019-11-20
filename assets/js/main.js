@@ -13,5 +13,5 @@ $(document).ready(function (e) {
             close: 'ti-close'
         },
     });
-
+    $('.custom-file-label').addClass('custom-file-control');
 });

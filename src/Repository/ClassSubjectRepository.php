@@ -20,6 +20,12 @@ class ClassSubjectRepository extends ServiceEntityRepository
         parent::__construct($registry, ClassSubject::class);
     }
 
+    /**
+     * @param User $user
+     * @param      $class
+     *
+     * @return mixed
+     */
     public function findByClass(User $user, $class)
     {
         return $this->createQueryBuilder('sc')

@@ -99,6 +99,12 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\ClassRoom", mappedBy="createdBy")
      */
     private $classRooms;
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string",nullable=true)
+     */
+    private $photo;
 
     public function __construct()
     {
@@ -371,6 +377,26 @@ class User implements UserInterface
                 $classRoom->setCreatedBy(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    /**
+     * @param string|null $photo
+     *
+     * @return User
+     */
+    public function setPhoto(?string $photo): self
+    {
+        $this->photo = $photo;
 
         return $this;
     }
