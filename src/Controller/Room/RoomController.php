@@ -114,7 +114,7 @@ class RoomController extends AbstractBaseController
 
                 return $this->redirectToRoute('room_list');
             }
-
+          
             $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
             return $this->redirectToRoute('room_manage', ['id' => $room->getId() ?? null]);
@@ -154,7 +154,7 @@ class RoomController extends AbstractBaseController
 
                 return $this->redirectToRoute('room_reservations_list', ['id' => $id->getId()]);
             }
-
+          
             $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
             return $this->redirectToRoute(
@@ -188,7 +188,7 @@ class RoomController extends AbstractBaseController
 
                 return $this->redirectToRoute('room_reservations_list', ['id' => $reservation->getRoom()->getId()]);
             }
-
+          
             $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
             return $this->redirectToRoute(
@@ -208,7 +208,7 @@ class RoomController extends AbstractBaseController
      */
     public function remove(Room $room)
     {
-        if (true === $this->em->remove($room)) {
+        if ($this->em->remove($room)) {
             $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::SUPPRESSION_MESSAGE);
         } else {
             $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::ERROR_MESSAGE);

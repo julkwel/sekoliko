@@ -109,6 +109,11 @@ class Section
         return $this->classRooms;
     }
 
+    /**
+     * @param ClassRoom $classRoom
+     *
+     * @return Section
+     */
     public function addClassRoom(ClassRoom $classRoom): self
     {
         if (!$this->classRooms->contains($classRoom)) {
@@ -119,6 +124,11 @@ class Section
         return $this;
     }
 
+    /**
+     * @param ClassRoom $classRoom
+     *
+     * @return Section
+     */
     public function removeClassRoom(ClassRoom $classRoom): self
     {
         if ($this->classRooms->contains($classRoom)) {
@@ -140,6 +150,11 @@ class Section
         return $this->schoolYear;
     }
 
+    /**
+     * @param SchoolYear $schoolYear
+     *
+     * @return Section
+     */
     public function addSchoolYear(SchoolYear $schoolYear): self
     {
         if (!$this->schoolYear->contains($schoolYear)) {
@@ -149,6 +164,11 @@ class Section
         return $this;
     }
 
+    /**
+     * @param SchoolYear $schoolYear
+     *
+     * @return Section
+     */
     public function removeSchoolYear(SchoolYear $schoolYear): self
     {
         if ($this->schoolYear->contains($schoolYear)) {

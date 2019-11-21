@@ -57,15 +57,14 @@ class SekolikoUserController extends AbstractBaseController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
             $this->beforePersistUser($user, $form);
 
             if ($this->em->save($user, $this->getUser(), $form)) {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
 
                 return $this->redirectToRoute('user_list');
-            } 
-            
+            }
+
             $this->addFlash(MessageConstant::ERROR_MESSAGE, MessageConstant::ERROR_MESSAGE);
 
             return $this->redirectToRoute('user_management', ['id' => $user->getId() ?? null]);

@@ -277,11 +277,19 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return Administrator|null
+     */
     public function getAdministrator(): ?Administrator
     {
         return $this->administrator;
     }
 
+    /**
+     * @param Administrator|null $administrator
+     *
+     * @return User
+     */
     public function setAdministrator(?Administrator $administrator): self
     {
         $this->administrator = $administrator;
@@ -295,6 +303,11 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param SchoolYear|null $schoolYear
+     *
+     * @return User
+     */
     public function setSchoolYear(?SchoolYear $schoolYear): self
     {
         $this->schoolYear = $schoolYear;
@@ -310,6 +323,11 @@ class User implements UserInterface
         return $this->reservations;
     }
 
+    /**
+     * @param Reservation $reservation
+     *
+     * @return User
+     */
     public function addReservation(Reservation $reservation): self
     {
         if (!$this->reservations->contains($reservation)) {
@@ -320,6 +338,11 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param Reservation $reservation
+     *
+     * @return User
+     */
     public function removeReservation(Reservation $reservation): self
     {
         if ($this->reservations->contains($reservation)) {
@@ -358,6 +381,11 @@ class User implements UserInterface
         return $this->classRooms;
     }
 
+    /**
+     * @param ClassRoom $classRoom
+     *
+     * @return User
+     */
     public function addClassRoom(ClassRoom $classRoom): self
     {
         if (!$this->classRooms->contains($classRoom)) {
@@ -368,6 +396,11 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param ClassRoom $classRoom
+     *
+     * @return User
+     */
     public function removeClassRoom(ClassRoom $classRoom): self
     {
         if ($this->classRooms->contains($classRoom)) {

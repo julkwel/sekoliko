@@ -7,7 +7,6 @@ namespace App\Controller\Section;
 
 use App\Constant\MessageConstant;
 use App\Controller\AbstractBaseController;
-use App\Entity\SchoolYear;
 use App\Entity\Section;
 use App\Form\SectionType;
 use App\Repository\SectionRepository;
@@ -63,7 +62,7 @@ class SectionController extends AbstractBaseController
 
                 return $this->redirectToRoute('section_list');
             }
-
+          
             $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
             return $this->redirectToRoute('section_manage', ['id' => $section->getId() ?? null]);

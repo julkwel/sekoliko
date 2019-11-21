@@ -64,8 +64,10 @@ class ClassSubjectController extends AbstractBaseController
             $subject->setClassRoom($classe);
 
             try {
+              
                 if ($this->em->save($subject, $this->getUser())) 
                 {
+                  
                     $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
 
                     return $this->redirectToRoute('class_subject_list', ['id' => $subject->getClassRoom()->getId()]);

@@ -54,11 +54,8 @@ class AdministrationTypeController extends AbstractBaseController
         $form = $this->createForm(AdministrationTypeType::class, $admin);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) 
-        {
-           
-            if ($this->em->save($admin, $this->getUser(), $form)) 
-            {
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($this->em->save($admin, $this->getUser(), $form)) {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
 
                 return $this->redirectToRoute('administration_type_list');
@@ -67,7 +64,7 @@ class AdministrationTypeController extends AbstractBaseController
             $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
             return $this->redirectToRoute('administration_type_manage', [
-                'id' => $administrationType->getId() ?? null
+                'id' => $administrationType->getId() ?? null,
             ]);
         }
 
@@ -87,16 +84,14 @@ class AdministrationTypeController extends AbstractBaseController
     public function delete(AdministrationType $administrationType)
     {
         $repos = $this->manager->getRepository(Administrator::class)
-                               ->findBy(['type' => $administrationType]);
-        
-        if ($repos) 
-        {
+            ->findBy(['type' => $administrationType]);
+
+        if ($repos) {
             if ($this->em->remove($administrationType)) {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::SUPPRESSION_MESSAGE);
             } else {
                 $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
             }
-
         } else {
             $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_ASSOCIATION_MESSAGE);
         }

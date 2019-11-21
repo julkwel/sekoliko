@@ -55,7 +55,8 @@ class SekolikoSchoolYearController extends AbstractBaseController
         $form = $this->createForm(SchoolYearType::class, $schoolYear);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
 
             if ($this->em->save($schoolYear, $this->getUser())) 
             {
@@ -63,7 +64,7 @@ class SekolikoSchoolYearController extends AbstractBaseController
 
                 return $this->redirectToRoute('school_year_list');
             }
-
+          
             $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
             return $this->redirectToRoute('school_year_manage', ['id' => $schoolYear->getId() ?? null]);

@@ -65,6 +65,16 @@ class ClassRoom
     private $classSubjects;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Student", inversedBy="classe")
+     */
+    private $student;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Student", mappedBy="classe")
+     */
+    private $students;
+
+    /**
      * ClassRoom constructor.
      *
      * @throws Exception
@@ -73,6 +83,7 @@ class ClassRoom
     {
         $this->createdAt = new DateTime('now');
         $this->classSubjects = new ArrayCollection();
+        $this->students = new ArrayCollection();
     }
 
     /**
@@ -220,6 +231,49 @@ class ClassRoom
             // set the owning side to null (unless already changed)
             if ($classSubject->getClassRoom() === $this) {
                 $classSubject->setClassRoom(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getStudent(): ?Student
+    {
+        return $this->student;
+    }
+
+    public function setStudent(?Student $student): self
+    {
+        $this->student = $student;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Student[]
+     */
+    public function getStudents(): Collection
+    {
+        return $this->students;
+    }
+
+    public function addStudent(Student $student): self
+    {
+        if (!$this->students->contains($student)) {
+            $this->students[] = $student;
+            $student->setClasse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStudent(Student $student): self
+    {
+        if ($this->students->contains($student)) {
+            $this->students->removeElement($student);
+            // set the owning side to null (unless already changed)
+            if ($student->getClasse() === $this) {
+                $student->setClasse(null);
             }
         }
 
