@@ -56,16 +56,19 @@ class SekolikoAdministratorController extends AbstractBaseController
         $form = $this->createForm(AdministratorType::class, $admin);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid() && true === $this->em->save($admin, $this->getUser(), $form)) {
-            if (true === $this->beforePersistAdmin($admin, $form)) {
+        if ($form->isSubmitted() && $form->isValid() && $this->em->save($admin, $this->getUser(), $form)) 
+        {
+            
+            if ($this->beforePersistAdmin($admin, $form)) 
+            {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
 
                 return $this->redirectToRoute('administrator_list');
-            } else {
-                $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
+            } 
+            
+            $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
-                return $this->redirectToRoute('administrator_manage', ['id' => $admin->getId() ?? null]);
-            }
+            return $this->redirectToRoute('administrator_manage', ['id' => $admin->getId() ?? null]);
         }
 
         return $this->render('admin/content/user/_administrator_manage.html.twig', ['form' => $form->createView()]);
@@ -80,7 +83,7 @@ class SekolikoAdministratorController extends AbstractBaseController
      */
     public function delete(Administrator $administrator): RedirectResponse
     {
-        if (true === $this->em->remove($administrator)) {
+        if ($this->em->remove($administrator)) {
             $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::SUPPRESSION_MESSAGE);
         } else {
             $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
@@ -100,6 +103,7 @@ class SekolikoAdministratorController extends AbstractBaseController
         try {
             /** @var FormInterface $form */
             $pass = $form->getData()->getUser()->getPassword();
+            
             /* @var Administrator $admin */
             $admin->getUser()->setPassword($this->passencoder->encodePassword($admin->getUser(), $pass));
             $admin->getUser()->setRoles([RoleConstant::ROLE_SEKOLIKO['Administrateur']]);
