@@ -32,7 +32,6 @@ class SectionController extends AbstractBaseController
      */
     public function list(SectionRepository $repository): Response
     {
-//        dd($this->manager->getRepository(SchoolYear::class)->find($this->getUser()->getSchoolYear()->getId()));
         return $this->render(
             'admin/content/Section/_section_list.html.twig',
             [
@@ -54,16 +53,20 @@ class SectionController extends AbstractBaseController
         $section = $section ?? new Section();
         $form = $this->createForm(SectionType::class, $section);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            if (true === $this->em->save($section, $this->getUser())) {
+
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
+
+            if ($this->em->save($section, $this->getUser())) 
+            {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
 
                 return $this->redirectToRoute('section_list');
-            } else {
-                $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
-
-                return $this->redirectToRoute('section_manage', ['id' => $section->getId() ?? null]);
             }
+
+            $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
+
+            return $this->redirectToRoute('section_manage', ['id' => $section->getId() ?? null]);
         }
 
         return $this->render('admin/content/Section/_section_manage.html.twig', ['form' => $form->createView()]);
@@ -78,14 +81,12 @@ class SectionController extends AbstractBaseController
      */
     public function remove(Section $section)
     {
-        if (true === $this->em->remove($section)) {
+        if ($this->em->remove($section)) {
             $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::SUPPRESSION_MESSAGE);
-
-            return $this->redirectToRoute('section_list');
         } else {
             $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
-
-            return $this->redirectToRoute('section_list');
         }
+
+        return $this->redirectToRoute('section_list');
     }
 }
