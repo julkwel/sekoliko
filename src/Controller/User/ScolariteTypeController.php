@@ -91,14 +91,14 @@ class ScolariteTypeController extends AbstractBaseController
     {
         $repos = $this->manager->getRepository(Scolarite::class)->findBy(['type' => $scolariteType]);
         
-        if ($repos === null) 
+        if ($repos) 
         {
-            if ($this->em->remove($scolariteType)) {
+            if ($this->em->remove($scolariteType)) 
+            {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::SUPPRESSION_MESSAGE);
+            } else {
+                $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
             }
-            
-            $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
-
         } else {
             $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_ASSOCIATION_MESSAGE);
         }
