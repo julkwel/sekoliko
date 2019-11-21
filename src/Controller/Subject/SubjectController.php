@@ -49,16 +49,19 @@ class SubjectController extends AbstractBaseController
         $subject = $subject ?? new Subject();
         $form = $this->createForm(SubjectType::class, $subject);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            if (true === $this->em->save($subject, $this->getUser())) {
+
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
+            if ($this->em->save($subject, $this->getUser())) 
+            {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
 
                 return $this->redirectToRoute('subject_list');
-            } else {
-                $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
-
-                return $this->redirectToRoute('subject_manage', ['id' => $subject->getId() ?? null]);
             }
+
+            $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
+
+            return $this->redirectToRoute('subject_manage', ['id' => $subject->getId() ?? null]);
         }
 
         return $this->render(
@@ -78,7 +81,7 @@ class SubjectController extends AbstractBaseController
      */
     public function remove(Subject $subject)
     {
-        if (true === $this->em->remove($subject)) {
+        if ($this->em->remove($subject)) {
             $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::SUPPRESSION_MESSAGE);
         } else {
             $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);

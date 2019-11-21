@@ -55,16 +55,20 @@ class ScolariteTypeController extends AbstractBaseController
         $type = $scolariteType ?? new ScolariteType();
         $form = $this->createForm(ScolariteTypeType::class, $type);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            if (true === $this->em->save($type, $this->getUser(), $form)) {
+
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
+
+            if ($this->em->save($type, $this->getUser(), $form)) 
+            {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
 
                 return $this->redirectToRoute('scolarite_type_list');
-            } else {
-                $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
-
-                return $this->redirectToRoute('scolarite_type_manage', ['id' => $type->getId() ?? null]);
             }
+            
+            $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
+
+            return $this->redirectToRoute('scolarite_type_manage', ['id' => $type->getId() ?? null]);
         }
 
         return $this->render(
@@ -86,16 +90,19 @@ class ScolariteTypeController extends AbstractBaseController
     public function remove(ScolariteType $scolariteType)
     {
         $repos = $this->manager->getRepository(Scolarite::class)->findBy(['type' => $scolariteType]);
-        if (null === $repos) {
-            if (true === $this->em->remove($scolariteType)) {
+        
+        if ($repos === null) 
+        {
+            if ($this->em->remove($scolariteType)) {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::SUPPRESSION_MESSAGE);
-            } else {
-                $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
             }
+            
+            $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
+
         } else {
             $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_ASSOCIATION_MESSAGE);
         }
-
+        
         return $this->redirectToRoute('scolarite_type_list');
     }
 }
