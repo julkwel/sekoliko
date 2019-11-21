@@ -116,7 +116,7 @@ class ScolariteController extends AbstractBaseController
     public function remove(Scolarite $scolarite)
     {
         $type = $scolarite->getType()->getId();
-        
+
         if ($this->em->remove($scolarite)) {
             $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::SUPPRESSION_MESSAGE);
         } else {
