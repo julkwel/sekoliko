@@ -56,16 +56,13 @@ class ScolariteTypeController extends AbstractBaseController
         $form = $this->createForm(ScolariteTypeType::class, $type);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) 
-        {
-
-            if ($this->em->save($type, $this->getUser(), $form)) 
-            {
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($this->em->save($type, $this->getUser(), $form)) {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
 
                 return $this->redirectToRoute('scolarite_type_list');
             }
-            
+
             $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
             return $this->redirectToRoute('scolarite_type_manage', ['id' => $type->getId() ?? null]);
@@ -90,19 +87,17 @@ class ScolariteTypeController extends AbstractBaseController
     public function remove(ScolariteType $scolariteType)
     {
         $repos = $this->manager->getRepository(Scolarite::class)->findBy(['type' => $scolariteType]);
-        
-        if ($repos === null) 
-        {
+
+        if (null === $repos) {
             if ($this->em->remove($scolariteType)) {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::SUPPRESSION_MESSAGE);
             }
-            
-            $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
+            $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
         } else {
             $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_ASSOCIATION_MESSAGE);
         }
-        
+
         return $this->redirectToRoute('scolarite_type_list');
     }
 }

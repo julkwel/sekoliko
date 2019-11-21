@@ -106,15 +106,14 @@ class RoomController extends AbstractBaseController
         $form = $this->createForm(RoomType::class, $room);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            if (true === $this->em->save($room, $this->getUser())) {
+            if ($this->em->save($room, $this->getUser())) {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
 
                 return $this->redirectToRoute('room_list');
-            } else {
-                $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
-
-                return $this->redirectToRoute('room_manage', ['id' => $room->getId() ?? null]);
             }
+            $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
+
+            return $this->redirectToRoute('room_manage', ['id' => $room->getId() ?? null]);
         }
 
         return $this->render(
@@ -147,14 +146,13 @@ class RoomController extends AbstractBaseController
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
 
                 return $this->redirectToRoute('room_reservations_list', ['id' => $id->getId()]);
-            } else {
-                $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
-
-                return $this->redirectToRoute(
-                    'room_reservation',
-                    ['id' => $id->getId(), 'res' => $reservation->getId() ?? null]
-                );
             }
+            $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
+
+            return $this->redirectToRoute(
+                'room_reservation',
+                ['id' => $id->getId(), 'res' => $reservation->getId() ?? null]
+            );
         }
 
         return $this->render('admin/content/Room/_room_reservation.html.twig', ['form' => $form->createView()]);
@@ -175,17 +173,16 @@ class RoomController extends AbstractBaseController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if (true === $this->em->save($reservations, $this->getUser())) {
+            if ($this->em->save($reservations, $this->getUser())) {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
 
                 return $this->redirectToRoute('room_reservations_list', ['id' => $reservation->getRoom()->getId()]);
-            } else {
-                $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
-
-                return $this->redirectToRoute(
-                    'room_reservation', ['id' => $reservation->getRoom()->getId()]
-                );
             }
+            $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
+
+            return $this->redirectToRoute(
+                'room_reservation', ['id' => $reservation->getRoom()->getId()]
+            );
         }
 
         return $this->render('admin/content/Room/_room_reservation.html.twig', ['form' => $form->createView()]);
@@ -200,7 +197,7 @@ class RoomController extends AbstractBaseController
      */
     public function remove(Room $room)
     {
-        if (true === $this->em->remove($room)) {
+        if ($this->em->remove($room)) {
             $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::SUPPRESSION_MESSAGE);
         } else {
             $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::ERROR_MESSAGE);

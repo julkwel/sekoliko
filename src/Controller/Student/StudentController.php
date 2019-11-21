@@ -72,7 +72,7 @@ class StudentController extends AbstractBaseController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $student->setClasse($classe);
-            if (true === $this->em->save($student, $this->getUser(), $form)) {
+            if ($this->em->save($student, $this->getUser(), $form)) {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
 
                 return $this->redirectToRoute('student_list', ['id' => $classe->getId()]);

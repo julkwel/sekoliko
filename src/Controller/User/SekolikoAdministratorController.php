@@ -56,16 +56,13 @@ class SekolikoAdministratorController extends AbstractBaseController
         $form = $this->createForm(AdministratorType::class, $admin);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid() && $this->em->save($admin, $this->getUser(), $form)) 
-        {
-            
-            if ($this->beforePersistAdmin($admin, $form)) 
-            {
+        if ($form->isSubmitted() && $form->isValid() && $this->em->save($admin, $this->getUser(), $form)) {
+            if ($this->beforePersistAdmin($admin, $form)) {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
 
                 return $this->redirectToRoute('administrator_list');
-            } 
-            
+            }
+
             $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
             return $this->redirectToRoute('administrator_manage', ['id' => $admin->getId() ?? null]);
@@ -103,7 +100,7 @@ class SekolikoAdministratorController extends AbstractBaseController
         try {
             /** @var FormInterface $form */
             $pass = $form->getData()->getUser()->getPassword();
-            
+
             /* @var Administrator $admin */
             $admin->getUser()->setPassword($this->passencoder->encodePassword($admin->getUser(), $pass));
             $admin->getUser()->setRoles([RoleConstant::ROLE_SEKOLIKO['Administrateur']]);

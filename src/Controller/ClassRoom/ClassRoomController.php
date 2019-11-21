@@ -62,16 +62,14 @@ class ClassRoomController extends AbstractBaseController
         if ($form->isSubmitted() && $form->isValid()) {
             $classRoom->setSection($section);
             $classRoom->setCreatedBy($this->getUser());
-
-            if (true === $this->em->save($classRoom, $this->getUser())) {
+            if ($this->em->save($classRoom, $this->getUser())) {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
 
                 return $this->redirectToRoute('class_room_list', ['id' => $section->getId()]);
-            } else {
-                $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
-
-                return $this->redirectToRoute('class_room_manage', ['section' => $section->getId(), 'id' => $classRoom->getId()]);
             }
+            $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
+
+            return $this->redirectToRoute('class_room_manage', ['section' => $section->getId(), 'id' => $classRoom->getId()]);
         }
 
         return $this->render('admin/content/ClassRoom/_class_room_manage.html.twig', ['form' => $form->createView()]);
@@ -87,14 +85,13 @@ class ClassRoomController extends AbstractBaseController
     public function remove(ClassRoom $classRoom)
     {
         $section = $classRoom->getSection()->getId();
-        if (true === $this->em->remove($classRoom)) {
+        if ($this->em->remove($classRoom)) {
             $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::SUPPRESSION_MESSAGE);
 
             return $this->redirectToRoute('class_room_list', ['id' => $section]);
-        } else {
-            $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
-
-            return $this->redirectToRoute('class_room_list', ['id' => $section]);
         }
+        $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
+
+        return $this->redirectToRoute('class_room_list', ['id' => $section]);
     }
 }
