@@ -46,16 +46,27 @@ class ClassSubject
      */
     private $schoolYear;
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return ClassRoom|null
+     */
     public function getClassRoom(): ?ClassRoom
     {
         return $this->classRoom;
     }
 
+    /**
+     * @param ClassRoom|null $classRoom
+     *
+     * @return ClassSubject
+     */
     public function setClassRoom(?ClassRoom $classRoom): self
     {
         $this->classRoom = $classRoom;
@@ -63,11 +74,19 @@ class ClassSubject
         return $this;
     }
 
+    /**
+     * @return Subject|null
+     */
     public function getSubject(): ?Subject
     {
         return $this->subject;
     }
 
+    /**
+     * @param Subject|null $subject
+     *
+     * @return ClassSubject
+     */
     public function setSubject(?Subject $subject): self
     {
         $this->subject = $subject;
@@ -75,11 +94,19 @@ class ClassSubject
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getCoefficient(): ?string
     {
         return $this->coefficient;
     }
 
+    /**
+     * @param string|null $coefficient
+     *
+     * @return ClassSubject
+     */
     public function setCoefficient(?string $coefficient): self
     {
         $this->coefficient = $coefficient;
@@ -87,11 +114,19 @@ class ClassSubject
         return $this;
     }
 
+    /**
+     * @return \DateTimeInterface|null
+     */
     public function getDeletedAt(): ?\DateTimeInterface
     {
         return $this->deletedAt;
     }
 
+    /**
+     * @param \DateTimeInterface|null $deletedAt
+     *
+     * @return ClassSubject
+     */
     public function setDeletedAt(?\DateTimeInterface $deletedAt): self
     {
         $this->deletedAt = $deletedAt;
@@ -99,11 +134,19 @@ class ClassSubject
         return $this;
     }
 
+    /**
+     * @return SchoolYear|null
+     */
     public function getSchoolYear(): ?SchoolYear
     {
         return $this->schoolYear;
     }
 
+    /**
+     * @param SchoolYear|null $schoolYear
+     *
+     * @return ClassSubject
+     */
     public function setSchoolYear(?SchoolYear $schoolYear): self
     {
         $this->schoolYear = $schoolYear;

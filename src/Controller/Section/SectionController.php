@@ -7,7 +7,6 @@ namespace App\Controller\Section;
 
 use App\Constant\MessageConstant;
 use App\Controller\AbstractBaseController;
-use App\Entity\SchoolYear;
 use App\Entity\Section;
 use App\Form\SectionType;
 use App\Repository\SectionRepository;
@@ -32,7 +31,6 @@ class SectionController extends AbstractBaseController
      */
     public function list(SectionRepository $repository): Response
     {
-//        dd($this->manager->getRepository(SchoolYear::class)->find($this->getUser()->getSchoolYear()->getId()));
         return $this->render(
             'admin/content/Section/_section_list.html.twig',
             [

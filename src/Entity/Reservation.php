@@ -61,6 +61,9 @@ class Reservation
      */
     private $schoolYear;
 
+    /**
+     * Reservation constructor.
+     */
     public function __construct()
     {
         $this->reservator = new ArrayCollection();
@@ -202,6 +205,11 @@ class Reservation
         return $this->reservator;
     }
 
+    /**
+     * @param User $reservator
+     *
+     * @return Reservation
+     */
     public function addReservator(User $reservator): self
     {
         if (!$this->reservator->contains($reservator)) {
@@ -211,6 +219,11 @@ class Reservation
         return $this;
     }
 
+    /**
+     * @param User $reservator
+     *
+     * @return Reservation
+     */
     public function removeReservator(User $reservator): self
     {
         if ($this->reservator->contains($reservator)) {
@@ -220,11 +233,19 @@ class Reservation
         return $this;
     }
 
+    /**
+     * @return SchoolYear|null
+     */
     public function getSchoolYear(): ?SchoolYear
     {
         return $this->schoolYear;
     }
 
+    /**
+     * @param SchoolYear|null $schoolYear
+     *
+     * @return Reservation
+     */
     public function setSchoolYear(?SchoolYear $schoolYear): self
     {
         $this->schoolYear = $schoolYear;

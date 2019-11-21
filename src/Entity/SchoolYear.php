@@ -86,6 +86,9 @@ class SchoolYear
      */
     private $classSubjects;
 
+    /**
+     * SchoolYear constructor.
+     */
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -220,6 +223,11 @@ class SchoolYear
         return $this->scolarites;
     }
 
+    /**
+     * @param Scolarite $scolarite
+     *
+     * @return SchoolYear
+     */
     public function addScolarite(Scolarite $scolarite): self
     {
         if (!$this->scolarites->contains($scolarite)) {
@@ -230,6 +238,11 @@ class SchoolYear
         return $this;
     }
 
+    /**
+     * @param Scolarite $scolarite
+     *
+     * @return SchoolYear
+     */
     public function removeScolarite(Scolarite $scolarite): self
     {
         if ($this->scolarites->contains($scolarite)) {
@@ -251,6 +264,11 @@ class SchoolYear
         return $this->administrators;
     }
 
+    /**
+     * @param Administrator $administrator
+     *
+     * @return SchoolYear
+     */
     public function addAdministrator(Administrator $administrator): self
     {
         if (!$this->administrators->contains($administrator)) {
@@ -261,6 +279,11 @@ class SchoolYear
         return $this;
     }
 
+    /**
+     * @param Administrator $administrator
+     *
+     * @return SchoolYear
+     */
     public function removeAdministrator(Administrator $administrator): self
     {
         if ($this->administrators->contains($administrator)) {
@@ -282,6 +305,11 @@ class SchoolYear
         return $this->reservations;
     }
 
+    /**
+     * @param Reservation $reservation
+     *
+     * @return SchoolYear
+     */
     public function addReservation(Reservation $reservation): self
     {
         if (!$this->reservations->contains($reservation)) {
@@ -292,6 +320,11 @@ class SchoolYear
         return $this;
     }
 
+    /**
+     * @param Reservation $reservation
+     *
+     * @return SchoolYear
+     */
     public function removeReservation(Reservation $reservation): self
     {
         if ($this->reservations->contains($reservation)) {
@@ -313,6 +346,11 @@ class SchoolYear
         return $this->classRooms;
     }
 
+    /**
+     * @param ClassRoom $classRoom
+     *
+     * @return SchoolYear
+     */
     public function addClassRoom(ClassRoom $classRoom): self
     {
         if (!$this->classRooms->contains($classRoom)) {
@@ -323,6 +361,11 @@ class SchoolYear
         return $this;
     }
 
+    /**
+     * @param ClassRoom $classRoom
+     *
+     * @return SchoolYear
+     */
     public function removeClassRoom(ClassRoom $classRoom): self
     {
         if ($this->classRooms->contains($classRoom)) {
@@ -344,6 +387,11 @@ class SchoolYear
         return $this->sections;
     }
 
+    /**
+     * @param Section $section
+     *
+     * @return SchoolYear
+     */
     public function addSection(Section $section): self
     {
         if (!$this->sections->contains($section)) {
@@ -354,6 +402,11 @@ class SchoolYear
         return $this;
     }
 
+    /**
+     * @param Section $section
+     *
+     * @return SchoolYear
+     */
     public function removeSection(Section $section): self
     {
         if ($this->sections->contains($section)) {
@@ -372,6 +425,11 @@ class SchoolYear
         return $this->classSubjects;
     }
 
+    /**
+     * @param ClassSubject $classSubject
+     *
+     * @return SchoolYear
+     */
     public function addClassSubject(ClassSubject $classSubject): self
     {
         if (!$this->classSubjects->contains($classSubject)) {
@@ -382,6 +440,11 @@ class SchoolYear
         return $this;
     }
 
+    /**
+     * @param ClassSubject $classSubject
+     *
+     * @return SchoolYear
+     */
     public function removeClassSubject(ClassSubject $classSubject): self
     {
         if ($this->classSubjects->contains($classSubject)) {

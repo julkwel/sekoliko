@@ -15,6 +15,11 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  */
 class AdministratorRepository extends ServiceEntityRepository
 {
+    /**
+     * AdministratorRepository constructor.
+     *
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Administrator::class);
