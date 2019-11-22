@@ -55,12 +55,16 @@ class SekolikoSchoolYearController extends AbstractBaseController
         $form = $this->createForm(SchoolYearType::class, $schoolYear);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            if ($this->em->save($schoolYear, $this->getUser())) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
+
+            if ($this->em->save($schoolYear, $this->getUser())) 
+            {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
 
                 return $this->redirectToRoute('school_year_list');
             }
+          
             $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
             return $this->redirectToRoute('school_year_manage', ['id' => $schoolYear->getId() ?? null]);
@@ -84,7 +88,8 @@ class SekolikoSchoolYearController extends AbstractBaseController
     public function remove(SchoolYear $schoolYear)
     {
         $repos = $this->manager->getRepository(User::class)->findBy(['schoolYear' => $schoolYear]);
-        if (null === $repos) {
+
+        if ($repos) {
             if ($this->em->remove($schoolYear)) {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::SUPPRESSION_MESSAGE);
             } else {

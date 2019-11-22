@@ -58,17 +58,25 @@ class ClassSubjectController extends AbstractBaseController
         $subject = $subject ?? new ClassSubject();
         $form = $this->createForm(ClassSubjectType::class, $subject, ['user' => $this->getUser()]);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
             $subject->setClassRoom($classe);
+
             try {
-                if ($this->em->save($subject, $this->getUser())) {
+              
+                if ($this->em->save($subject, $this->getUser())) 
+                {
+                  
                     $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
 
                     return $this->redirectToRoute('class_subject_list', ['id' => $subject->getClassRoom()->getId()]);
                 }
+
                 $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
                 return $this->redirectToRoute('class_subject_manage', ['classe' => $classe->getId(), 'id' => $subject->getId() ?? null]);
+            
             } catch (Exception $exception) {
                 dd($exception->getMessage());
             }
@@ -93,11 +101,14 @@ class ClassSubjectController extends AbstractBaseController
     {
         $classe = $subject->getClassRoom();
         $subjectTemp = $subject;
-        if ($this->em->remove($subject)) {
+
+        if ($this->em->remove($subject)) 
+        {
             $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::SUPPRESSION_MESSAGE);
 
             return $this->redirectToRoute('class_subject_list', ['id' => $subjectTemp->getClassRoom()->getId()]);
-        }
+        } 
+
         $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
         return $this->redirectToRoute('class_subject_manage', ['classe' => $classe->getId(), 'id' => $subjectTemp->getId() ?? null]);
