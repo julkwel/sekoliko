@@ -14,16 +14,16 @@
                         <a href="{{ path('class_room_manage',{"section":section.id }) }}" class="btn btn-primary">Nouveau</a>
                     </div>
                 </div>
-                <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <table cellspacing="0" class="table table-striped table-bordered" id="dataTable" width="100%">
                     <thead>
                     <tr>
-                        <th>Nom</th>
+                        <th>Classe</th>
                         <th>Action</th>
                     </tr>
                     </thead>
                     <tfoot>
                     <tr>
-                        <th>Nom</th>
+                        <th>Classe</th>
                         <th>Action</th>
                     </tr>
                     </tfoot>
@@ -42,7 +42,7 @@
                                 </a>
                                 <a class="btn btn-outline-warning btn-sm" title="Liste des étudiants"
                                    href="{{ path('student_list',{'id': classe.id}) }}">
-                                    <i class="ti-list"></i>
+                                    <i class="fa fa-group"></i>
                                 </a>
                                 <a class="btn btn-outline-danger btn-sm" title="Supprimer"
                                    href="{{ path('class_room_remove',{'id':classe.id}) }}">

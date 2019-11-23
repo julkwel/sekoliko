@@ -45,16 +45,9 @@ class SekolikoEntityManager
      */
     public function save($entity, User $user, FormInterface $form = null)
     {
-        if (method_exists($entity, 'setEtsName')) {
-            $entity->setEtsName($user->getEtsName());
-        }
-        if (method_exists($entity, 'setSchoolYear')) {
-            $entity->setSchoolYear($user->getSchoolYear());
-        }
-        if (method_exists($entity, 'addSchoolYear')) {
-            $entity->addSchoolYear($user->getSchoolYear());
-        }
+        $this->customField($entity, $user);
         if (method_exists($entity, 'getUser')) {
+            $this->customField($entity->getUser(), $user);
             $formChild = $form->getIterator();
             $brochureFile = $formChild['user']->get('photo')->getData();
             if ($brochureFile) {
@@ -75,6 +68,27 @@ class SekolikoEntityManager
     }
 
     /**
+     * @param object $entity
+     * @param User   $user
+     *
+     * @return object
+     */
+    public function customField($entity, User $user)
+    {
+        if (method_exists($entity, 'setEtsName')) {
+            $entity->setEtsName($user->getEtsName());
+        }
+        if (method_exists($entity, 'setSchoolYear')) {
+            $entity->setSchoolYear($user->getSchoolYear());
+        }
+        if (method_exists($entity, 'addSchoolYear')) {
+            $entity->addSchoolYear($user->getSchoolYear());
+        }
+
+        return $entity;
+    }
+
+    /**
      * @param $brochureFile
      * @param $entity
      * @param $user
@@ -83,11 +97,11 @@ class SekolikoEntityManager
      */
     public function uploadPhoto($brochureFile, $entity, $user)
     {
-        $fullPath = $this->parameterBag->get('brochures_directory').$user->getEtsName();
+        $fullPath = $this->parameterBag->get('brochures_directory') . $user->getEtsName();
         $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
         // this is needed to safely include the file name as part of the URL
         $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
-        $newFilename = $safeFilename.'-'.uniqid().'.'.$brochureFile->guessExtension();
+        $newFilename = $safeFilename . '-' . uniqid() . '.' . $brochureFile->guessExtension();
         // Move the file to the directory where brochures are stored
         try {
             $brochureFile->move($fullPath, $newFilename);

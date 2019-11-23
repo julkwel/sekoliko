@@ -65,11 +65,6 @@ class ClassRoom
     private $classSubjects;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Student", inversedBy="classe")
-     */
-    private $student;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Student", mappedBy="classe")
      */
     private $students;
@@ -233,18 +228,6 @@ class ClassRoom
                 $classSubject->setClassRoom(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getStudent(): ?Student
-    {
-        return $this->student;
-    }
-
-    public function setStudent(?Student $student): self
-    {
-        $this->student = $student;
 
         return $this;
     }

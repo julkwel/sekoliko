@@ -106,6 +106,14 @@ class User implements UserInterface
      */
     private $photo;
 
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $prenom;
+
+    /**
+     * User constructor.
+     */
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
@@ -430,6 +438,18 @@ class User implements UserInterface
     public function setPhoto(?string $photo): self
     {
         $this->photo = $photo;
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(?string $prenom): self
+    {
+        $this->prenom = $prenom;
 
         return $this;
     }

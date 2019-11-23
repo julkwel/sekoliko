@@ -2,12 +2,9 @@
 <div class="header navbar">
     <div class="header-container">
         <ul class="nav-left">
-            <li><a id="sidebar-toggle" class="sidebar-toggle" href="javascript:void(0);"><i class="ti-menu"></i></a>
+            <li>
+                <a id="sidebar-toggle" class="sidebar-toggle" href="javascript:void(0);"><i class="ti-menu"></i></a>
             </li>
-            <li class="search-box"><a class="search-toggle no-pdd-right" href="javascript:void(0);"><i
-                            class="search-icon ti-search pdd-right-10"></i> <i
-                            class="search-icon-close ti-close pdd-right-10"></i></a></li>
-            <li class="search-input"><input class="form-control" type="text" placeholder="Search..."></li>
         </ul>
         <ul class="nav-right">
             <li class="notifications dropdown">
@@ -47,7 +44,7 @@
                 <ul class="dropdown-menu fsz-sm">
                     <li><a href="" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700"><i
                                     class="ti-settings mR-10"></i> <span>Setting</span></a></li>
-                    <li><a href="" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700"><i class="ti-user mR-10"></i>
+                    <li><a href="{{ path('user_management',{"id":app.user.id}) }}" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700"><i class="ti-user mR-10"></i>
                             <span>Profile</span></a></li>
                     <li role="separator" class="divider"></li>
                     <li><a href="{{ path('app_logout') }}" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700"><i
