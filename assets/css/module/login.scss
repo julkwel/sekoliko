@@ -1,0 +1,24 @@
+$sk_base_color: #1f0a3b;
+.sk-btn-login {
+  background: $sk_base_color;
+  border-color: $sk_base_color;
+
+  &:hover {
+    background: $sk_base_color;
+    border-color: $sk_base_color;
+  }
+}
+
+body {
+  background: $sk_base_color;
+}
+
+.login-card {
+  box-shadow: 0 1px 6px 0 rgba(32, 33, 36, .28);
+  border-radius: 2%
+}
+
+.login-image {
+  width: 100px;
+  height: 100px
+}
