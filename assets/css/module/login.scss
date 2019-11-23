@@ -10,7 +10,7 @@ $sk_base_color: #1f0a3b;
 }
 
 body {
-  background: $sk_base_color;
+  background: $sk_base_color!important;
 }
 
 .login-card {
