@@ -106,15 +106,13 @@ class RoomController extends AbstractBaseController
         $form = $this->createForm(RoomType::class, $room);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
-        {
-            if ($this->em->save($room, $this->getUser()))
-            {
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($this->em->save($room, $this->getUser())) {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
 
                 return $this->redirectToRoute('room_list');
             }
-          
+
             $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
             return $this->redirectToRoute('room_manage', ['id' => $room->getId() ?? null]);
@@ -142,19 +140,17 @@ class RoomController extends AbstractBaseController
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) 
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $reservation->setRoom($id);
             $reservation->addReservator($this->getUser());
             $id->setIsReserved(true);
 
-            if ($this->em->save($reservation, $this->getUser())) 
-            {
+            if ($this->em->save($reservation, $this->getUser())) {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
 
                 return $this->redirectToRoute('room_reservations_list', ['id' => $id->getId()]);
             }
-          
+
             $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
             return $this->redirectToRoute(
@@ -180,15 +176,13 @@ class RoomController extends AbstractBaseController
         $form = $this->createForm(ReservationType::class, $reservations);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) 
-        {
-            if ($this->em->save($reservations, $this->getUser()))
-            {
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($this->em->save($reservations, $this->getUser())) {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
 
                 return $this->redirectToRoute('room_reservations_list', ['id' => $reservation->getRoom()->getId()]);
             }
-          
+
             $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
             return $this->redirectToRoute(
