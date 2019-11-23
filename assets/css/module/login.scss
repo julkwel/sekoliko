@@ -1,11 +1,11 @@
 $sk_base_color: #1f0a3b;
 .sk-btn-login {
-  background: $sk_base_color;
-  border-color: $sk_base_color;
+  background: $sk_base_color!important;
+  border-color: $sk_base_color!important;
 
   &:hover {
-    background: $sk_base_color;
-    border-color: $sk_base_color;
+    background: $sk_base_color!important;
+    border-color: $sk_base_color!important;
   }
 }
 
