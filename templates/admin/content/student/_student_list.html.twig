@@ -49,6 +49,10 @@
                                    href="{{ path('student_remove',{'id': student.id}) }}">
                                     <i class="ti-trash"></i>
                                 </a>
+                                <a class="btn btn-outline-secondary btn-sm" title="Historique"
+                                   href="{{ path('history_user',{'id': student.user.id}) }}">
+                                    <i class="ti-bookmark-alt"></i>
+                                </a>
                             </td>
                         </tr>
                     {% endfor %}
