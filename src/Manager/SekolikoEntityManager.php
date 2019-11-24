@@ -11,6 +11,7 @@ use Exception;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * Class SekolikoEntityManager.
@@ -20,20 +21,26 @@ class SekolikoEntityManager
     /**
      * @var EntityManagerInterface
      */
-    private $em;
+    protected $em;
 
-    private $parameterBag;
+    /** @var ParameterBagInterface */
+    protected $parameterBag;
+
+    /** @var TokenStorageInterface */
+    protected $tokenStorage;
 
     /**
      * SekolikoEntityManager constructor.
      *
      * @param EntityManagerInterface $manager
      * @param ParameterBagInterface  $parameterBag
+     * @param TokenStorageInterface  $tokenStorage
      */
-    public function __construct(EntityManagerInterface $manager, ParameterBagInterface $parameterBag)
+    public function __construct(EntityManagerInterface $manager, ParameterBagInterface $parameterBag, TokenStorageInterface $tokenStorage)
     {
         $this->em = $manager;
         $this->parameterBag = $parameterBag;
+        $this->tokenStorage = $tokenStorage;
     }
 
     /**
@@ -43,8 +50,9 @@ class SekolikoEntityManager
      *
      * @return bool
      */
-    public function save($entity, User $user, FormInterface $form = null)
+    public function save($entity, User $user = null, FormInterface $form = null)
     {
+        $user ?: $this->tokenStorage->getToken()->getUser();
         $this->customField($entity, $user);
         if (method_exists($entity, 'getUser')) {
             $this->customField($entity->getUser(), $user);
@@ -109,6 +117,7 @@ class SekolikoEntityManager
 
             return $entity;
         } catch (FileException $e) {
+            // TODO remove on prod
             dd($e->getMessage());
 
             return $entity;
@@ -128,7 +137,18 @@ class SekolikoEntityManager
 
             return true;
         } catch (Exception $exception) {
+            // TODO remove on prod
+            dd($exception);
+
             return false;
         }
+    }
+
+    /**
+     * @return object|string
+     */
+    public function getUser()
+    {
+        return $this->tokenStorage->getToken()->getUser();
     }
 }

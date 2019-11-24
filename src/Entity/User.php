@@ -115,12 +115,23 @@ class User implements UserInterface
     private $prenom;
 
     /**
+     * @ORM\OneToOne(targetEntity="App\Entity\History", mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $action;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\History", mappedBy="userAct")
+     */
+    private $histories;
+
+    /**
      * User constructor.
      */
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
         $this->classRooms = new ArrayCollection();
+        $this->histories = new ArrayCollection();
     }
 
     /**
@@ -453,6 +464,54 @@ class User implements UserInterface
     public function setPrenom(?string $prenom): self
     {
         $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    public function getAction(): ?History
+    {
+        return $this->action;
+    }
+
+    public function setAction(History $action): self
+    {
+        $this->action = $action;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $action->getUser()) {
+            $action->setUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|History[]
+     */
+    public function getHistories(): Collection
+    {
+        return $this->histories;
+    }
+
+    public function addHistory(History $history): self
+    {
+        if (!$this->histories->contains($history)) {
+            $this->histories[] = $history;
+            $history->setUserAct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHistory(History $history): self
+    {
+        if ($this->histories->contains($history)) {
+            $this->histories->removeElement($history);
+            // set the owning side to null (unless already changed)
+            if ($history->getUserAct() === $this) {
+                $history->setUserAct(null);
+            }
+        }
 
         return $this;
     }

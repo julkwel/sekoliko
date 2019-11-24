@@ -10,6 +10,7 @@ use App\Controller\AbstractBaseController;
 use App\Entity\ClassRoom;
 use App\Entity\Student;
 use App\Form\StudentType;
+use App\Helper\HistoryHelper;
 use App\Manager\SekolikoEntityManager;
 use App\Repository\StudentRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -28,6 +29,8 @@ class StudentController extends AbstractBaseController
 {
     private $repository;
 
+    private $historyHelper;
+
     /**
      * StudentController constructor.
      *
@@ -36,10 +39,11 @@ class StudentController extends AbstractBaseController
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param StudentRepository            $repository
      */
-    public function __construct(EntityManagerInterface $manager, SekolikoEntityManager $entityManager, UserPasswordEncoderInterface $passwordEncoder, StudentRepository $repository)
+    public function __construct(EntityManagerInterface $manager, SekolikoEntityManager $entityManager, UserPasswordEncoderInterface $passwordEncoder, StudentRepository $repository, HistoryHelper $historyHelper)
     {
         parent::__construct($manager, $entityManager, $passwordEncoder);
         $this->repository = $repository;
+        $this->historyHelper = $historyHelper;
     }
 
     /**
@@ -72,6 +76,9 @@ class StudentController extends AbstractBaseController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $student->setClasse($classe);
+            if (!$student->getId()) {
+                $this->historyHelper->addHistory('Ajout '.$student->getUser()->getUsername().' dans la classe '.$classe->getName(), $student->getUser());
+            }
             if ($this->em->save($student, $this->getUser(), $form)) {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
 

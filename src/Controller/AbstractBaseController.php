@@ -5,6 +5,7 @@
 
 namespace App\Controller;
 
+use App\Helper\HistoryHelper;
 use App\Manager\SekolikoEntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,16 +32,23 @@ abstract class AbstractBaseController extends AbstractController
     protected $em;
 
     /**
+     * @var HistoryHelper|null
+     */
+    protected $history;
+
+    /**
      * AbstractBaseController constructor.
      *
      * @param EntityManagerInterface       $manager
      * @param SekolikoEntityManager        $entityManager
      * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param HistoryHelper|null           $historyHelper
      */
-    public function __construct(EntityManagerInterface $manager, SekolikoEntityManager $entityManager, UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(EntityManagerInterface $manager, SekolikoEntityManager $entityManager, UserPasswordEncoderInterface $passwordEncoder, HistoryHelper $historyHelper = null)
     {
         $this->manager = $manager;
         $this->em = $entityManager;
         $this->passencoder = $passwordEncoder;
+        $this->history = $historyHelper;
     }
 }
