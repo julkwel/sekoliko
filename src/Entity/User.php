@@ -6,6 +6,7 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -14,6 +15,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  *
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
+ *
+ * @UniqueEntity(fields={"username"}, message="Le login {{ value }} est déjà enregistrée")
  */
 class User implements UserInterface
 {
