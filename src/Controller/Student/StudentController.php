@@ -27,8 +27,14 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  */
 class StudentController extends AbstractBaseController
 {
+    /**
+     * @var StudentRepository
+     */
     private $repository;
 
+    /**
+     * @var HistoryHelper
+     */
     private $historyHelper;
 
     /**
