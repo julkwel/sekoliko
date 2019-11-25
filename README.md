@@ -17,9 +17,17 @@ Step 5. bin/console doctrine:schema:update --force
 Step 6. bin/console server:run
 Step 7. yarn encore dev --watch
 ```
-
 ## Design 
 We need to make cool and user friendly design , inside assets there is an directory named admirator this is the template we used.
+
+## Test
+[Sekoliko url](https://www.techzara.org/sekoliko/login) 
+
+Use : 
+```
+login : sekoliko
+password : sekoliko
+```
 
 ## Functional
 1. Back functional on all edit or add pages.
