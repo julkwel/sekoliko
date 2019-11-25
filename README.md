@@ -17,6 +17,10 @@ Step 5. bin/console doctrine:schema:update --force
 Step 6. bin/console server:run
 Step 7. yarn encore dev --watch
 ```
+Create your first user by running 
+
+`php bin/console sekoliko:create:super-admin`
+
 ## Design 
 We need to make cool and user friendly design , inside assets there is an directory named admirator this is the template we used.
 
