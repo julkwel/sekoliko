@@ -13,12 +13,12 @@ $(document).ready(function (e) {
             close: 'ti-close'
         },
     });
+
+    // Custom file input bootstrap fix
     $('.custom-file-label').addClass('custom-file-control');
     $('.custom-file').addClass('d-block');
     $('.custom-file-input').on('change',function(){
-        //get the file name
         var fileName = $(this).val();
-        //replace the "Choose a file" label
         $(this).next('.custom-file-label').html(fileName);
     })
 });
