@@ -5,11 +5,24 @@
 
 {% block content %}
     <div class="row">
-        <div class="col-md-12">
-            <div class="bgc-white bd bdrs-3 p-20 mB-20"><h4 class="c-grey-900 mB-20">User manage</h4>
+        <div class="col-md-6">
+            <div class="bgc-white bd bdrs-3 p-20 mB-20">
+                <h4 class="c-grey-900 mB-20">Gestion d'utilisateur</h4>
                 {{ form_start(form) }}
                 {{ form_widget(form) }}
-                <input type="submit" value="Enregistrer">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <div class="form-group">
+                        <label for="user_photo">Photo de l'établissement</label>
+                        <div class="custom-file d-block">
+                            <input type="file" id="ets_photo" name="etsphoto" class="custom-file-input">
+                            <label for="ets_photo" class="custom-file-label custom-file-control"></label>
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="col-md-12 d-block">
+                    <a href="{{ path('admin_dashboard') }}" class="btn btn-warning">Annuler</a>
+                    <input type="submit" class="btn btn-primary float-right" value="Enregistrer">
+                </div>
                 {{ form_end(form) }}
             </div>
         </div>

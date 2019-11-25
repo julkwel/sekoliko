@@ -10,18 +10,16 @@
                     <thead>
                     <tr>
                         <th>Nom</th>
-                        <th>Roles</th>
-                        <th>Office</th>
-                        <th>Start date</th>
+                        <th>Etablissement</th>
+                        <th>Date d'entrer</th>
                         <th>Action</th>
                     </tr>
                     </thead>
                     <tfoot>
                     <tr>
                         <th>Nom</th>
-                        <th>Roles</th>
                         <th>Etablissement</th>
-                        <th>Start date</th>
+                        <th>Date d'entrer</th>
                         <th>Action</th>
                     </tr>
                     </tfoot>
@@ -30,7 +28,6 @@
                         {% if user.deletedAt == null %}
                             <tr>
                                 <td>{{ user.nom }}</td>
-                                <td>{{ user.roles|join(' ') }}</td>
                                 <td>{{ user.etsName }}</td>
                                 <td>{{ user.dateCreate|date('Y-m-d') }}</td>
                                 <td>

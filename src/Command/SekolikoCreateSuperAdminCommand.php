@@ -33,6 +33,7 @@ class SekolikoCreateSuperAdminCommand extends Command
      * SekolikoCreateSuperAdminCommand constructor.
      *
      * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param EntityManagerInterface       $entityManager
      * @param string|null                  $name
      */
     public function __construct(UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $entityManager, string $name = null)

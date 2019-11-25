@@ -57,6 +57,8 @@ class SekolikoUserController extends AbstractBaseController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->em->uploadPhotoEts($request->files->get('etsphoto'), $this->getUser());
+            $this->em->uploadUserPhoto($form->get('photo')->getData(), $this->getUser());
             $this->beforePersistUser($user, $form);
 
             if ($this->em->save($user, $this->getUser(), $form)) {

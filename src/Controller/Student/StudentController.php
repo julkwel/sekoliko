@@ -6,6 +6,7 @@
 namespace App\Controller\Student;
 
 use App\Constant\MessageConstant;
+use App\Constant\RoleConstant;
 use App\Controller\AbstractBaseController;
 use App\Entity\ClassRoom;
 use App\Entity\Student;
@@ -14,6 +15,7 @@ use App\Helper\HistoryHelper;
 use App\Manager\SekolikoEntityManager;
 use App\Repository\StudentRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -81,10 +83,7 @@ class StudentController extends AbstractBaseController
         $form = $this->createForm(StudentType::class, $student);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $student->setClasse($classe);
-            if (!$student->getId()) {
-                $this->historyHelper->addHistory('Ajout '.$student->getUser()->getUsername().' dans la classe '.$classe->getName(), $student->getUser());
-            }
+            $this->beforeStudentPersist($classe, $student, $form);
             if ($this->em->save($student, $this->getUser(), $form)) {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
 
@@ -96,6 +95,25 @@ class StudentController extends AbstractBaseController
         }
 
         return $this->render('admin/content/student/_student_manage.html.twig', ['form' => $form->createView(), 'classe' => $classe]);
+    }
+
+    /**
+     * @param ClassRoom     $classe
+     * @param Student       $student
+     * @param FormInterface $form
+     *
+     * @return Student
+     */
+    public function beforeStudentPersist(ClassRoom $classe, Student $student, FormInterface $form): Student
+    {
+        $student->setClasse($classe);
+        $student->getUser()->setPassword($this->passencoder->encodePassword($student->getUser(), $form->get('user')->get('password')->getData()));
+        $student->getUser()->setRoles([RoleConstant::ROLE_SEKOLIKO['Etudiant']]);
+        if (!$student->getId()) {
+            $this->historyHelper->addHistory('Ajout ' . $student->getUser()->getUsername() . ' dans la classe ' . $classe->getName(), $student->getUser());
+        }
+
+        return $student;
     }
 
     /**

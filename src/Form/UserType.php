@@ -30,6 +30,13 @@ class UserType extends AbstractType
                 ]
             )
             ->add(
+                'prenom',
+                TextType::class,
+                [
+                    'label' => 'Prénom de l\'utilisateur',
+                ]
+            )
+            ->add(
                 'username',
                 TextType::class,
                 [

@@ -28,9 +28,10 @@ class UserRepository extends ServiceEntityRepository
     public function findByRoles(string $role, string $etsName)
     {
         return $this->createQueryBuilder('u')
-            ->andWhere('u.roles = :val')
+            ->where('u.roles LIKE :role')
             ->andWhere('u.etsName = :etsName')
-            ->setParameter('val', '%"'.$role.'"%')
+            ->andWhere('u.deletedAt is NULL')
+            ->setParameter('role', '%"'.$role.'"%')
             ->setParameter('etsName', $etsName)
             ->orderBy('u.id', 'ASC')
             ->getQuery()

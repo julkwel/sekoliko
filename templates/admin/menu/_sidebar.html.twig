@@ -25,6 +25,14 @@
                     <span class="title">Dashboard</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="sidebar-link" href="{{ path('school_year_list') }}">
+                    <span class="icon-holder">
+                        <i class="c-orange-500 ti-calendar"></i>
+                    </span>
+                    <span class="title">Années scolaires</span>
+                </a>
+            </li>
             <li class="nav-item dropdown {% if menu_user is defined %} open actived{% endif %}">
                 <a class="dropdown-toggle" href="javascript:void(0);">
                     <span class="icon-holder">
@@ -78,14 +86,6 @@
                     <span class="title">Matières</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="sidebar-link" href="{{ path('school_year_list') }}">
-                    <span class="icon-holder">
-                        <i class="c-orange-500 ti-calendar"></i>
-                    </span>
-                    <span class="title">Années scolaires</span>
-                </a>
-            </li>
             <li class="nav-item dropdown {% if menu_etablissement is defined or menu_room is defined or menu_section is defined %}
              open actived{% endif %}">
                 <a class="dropdown-toggle" href="javascript:void(0);">
@@ -100,18 +100,12 @@
                 <ul class="dropdown-menu">
                     <li class="nav-item {% if menu_room is defined %}actived{% endif %}">
                         <a href="{{ path('room_list') }}">
-                            <span class="icon-holder">
-                                <i class="c-blue-500 ti-home"></i>
-                            </span>
                             <span class="title">Salle</span>
                         </a>
                     </li>
                     <li class="nav-item {% if menu_section is defined %}actived{% endif %}">
                         <a href="{{ path('section_list') }}">
-                            <span class="icon-holder">
-                                <i class="c-blue-500 ti-settings"></i>
-                            </span>
-                            <span class="title">Section</span>
+                            <span class="title">Section / Niveau</span>
                         </a>
                     </li>
                 </ul>
