@@ -107,11 +107,11 @@ class SekolikoEntityManager
      */
     public function uploadPhoto($brochureFile, $entity, $user)
     {
-        $fullPath = $this->parameterBag->get('brochures_directory') . $user->getEtsName();
+        $fullPath = $this->parameterBag->get('brochures_directory').$user->getEtsName();
         $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
         // this is needed to safely include the file name as part of the URL
         $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
-        $newFilename = $safeFilename . '-' . uniqid() . '.' . $brochureFile->guessExtension();
+        $newFilename = $safeFilename.'-'.uniqid().'.'.$brochureFile->guessExtension();
         // Move the file to the directory where brochures are stored
         try {
             $brochureFile->move($fullPath, $newFilename);
@@ -126,7 +126,6 @@ class SekolikoEntityManager
         }
     }
 
-
     /**
      * @param mixed $brochureFile
      * @param User  $user
@@ -135,12 +134,12 @@ class SekolikoEntityManager
      */
     public function uploadPhotoEts($brochureFile, User $user)
     {
-        if ($brochureFile){
-            $fullPath = $this->parameterBag->get('brochures_directory') . $user->getEtsName();
+        if ($brochureFile) {
+            $fullPath = $this->parameterBag->get('brochures_directory').$user->getEtsName();
             $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
             // this is needed to safely include the file name as part of the URL
             $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
-            $newFilename = $safeFilename . '-' . uniqid() . '.' . $brochureFile->guessExtension();
+            $newFilename = $safeFilename.'-'.uniqid().'.'.$brochureFile->guessExtension();
             // Move the file to the directory where brochures are stored
             try {
                 $brochureFile->move($fullPath, $newFilename);
@@ -157,6 +156,7 @@ class SekolikoEntityManager
 
         return $user;
     }
+
     /**
      * @param mixed $brochureFile
      * @param User  $user
@@ -165,12 +165,12 @@ class SekolikoEntityManager
      */
     public function uploadUserPhoto($brochureFile, User $user)
     {
-        if ($brochureFile){
-            $fullPath = $this->parameterBag->get('brochures_directory') . $user->getEtsName();
+        if ($brochureFile) {
+            $fullPath = $this->parameterBag->get('brochures_directory').$user->getEtsName();
             $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
             // this is needed to safely include the file name as part of the URL
             $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
-            $newFilename = $safeFilename . '-' . uniqid() . '.' . $brochureFile->guessExtension();
+            $newFilename = $safeFilename.'-'.uniqid().'.'.$brochureFile->guessExtension();
             // Move the file to the directory where brochures are stored
             try {
                 $brochureFile->move($fullPath, $newFilename);

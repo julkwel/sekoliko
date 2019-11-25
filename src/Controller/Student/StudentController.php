@@ -110,7 +110,7 @@ class StudentController extends AbstractBaseController
         $student->getUser()->setPassword($this->passencoder->encodePassword($student->getUser(), $form->get('user')->get('password')->getData()));
         $student->getUser()->setRoles([RoleConstant::ROLE_SEKOLIKO['Etudiant']]);
         if (!$student->getId()) {
-            $this->historyHelper->addHistory('Ajout ' . $student->getUser()->getUsername() . ' dans la classe ' . $classe->getName(), $student->getUser());
+            $this->historyHelper->addHistory('Ajout '.$student->getUser()->getUsername().' dans la classe '.$classe->getName(), $student->getUser());
         }
 
         return $student;
