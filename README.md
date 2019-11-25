@@ -25,7 +25,7 @@ Create your first user by running
 ## Design 
 We need to make cool and user friendly design , inside assets there is an directory named admirator this is the template we used.
 
-## Test
+## Online test
 [Sekoliko url](https://www.techzara.org/sekoliko/login) 
 
 Use : 
