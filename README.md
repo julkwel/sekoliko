@@ -14,6 +14,7 @@ Step 1. Fork this project
 Step 2. git clone https://github.com/[your_username]/sekoliko.git
 Step 3. cd sekoliko && composer install
 Step 4. yarn install
+Step 5. configure .env to your own database
 Step 5. bin/console doctrine:schema:update --force
 Step 6. bin/console server:run
 Step 7. yarn encore dev --watch
