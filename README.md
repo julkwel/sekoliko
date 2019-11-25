@@ -1,6 +1,7 @@
 # Sekoliko build status : [![CircleCI](https://circleci.com/gh/julkwel/sekoliko/tree/develop.svg?style=svg)](https://circleci.com/gh/julkwel/sekoliko/tree/develop)
 
-Sekoliko Web Application OPENSOURCE
+School Management Web Application OPENSOURCE
+
 ## Requirements
 ```
 composer
@@ -33,9 +34,7 @@ login : sekoliko
 password : sekoliko
 ```
 
-## Functional
-1. Back functional on all edit or add pages.
-2. Refactoring (controller , services).
-3. IF YOU HAVE NEW PROPOSITION PLEASE EDIT THIS README AND MAKE PULL REQUEST.
+## Functional proposition
+IF YOU HAVE NEW PROPOSITION PLEASE CREATE NEW ISSUES.
 
 **Make cool things :wink:**
