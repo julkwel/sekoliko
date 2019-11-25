@@ -29,8 +29,7 @@
                                     data-toggle="dropdown">
                     <div class="peer mR-10">
                         <img class="w-2r bdrs-50p"
-                             src="
-                                {% if app.user.photo != null %}
+                             src="{% if app.user.photo != null %}
                                     {{ asset('uploads/photo'~ app.user.etsName~'/'~ app.user.photo) }}
                                 {% else %}
                                     {{ asset('images/avatar.png') }}
