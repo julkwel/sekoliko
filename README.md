@@ -36,6 +36,6 @@ password : sekoliko
 ```
 
 ## Functional proposition
-IF YOU HAVE NEW PROPOSITION PLEASE CREATE NEW ISSUES.
+IF YOU HAVE NEW PROPOSAL FUNCTION PLEASE CREATE NEW ISSUES.
 
 **Make cool things :wink:**
