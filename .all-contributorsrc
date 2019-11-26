@@ -71,6 +71,15 @@
       "contributions": [
         "design"
       ]
+    },
+    {
+      "login": "tolotrasmile",
+      "name": "Tolotra Raharison",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/8298581?v=4",
+      "profile": "http://tolotrasmile.github.io",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
