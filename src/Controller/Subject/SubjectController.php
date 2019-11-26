@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class SubjectController.
  *
- * @Route("/admin/subject")
+ * @Route("/{_locale}/admin/subject")
  */
 class SubjectController extends AbstractBaseController
 {

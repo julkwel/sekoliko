@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class AdministrationTypeController.
  *
- * @Route("admin/administration/type")
+ * @Route("/{_locale}/admin/administration/type")
  */
 class AdministrationTypeController extends AbstractBaseController
 {

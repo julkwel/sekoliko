@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class ScolariteController.
  *
- * @Route("/admin/scolarite")
+ * @Route("/{_locale}/admin/scolarite")
  */
 class ScolariteController extends AbstractBaseController
 {

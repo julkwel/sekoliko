@@ -21,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class ClassSubjectController.
  *
- * @Route("/admin/class/subject")
+ * @Route("/{_locale}/admin/class/subject")
  */
 class ClassSubjectController extends AbstractBaseController
 {

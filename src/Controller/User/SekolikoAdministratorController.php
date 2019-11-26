@@ -21,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class SekolikoAdministratorController.
  *
- * @Route("/admin/administrator")
+ * @Route("/{_locale}/admin/administrator")
  */
 class SekolikoAdministratorController extends AbstractBaseController
 {

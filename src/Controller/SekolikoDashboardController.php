@@ -10,11 +10,12 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class SekolikoDashboardController.
+ * @Route("/{_locale}/admin")
  */
 class SekolikoDashboardController extends AbstractBaseController
 {
     /**
-     * @Route("/admin/dashboard",name="admin_dashboard",methods={"POST","GET"})
+     * @Route("/dashboard",name="admin_dashboard",methods={"POST","GET"})
      */
     public function dashboardController(): Response
     {

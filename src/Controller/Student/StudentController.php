@@ -25,7 +25,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 /**
  * Class StudentController.
  *
- * @Route("/admin/student")
+ * @Route("/{_locale}/admin/student")
  */
 class StudentController extends AbstractBaseController
 {

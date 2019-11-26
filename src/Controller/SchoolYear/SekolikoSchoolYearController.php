@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class SekolikoSchoolYearController.
  *
  *
- * @Route("/admin/school/year")
+ * @Route("/{_locale}/admin/school/year")
  */
 class SekolikoSchoolYearController extends AbstractBaseController
 {

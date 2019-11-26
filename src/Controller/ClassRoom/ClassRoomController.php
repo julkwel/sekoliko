@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class ClassRoomController.
  *
- * @Route("/admin/class/room")
+ * @Route("/{_locale}/admin/class/room")
  */
 class ClassRoomController extends AbstractBaseController
 {
