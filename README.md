@@ -53,6 +53,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/RinaVatosoa"><img src="https://avatars2.githubusercontent.com/u/45585022?v=4" width="100px;" alt="RinaVatosoa"/><br /><sub><b>RinaVatosoa</b></sub></a><br /><a href="#design-RinaVatosoa" title="Design">🎨</a></td>
     <td align="center"><a href="https://www.devinart.net/"><img src="https://avatars0.githubusercontent.com/u/35923219?v=4" width="100px;" alt="nyantso"/><br /><sub><b>nyantso</b></sub></a><br /><a href="https://github.com/julkwel/sekoliko/commits?author=Nantso" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/Fy-Rakotondrabe"><img src="https://avatars2.githubusercontent.com/u/45007981?v=4" width="100px;" alt="Fy Kely"/><br /><sub><b>Fy Kely</b></sub></a><br /><a href="https://github.com/julkwel/sekoliko/commits?author=Fy-Rakotondrabe" title="Code">💻</a> <a href="#design-Fy-Rakotondrabe" title="Design">🎨</a></td>
+    <td align="center"><a href="https://github.com/chrys-elrak"><img src="https://avatars0.githubusercontent.com/u/40733956?v=4" width="100px;" alt="Chrys Rakotonimanana"/><br /><sub><b>Chrys Rakotonimanana</b></sub></a><br /><a href="https://github.com/julkwel/sekoliko/commits?author=chrys-elrak" title="Code">💻</a></td>
   </tr>
 </table>
 

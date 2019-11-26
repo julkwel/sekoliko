@@ -41,6 +41,15 @@
         "code",
         "design"
       ]
+      },
+      {
+      "login": "chrys-elrak",
+      "name": "Chrys Rakotonimanana",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/40733956?v=4",
+      "profile": "https://github.com/chrys-elrak",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
