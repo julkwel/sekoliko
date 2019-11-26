@@ -159,7 +159,13 @@ class RoomController extends AbstractBaseController
             );
         }
 
-        return $this->render('admin/content/Room/_room_reservation.html.twig', ['form' => $form->createView()]);
+        return $this->render(
+            'admin/content/Room/_room_reservation.html.twig',
+            [
+                'form' => $form->createView(),
+                'room' => $id,
+            ]
+        );
     }
 
     /**

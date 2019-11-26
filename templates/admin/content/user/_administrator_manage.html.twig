@@ -17,8 +17,9 @@
                         {{ form_widget(form) }}
                     </div>
                 </div>
-                <div class="col-md-12 text-right">
-                    <input type="submit" class="btn btn-primary" value="Enregistrer">
+                <div class="col-md-12 d-block">
+                    <a href="{{ path('administrator_list') }}" class="btn btn-warning">Annuler</a>
+                    <input type="submit" class="btn btn-primary float-right" value="Enregistrer">
                 </div>
                 {{ form_end(form) }}
             </div>

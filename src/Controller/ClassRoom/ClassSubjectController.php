@@ -78,6 +78,7 @@ class ClassSubjectController extends AbstractBaseController
             'admin/content/ClassRoom/_class_subject_manage.html.twig',
             [
                 'form' => $form->createView(),
+                'classe' => $classe,
             ]
         );
     }

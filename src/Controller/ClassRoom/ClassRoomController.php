@@ -74,7 +74,13 @@ class ClassRoomController extends AbstractBaseController
             return $this->redirectToRoute('class_room_manage', ['section' => $section->getId(), 'id' => $classRoom->getId()]);
         }
 
-        return $this->render('admin/content/ClassRoom/_class_room_manage.html.twig', ['form' => $form->createView()]);
+        return $this->render(
+            'admin/content/ClassRoom/_class_room_manage.html.twig',
+            [
+                'form' => $form->createView(),
+                'section' => $section,
+            ]
+        );
     }
 
     /**

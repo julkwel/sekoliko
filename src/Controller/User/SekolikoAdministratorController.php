@@ -26,7 +26,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SekolikoAdministratorController extends AbstractBaseController
 {
     /**
-     * @Route("/list/{id?}",name="administrator_list",methods={"POST","GET"})
+     * @Route("/list",name="administrator_list",methods={"POST","GET"})
      *
      * @param AdministratorRepository $repository
      *

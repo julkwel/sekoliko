@@ -1,14 +1,16 @@
 {# Manage school yearn #}
 
 {% extends 'admin/_base_admin.html.twig' %}
+{% block title %}Années scolaire{% endblock %}
 {% block content %}
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-4">
             <div class="bgc-white bd bdrs-3 p-20 mB-20"><h4 class="c-grey-900 mB-20">Gestion années scolaire</h4>
                 {{ form_start(form) }}
                 {{ form_widget(form) }}
-                <div class="col-md-12 text-right">
-                    <input type="submit" class="btn btn-primary" value="Enregistrer">
+                <div class="col-md-12 d-block">
+                    <a href="{{ path('school_year_list') }}" class="btn btn-warning">Annuler</a>
+                    <input type="submit" class="btn btn-primary float-right" value="Enregistrer">
                 </div>
                 {{ form_end(form) }}
             </div>
