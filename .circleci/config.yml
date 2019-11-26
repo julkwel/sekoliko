@@ -1,7 +1,9 @@
 
-# PHP CircleCI 2.0 configuration file
+# Sekoliko CircleCI 2.0 configuration file
 #
 # Check https://circleci.com/docs/2.0/language-php/ for more details
+#
+# Julien Rajerison <julienrajerison5@gmail.com>.
 #
 version: 2
 jobs:
@@ -12,18 +14,9 @@ jobs:
         environment:
           - MYSQL_ROOT_PASSWORD=root
 
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # Using the RAM variation mitigates I/O contention
-      # for database intensive operations.
-      # - image: circleci/mysql:5.7-ram
-      #
-      # - image: redis:2.8.19
-
     steps:
       - checkout
-      - run: sudo apt update # PHP CircleCI 2.0 Configuration File# PHP CircleCI 2.0 Configuration File sudo apt install zlib1g-dev libsqlite3-dev
+      - run: sudo apt update
       - run: sudo docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd
       - run: sudo docker-php-ext-install zip bcmath pdo_mysql
       - run: sudo apt-get install -y default-mysql-client
@@ -32,7 +25,6 @@ jobs:
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "composer.json" }}
-            # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
       - run:
@@ -62,5 +54,8 @@ jobs:
           paths:
             - node_modules
 
-      - run: mysqladmin create sekoliko --host="127.0.0.1" --user="root" --password="root"
-      - run: php bin/console doctrine:schema:update --force
+      - run:
+         name: Create database and database update
+         command: |
+           mysqladmin create sekoliko --host="127.0.0.1" --user="root" --password="root"
+           php bin/console doctrine:schema:update --force
