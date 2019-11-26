@@ -1,5 +1,5 @@
 # Sekoliko build status : [![CircleCI](https://circleci.com/gh/julkwel/sekoliko/tree/develop.svg?style=svg)](https://circleci.com/gh/julkwel/sekoliko/tree/develop)
-[![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors)
 
 School Management Web Application OPENSOURCE
 
@@ -56,6 +56,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/chrys-elrak"><img src="https://avatars0.githubusercontent.com/u/40733956?v=4" width="100px;" alt="Chrys Rakotonimanana"/><br /><sub><b>Chrys Rakotonimanana</b></sub></a><br /><a href="https://github.com/julkwel/sekoliko/commits?author=chrys-elrak" title="Code">💻</a></td>
     <td align="center"><a href="https://cvjulien.netlify.com/"><img src="https://avatars0.githubusercontent.com/u/30557565?v=4" width="100px;" alt="Jul"/><br /><sub><b>Jul</b></sub></a><br /><a href="#projectManagement-julkwel" title="Project Management">📆</a> <a href="#review-julkwel" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/julkwel/sekoliko/commits?author=julkwel" title="Tests">⚠️</a> <a href="https://github.com/julkwel/sekoliko/commits?author=julkwel" title="Code">💻</a></td>
     <td align="center"><a href="https://www.facebook.com/hantsaniala"><img src="https://avatars1.githubusercontent.com/u/8157490?v=4" width="100px;" alt="Hantsaniala Eléo"/><br /><sub><b>Hantsaniala Eléo</b></sub></a><br /><a href="#design-hantsaniala" title="Design">🎨</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="http://tolotrasmile.github.io"><img src="https://avatars3.githubusercontent.com/u/8298581?v=4" width="100px;" alt="Tolotra Raharison"/><br /><sub><b>Tolotra Raharison</b></sub></a><br /><a href="https://github.com/julkwel/sekoliko/commits?author=tolotrasmile" title="Code">💻</a></td>
   </tr>
 </table>
 
