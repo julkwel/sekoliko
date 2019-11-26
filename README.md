@@ -1,5 +1,5 @@
 # Sekoliko build status : [![CircleCI](https://circleci.com/gh/julkwel/sekoliko/tree/develop.svg?style=svg)](https://circleci.com/gh/julkwel/sekoliko/tree/develop)
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
 
 School Management Web Application OPENSOURCE
 
@@ -52,6 +52,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://heuristic-raman-24225d.netlify.com"><img src="https://avatars1.githubusercontent.com/u/40351002?v=4" width="100px;" alt="SylvanoTombo"/><br /><sub><b>SylvanoTombo</b></sub></a><br /><a href="https://github.com/julkwel/sekoliko/commits?author=SylvanoTombo" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/RinaVatosoa"><img src="https://avatars2.githubusercontent.com/u/45585022?v=4" width="100px;" alt="RinaVatosoa"/><br /><sub><b>RinaVatosoa</b></sub></a><br /><a href="#design-RinaVatosoa" title="Design">🎨</a></td>
     <td align="center"><a href="https://www.devinart.net/"><img src="https://avatars0.githubusercontent.com/u/35923219?v=4" width="100px;" alt="nyantso"/><br /><sub><b>nyantso</b></sub></a><br /><a href="https://github.com/julkwel/sekoliko/commits?author=Nantso" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/chrys-elrak"><img src="https://avatars0.githubusercontent.com/u/40733956?v=4" width="100px;" alt="Chrys Rakotonimanana"/><br /><sub><b>Chrys Rakotonimanana</b></sub></a><br /><a href="https://github.com/julkwel/sekoliko/commits?author=chrys-elrak" title="Code">💻</a></td>
   </tr>
 </table>
 
