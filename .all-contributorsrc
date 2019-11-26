@@ -1,0 +1,23 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "SylvanoTombo",
+      "name": "SylvanoTombo",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/40351002?v=4",
+      "profile": "https://heuristic-raman-24225d.netlify.com",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "sekoliko",
+  "projectOwner": "julkwel",
+  "repoType": "github",
+  "repoHost": "https://github.com"
+}
