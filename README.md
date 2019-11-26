@@ -1,5 +1,5 @@
 # Sekoliko build status : [![CircleCI](https://circleci.com/gh/julkwel/sekoliko/tree/develop.svg?style=svg)](https://circleci.com/gh/julkwel/sekoliko/tree/develop)
-[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors)
 
 School Management Web Application OPENSOURCE
 
@@ -54,6 +54,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://www.devinart.net/"><img src="https://avatars0.githubusercontent.com/u/35923219?v=4" width="100px;" alt="nyantso"/><br /><sub><b>nyantso</b></sub></a><br /><a href="https://github.com/julkwel/sekoliko/commits?author=Nantso" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/Fy-Rakotondrabe"><img src="https://avatars2.githubusercontent.com/u/45007981?v=4" width="100px;" alt="Fy Kely"/><br /><sub><b>Fy Kely</b></sub></a><br /><a href="https://github.com/julkwel/sekoliko/commits?author=Fy-Rakotondrabe" title="Code">💻</a> <a href="#design-Fy-Rakotondrabe" title="Design">🎨</a></td>
     <td align="center"><a href="https://github.com/chrys-elrak"><img src="https://avatars0.githubusercontent.com/u/40733956?v=4" width="100px;" alt="Chrys Rakotonimanana"/><br /><sub><b>Chrys Rakotonimanana</b></sub></a><br /><a href="https://github.com/julkwel/sekoliko/commits?author=chrys-elrak" title="Code">💻</a></td>
+    <td align="center"><a href="https://cvjulien.netlify.com/"><img src="https://avatars0.githubusercontent.com/u/30557565?v=4" width="100px;" alt="Jul"/><br /><sub><b>Jul</b></sub></a><br /><a href="#projectManagement-julkwel" title="Project Management">📆</a> <a href="#review-julkwel" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/julkwel/sekoliko/commits?author=julkwel" title="Tests">⚠️</a> <a href="https://github.com/julkwel/sekoliko/commits?author=julkwel" title="Code">💻</a></td>
   </tr>
 </table>
 
