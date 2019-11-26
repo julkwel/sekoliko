@@ -59,3 +59,4 @@ jobs:
          command: |
            mysqladmin create sekoliko --host="127.0.0.1" --user="root" --password="root"
            php bin/console doctrine:schema:update --force
+           bin/phpunit
