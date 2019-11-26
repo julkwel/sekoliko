@@ -9,12 +9,12 @@ jobs:
     docker:
       # Specify the version you desire here
       - image: circleci/php:7.2-apache-stretch-node-browsers
+      - image: circleci/mysql:8.0.4
         environment:
-          MYSQL_HOST: 127.0.0.1
-          MYSQL_DB: sekoliko
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: sekoliko
           MYSQL_USER: root
-          MYSQL_ALLOW_EMPTY_PASSWORD: true
-          MYSQL_PASSWORD:
+          MYSQL_PASSWORD: password
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -28,13 +28,24 @@ jobs:
     steps:
       - checkout
       - run:
+          # Our primary container isn't MYSQL so run a sleep command until it's ready.
+          name: Waiting for MySQL to be ready
+          command: |
+            for i in `seq 1 10`;
+            do
+              nc -z 127.0.0.1 3306 && echo Success && exit 0
+              echo -n .
+              sleep 1
+            done
+            echo Failed waiting for MySQL && exit 1
+      - run:
           name: Install things we need
           command: |
             sudo apt-get update
             sudo apt-get install -y libzip-dev libpng-dev
             sudo apt-get install -y zlib1g-dev libicu-dev g++
-            sudo apt-get install mysql-client
-            sudo apt-get -y install mysql-server
+            sudo apt-get install default-mysql-client
+            mysql -h 127.0.0.1 -u root -e "CREATE DATABASE sekoliko;"
 
       - run:
           name: Install PHP exts
@@ -43,18 +54,6 @@ jobs:
             sudo docker-php-ext-configure intl
             sudo docker-php-ext-install intl
             sudo docker-php-ext-install pdo_mysql
-
-      - run:
-          name: Fix MySQL socket config
-          command: |
-            sudo sh -c "echo 'pdo_mysql.default_socket=/var/run/mysqld/mysqld.sock' > /usr/local/etc/php/conf.d/pdo.ini"
-
-      - run:
-          name: Start database server
-          command: |
-            sudo service mysql start
-            sleep 2
-            ps aux | grep mysql
 
       # Download and cache dependencies
       - restore_cache:
@@ -69,6 +68,7 @@ jobs:
           command: |
             cp .env.test .env
             composer install
+            php bin/console doctrine:schema:update --force
 
       - save_cache:
           key: v1-dependencies-{{ checksum "composer.json" }}
