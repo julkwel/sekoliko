@@ -53,6 +53,12 @@ class SekolikoUserController extends AbstractBaseController
     public function manageUser(Request $request, User $user = null): Response
     {
         $user = $user ?: new User();
+        if (1 === $user->getId()) {
+            $this->addFlash('error', 'Vous n\'avez pas le droit de modifier cet utilisateur');
+            
+            return $this->redirectToRoute('admin_dashboard');
+        }
+
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
