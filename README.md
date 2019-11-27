@@ -16,7 +16,7 @@ Step 2.
 
 `- git clone https://github.com/[your_username]/sekoliko.git`
 
-Step 3. Create new branch 
+Step 3. Create new branch [optional] (if you want to contribute)
 
 `- git checkout -b feature/my-branch`
 
