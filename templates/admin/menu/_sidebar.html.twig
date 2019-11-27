@@ -20,7 +20,7 @@
             <li class="nav-item mT-30  {% if menu_dashboard is defined %} actived{% endif %}">
                 <a class="sidebar-link" href="{{ path('admin_dashboard') }}">
                     <span class="icon-holder">
-                        <i class="c-blue-500 ti-home"></i>
+                        <i class="c-blue-500 ti-dashboard"></i>
                     </span>
                     <span class="title">Dashboard</span>
                 </a>
@@ -33,49 +33,44 @@
                     <span class="title">Années scolaires</span>
                 </a>
             </li>
-            <li class="nav-item dropdown {% if menu_user is defined %} open actived{% endif %}">
+            <li class="nav-item dropdown {% if menu_administration is defined %} open actived{% endif %}">
                 <a class="dropdown-toggle" href="javascript:void(0);">
                     <span class="icon-holder">
-                        <i class="c-red-500 ti-user"></i>
+                         <i class="ti-user"></i>
                     </span>
-                    <span class="title">Utilisateur</span>
+                    <span class="title">Administration</span>
                     <span class="arrow">
                         <i class="ti-angle-right"></i>
                     </span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li class="nav-item dropdown {% if menu_administration is defined %} open actived{% endif %}">
-                        <a href="javascript:void(0);">
-                            <span>Administration</span>
+                    <li><a href="{{ path('administrator_list') }}">List</a></li>
+                    <li><a href="{{ path('administration_type_list') }}">Type</a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown {% if menu_scolarite is defined %} open actived{% endif %}">
+                <a class="dropdown-toggle" href="javascript:void(0);">
+                    <span class="icon-holder">
+                         <i class="c-orange-500 ti-check-box"></i>
+                    </span>
+                    <span class="title">Scolarité</span>
+                    <span class="arrow">
+                        <i class="ti-angle-right"></i>
+                    </span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li class="nav-item dropdown {% if menu_scolarite_list is defined %} open actived{% endif %}">
+                        <a href="#">
+                            <span>List</span>
                             <span class="arrow">
                                 <i class="ti-angle-right"></i>
                             </span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ path('administrator_list') }}">List</a></li>
-                            <li><a href="{{ path('administration_type_list') }}">Type</a></li>
+                            {{ render(controller('App\\Controller\\Menu\\MenuController::list')) }}
                         </ul>
                     </li>
-                    <li class="nav-item dropdown {% if menu_scolarite is defined %} open actived{% endif %}">
-                        <a href="javascript:void(0);">
-                            <span>Scolarité</span>
-                            <span class="arrow">
-                                <i class="ti-angle-right"></i>
-                            </span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="nav-item dropdown {% if menu_scolarite_list is defined %} open actived{% endif %}">
-                                <a href="#">
-                                    <span>List</span>
-                                    <span class="arrow"><i class="ti-angle-right"></i></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    {{ render(controller('App\\Controller\\Menu\\MenuController::list')) }}
-                                </ul>
-                            </li>
-                            <li><a href="{{ path('scolarite_type_list') }}">Type</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="{{ path('scolarite_type_list') }}">Type</a></li>
                 </ul>
             </li>
             <li class="nav-item {% if menu_matiere is defined %} actived{% endif %}">
@@ -86,13 +81,13 @@
                     <span class="title">Matières</span>
                 </a>
             </li>
-            <li class="nav-item dropdown {% if menu_etablissement is defined or menu_room is defined or menu_section is defined %}
+            <li class="nav-item dropdown {% if menu_etablissement is defined or menu_room is defined %}
              open actived{% endif %}">
                 <a class="dropdown-toggle" href="javascript:void(0);">
                     <span class="icon-holder">
-                        <i class="c-red-500 ti-user"></i>
+                        <i class="c-red-500 ti-settings"></i>
                     </span>
-                    <span class="title">Etablissement</span>
+                    <span class="title">Infrastructure</span>
                     <span class="arrow">
                         <i class="ti-angle-right"></i>
                     </span>
@@ -103,12 +98,15 @@
                             <span class="title">Salle</span>
                         </a>
                     </li>
-                    <li class="nav-item {% if menu_section is defined %}actived{% endif %}">
-                        <a href="{{ path('section_list') }}">
-                            <span class="title">Section / Niveau</span>
-                        </a>
-                    </li>
                 </ul>
+            </li>
+            <li class="nav-item">
+                <a class="sidebar-link" href="{{ path('section_list') }}">
+                    <span class="icon-holder">
+                        <i class="c-orange-500 fa fa-list-alt"></i>
+                    </span>
+                    <span class="title">Section / Niveau</span>
+                </a>
             </li>
         </ul>
     </div>
