@@ -7,6 +7,8 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -44,6 +46,19 @@ class UserType extends AbstractType
                 ]
             )
             ->add(
+                'birthDate',
+                DateTimeType::class,
+                [
+                    'label' => 'Date de naissance',
+                    'widget' => 'single_text',
+                    'html5' => false,
+                    'attr' => [
+                        'class' => 'datetimepicker',
+                    ],
+                    'format' => 'Y-m-d H:i',
+                ]
+            )
+            ->add(
                 'photo',
                 FileType::class,
                 [
@@ -71,6 +86,16 @@ class UserType extends AbstractType
                 PasswordType::class,
                 [
                     'label' => 'Mots de passe de l\'utilisateur',
+                ]
+            )
+            ->add(
+                'sexe',
+                ChoiceType::class,
+                [
+                    'choices' => [
+                        'Male' => 'Male',
+                        'Femme' => 'Femme',
+                    ],
                 ]
             );
     }

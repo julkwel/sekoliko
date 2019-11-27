@@ -8,6 +8,7 @@ namespace App\Form;
 use App\Entity\Scolarite;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -24,7 +25,10 @@ class ScolariteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('user', UserType::class)
+            ->add(
+                'user',
+                UserType::class
+            )
             ->add(
                 'dateCreate',
                 DateTimeType::class,
@@ -38,9 +42,75 @@ class ScolariteType extends AbstractType
                     'format' => 'Y-m-d H:i',
                 ]
             )
-            ->add('adresse', TextType::class, ['label' => 'Adresse éxacte'])
-            ->add('contact', TextType::class, ['label' => 'Contact téléphonique'])
-            ->add('salary', TextType::class, ['label' => 'Montant salaires', 'required' => false]);
+            ->add(
+                'adresse',
+                TextType::class,
+                [
+                    'label' => 'Adresse éxacte',
+                ]
+            )
+            ->add(
+                'contact',
+                TextType::class,
+                [
+                    'label' => 'Contact téléphonique',
+                ]
+            )
+            ->add('cin',
+                TextType::class,
+                [
+                    'label' => 'Numéro CIN',
+                ]
+            )
+            ->add(
+                'lieuCin',
+                TextType::class,
+                [
+                    'label' => 'Lieu délivrance CIN',
+                ]
+            )
+            ->add(
+                'dateCin',
+                DateTimeType::class,
+                [
+                    'label' => 'Date CIN',
+                    'widget' => 'single_text',
+                    'html5' => false,
+                    'attr' => [
+                        'class' => 'datetimepicker',
+                    ],
+                    'format' => 'Y-m-d H:i',
+                ]
+            )
+            ->add(
+                'diplome',
+                TextType::class,
+                [
+                    'label' => 'Diplome',
+                ]
+            )
+            ->add(
+                'numAe',
+                TextType::class,
+                [
+                    'label' => 'Numéro AE',
+                ]
+            )
+            ->add(
+                'salary',
+                TextType::class,
+                [
+                    'label' => 'Montant salaires',
+                    'required' => false,
+                ]
+            )
+            ->add(
+                'noteLibre',
+                TextareaType::class,
+                [
+                    'label' => 'Note libre',
+                ]
+            );
     }
 
     /**
@@ -48,9 +118,11 @@ class ScolariteType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
-            'data_class' => Scolarite::class,
-            'users' => null,
-        ]);
+        $resolver->setDefaults(
+            [
+                'data_class' => Scolarite::class,
+                'users' => null,
+            ]
+        );
     }
 }

@@ -125,6 +125,16 @@ class User implements UserInterface
     private $histories;
 
     /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $birthDate;
+
+    /**
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    private $sexe;
+
+    /**
      * User constructor.
      */
     public function __construct()
@@ -456,11 +466,19 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getPrenom(): ?string
     {
         return $this->prenom;
     }
 
+    /**
+     * @param string|null $prenom
+     *
+     * @return User
+     */
     public function setPrenom(?string $prenom): self
     {
         $this->prenom = $prenom;
@@ -468,11 +486,19 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return History|null
+     */
     public function getAction(): ?History
     {
         return $this->action;
     }
 
+    /**
+     * @param History $action
+     *
+     * @return User
+     */
     public function setAction(History $action): self
     {
         $this->action = $action;
@@ -493,6 +519,11 @@ class User implements UserInterface
         return $this->histories;
     }
 
+    /**
+     * @param History $history
+     *
+     * @return User
+     */
     public function addHistory(History $history): self
     {
         if (!$this->histories->contains($history)) {
@@ -503,6 +534,11 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param History $history
+     *
+     * @return User
+     */
     public function removeHistory(History $history): self
     {
         if ($this->histories->contains($history)) {
@@ -512,6 +548,41 @@ class User implements UserInterface
                 $history->setUserAct(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTimeInterface|null
+     */
+    public function getBirthDate(): ?\DateTimeInterface
+    {
+        return $this->birthDate;
+    }
+
+    public function setBirthDate(?\DateTimeInterface $birthDate): self
+    {
+        $this->birthDate = $birthDate;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSexe(): ?string
+    {
+        return $this->sexe;
+    }
+
+    /**
+     * @param string|null $sexe
+     *
+     * @return User
+     */
+    public function setSexe(?string $sexe): self
+    {
+        $this->sexe = $sexe;
 
         return $this;
     }

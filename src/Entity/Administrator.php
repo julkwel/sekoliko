@@ -69,6 +69,48 @@ class Administrator
     private $schoolYear;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $diplome;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $cin;
+
+    /**
+     * @var DateTimeInterface|null
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateCin;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", length=50,nullable=true)
+     */
+    private $lieuCin;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", length=150, nullable=true)
+     */
+    private $numAe;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $noteLibre;
+
+    /**
      * @return int|null
      */
     public function getId(): ?int
@@ -136,11 +178,19 @@ class Administrator
         return $this;
     }
 
+    /**
+     * @return User|null
+     */
     public function getUser(): ?User
     {
         return $this->user;
     }
 
+    /**
+     * @param User|null $user
+     *
+     * @return Administrator
+     */
     public function setUser(?User $user): self
     {
         $this->user = $user;
@@ -164,11 +214,19 @@ class Administrator
         $this->deletedAt = $deletedAt;
     }
 
+    /**
+     * @return string|null
+     */
     public function getAdresse(): ?string
     {
         return $this->adresse;
     }
 
+    /**
+     * @param string $adresse
+     *
+     * @return Administrator
+     */
     public function setAdresse(string $adresse): self
     {
         $this->adresse = $adresse;
@@ -176,11 +234,19 @@ class Administrator
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getContact(): ?string
     {
         return $this->contact;
     }
 
+    /**
+     * @param string|null $contact
+     *
+     * @return Administrator
+     */
     public function setContact(?string $contact): self
     {
         $this->contact = $contact;
@@ -188,14 +254,142 @@ class Administrator
         return $this;
     }
 
+    /**
+     * @return SchoolYear|null
+     */
     public function getSchoolYear(): ?SchoolYear
     {
         return $this->schoolYear;
     }
 
+    /**
+     * @param SchoolYear|null $schoolYear
+     *
+     * @return Administrator
+     */
     public function setSchoolYear(?SchoolYear $schoolYear): self
     {
         $this->schoolYear = $schoolYear;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDiplome(): ?string
+    {
+        return $this->diplome;
+    }
+
+    /**
+     * @param string|null $diplome
+     *
+     * @return Administrator
+     */
+    public function setDiplome(?string $diplome): self
+    {
+        $this->diplome = $diplome;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCin(): ?string
+    {
+        return $this->cin;
+    }
+
+    /**
+     * @param string|null $cin
+     *
+     * @return Administrator
+     */
+    public function setCin(?string $cin): self
+    {
+        $this->cin = $cin;
+
+        return $this;
+    }
+
+    /**
+     * @return DateTimeInterface|null
+     */
+    public function getDateCin(): ?DateTimeInterface
+    {
+        return $this->dateCin;
+    }
+
+    /**
+     * @param DateTimeInterface|null $dateCin
+     *
+     * @return Administrator
+     */
+    public function setDateCin(?DateTimeInterface $dateCin): self
+    {
+        $this->dateCin = $dateCin;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLieuCin(): ?string
+    {
+        return $this->lieuCin;
+    }
+
+    /**
+     * @param string|null $lieuCin
+     *
+     * @return Administrator
+     */
+    public function setLieuCin(?string $lieuCin): self
+    {
+        $this->lieuCin = $lieuCin;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getNumAe(): ?string
+    {
+        return $this->numAe;
+    }
+
+    /**
+     * @param string|null $numAe
+     *
+     * @return Administrator
+     */
+    public function setNumAe(?string $numAe): self
+    {
+        $this->numAe = $numAe;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getNoteLibre(): ?string
+    {
+        return $this->noteLibre;
+    }
+
+    /**
+     * @param string|null $noteLibre
+     *
+     * @return Administrator
+     */
+    public function setNoteLibre(?string $noteLibre): Administrator
+    {
+        $this->noteLibre = $noteLibre;
 
         return $this;
     }

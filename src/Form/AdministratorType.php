@@ -11,6 +11,7 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -67,8 +68,75 @@ class AdministratorType extends AbstractType
                     'format' => 'Y-m-d H:i',
                 ]
             )
-            ->add('adresse')
-            ->add('contact');
+            ->add(
+                'adresse',
+                TextType::class,
+                [
+                    'label' => 'Adresse exacte',
+                ]
+            )
+            ->add(
+                'contact',
+                TextType::class,
+                [
+                    'label' => 'Contact téléphonique',
+                ]
+            )
+            ->add('cin',
+                TextType::class,
+                [
+                    'label' => 'Numéro CIN',
+                ]
+            )
+            ->add(
+                'lieuCin',
+                TextType::class,
+                [
+                    'label' => 'Lieu délivrance CIN',
+                ]
+            )
+            ->add(
+                'dateCin',
+                DateTimeType::class,
+                [
+                    'label' => 'Date CIN',
+                    'widget' => 'single_text',
+                    'html5' => false,
+                    'attr' => [
+                        'class' => 'datetimepicker',
+                    ],
+                    'format' => 'Y-m-d H:i',
+                ]
+            )
+            ->add(
+                'diplome',
+                TextType::class,
+                [
+                    'label' => 'Diplome',
+                ]
+            )
+            ->add(
+                'numAe',
+                TextType::class,
+                [
+                    'label' => 'Numéro AE',
+                ]
+            )
+            ->add(
+                'salary',
+                TextType::class,
+                [
+                    'label' => 'Montant salaires',
+                    'required' => false,
+                ]
+            )
+            ->add(
+                'noteLibre',
+                TextareaType::class,
+                [
+                    'label' => 'Note libre',
+                ]
+            );
     }
 
     /**

@@ -70,6 +70,36 @@ class Scolarite
     private $schoolYear;
 
     /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $diplome;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $cin;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateCin;
+
+    /**
+     * @ORM\Column(type="string", length=50,nullable=true)
+     */
+    private $lieuCin;
+
+    /**
+     * @ORM\Column(type="string", length=150, nullable=true)
+     */
+    private $numAe;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $noteLibre;
+
+    /**
      * @return int|null
      */
     public function getId(): ?int
@@ -229,6 +259,126 @@ class Scolarite
     public function setSchoolYear(?SchoolYear $schoolYear): self
     {
         $this->schoolYear = $schoolYear;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDiplome(): ?string
+    {
+        return $this->diplome;
+    }
+
+    /**
+     * @param string|null $diplome
+     *
+     * @return Scolarite
+     */
+    public function setDiplome(?string $diplome): self
+    {
+        $this->diplome = $diplome;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCin(): ?string
+    {
+        return $this->cin;
+    }
+
+    /**
+     * @param string|null $cin
+     *
+     * @return Scolarite
+     */
+    public function setCin(?string $cin): self
+    {
+        $this->cin = $cin;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTimeInterface|null
+     */
+    public function getDateCin(): ?\DateTimeInterface
+    {
+        return $this->dateCin;
+    }
+
+    /**
+     * @param \DateTimeInterface|null $dateCin
+     *
+     * @return Scolarite
+     */
+    public function setDateCin(?\DateTimeInterface $dateCin): self
+    {
+        $this->dateCin = $dateCin;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLieuCin(): ?string
+    {
+        return $this->lieuCin;
+    }
+
+    /**
+     * @param string|null $lieuCin
+     *
+     * @return Scolarite
+     */
+    public function setLieuCin(?string $lieuCin): self
+    {
+        $this->lieuCin = $lieuCin;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getNumAe(): ?string
+    {
+        return $this->numAe;
+    }
+
+    /**
+     * @param string|null $numAe
+     *
+     * @return Scolarite
+     */
+    public function setNumAe(?string $numAe): self
+    {
+        $this->numAe = $numAe;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getNoteLibre(): ?string
+    {
+        return $this->noteLibre;
+    }
+
+    /**
+     * @param string|null $noteLibre
+     *
+     * @return Scolarite
+     */
+    public function setNoteLibre(?string $noteLibre): self
+    {
+        $this->noteLibre = $noteLibre;
 
         return $this;
     }
