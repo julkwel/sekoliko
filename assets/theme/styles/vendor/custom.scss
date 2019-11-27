@@ -1,5 +1,5 @@
 
-$sk_base_color: #1f0a3b;
+$sk_border_color: #5f99f3;
 
 .custom-file-control:lang(fr)::before{
   content:"Parcourir";
@@ -8,5 +8,5 @@ $sk_base_color: #1f0a3b;
   content:"Browse";
 }
 .sk-bd {
-  border-color: $sk_base_color !important;
+  border-color: $sk_border_color !important;
 }

@@ -9,7 +9,11 @@
     <div class="row">
         <div class="col-md-12">
             <div class="bgc-white bd bdrs-3 p-20 mB-20">
-                <h4 class="c-grey-900 mB-20">Gestion administrateur</h4>
+                <h4 class="c-grey-900 mB-20">
+                    <a href="{{ path('administrator_list') }}" class="ml-2">
+                        <i class="ti-arrow-circle-left"></i>
+                    </a>Gestion administrateur
+                </h4>
                 {{ form_start(form) }}
                 <div class="row">
                     <div class="col-md-6">
@@ -43,9 +47,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12 d-block">
-                    <a href="{{ path('administrator_list') }}" class="btn btn-warning">Annuler</a>
-                    <input type="submit" class="btn btn-primary float-right" value="Enregistrer">
+                <div class="col-md-12 d-block mt-2 text-center">
+                    <button type="submit" class="btn btn-lg btn-primary">
+                        <i class="ti-save"></i> &nbsp;Enregistrer
+                    </button>
                 </div>
                 {{ form_end(form) }}
             </div>
