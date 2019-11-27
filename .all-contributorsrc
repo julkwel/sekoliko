@@ -107,6 +107,16 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "mikaoelitiana",
+      "name": "Mika Andrianarijaona",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/674667?v=4",
+      "profile": "https://mikaoelitiana.name",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
