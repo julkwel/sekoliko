@@ -1,44 +1,41 @@
 {% extends 'admin/_base_admin.html.twig' %}
 
-{% set menu_user =true %}
-
-{% block title %}Gestion utilisateur{% endblock %}
 {% block content %}
     <div class="row">
         <div class="col-md-12">
-            <div class="bgc-white bd bdrs-3 p-20 mB-20"><h4 class="c-grey-900 mB-20">Liste des utilisateurs</h4>
+            <div class="bgc-white bd bdrs-3 p-20 mB-20"><h4 class="c-grey-900 mB-20">Bootstrap Data
+                    Table</h4>
                 <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                     <tr>
                         <th>Nom</th>
-                        <th>Etablissement</th>
-                        <th>Date d'entrer</th>
-                        <th>Action</th>
+                        <th>Roles</th>
+                        <th>Office</th>
+                        <th>Age</th>
+                        <th>Start date</th>
+                        <th>Salary</th>
                     </tr>
                     </thead>
                     <tfoot>
                     <tr>
                         <th>Nom</th>
-                        <th>Etablissement</th>
-                        <th>Date d'entrer</th>
-                        <th>Action</th>
+                        <th>Roles</th>
+                        <th>Office</th>
+                        <th>Age</th>
+                        <th>Start date</th>
+                        <th>Salary</th>
                     </tr>
                     </tfoot>
                     <tbody>
                     {% for user in users %}
-                        {% if user.deletedAt == null %}
-                            <tr>
-                                <td>{{ user.nom }}</td>
-                                <td>{{ user.etsName }}</td>
-                                <td>{{ user.dateCreate|date('Y-m-d') }}</td>
-                                <td>
-                                    <a class="btn btn-outline-danger btn-sm" title="Supprimer"
-                                       href="{{ path('user_delete', {'id': user.id}) }}">
-                                        <i class="ti-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        {% endif %}
+                        <tr>
+                            <td>{{ user.nom }}</td>
+                            <td>{{ user.roles|join(' ') }}</td>
+                            <td>Edinburgh</td>
+                            <td>61</td>
+                            <td>2011/04/25</td>
+                            <td>$320,800</td>
+                        </tr>
                     {% endfor %}
                     </tbody>
                 </table>

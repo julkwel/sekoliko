@@ -5,7 +5,7 @@
                 <div class="peer peer-greed"><a class="sidebar-link td-n" href="{{ path('admin_dashboard') }}">
                         <div class="peers ai-c fxw-nw">
                             <div class="peer">
-                                <div class="logo"><img src="{{ asset('images/sekoliko.png') }}" alt=""></div>
+                                <div class="logo"><img src="" alt=""></div>
                             </div>
                             <div class="peer peer-greed"><h5 class="lh-1 mB-0 logo-text">SEKOLIKO</h5></div>
                         </div>
@@ -17,7 +17,7 @@
             </div>
         </div>
         <ul class="sidebar-menu scrollable pos-r">
-            <li class="nav-item mT-30  {% if menu_dashboard is defined %} actived{% endif %}">
+            <li class="nav-item mT-30 actived">
                 <a class="sidebar-link" href="{{ path('admin_dashboard') }}">
                     <span class="icon-holder">
                         <i class="c-blue-500 ti-home"></i>
@@ -26,89 +26,12 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="sidebar-link" href="{{ path('school_year_list') }}">
+                <a class="sidebar-link" href="{{ path('user_list') }}">
                     <span class="icon-holder">
-                        <i class="c-orange-500 ti-calendar"></i>
-                    </span>
-                    <span class="title">Années scolaires</span>
-                </a>
-            </li>
-            <li class="nav-item dropdown {% if menu_user is defined %} open actived{% endif %}">
-                <a class="dropdown-toggle" href="javascript:void(0);">
-                    <span class="icon-holder">
-                        <i class="c-red-500 ti-user"></i>
+                        <i class="c-blue-500 ti-user"></i>
                     </span>
                     <span class="title">Utilisateur</span>
-                    <span class="arrow">
-                        <i class="ti-angle-right"></i>
-                    </span>
                 </a>
-                <ul class="dropdown-menu">
-                    <li class="nav-item dropdown {% if menu_administration is defined %} open actived{% endif %}">
-                        <a href="javascript:void(0);">
-                            <span>Administration</span>
-                            <span class="arrow">
-                                <i class="ti-angle-right"></i>
-                            </span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{{ path('administrator_list') }}">List</a></li>
-                            <li><a href="{{ path('administration_type_list') }}">Type</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown {% if menu_scolarite is defined %} open actived{% endif %}">
-                        <a href="javascript:void(0);">
-                            <span>Scolarité</span>
-                            <span class="arrow">
-                                <i class="ti-angle-right"></i>
-                            </span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="nav-item dropdown {% if menu_scolarite_list is defined %} open actived{% endif %}">
-                                <a href="#">
-                                    <span>List</span>
-                                    <span class="arrow"><i class="ti-angle-right"></i></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    {{ render(controller('App\\Controller\\Menu\\MenuController::list')) }}
-                                </ul>
-                            </li>
-                            <li><a href="{{ path('scolarite_type_list') }}">Type</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item {% if menu_matiere is defined %} actived{% endif %}">
-                <a class="sidebar-link" href="{{ path('subject_list') }}">
-                    <span class="icon-holder">
-                        <i class="c-blue-500 ti-book"></i>
-                    </span>
-                    <span class="title">Matières</span>
-                </a>
-            </li>
-            <li class="nav-item dropdown {% if menu_etablissement is defined or menu_room is defined or menu_section is defined %}
-             open actived{% endif %}">
-                <a class="dropdown-toggle" href="javascript:void(0);">
-                    <span class="icon-holder">
-                        <i class="c-red-500 ti-user"></i>
-                    </span>
-                    <span class="title">Etablissement</span>
-                    <span class="arrow">
-                        <i class="ti-angle-right"></i>
-                    </span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li class="nav-item {% if menu_room is defined %}actived{% endif %}">
-                        <a href="{{ path('room_list') }}">
-                            <span class="title">Salle</span>
-                        </a>
-                    </li>
-                    <li class="nav-item {% if menu_section is defined %}actived{% endif %}">
-                        <a href="{{ path('section_list') }}">
-                            <span class="title">Section / Niveau</span>
-                        </a>
-                    </li>
-                </ul>
             </li>
         </ul>
     </div>

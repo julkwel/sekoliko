@@ -1,6 +1,6 @@
 <?php
 /**
- * Julien Rajerison <julienrajerison5@gmail.com>.
+ * Julien Rajerison <julienrajerison5@gmail.com>
  */
 
 namespace App\Command;
@@ -15,7 +15,9 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
- * Class SekolikoCreateSuperAdminCommand.
+ * Class SekolikoCreateSuperAdminCommand
+ *
+ * @package App\Command
  */
 class SekolikoCreateSuperAdminCommand extends Command
 {
@@ -33,7 +35,6 @@ class SekolikoCreateSuperAdminCommand extends Command
      * SekolikoCreateSuperAdminCommand constructor.
      *
      * @param UserPasswordEncoderInterface $passwordEncoder
-     * @param EntityManagerInterface       $entityManager
      * @param string|null                  $name
      */
     public function __construct(UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $entityManager, string $name = null)
@@ -49,7 +50,7 @@ class SekolikoCreateSuperAdminCommand extends Command
     protected static $defaultName = 'sekoliko:create:super-admin';
 
     /**
-     * Configuration and command description.
+     * Configuration and command description
      */
     protected function configure()
     {
@@ -57,7 +58,7 @@ class SekolikoCreateSuperAdminCommand extends Command
     }
 
     /**
-     * This command will create a superAdmin user for sekoliko application.
+     * This command will create a superAdmin user for sekoliko application
      *
      * @param InputInterface  $input
      * @param OutputInterface $output
