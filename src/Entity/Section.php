@@ -42,15 +42,9 @@ class Section
      */
     private $classRooms;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\SchoolYear", inversedBy="sections")
-     */
-    private $schoolYear;
-
     public function __construct()
     {
         $this->classRooms = new ArrayCollection();
-        $this->schoolYear = new ArrayCollection();
     }
 
     /**
@@ -137,42 +131,6 @@ class Section
             if ($classRoom->getSection() === $this) {
                 $classRoom->setSection(null);
             }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|SchoolYear[]
-     */
-    public function getSchoolYear(): Collection
-    {
-        return $this->schoolYear;
-    }
-
-    /**
-     * @param SchoolYear $schoolYear
-     *
-     * @return Section
-     */
-    public function addSchoolYear(SchoolYear $schoolYear): self
-    {
-        if (!$this->schoolYear->contains($schoolYear)) {
-            $this->schoolYear[] = $schoolYear;
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param SchoolYear $schoolYear
-     *
-     * @return Section
-     */
-    public function removeSchoolYear(SchoolYear $schoolYear): self
-    {
-        if ($this->schoolYear->contains($schoolYear)) {
-            $this->schoolYear->removeElement($schoolYear);
         }
 
         return $this;

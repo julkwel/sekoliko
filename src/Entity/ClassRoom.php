@@ -38,11 +38,6 @@ class ClassRoom
     private $deletedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\SchoolYear", inversedBy="classRooms")
-     */
-    private $schoolYear;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="classRooms")
      */
     private $createdBy;
@@ -125,26 +120,6 @@ class ClassRoom
     public function setDeletedAt(?DateTimeInterface $deletedAt): self
     {
         $this->deletedAt = $deletedAt;
-
-        return $this;
-    }
-
-    /**
-     * @return SchoolYear|null
-     */
-    public function getSchoolYear(): ?SchoolYear
-    {
-        return $this->schoolYear;
-    }
-
-    /**
-     * @param SchoolYear|null $schoolYear
-     *
-     * @return ClassRoom
-     */
-    public function setSchoolYear(?SchoolYear $schoolYear): self
-    {
-        $this->schoolYear = $schoolYear;
 
         return $this;
     }

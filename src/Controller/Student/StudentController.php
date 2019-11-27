@@ -80,7 +80,14 @@ class StudentController extends AbstractBaseController
     public function manage(Request $request, ClassRoom $classe, Student $student = null)
     {
         $student = $student ?? new Student();
-        $form = $this->createForm(StudentType::class, $student);
+        $form = $this->createForm(
+            StudentType::class,
+            $student,
+            [
+                'etsName' => $this->getUser()->getEtsName(),
+                'classe' => $classe,
+            ]
+        );
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->beforeStudentPersist($classe, $student, $form);
@@ -106,11 +113,10 @@ class StudentController extends AbstractBaseController
      */
     public function beforeStudentPersist(ClassRoom $classe, Student $student, FormInterface $form): Student
     {
-        $student->setClasse($classe);
         $student->getUser()->setPassword($this->passencoder->encodePassword($student->getUser(), $form->get('user')->get('password')->getData()));
         $student->getUser()->setRoles([RoleConstant::ROLE_SEKOLIKO['Etudiant']]);
         if (!$student->getId()) {
-            $this->historyHelper->addHistory('Ajout '.$student->getUser()->getUsername().' dans la classe '.$classe->getName(), $student->getUser());
+            $this->historyHelper->addHistory('Ajout ' . $student->getUser()->getUsername() . ' dans la classe ' . $classe->getName(), $student->getUser());
         }
 
         return $student;

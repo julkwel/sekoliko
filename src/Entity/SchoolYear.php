@@ -72,16 +72,6 @@ class SchoolYear
     private $reservations;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ClassRoom", mappedBy="schoolYear")
-     */
-    private $classRooms;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Section", mappedBy="schoolYear")
-     */
-    private $sections;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\ClassSubject", mappedBy="schoolYear")
      */
     private $classSubjects;
@@ -95,8 +85,6 @@ class SchoolYear
         $this->scolarites = new ArrayCollection();
         $this->administrators = new ArrayCollection();
         $this->reservations = new ArrayCollection();
-        $this->classRooms = new ArrayCollection();
-        $this->sections = new ArrayCollection();
         $this->classSubjects = new ArrayCollection();
     }
 
@@ -333,85 +321,6 @@ class SchoolYear
             if ($reservation->getSchoolYear() === $this) {
                 $reservation->setSchoolYear(null);
             }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|ClassRoom[]
-     */
-    public function getClassRooms(): Collection
-    {
-        return $this->classRooms;
-    }
-
-    /**
-     * @param ClassRoom $classRoom
-     *
-     * @return SchoolYear
-     */
-    public function addClassRoom(ClassRoom $classRoom): self
-    {
-        if (!$this->classRooms->contains($classRoom)) {
-            $this->classRooms[] = $classRoom;
-            $classRoom->setSchoolYear($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param ClassRoom $classRoom
-     *
-     * @return SchoolYear
-     */
-    public function removeClassRoom(ClassRoom $classRoom): self
-    {
-        if ($this->classRooms->contains($classRoom)) {
-            $this->classRooms->removeElement($classRoom);
-            // set the owning side to null (unless already changed)
-            if ($classRoom->getSchoolYear() === $this) {
-                $classRoom->setSchoolYear(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Section[]
-     */
-    public function getSections(): Collection
-    {
-        return $this->sections;
-    }
-
-    /**
-     * @param Section $section
-     *
-     * @return SchoolYear
-     */
-    public function addSection(Section $section): self
-    {
-        if (!$this->sections->contains($section)) {
-            $this->sections[] = $section;
-            $section->addSchoolYear($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param Section $section
-     *
-     * @return SchoolYear
-     */
-    public function removeSection(Section $section): self
-    {
-        if ($this->sections->contains($section)) {
-            $this->sections->removeElement($section);
-            $section->removeSchoolYear($this);
         }
 
         return $this;
