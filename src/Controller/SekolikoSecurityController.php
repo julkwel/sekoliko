@@ -1,7 +1,4 @@
 <?php
-/**
- * Julien Rajerison <julienrajerison5@gmail.com>.
- */
 
 namespace App\Controller;
 
@@ -10,23 +7,16 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-/**
- * Class SekolikoSecurityController.
- */
 class SekolikoSecurityController extends AbstractController
 {
     /**
-     * @Route("/{_locale}/login", name="app_login")
-     *
-     * @param AuthenticationUtils $authenticationUtils
-     *
-     * @return Response
+     * @Route("/login", name="app_login")
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        if ($this->getUser()) {
-            return $this->redirectToRoute('admin_dashboard');
-        }
+        // if ($this->getUser()) {
+        //     return $this->redirectToRoute('target_path');
+        // }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -41,6 +31,6 @@ class SekolikoSecurityController extends AbstractController
      */
     public function logout()
     {
-        return $this->redirectToRoute('app_login');
+        throw new \Exception('This method can be blank - it will be intercepted by the logout key on your firewall');
     }
 }

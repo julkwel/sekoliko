@@ -5,9 +5,7 @@
  * (and its CSS file) in your base layout (base.html.twig).
  */
 
+// any CSS you require will output into a single css file (app.css in this case)
 require('../css/app.scss');
-require('../css/module/datetimepicker.scss');
 require('./loader');
 require('../theme/scripts/index');
-require('bootstrap4-datetimepicker');
-require('./main');

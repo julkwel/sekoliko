@@ -1,12 +1,8 @@
-@import "../theme/styles/index";
-@import "./module/datetimepicker";
-@import "./module/main.scss";
-@import "./module/sidebar";
-$sk_base_color: #1f0a3b;
+@import "../theme/styles/index.scss";
 
-*{
-    font-family: 'Montserrat', sans-serif;
+body {
 }
+
 #loader {
     transition: all .3s ease-in-out;
     opacity: 1;
@@ -55,24 +51,4 @@ $sk_base_color: #1f0a3b;
         transform: scale(1);
         opacity: 0
     }
-}
-
-/* width */
-::-webkit-scrollbar {
-    width: 10px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-    background: $sk_base_color;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: #888;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: #555;
 }

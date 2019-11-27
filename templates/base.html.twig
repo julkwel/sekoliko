@@ -1,20 +1,17 @@
 <!DOCTYPE html>
 <html>
-<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
-    <link rel="icon" href="{{ asset('images/sekoliko.png') }}">
-    <title>Sekoliko | {% block title %}{% endblock %}</title>
-    {% block stylesheets %}
-        {{ encore_entry_link_tags('app') }}
-    {% endblock %}
+    <title>{% block title %}SEKOLIKO{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    {{ encore_entry_link_tags('app') }}
 </head>
 <body class="app">
 <div id="loader">
     <div class="spinner"></div>
 </div>
+
 {% block body %}{% endblock %}
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}

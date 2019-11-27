@@ -1,24 +1,23 @@
 <?php
 /**
- * Julien Rajerison <julienrajerison5@gmail.com>.
+ * Julien Rajerison <julienrajerison5@gmail.com>
  */
 
 namespace App\Controller;
 
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class SekolikoDashboardController.
+ * Class SekolikoDashboardController
  *
- * @Route("/{_locale}/admin")
+ * @package App\Controller
  */
 class SekolikoDashboardController extends AbstractBaseController
 {
     /**
-     * @Route("/dashboard",name="admin_dashboard",methods={"POST","GET"})
+     * @Route("/admin/dashboard",name="admin_dashboard",methods={"POST","GET"})
      */
-    public function dashboardController(): Response
+    public function dashboardController()
     {
         return $this->render(
             'admin/content/_dashboard_admin.html.twig',
