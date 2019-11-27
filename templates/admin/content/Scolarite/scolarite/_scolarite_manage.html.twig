@@ -14,12 +14,33 @@
                 {{ form_start(form) }}
                 <div class="row">
                     <div class="col-md-6">
-                        <h5>Informations utilisateurs</h5>
-                        {{ form_widget(form.user) }}
+                        <div class="bd mb-1 bgc-white p-2 sk-bd0">
+                            <h6>Système</h6>
+                            {{ form_row(form.user.username) }}
+                            {{ form_row(form.user.password) }}
+                        </div>
+                        <div class="bd mb-1 bgc-white p-20 sk-bd">
+                            <h6>Utilisateur</h6>
+                            {{ form_widget(form.user) }}
+                        </div>
                     </div>
                     <div class="col-md-6">
-                        <h5>Informations professionnels</h5>
-                        {{ form_widget(form) }}
+                        <div class="bd mb-1 bgc-white p-20 sk-bd">
+                            <h6>CIN</h6>
+                            {{ form_row(form.cin) }}
+                            {{ form_row(form.lieuCin) }}
+                            {{ form_row(form.dateCin) }}
+                        </div>
+                        <div class="bd mb-1 bgc-white p-20 sk-bd">
+                            <h6>Administratif</h6>
+                            {{ form_row(form.diplome) }}
+                            {{ form_row(form.numAe) }}
+                            {{ form_row(form.salary) }}
+                        </div>
+                        <div class="bd mb-1 bgc-white p-20 sk-bd">
+                            <h6>Information complementaire</h6>
+                            {{ form_widget(form) }}
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-12 d-block">

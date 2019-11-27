@@ -49,7 +49,8 @@ class AdministratorType extends AbstractType
                     'label' => 'Poste',
                 ]
             )
-            ->add('salary',
+            ->add(
+                'salary',
                 TextType::class,
                 [
                     'label' => 'Salaires',
@@ -59,9 +60,9 @@ class AdministratorType extends AbstractType
                 'dateCreate',
                 DateTimeType::class,
                 [
-                    'html5' => false,
                     'label' => 'Date d\'entrer',
                     'widget' => 'single_text',
+                    'html5' => false,
                     'attr' => [
                         'class' => 'datetimepicker',
                     ],

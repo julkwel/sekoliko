@@ -2,77 +2,83 @@
 @import "./module/datetimepicker";
 @import "./module/main.scss";
 @import "./module/sidebar";
+
 $sk_base_color: #1f0a3b;
 
-*{
-    font-family: 'Montserrat', sans-serif;
+* {
+  font-family: 'Montserrat', sans-serif;
 }
+
 #loader {
-    transition: all .3s ease-in-out;
-    opacity: 1;
-    visibility: visible;
-    position: fixed;
-    height: 100vh;
-    width: 100%;
-    background: #fff;
-    z-index: 90000
+  transition: all .3s ease-in-out;
+  opacity: 1;
+  visibility: visible;
+  position: fixed;
+  height: 100vh;
+  width: 100%;
+  background: #fff;
+  z-index: 90000
+}
+
+.sk-bd {
+  border-color: $sk_base_color !important;
 }
 
 #loader.fadeOut {
-    opacity: 0;
-    visibility: hidden
+  opacity: 0;
+  visibility: hidden
 }
 
 .spinner {
-    width: 40px;
-    height: 40px;
-    position: absolute;
-    top: calc(50% - 20px);
-    left: calc(50% - 20px);
-    background-color: #333;
-    border-radius: 100%;
-    -webkit-animation: sk-scaleout 1s infinite ease-in-out;
-    animation: sk-scaleout 1s infinite ease-in-out
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: calc(50% - 20px);
+  left: calc(50% - 20px);
+  background-color: #333;
+  border-radius: 100%;
+  -webkit-animation: sk-scaleout 1s infinite ease-in-out;
+  animation: sk-scaleout 1s infinite ease-in-out
 }
 
 @-webkit-keyframes sk-scaleout {
-    0% {
-        -webkit-transform: scale(0)
-    }
-    100% {
-        -webkit-transform: scale(1);
-        opacity: 0
-    }
+  0% {
+    -webkit-transform: scale(0)
+  }
+  100% {
+    -webkit-transform: scale(1);
+    opacity: 0
+  }
 }
 
 @keyframes sk-scaleout {
-    0% {
-        -webkit-transform: scale(0);
-        transform: scale(0)
-    }
-    100% {
-        -webkit-transform: scale(1);
-        transform: scale(1);
-        opacity: 0
-    }
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0)
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 0
+  }
 }
 
 /* width */
 ::-webkit-scrollbar {
-    width: 10px;
+  width: 10px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: $sk_base_color;
+  background: $sk_base_color;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #888;
+  background: #888;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: #555;
+  background: #555;
 }
