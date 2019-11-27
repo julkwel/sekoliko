@@ -1,0 +1,3 @@
+{% for scolarite in scolarites %}
+    <li><a href="{{ path('scolarite_list',{'type':scolarite.id}) }}">{{ scolarite.libelle }}</a></li>
+{% endfor %}

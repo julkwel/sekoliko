@@ -1,0 +1,55 @@
+{% extends 'admin/_base_admin.html.twig' %}
+{% set menu_scolarite_list =true %}
+{% set menu_scolarite =true %}
+{% set menu_user =true %}
+{% block title %}Scolarité{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="bgc-white bd bdrs-3 p-20 mB-20">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="c-grey-900 mB-20 ">{{ types.libelle }}</h4>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <a href="{{ path('scolarite_manage',{'type':types.id}) }}" class="btn btn-primary">Nouveau</a>
+                    </div>
+                </div>
+                <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Action</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    {% for scolarite in scolarites %}
+                        {% if scolarite.deletedAt  == null %}
+                            <tr>
+                                <td>{{ scolarite.user.nom }}</td>
+                                <td>
+                                    <a class="btn btn-outline-success btn-sm" title="Modifier"
+                                       href="{{ path('scolarite_manage',{'id': scolarite.id,'type':types.id}) }}">
+                                        <i class="ti-pencil"></i>
+                                    </a>
+                                    <a class="btn btn-outline-danger btn-sm" title="Supprimer"
+                                       href="{{ path('scolarite_remove',{'id':scolarite.id}) }}">
+                                        <i class="ti-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

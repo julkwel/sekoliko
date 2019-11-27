@@ -1,0 +1,108 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "SylvanoTombo",
+      "name": "SylvanoTombo",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/40351002?v=4",
+      "profile": "https://heuristic-raman-24225d.netlify.com",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "RinaVatosoa",
+      "name": "RinaVatosoa",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/45585022?v=4",
+      "profile": "https://github.com/RinaVatosoa",
+      "contributions": [
+        "design"
+      ]
+    },
+    {
+      "login": "Nantso",
+      "name": "nyantso",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/35923219?v=4",
+      "profile": "https://www.devinart.net/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Fy-Rakotondrabe",
+      "name": "Fy Kely",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/45007981?v=4",
+      "profile": "https://github.com/Fy-Rakotondrabe",
+      "contributions": [
+        "code",
+        "design"
+      ]
+    },
+    {
+      "login": "chrys-elrak",
+      "name": "Chrys Rakotonimanana",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/40733956?v=4",
+      "profile": "https://github.com/chrys-elrak",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "julkwel",
+      "name": "Jul",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/30557565?v=4",
+      "profile": "https://cvjulien.netlify.com/",
+      "contributions": [
+        "projectManagement",
+        "review",
+        "test",
+        "code"
+      ]
+    },
+    {
+      "login": "hantsaniala",
+      "name": "Hantsaniala Eléo",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/8157490?v=4",
+      "profile": "https://www.facebook.com/hantsaniala",
+      "contributions": [
+        "design"
+      ]
+    },
+    {
+      "login": "tolotrasmile",
+      "name": "Tolotra Raharison",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/8298581?v=4",
+      "profile": "http://tolotrasmile.github.io",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "vonyms",
+      "name": "Vony Randria",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/33556409?v=4",
+      "profile": "https://github.com/vonyms",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "max5055",
+      "name": "rhianmax",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/39415739?v=4",
+      "profile": "https://github.com/max5055",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "sekoliko",
+  "projectOwner": "julkwel",
+  "repoType": "github",
+  "repoHost": "https://github.com"
+}

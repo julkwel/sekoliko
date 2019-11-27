@@ -1,42 +1,56 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
-
+{% block title %}Login{% endblock %}
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('login') }}
+    {% endblock %}
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+    <div class="peers ai-s fxw-nw h-100vh ov-h">
+        <div class="col-md-2 peer pX-10 pY-10 h-auto bgc-white border-primary scrollable pos-r m-auto login-card">
+            <div class="text-center mb-4">
+                <img src="{{ asset('images/sekoliko.png') }}"
+                     class="rounded-circle login-image"
+                     alt="Sekoliko">
+            </div>
+            <form method="post">
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                {% if app.user %}
+                    <div class="mb-3">
+                        Vous avez déjà connecter en tant que {{ app.user.username }}, <a
+                                href="{{ path('app_logout') }}">Deconnecter</a>
+                    </div>
+                {% endif %}
+
+                <div class="form-group">
+                    <label class="text-normal text-dark" for="inputUsername">Nom d'utilisateur</label>
+                    <input type="text" value="{{ last_username }}" name="username"
+                           id="inputUsername" class="form-control" placeholder="Login" required autofocus>
+                </div>
+                <div class="form-group">
+                    <label class="text-normal text-dark" for="inputPassword">Mots de passe</label>
+                    <input type="password" name="password"
+                           id="inputPassword" class="form-control" placeholder="Mots de passe" required>
+                </div>
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <div class="form-group">
+                    <div class="peers ai-c jc-sb fxw-nw">
+                        <div class="peer">
+                            <div class="checkbox checkbox-circle checkbox-info peers ai-c">
+                                <input id="remember_me" type="checkbox" name="_remember_me">
+                                <label for="remember_me" class=" peers peer-greed js-sb ai-c">
+                                    <span class="peer peer-greed">Se souvenir de moi</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-block">
+                    <button type="submit" class="btn d-block sk-btn-login w-100 btn-primary">Login</button>
+                </div>
+            </form>
         </div>
-    {% endif %}
-
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputUsername" class="sr-only">Username</label>
-    <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-
-    {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
-
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
-        </div>
-    #}
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
+    </div>
 {% endblock %}

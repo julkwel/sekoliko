@@ -1,6 +1,6 @@
 <?php
 /**
- * Julien Rajerison <julienrajerison5@gmail.com>
+ * Julien Rajerison <julienrajerison5@gmail.com>.
  */
 
 namespace App\Security;
@@ -24,9 +24,7 @@ use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticato
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 /**
- * Class SekolikoAuthenticator
- *
- * @package App\Security
+ * Class SekolikoAuthenticator.
  */
 class SekolikoAuthenticator extends AbstractFormLoginAuthenticator
 {
@@ -131,8 +129,7 @@ class SekolikoAuthenticator extends AbstractFormLoginAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-        // For example :
-         return new RedirectResponse($this->urlGenerator->generate('app_login'));
+        return new RedirectResponse($this->urlGenerator->generate('admin_dashboard'));
     }
 
     /**

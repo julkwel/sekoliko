@@ -1,0 +1,60 @@
+{# List school section #}
+
+{% extends 'admin/_base_admin.html.twig' %}
+{% set menu_section = true %}
+{% block title %}Classe{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="bgc-white bd bdrs-3 p-20 mB-20">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="c-grey-900 mB-20">Liste des classes dans {{ section.name }}</h4>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <a href="{{ path('class_room_manage',{"section":section.id }) }}" class="btn btn-primary">Nouveau</a>
+                    </div>
+                </div>
+                <table cellspacing="0" class="table table-striped table-bordered" id="dataTable" width="100%">
+                    <thead>
+                    <tr>
+                        <th>Classe</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>Classe</th>
+                        <th>Action</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    {% for classe in classes %}
+                        <tr>
+                            <td>{{ classe.name }}</td>
+                            <td>
+                                <a class="btn btn-outline-success btn-sm" title="Modifier"
+                                   href="{{ path('class_room_manage',{'section':section.id,'id': classe.id}) }}">
+                                    <i class="ti-pencil"></i>
+                                </a>
+                                <a class="btn btn-outline-primary btn-sm" title="Liste des matières"
+                                   href="{{ path('class_subject_list',{'id': classe.id}) }}">
+                                    <i class="ti-book"></i>
+                                </a>
+                                <a class="btn btn-outline-warning btn-sm" title="Liste des étudiants"
+                                   href="{{ path('student_list',{'id': classe.id}) }}">
+                                    <i class="fa fa-group"></i>
+                                </a>
+                                <a class="btn btn-outline-danger btn-sm" title="Supprimer"
+                                   href="{{ path('class_room_remove',{'id':classe.id}) }}">
+                                    <i class="ti-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

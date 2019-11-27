@@ -1,0 +1,57 @@
+{# List school year #}
+
+{% extends 'admin/_base_admin.html.twig' %}
+{% block title %}Année scolaire{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="bgc-white bd bdrs-3 p-20 mB-20">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="c-grey-900 mB-20">Liste des années scolaires</h4>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <a href="{{ path('school_year_manage') }}" class="btn btn-primary">Nouveau</a>
+                    </div>
+                </div>
+                <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Début</th>
+                        <th>Fin</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Début</th>
+                        <th>Fin</th>
+                        <th>Action</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    {% for schoolyear in schoolYears %}
+                        <tr>
+                            <td>{{ schoolyear.name }}</td>
+                            <td>{{ schoolyear.startDate|date('Y-m-d') }}</td>
+                            <td>{{ schoolyear.endDate|date('Y-m-d') }}</td>
+                            <td>
+                                <a class="btn btn-outline-success btn-sm" title="Modifier"
+                                   href="{{ path('school_year_manage',{'id': schoolyear.id}) }}">
+                                    <i class="ti-pencil"></i>
+                                </a>
+                                <a class="btn btn-outline-danger btn-sm" title="Supprimer"
+                                   href="{{ path('school_year_remove',{'id':schoolyear.id}) }}">
+                                    <i class="ti-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

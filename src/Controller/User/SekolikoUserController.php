@@ -1,22 +1,27 @@
 <?php
 /**
- * Julien Rajerison <julienrajerison5@gmail.com>
+ * Julien Rajerison <julienrajerison5@gmail.com>.
  **/
 
 namespace App\Controller\User;
 
+use App\Constant\MessageConstant;
+use App\Constant\RoleConstant;
 use App\Controller\AbstractBaseController;
 use App\Entity\User;
+use App\Form\UserType;
 use App\Repository\UserRepository;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class SekolikoUserController
+ * Class SekolikoUserController.
  *
- * @package App\Controller\User
  *
- * @Route("/admin/user")
+ * @Route("/{_locale}/admin/user")
  */
 class SekolikoUserController extends AbstractBaseController
 {
@@ -27,26 +32,93 @@ class SekolikoUserController extends AbstractBaseController
      *
      * @return Response
      */
-    public function list(UserRepository $repository)
+    public function list(UserRepository $repository): Response
     {
         return $this->render(
             'admin/content/user/_user_list.html.twig',
             [
-                'users' => $repository->findBy(['etsName' => $this->getUser()->getEtsName()]),
+                'users' => $repository->findByRoles('ROLE_ADMIN', $this->getUser()->getEtsName()),
             ]
         );
     }
 
     /**
-     * Ges
      * @Route("/manage/{id?}",name="user_management",methods={"POST","GET"})
      *
+     * @param Request   $request
      * @param User|null $user
+     *
+     * @return Response
      */
-    public function manageUser(User $user = null)
+    public function manageUser(Request $request, User $user = null): Response
     {
+        $user = $user ?: new User();
+        if (1 === $user->getId()) {
+            $this->addFlash('error', 'Vous n\'avez pas le droit de modifier cet utilisateur');
+
+            return $this->redirectToRoute('admin_dashboard');
+        }
+
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->em->uploadPhotoEts($request->files->get('etsphoto'), $this->getUser());
+            $this->em->uploadUserPhoto($form->get('photo')->getData(), $this->getUser());
+            $this->beforePersistUser($user, $form);
+
+            if ($this->em->save($user, $this->getUser(), $form)) {
+                $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
+
+                return $this->redirectToRoute('user_list');
+            }
+
+            $this->addFlash(MessageConstant::ERROR_MESSAGE, MessageConstant::ERROR_MESSAGE);
+
+            return $this->redirectToRoute('user_management', ['id' => $user->getId() ?? null]);
+        }
+
         return $this->render(
-            ''
+            'admin/content/user/_user_manage.html.twig',
+            [
+                'user' => $user,
+                'form' => $form->createView(),
+            ]
         );
+    }
+
+    /**
+     * @Route("/delete/{id}",name="user_delete",methods={"POST","GET"})
+     *
+     * @param User|null $user
+     *
+     * @return RedirectResponse
+     */
+    public function delete(User $user): RedirectResponse
+    {
+        if ($this->em->remove($user)) {
+            $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::SUPPRESSION_MESSAGE);
+        } else {
+            $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
+        }
+
+        return $this->redirectToRoute('user_list');
+    }
+
+    /**
+     * Action before manager flush.
+     *
+     * @param User          $user
+     * @param FormInterface $form
+     *
+     * @return User
+     */
+    public function beforePersistUser(User $user, FormInterface $form): User
+    {
+        $pass = $form->get('password')->getData();
+        $user->setRoles([RoleConstant::ROLE_SEKOLIKO['Administrateur']]);
+        $user->setPassword($this->passencoder->encodePassword($user, $pass));
+
+        return $user;
     }
 }
