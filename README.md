@@ -28,7 +28,7 @@ Step 5. Install node dependencies
 
 `- yarn install`
 
-Step 6. configure .env to your own database
+Step 6. configure `.env` to your own database
 
 Step 7. Update database schema
 
