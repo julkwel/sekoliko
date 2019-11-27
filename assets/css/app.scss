@@ -19,11 +19,6 @@ $sk_base_color: #1f0a3b;
   background: #fff;
   z-index: 90000
 }
-
-.sk-bd {
-  border-color: $sk_base_color !important;
-}
-
 #loader.fadeOut {
   opacity: 0;
   visibility: hidden

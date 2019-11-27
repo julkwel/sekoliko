@@ -1,6 +1,12 @@
+
+$sk_base_color: #1f0a3b;
+
 .custom-file-control:lang(fr)::before{
   content:"Parcourir";
 }
 .custom-file-control:lang(en)::before{
   content:"Browse";
+}
+.sk-bd {
+  border-color: $sk_base_color !important;
 }
