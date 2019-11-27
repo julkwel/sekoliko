@@ -47,7 +47,7 @@ Create your first user by running
 `php bin/console sekoliko:create:super-admin`
 
 ## Design 
-Make cool and user friendly design, we have a template admirator inside assets directory for theme.
+Make cool and user friendly design, we have a template named `admirator` inside assets directory for theme.
 
 ## Online test
 [Sekoliko url](https://www.techzara.org/sekoliko/login) 
