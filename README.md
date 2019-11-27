@@ -50,7 +50,7 @@ Create your first user by running
 Make cool and user friendly design, we have a template named `admirator` inside assets directory for theme.
 
 ## Online test
-[Sekoliko url](https://www.techzara.org/sekoliko/login) 
+[Sekoliko url](https://www.techzara.org/sekoliko/en/login) 
 
 Use : 
 ```
