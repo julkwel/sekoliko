@@ -1,5 +1,5 @@
 # Sekoliko build status : [![CircleCI](https://circleci.com/gh/julkwel/sekoliko/tree/develop.svg?style=svg)](https://circleci.com/gh/julkwel/sekoliko/tree/develop)
-[![All Contributors](https://img.shields.io/badge/all_contributors-10-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-11-orange.svg?style=flat-square)](#contributors)
 
 School Management Web Application OPENSOURCE
 
@@ -61,6 +61,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="http://tolotrasmile.github.io"><img src="https://avatars3.githubusercontent.com/u/8298581?v=4" width="100px;" alt="Tolotra Raharison"/><br /><sub><b>Tolotra Raharison</b></sub></a><br /><a href="https://github.com/julkwel/sekoliko/commits?author=tolotrasmile" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/vonyms"><img src="https://avatars3.githubusercontent.com/u/33556409?v=4" width="100px;" alt="Vony Randria"/><br /><sub><b>Vony Randria</b></sub></a><br /><a href="https://github.com/julkwel/sekoliko/commits?author=vonyms" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/max5055"><img src="https://avatars1.githubusercontent.com/u/39415739?v=4" width="100px;" alt="rhianmax"/><br /><sub><b>rhianmax</b></sub></a><br /><a href="https://github.com/julkwel/sekoliko/commits?author=max5055" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/HenintsoaHARINORO"><img src="https://avatars2.githubusercontent.com/u/48785203?v=4" width="100px;" alt="Henintsoa Harinoro"/><br /><sub><b>Henintsoa Harinoro</b></sub></a><br /><a href="#translation-HenintsoaHARINORO" title="Translation">🌍</a></td>
   </tr>
 </table>
 
