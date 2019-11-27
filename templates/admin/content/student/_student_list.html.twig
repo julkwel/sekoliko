@@ -46,6 +46,10 @@
                                    href="{{ path('student_manage',{'classe':classe.id,'id': student.id}) }}">
                                     <i class="ti-pencil"></i>
                                 </a>
+                                <a class="btn btn-outline-primary btn-sm" title="Details"
+                                   href="{{ path('etudiant_details',{'id': student.id}) }}">
+                                    <i class="ti-eye"></i>
+                                </a>
                                 <a class="btn btn-outline-danger btn-sm" title="Supprimer"
                                    href="{{ path('student_remove',{'id': student.id}) }}">
                                     <i class="ti-trash"></i>

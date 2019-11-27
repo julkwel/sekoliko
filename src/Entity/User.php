@@ -135,6 +135,11 @@ class User implements UserInterface
     private $sexe;
 
     /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $birthLocale;
+
+    /**
      * User constructor.
      */
     public function __construct()
@@ -583,6 +588,18 @@ class User implements UserInterface
     public function setSexe(?string $sexe): self
     {
         $this->sexe = $sexe;
+
+        return $this;
+    }
+
+    public function getBirthLocale(): ?string
+    {
+        return $this->birthLocale;
+    }
+
+    public function setBirthLocale(?string $birthLocale): self
+    {
+        $this->birthLocale = $birthLocale;
 
         return $this;
     }
