@@ -10,22 +10,44 @@ node && yarn
 php > 7.1
 ```
 ## Usage
-```
 Step 1. Fork this project
-Step 2. git clone https://github.com/[your_username]/sekoliko.git
-Step 3. cd sekoliko && composer install
-Step 4. yarn install
-Step 5. configure .env to your own database
-Step 5. bin/console doctrine:schema:update --force
-Step 6. bin/console server:run
-Step 7. yarn encore dev --watch
-```
+
+Step 2. 
+
+`- git clone https://github.com/[your_username]/sekoliko.git`
+
+Step 3. Create new branch 
+
+`- git checkout -b feature/my-branch`
+
+Step 4. Install composer dependencies
+
+`- composer install` 
+
+Step 5. Install node dependencies
+
+`- yarn install`
+
+Step 6. configure .env to your own database
+
+Step 7. Update database schema
+
+`- bin/console doctrine:schema:update --force`
+
+Step 6. Run server
+
+`- bin/console server:run`
+
+Step 7. Run webpack server for assets
+
+`- yarn encore dev --watch`
+
 Create your first user by running 
 
 `php bin/console sekoliko:create:super-admin`
 
 ## Design 
-We need to make cool and user friendly design , inside assets there is an directory named admirator this is the template we used.
+Make cool and user friendly design, we have a template admirator inside assets directory for theme.
 
 ## Online test
 [Sekoliko url](https://www.techzara.org/sekoliko/login) 
