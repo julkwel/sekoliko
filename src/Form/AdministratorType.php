@@ -7,6 +7,7 @@ namespace App\Form;
 
 use App\Entity\AdministrationType;
 use App\Entity\Administrator;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -38,6 +39,11 @@ class AdministratorType extends AbstractType
                 EntityType::class,
                 [
                     'class' => AdministrationType::class,
+                    'query_builder' => function (EntityRepository $repository) use ($options) {
+                        return $repository->createQueryBuilder('a')
+                            ->andWhere('a.etsName = :etsName')
+                            ->setParameter('etsName', $options['etsName']);
+                    },
                     'choice_label' => 'libelle',
                     'label' => 'Poste',
                 ]
@@ -62,8 +68,7 @@ class AdministratorType extends AbstractType
                 ]
             )
             ->add('adresse')
-            ->add('contact')
-        ;
+            ->add('contact');
     }
 
     /**
@@ -71,6 +76,11 @@ class AdministratorType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(['data_class' => Administrator::class]);
+        $resolver->setDefaults(
+            [
+                'data_class' => Administrator::class,
+                'etsName' => null,
+            ]
+        );
     }
 }

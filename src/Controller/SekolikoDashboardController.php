@@ -10,6 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class SekolikoDashboardController.
+ *
  * @Route("/{_locale}/admin")
  */
 class SekolikoDashboardController extends AbstractBaseController

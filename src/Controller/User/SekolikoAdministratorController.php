@@ -53,7 +53,7 @@ class SekolikoAdministratorController extends AbstractBaseController
     public function new(Request $request, Administrator $administrator = null)
     {
         $admin = $administrator ?: new Administrator();
-        $form = $this->createForm(AdministratorType::class, $admin);
+        $form = $this->createForm(AdministratorType::class, $admin, ['etsName' => $this->getUser()->getEtsName()]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid() && $this->em->save($admin, $this->getUser(), $form)) {

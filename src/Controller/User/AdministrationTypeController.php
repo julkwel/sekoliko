@@ -35,7 +35,7 @@ class AdministrationTypeController extends AbstractBaseController
         return $this->render(
             'admin/content/user/administration_type_list.html.twig',
             [
-                'types' => $repository->findBy(['etsName' => $this->getUser()->getEtsName()]),
+                'types' => $repository->findByEts($this->getUser()->getEtsName()),
             ]
         );
     }

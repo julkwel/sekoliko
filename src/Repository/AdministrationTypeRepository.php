@@ -23,4 +23,17 @@ class AdministrationTypeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, AdministrationType::class);
     }
+
+    /**
+     * @param string $ets
+     *
+     * @return mixed
+     */
+    public function findByEts(string $ets)
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.etsName = :etsName')
+            ->setParameter('etsName', $ets)
+            ->getQuery()->getResult();
+    }
 }

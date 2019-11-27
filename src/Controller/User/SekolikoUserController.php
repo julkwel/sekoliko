@@ -55,7 +55,7 @@ class SekolikoUserController extends AbstractBaseController
         $user = $user ?: new User();
         if (1 === $user->getId()) {
             $this->addFlash('error', 'Vous n\'avez pas le droit de modifier cet utilisateur');
-            
+
             return $this->redirectToRoute('admin_dashboard');
         }
 
