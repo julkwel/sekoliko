@@ -60,9 +60,9 @@ password : sekoliko
 
 ## Functional proposition
 IF YOU HAVE NEW PROPOSAL FUNCTION PLEASE CREATE NEW ISSUES.
-
+____
 **Make cool things :wink:**
-
+____
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
