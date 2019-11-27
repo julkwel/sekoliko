@@ -1,14 +1,12 @@
 <?php
 /**
- * Julien Rajerison <julienrajerison5@gmail.com>
+ * Julien Rajerison <julienrajerison5@gmail.com>.
  **/
 
 namespace App\Constant;
 
 /**
- * Class EtudiantStatusConstant
- *
- * @package App\Constant
+ * Class EtudiantStatusConstant.
  */
 class EtudiantStatusConstant
 {

@@ -38,6 +38,8 @@ class StudentRepository extends ServiceEntityRepository
             ->where('s.deletedAt is NULL')
             ->andWhere('s.etsName = :etsName')
             ->andWhere('s.classe = :classRoom')
+            ->andWhere('s.isRenvoie = :status')
+            ->setParameter('status', false)
             ->setParameter('etsName', $user->getEtsName())
             ->setParameter('classRoom', $classRoom)
             ->getQuery()

@@ -27,7 +27,7 @@ class ClassRoomRepository extends ServiceEntityRepository
      *
      * @return ClassRoom[] Returns an array of ClassRoom objects
      */
-    public function findBySchoolYear(User $user, Section $section)
+    public function findBySchoolName(User $user, Section $section)
     {
         return $this->createQueryBuilder('c')
             ->where('c.deletedAt is NULL')

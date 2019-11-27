@@ -37,7 +37,7 @@ class ClassRoomController extends AbstractBaseController
         return $this->render(
             'admin/content/ClassRoom/_class_room_list.html.twig',
             [
-                'classes' => $repository->findBySchoolYear($this->getUser(), $section),
+                'classes' => $repository->findBySchoolName($this->getUser(), $section),
                 'section' => $section,
             ]
         );

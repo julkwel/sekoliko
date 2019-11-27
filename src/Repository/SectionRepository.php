@@ -2,7 +2,6 @@
 
 namespace App\Repository;
 
-use App\Entity\SchoolYear;
 use App\Entity\Section;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -31,7 +30,7 @@ class SectionRepository extends ServiceEntityRepository
      *
      * @return Section[] Returns an array of Section objects
      */
-    public function findBySchoolYear(User $user)
+    public function findBySchoolName(User $user)
     {
         return $this->createQueryBuilder('s')
             ->where('s.deletedAt is NULL')

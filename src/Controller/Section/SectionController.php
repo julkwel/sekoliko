@@ -34,7 +34,7 @@ class SectionController extends AbstractBaseController
         return $this->render(
             'admin/content/Section/_section_list.html.twig',
             [
-                'sections' => $repository->findBySchoolYear($this->getUser()),
+                'sections' => $repository->findBySchoolName($this->getUser()),
             ]
         );
     }
