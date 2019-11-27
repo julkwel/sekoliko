@@ -1,5 +1,5 @@
 # Sekoliko build status : [![CircleCI](https://circleci.com/gh/julkwel/sekoliko/tree/develop.svg?style=svg)](https://circleci.com/gh/julkwel/sekoliko/tree/develop)
-[![All Contributors](https://img.shields.io/badge/all_contributors-10-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-11-orange.svg?style=flat-square)](#contributors)
 
 School Management Web Application OPENSOURCE
 
@@ -10,22 +10,44 @@ node && yarn
 php > 7.1
 ```
 ## Usage
-```
 Step 1. Fork this project
-Step 2. git clone https://github.com/[your_username]/sekoliko.git
-Step 3. cd sekoliko && composer install
-Step 4. yarn install
-Step 5. configure .env to your own database
-Step 5. bin/console doctrine:schema:update --force
-Step 6. bin/console server:run
-Step 7. yarn encore dev --watch
-```
+
+Step 2. 
+
+`- git clone https://github.com/[your_username]/sekoliko.git`
+
+Step 3. Create new branch 
+
+`- git checkout -b feature/my-branch`
+
+Step 4. Install composer dependencies
+
+`- composer install` 
+
+Step 5. Install node dependencies
+
+`- yarn install`
+
+Step 6. configure `.env` to your own database
+
+Step 7. Update database schema
+
+`- bin/console doctrine:schema:update --force`
+
+Step 6. Run server
+
+`- bin/console server:run`
+
+Step 7. Run webpack server for assets
+
+`- yarn encore dev --watch`
+
 Create your first user by running 
 
 `php bin/console sekoliko:create:super-admin`
 
 ## Design 
-We need to make cool and user friendly design , inside assets there is an directory named admirator this is the template we used.
+Make cool and user friendly design, we have a template named `admirator` inside assets directory for theme.
 
 ## Online test
 [Sekoliko url](https://www.techzara.org/sekoliko/login) 
@@ -38,9 +60,9 @@ password : sekoliko
 
 ## Functional proposition
 IF YOU HAVE NEW PROPOSAL FUNCTION PLEASE CREATE NEW ISSUES.
-
+____
 **Make cool things :wink:**
-
+____
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
@@ -61,6 +83,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="http://tolotrasmile.github.io"><img src="https://avatars3.githubusercontent.com/u/8298581?v=4" width="100px;" alt="Tolotra Raharison"/><br /><sub><b>Tolotra Raharison</b></sub></a><br /><a href="https://github.com/julkwel/sekoliko/commits?author=tolotrasmile" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/vonyms"><img src="https://avatars3.githubusercontent.com/u/33556409?v=4" width="100px;" alt="Vony Randria"/><br /><sub><b>Vony Randria</b></sub></a><br /><a href="https://github.com/julkwel/sekoliko/commits?author=vonyms" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/max5055"><img src="https://avatars1.githubusercontent.com/u/39415739?v=4" width="100px;" alt="rhianmax"/><br /><sub><b>rhianmax</b></sub></a><br /><a href="https://github.com/julkwel/sekoliko/commits?author=max5055" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/HenintsoaHARINORO"><img src="https://avatars2.githubusercontent.com/u/48785203?v=4" width="100px;" alt="Henintsoa Harinoro"/><br /><sub><b>Henintsoa Harinoro</b></sub></a><br /><a href="#translation-HenintsoaHARINORO" title="Translation">🌍</a></td>
   </tr>
 </table>
 
