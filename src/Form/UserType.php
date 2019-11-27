@@ -59,6 +59,14 @@ class UserType extends AbstractType
                 ]
             )
             ->add(
+                'birthLocale',
+                TextType::class,
+                [
+                    'label'=>'Lieu de naissance',
+                    'required'=>false,
+                ]
+            )
+            ->add(
                 'photo',
                 FileType::class,
                 [

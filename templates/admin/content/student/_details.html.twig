@@ -1,0 +1,62 @@
+{% extends 'admin/_base_admin.html.twig' %}
+{% block title %}Details étudiant{% endblock %}
+
+{% block content %}
+    <div class="col-md-12">
+        <div class="bgc-white bd bdrs-3 p-20 mB-20">
+            <h4>
+                <a href="{{ path('student_list',{"id":student.classe.id}) }}" class="ml-2">
+                    <i class="ti-arrow-circle-left"></i>
+                </a>
+            </h4>
+            <div class="d-block text-center mb-2">
+                <img src="{% if student.user.photo != null %}{{ asset('uploads/photo'~app.user.etsName~'/'~student.user.photo) }}{% else %}{{ asset('images/avatar.png') }}{% endif %}"
+                     class="w-2r bdrs-50p student-pdp"
+                     alt="Photo de profile">
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="bd mb-1 bgc-white p-20 sk-bd">
+                        <h6>Etablissement</h6>
+                        <ul class="list-group">
+                            <li class="list-group-item"><u>Nom de l'établissement </u>: {{ app.user.etsName }}</li>
+                        </ul>
+                    </div>
+                    <div class="bd mb-1 bgc-white p-20 sk-bd">
+                        <h6>Utilisateur</h6>
+                        <ul class="list-group">
+                            <li class="list-group-item"><u>Nom </u>: {{ student.user.nom }}</li>
+                            <li class="list-group-item"><u>Prénom</u> : {{ student.user.prenom }}</li>
+                            <li class="list-group-item"><u>Imatriculation</u> : {{ student.user.imatriculation }}</li>
+                            <li class="list-group-item"><u>Sexe</u> : {{ student.user.sexe }}</li>
+                            <li class="list-group-item"><u>Date de naissance</u> : {{ student.user.birthDate|date('Y-m-d') }}</li>
+                            <li class="list-group-item"><u>Lieu de naissance</u> : {{ student.user.birthLocale }}</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="bd mb-1 bgc-white p-20 sk-bd">
+                        <h6>ETUDIANT</h6>
+                        <ul class="list-group">
+                            <li class="list-group-item"><u>Status</u>: {{ student.status }}</li>
+                            <li class="list-group-item"><u>Classe</u> : {{ student.classe.name }}</li>
+                            <li class="list-group-item"><u>Adresse</u> : {{ student.adresse }}</li>
+                            <li class="list-group-item"><u>Contact</u> : {{ student.contact }}</li>
+                        </ul>
+                    </div>
+                    <div class="bd mb-1 bgc-white p-20 sk-bd">
+                        <h6>Parent</h6>
+                        <ul class="list-group">
+                            <li class="list-group-item"><u>Adresse parent</u> : {{ student.adresseParent }}</li>
+                            <li class="list-group-item"><u>Contact parent</u> : {{ student.contactParent }}</li>
+                        </ul>
+                    </div>
+                    <div class="bd mb-1 bgc-white p-20 sk-bd">
+                        <h6>Information complementaire</h6>
+                        {{ student.noteLibre }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
