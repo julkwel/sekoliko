@@ -43,6 +43,18 @@ class SekolikoAdministratorController extends AbstractBaseController
     }
 
     /**
+     * @param Administrator $administrator
+     *
+     * @Route("/details/{id}",name="administrator_details")
+     *
+     * @return Response
+     */
+    public function details(Administrator $administrator)
+    {
+        return $this->render('admin/content/user/_administration_details.html.twig', ['personel' => $administrator]);
+    }
+
+    /**
      * @Route("/manage/{id?}",name="administrator_manage",methods={"POST","GET"})
      *
      * @param Request       $request

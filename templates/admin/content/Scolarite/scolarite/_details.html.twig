@@ -1,0 +1,69 @@
+{% extends 'admin/_base_admin.html.twig' %}
+
+{% block title %}Details personnel{% endblock %}
+
+{% block content %}
+    <div class="col-md-12">
+        <div class="bgc-white bd bdrs-3 p-20 mB-20">
+            <h4>
+                <a href="{{ path('scolarite_list',{"type":personel.type.id}) }}" class="ml-2">
+                    <i class="ti-arrow-circle-left"></i>
+                </a>
+            </h4>
+            <div class="d-block text-center mb-2">
+                <img src="{% if personel.user.photo != null %}{{ asset('uploads/photo'~app.user.etsName~'/'~personel.user.photo) }}{% else %}{{ asset('images/avatar.png') }}{% endif %}"
+                     class="w-2r bdrs-50p personel-pdp"
+                     alt="Photo de profile">
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="bd mb-1 bgc-white p-20 sk-bd">
+                        <h6>Etablissement</h6>
+                        <ul class="list-group">
+                            <li class="list-group-item"><u>Nom de l'établissement </u>: {{ app.user.etsName }}</li>
+                            <li class="list-group-item"><u>Nom d'utilisateur </u>: {{ app.user.username }}</li>
+                        </ul>
+                    </div>
+                    <div class="bd mb-1 bgc-white p-20 sk-bd">
+                        <h6>Utilisateur</h6>
+                        <ul class="list-group">
+                            <li class="list-group-item"><u>Nom </u>: {{ personel.user.nom }}</li>
+                            <li class="list-group-item"><u>Prénom</u> : {{ personel.user.prenom }}</li>
+                            <li class="list-group-item"><u>Imatriculation</u> : {{ personel.user.imatriculation }}</li>
+                            <li class="list-group-item"><u>Sexe</u> : {{ personel.user.sexe }}</li>
+                            <li class="list-group-item"><u>Date de naissance</u> : {{ personel.user.birthDate|date('Y-m-d') }}</li>
+                            <li class="list-group-item"><u>Lieu de naissance</u> : {{ personel.user.birthLocale }}</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="bd mb-1 bgc-white p-20 sk-bd">
+                        <h6>Administration</h6>
+                        <ul class="list-group">
+                            <li class="list-group-item"><u>Poste</u>: {{ personel.type.libelle }}</li>
+                            <li class="list-group-item"><u>Diplome</u> : {{ personel.diplome }}</li>
+                            <li class="list-group-item"><u>Numéro AE</u> : {{ personel.numAe }}</li>
+                            <li class="list-group-item"><u>Salaires</u> : {{ personel.salary }}</li>
+                        </ul>
+                    </div>
+                    <div class="bd mb-1 bgc-white p-20 sk-bd">
+                        <h6>Contact</h6>
+                        <ul class="list-group">
+                            <li class="list-group-item"><u>Contact</u> : {{ personel.contact }}</li>
+                            <li class="list-group-item"><u>Adresse</u> : {{ personel.adresse }}</li>
+                            <li class="list-group-item"><u>CIN</u> : {{ personel.cin }}</li>
+                            <li class="list-group-item"><u>Lieu CIN</u> : {{ personel.lieuCin }}</li>
+                            <li class="list-group-item"><u>Date CIN</u> : {{ personel.dateCin|date('Y-m-d') }}</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="bd mb-1 bgc-white p-20 sk-bd">
+                        <h6><u>Information complementaire</u></h6>
+                        {{ personel.noteLibre }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

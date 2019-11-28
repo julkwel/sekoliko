@@ -39,6 +39,10 @@
                                        href="{{ path('scolarite_manage',{'id': scolarite.id,'type':types.id}) }}">
                                         <i class="ti-pencil"></i>
                                     </a>
+                                    <a class="btn btn-outline-primary btn-sm" title="Details"
+                                       href="{{ path('scolarite_user_details',{'id': scolarite.id }) }}">
+                                        <i class="ti-eye"></i>
+                                    </a>
                                     <a class="btn btn-outline-danger btn-sm" title="Supprimer"
                                        href="{{ path('scolarite_remove',{'id':scolarite.id}) }}">
                                         <i class="ti-trash"></i>

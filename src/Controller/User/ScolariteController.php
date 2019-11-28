@@ -44,6 +44,23 @@ class ScolariteController extends AbstractBaseController
     }
 
     /**
+     * @param Scolarite $scolarite
+     *
+     * @Route("/details/{id}",name="scolarite_user_details")
+     *
+     * @return Response
+     */
+    public function details(Scolarite $scolarite)
+    {
+        return $this->render(
+            'admin/content/Scolarite/scolarite/_details.html.twig',
+            [
+                'personel' => $scolarite,
+            ]
+        );
+    }
+
+    /**
      * @param Request        $request
      * @param ScolariteType  $type
      * @param Scolarite|null $scolarite
@@ -94,7 +111,7 @@ class ScolariteController extends AbstractBaseController
         $isProfessor = RoleConstant::ROLE_PROFS === $type->getId();
 
         $scolarite->getUser()->setRoles([
-            RoleConstant::ROLE_SEKOLIKO[$isProfessor ? 'Professeur' : 'Scolarite'],
+            RoleConstant::ROLE_SEKOLIKO[ $isProfessor ? 'Professeur' : 'Scolarite' ],
         ]);
 
         $plainPassword = $this->passencoder->encodePassword($scolarite->getUser(), $form->get('user')->getData()->getPassword());
