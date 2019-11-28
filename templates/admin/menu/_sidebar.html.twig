@@ -44,8 +44,8 @@
                     </span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="{{ path('administrator_list') }}">List</a></li>
-                    <li><a href="{{ path('administration_type_list') }}">Type</a></li>
+                    <li><a href="{{ path('administrator_list') }}">Personnel Administratif</a></li>
+                    <li><a href="{{ path('administration_type_list') }}">Poste</a></li>
                 </ul>
             </li>
             <li class="nav-item dropdown {% if menu_scolarite is defined %} open actived{% endif %}">
@@ -61,7 +61,7 @@
                 <ul class="dropdown-menu">
                     <li class="nav-item dropdown {% if menu_scolarite_list is defined %} open actived{% endif %}">
                         <a href="#">
-                            <span>List</span>
+                            <span>Personnel Scolarité</span>
                             <span class="arrow">
                                 <i class="ti-angle-right"></i>
                             </span>
@@ -70,7 +70,7 @@
                             {{ render(controller('App\\Controller\\Menu\\MenuController::list')) }}
                         </ul>
                     </li>
-                    <li><a href="{{ path('scolarite_type_list') }}">Type</a></li>
+                    <li><a href="{{ path('scolarite_type_list') }}">Poste</a></li>
                 </ul>
             </li>
             <li class="nav-item {% if menu_matiere is defined %} actived{% endif %}">
