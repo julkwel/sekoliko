@@ -28,3 +28,7 @@ yarn-error.log
 ###> ide/phpstorm ###
 /.idea
 ###< ide/phpstorm ###
+###> squizlabs/php_codesniffer ###
+/.phpcs-cache
+/phpcs.xml
+###< squizlabs/php_codesniffer ###
