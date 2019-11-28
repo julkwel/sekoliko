@@ -20,12 +20,16 @@
                     <thead>
                     <tr>
                         <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Poste</th>
                         <th>Action</th>
                     </tr>
                     </thead>
                     <tfoot>
                     <tr>
                         <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Poste</th>
                         <th>Action</th>
                     </tr>
                     </tfoot>
@@ -34,6 +38,8 @@
                         {% if scolarite.deletedAt  == null %}
                             <tr>
                                 <td>{{ scolarite.user.nom }}</td>
+                                <td>{{ scolarite.user.prenom }}</td>
+                                <td>{{ scolarite.type.libelle }}</td>
                                 <td>
                                     <a class="btn btn-outline-success btn-sm" title="Modifier"
                                        href="{{ path('scolarite_manage',{'id': scolarite.id,'type':types.id}) }}">

@@ -1,19 +1,27 @@
-
 $sk_border_color: #5f99f3;
 
-.custom-file-control:lang(fr)::before{
-  content:"Parcourir";
+.custom-file-control:lang(fr)::before {
+  content: "Parcourir";
 }
-.custom-file-control:lang(en)::before{
-  content:"Browse";
+
+.custom-file-control:lang(en)::before {
+  content: "Browse";
 }
+
 .sk-bd {
   border-color: $sk_border_color !important;
 }
-.btn{
-  border-radius: 0px!important;
+
+.btn {
+  border-radius: 0px !important;
 }
-.student-pdp{
+
+.student-pdp {
+  width: 100px;
+  height: 100px;
+}
+
+.personel-pdp {
   width: 100px;
   height: 100px;
 }
