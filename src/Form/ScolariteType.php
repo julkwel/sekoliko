@@ -56,7 +56,8 @@ class ScolariteType extends AbstractType
                     'label' => 'Contact téléphonique',
                 ]
             )
-            ->add('cin',
+            ->add(
+                'cin',
                 TextType::class,
                 [
                     'label' => 'Numéro CIN',

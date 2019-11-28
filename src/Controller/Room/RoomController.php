@@ -192,7 +192,8 @@ class RoomController extends AbstractBaseController
             $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
             return $this->redirectToRoute(
-                'room_reservation', ['id' => $reservation->getRoom()->getId()]
+                'room_reservation',
+                ['id' => $reservation->getRoom()->getId()]
             );
         }
 
