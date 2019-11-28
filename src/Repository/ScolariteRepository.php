@@ -39,7 +39,7 @@ class ScolariteRepository extends ServiceEntityRepository
             ->andWhere('s.etsName = :ets')
             ->andWhere('s.type = :type')
             ->setParameter('ets', $user->getEtsName())
-            ->setParameter('year', $user->getSchoolYear()->getId() ?? null)
+            ->setParameter('year', $user->getSchoolYear())
             ->setParameter('type', $type)
             ->getQuery()
             ->getResult();

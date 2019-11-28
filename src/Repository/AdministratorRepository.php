@@ -37,7 +37,7 @@ class AdministratorRepository extends ServiceEntityRepository
             ->andWhere('a.schoolYear = :year')
             ->andWhere('a.etsName = :ets')
             ->setParameter('ets', $user->getEtsName())
-            ->setParameter('year', $user->getSchoolYear()->getId() ?? null)
+            ->setParameter('year', $user->getSchoolYear())
             ->getQuery()
             ->getResult();
 
