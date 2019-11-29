@@ -6,6 +6,7 @@
 /public/bundles/
 /var/
 /vendor/
+/Symfony2-coding-standard/
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
