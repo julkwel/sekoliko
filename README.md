@@ -46,6 +46,20 @@ Create your first user by running
 
 `php bin/console sekoliko:create:super-admin`
 
+## STANDARD
+
+Code must be follow symfony coding standard style ,Install this coding standard in your root directory of sekoliko.
+
+```
+git clone git://github.com/djoos/Symfony2-coding-standard.git && composer install -d ./Symfony2-coding-standard
+./Symfony2-coding-standard/vendor/bin/phpcs --config-set installed_paths ../../../../Symfony2-coding-standard
+```
+
+Then run this command ALWAYS before your push.
+
+```
+./Symfony2-coding-standard/vendor/bin/phpcs --standard=Symfony --ignore=*/vendor/*,/src/Kernel.php,*/Migrations/* ./src/
+```
 ## Design 
 Make cool and user friendly design, we have a template named `admirator` inside assets directory for theme.
 
