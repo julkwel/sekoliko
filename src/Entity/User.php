@@ -1,4 +1,7 @@
 <?php
+/**
+ * Julien Rajerison <julienrajerison5@gmail.com>.
+ **/
 
 namespace App\Entity;
 
@@ -158,9 +161,7 @@ class User implements UserInterface
     }
 
     /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
+     * @return string|null
      */
     public function getUsername(): ?string
     {
@@ -180,7 +181,7 @@ class User implements UserInterface
     }
 
     /**
-     * @see UserInterface
+     * @return array|null
      */
     public function getRoles(): ?array
     {
@@ -202,13 +203,18 @@ class User implements UserInterface
     }
 
     /**
-     * @see UserInterface
+     * @return string|null
      */
     public function getPassword(): ?string
     {
         return (string) $this->password;
     }
 
+    /**
+     * @param string $password
+     *
+     * @return User
+     */
     public function setPassword(string $password): self
     {
         $this->password = $password;
@@ -217,7 +223,7 @@ class User implements UserInterface
     }
 
     /**
-     * @see UserInterface
+     * @return string|void|null
      */
     public function getSalt()
     {
@@ -225,7 +231,7 @@ class User implements UserInterface
     }
 
     /**
-     * @see UserInterface
+     *
      */
     public function eraseCredentials()
     {
@@ -253,6 +259,9 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getSchoolYear()
     {
         return $this->schoolYear;
@@ -565,6 +574,11 @@ class User implements UserInterface
         return $this->birthDate;
     }
 
+    /**
+     * @param \DateTimeInterface|null $birthDate
+     *
+     * @return User
+     */
     public function setBirthDate(?\DateTimeInterface $birthDate): self
     {
         $this->birthDate = $birthDate;
@@ -592,11 +606,19 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getBirthLocale(): ?string
     {
         return $this->birthLocale;
     }
 
+    /**
+     * @param string|null $birthLocale
+     *
+     * @return User
+     */
     public function setBirthLocale(?string $birthLocale): self
     {
         $this->birthLocale = $birthLocale;

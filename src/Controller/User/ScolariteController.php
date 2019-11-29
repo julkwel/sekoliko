@@ -87,7 +87,13 @@ class ScolariteController extends AbstractBaseController
 
             $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
-            return $this->redirectToRoute('scolarite_manage', ['type' => $type->getId(), 'id' => $scolarite->getId() ?? null]);
+            return $this->redirectToRoute(
+                'scolarite_manage',
+                [
+                    'type' => $type->getId(),
+                    'id' => $scolarite->getId() ?? null,
+                ]
+            );
         }
 
         return $this->render(
@@ -108,13 +114,16 @@ class ScolariteController extends AbstractBaseController
      */
     public function beforeScolaritePersist(Scolarite $scolarite, FormInterface $form, ScolariteType $type)
     {
-        $isProfessor = RoleConstant::ROLE_PROFS === $type->getId();
-
+        $re = '/prof/mi';
+        $isProfessor = preg_match_all($re, $type->getLibelle(), $matches, PREG_SET_ORDER, 0);
         $scolarite->getUser()->setRoles([
-            RoleConstant::ROLE_SEKOLIKO[ $isProfessor ? 'Professeur' : 'Scolarite' ],
+            RoleConstant::ROLE_SEKOLIKO[$isProfessor ? 'Professeur' : 'Scolarite'],
         ]);
 
-        $plainPassword = $this->passencoder->encodePassword($scolarite->getUser(), $form->get('user')->getData()->getPassword());
+        $plainPassword = $this->passencoder->encodePassword(
+            $scolarite->getUser(),
+            $form->get('user')->getData()->getPassword()
+        );
         $scolarite->getUser()->setPassword($plainPassword);
 
         return $scolarite;

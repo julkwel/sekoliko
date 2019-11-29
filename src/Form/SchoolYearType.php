@@ -17,6 +17,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class SchoolYearType extends AbstractType
 {
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array                $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -55,6 +59,9 @@ class SchoolYearType extends AbstractType
             );
     }
 
+    /**
+     * @param OptionsResolver $resolver
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(['data_class' => SchoolYear::class]);

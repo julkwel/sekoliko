@@ -71,7 +71,13 @@ class ClassRoomController extends AbstractBaseController
             }
             $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
-            return $this->redirectToRoute('class_room_manage', ['section' => $section->getId(), 'id' => $classRoom->getId()]);
+            return $this->redirectToRoute(
+                'class_room_manage',
+                [
+                    'section' => $section->getId(),
+                    'id' => $classRoom->getId(),
+                ]
+            );
         }
 
         return $this->render(

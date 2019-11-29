@@ -1,4 +1,7 @@
 <?php
+/**
+ * Julien Rajerison <julienrajerison5@gmail.com>.
+ **/
 
 namespace App\Entity;
 
@@ -180,6 +183,11 @@ class SchoolYear
         return $this->users;
     }
 
+    /**
+     * @param User $user
+     *
+     * @return SchoolYear
+     */
     public function addUser(User $user): self
     {
         if (!$this->users->contains($user)) {
@@ -190,6 +198,11 @@ class SchoolYear
         return $this;
     }
 
+    /**
+     * @param User $user
+     *
+     * @return SchoolYear
+     */
     public function removeUser(User $user): self
     {
         if ($this->users->contains($user)) {

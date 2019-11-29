@@ -1,4 +1,7 @@
 <?php
+/**
+ * Julien Rajerison <julienrajerison5@gmail.com>.
+ **/
 
 namespace App\Entity;
 
@@ -42,6 +45,9 @@ class Section
      */
     private $classRooms;
 
+    /**
+     * Section constructor.
+     */
     public function __construct()
     {
         $this->classRooms = new ArrayCollection();

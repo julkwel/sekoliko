@@ -1,4 +1,7 @@
 <?php
+/**
+ * Julien Rajerison <julienrajerison5@gmail.com>.
+ **/
 
 namespace App\Entity;
 
@@ -30,7 +33,7 @@ class ScolariteType
      *
      * @Assert\NotBlank()
      */
-    private $Libelle;
+    private $libelle;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Scolarite", mappedBy="type")
@@ -63,17 +66,17 @@ class ScolariteType
      */
     public function getLibelle(): ?string
     {
-        return $this->Libelle;
+        return $this->libelle;
     }
 
     /**
-     * @param string $Libelle
+     * @param string $libelle
      *
      * @return ScolariteType
      */
-    public function setLibelle(string $Libelle): self
+    public function setLibelle(string $libelle): self
     {
-        $this->Libelle = $Libelle;
+        $this->libelle = $libelle;
 
         return $this;
     }

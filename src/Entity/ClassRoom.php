@@ -1,4 +1,7 @@
 <?php
+/**
+ * Julien Rajerison <julienrajerison5@gmail.com>.
+ **/
 
 namespace App\Entity;
 
@@ -164,11 +167,19 @@ class ClassRoom
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
+    /**
+     * @param string $name
+     *
+     * @return ClassRoom
+     */
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -184,6 +195,11 @@ class ClassRoom
         return $this->classSubjects;
     }
 
+    /**
+     * @param ClassSubject $classSubject
+     *
+     * @return ClassRoom
+     */
     public function addClassSubject(ClassSubject $classSubject): self
     {
         if (!$this->classSubjects->contains($classSubject)) {
@@ -194,6 +210,11 @@ class ClassRoom
         return $this;
     }
 
+    /**
+     * @param ClassSubject $classSubject
+     *
+     * @return ClassRoom
+     */
     public function removeClassSubject(ClassSubject $classSubject): self
     {
         if ($this->classSubjects->contains($classSubject)) {
@@ -215,6 +236,11 @@ class ClassRoom
         return $this->students;
     }
 
+    /**
+     * @param Student $student
+     *
+     * @return ClassRoom
+     */
     public function addStudent(Student $student): self
     {
         if (!$this->students->contains($student)) {
@@ -225,6 +251,11 @@ class ClassRoom
         return $this;
     }
 
+    /**
+     * @param Student $student
+     *
+     * @return ClassRoom
+     */
     public function removeStudent(Student $student): self
     {
         if ($this->students->contains($student)) {

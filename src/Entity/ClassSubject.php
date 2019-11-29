@@ -1,4 +1,7 @@
 <?php
+/**
+ * Julien Rajerison <julienrajerison5@gmail.com>.
+ **/
 
 namespace App\Entity;
 
@@ -27,11 +30,6 @@ class ClassSubject
     private $classRoom;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Subject", cascade={"persist", "remove"})
-     */
-    private $subject;
-
-    /**
      * @ORM\Column(type="string", length=10, nullable=true)
      */
     private $coefficient;
@@ -45,6 +43,16 @@ class ClassSubject
      * @ORM\ManyToOne(targetEntity="App\Entity\SchoolYear", inversedBy="classSubjects")
      */
     private $schoolYear;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Scolarite", inversedBy="classSubjects")
+     */
+    private $profs;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Subject", inversedBy="classSubjects")
+     */
+    private $subject;
 
     /**
      * @return int|null
@@ -70,26 +78,6 @@ class ClassSubject
     public function setClassRoom(?ClassRoom $classRoom): self
     {
         $this->classRoom = $classRoom;
-
-        return $this;
-    }
-
-    /**
-     * @return Subject|null
-     */
-    public function getSubject(): ?Subject
-    {
-        return $this->subject;
-    }
-
-    /**
-     * @param Subject|null $subject
-     *
-     * @return ClassSubject
-     */
-    public function setSubject(?Subject $subject): self
-    {
-        $this->subject = $subject;
 
         return $this;
     }
@@ -150,6 +138,46 @@ class ClassSubject
     public function setSchoolYear(?SchoolYear $schoolYear): self
     {
         $this->schoolYear = $schoolYear;
+
+        return $this;
+    }
+
+    /**
+     * @return Scolarite|null
+     */
+    public function getProfs(): ?Scolarite
+    {
+        return $this->profs;
+    }
+
+    /**
+     * @param Scolarite|null $profs
+     *
+     * @return ClassSubject
+     */
+    public function setProfs(?Scolarite $profs): self
+    {
+        $this->profs = $profs;
+
+        return $this;
+    }
+
+    /**
+     * @return Subject|null
+     */
+    public function getSubject(): ?Subject
+    {
+        return $this->subject;
+    }
+
+    /**
+     * @param Subject|null $subject
+     *
+     * @return ClassSubject
+     */
+    public function setSubject(?Subject $subject): self
+    {
+        $this->subject = $subject;
 
         return $this;
     }

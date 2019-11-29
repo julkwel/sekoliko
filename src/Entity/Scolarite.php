@@ -1,8 +1,13 @@
 <?php
+/**
+ * Julien Rajerison <julienrajerison5@gmail.com>.
+ **/
 
 namespace App\Entity;
 
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -98,6 +103,19 @@ class Scolarite
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $noteLibre;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ClassSubject", mappedBy="profs")
+     */
+    private $classSubjects;
+
+    /**
+     * Scolarite constructor.
+     */
+    public function __construct()
+    {
+        $this->classSubjects = new ArrayCollection();
+    }
 
     /**
      * @return int|null
@@ -379,6 +397,47 @@ class Scolarite
     public function setNoteLibre(?string $noteLibre): self
     {
         $this->noteLibre = $noteLibre;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ClassSubject[]
+     */
+    public function getClassSubjects(): Collection
+    {
+        return $this->classSubjects;
+    }
+
+    /**
+     * @param ClassSubject $classSubject
+     *
+     * @return Scolarite
+     */
+    public function addClassSubject(ClassSubject $classSubject): self
+    {
+        if (!$this->classSubjects->contains($classSubject)) {
+            $this->classSubjects[] = $classSubject;
+            $classSubject->setProfs($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param ClassSubject $classSubject
+     *
+     * @return Scolarite
+     */
+    public function removeClassSubject(ClassSubject $classSubject): self
+    {
+        if ($this->classSubjects->contains($classSubject)) {
+            $this->classSubjects->removeElement($classSubject);
+            // set the owning side to null (unless already changed)
+            if ($classSubject->getProfs() === $this) {
+                $classSubject->setProfs(null);
+            }
+        }
 
         return $this;
     }

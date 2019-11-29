@@ -20,6 +20,7 @@
                     <thead>
                     <tr>
                         <th>Nom</th>
+                        <th>professeur</th>
                         <th>Coefficient</th>
                         <th>Action</th>
                     </tr>
@@ -27,6 +28,7 @@
                     <tfoot>
                     <tr>
                         <th>Nom</th>
+                        <th>professeur</th>
                         <th>Coefficient</th>
                         <th>Action</th>
                     </tr>
@@ -35,6 +37,7 @@
                     {% for subject in subjects %}
                         <tr>
                             <td>{{ subject.subject.name }}</td>
+                            <td>{{ subject.profs ? subject.profs.user.username : '' }}</td>
                             <td>{{ subject.coefficient }}</td>
                             <td>
                                 <a class="btn btn-outline-success btn-sm" title="Modifier"

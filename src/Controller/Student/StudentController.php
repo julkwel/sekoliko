@@ -46,6 +46,7 @@ class StudentController extends AbstractBaseController
      * @param SekolikoEntityManager        $entityManager
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param StudentRepository            $repository
+     * @param HistoryHelper                $historyHelper
      */
     public function __construct(EntityManagerInterface $manager, SekolikoEntityManager $entityManager, UserPasswordEncoderInterface $passwordEncoder, StudentRepository $repository, HistoryHelper $historyHelper)
     {
@@ -65,7 +66,13 @@ class StudentController extends AbstractBaseController
     {
         $studentList = $this->repository->findByClassSchoolYearField($this->getUser(), $class);
 
-        return $this->render('admin/content/student/_student_list.html.twig', ['students' => $studentList, 'classe' => $class]);
+        return $this->render(
+            'admin/content/student/_student_list.html.twig',
+            [
+                'students' => $studentList,
+                'classe' => $class,
+            ]
+        );
     }
 
     /**
@@ -98,10 +105,22 @@ class StudentController extends AbstractBaseController
             }
             $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
-            return $this->redirectToRoute('student_manage', ['classe' => $classe->getId(), 'id' => $student->getId()]);
+            return $this->redirectToRoute(
+                'student_manage',
+                [
+                    'classe' => $classe->getId(),
+                    'id' => $student->getId(),
+                ]
+            );
         }
 
-        return $this->render('admin/content/student/_student_manage.html.twig', ['form' => $form->createView(), 'classe' => $classe]);
+        return $this->render(
+            'admin/content/student/_student_manage.html.twig',
+            [
+                'form' => $form->createView(),
+                'classe' => $classe,
+            ]
+        );
     }
 
     /**
@@ -113,10 +132,18 @@ class StudentController extends AbstractBaseController
      */
     public function beforeStudentPersist(ClassRoom $classe, Student $student, FormInterface $form): Student
     {
-        $student->getUser()->setPassword($this->passencoder->encodePassword($student->getUser(), $form->get('user')->get('password')->getData()));
+        $student->getUser()->setPassword(
+            $this->passencoder->encodePassword(
+                $student->getUser(),
+                $form->get('user')->get('password')->getData()
+            )
+        );
         $student->getUser()->setRoles([RoleConstant::ROLE_SEKOLIKO['Etudiant']]);
         if (!$student->getId()) {
-            $this->historyHelper->addHistory('Ajout ' . $student->getUser()->getUsername() . ' dans la classe ' . $classe->getName(), $student->getUser());
+            $this->historyHelper->addHistory(
+                'Ajout '.$student->getUser()->getUsername().' dans la classe '.$classe->getName(),
+                $student->getUser()
+            );
         }
 
         return $student;

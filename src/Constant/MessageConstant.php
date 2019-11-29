@@ -5,6 +5,9 @@
 
 namespace App\Constant;
 
+/**
+ * Class MessageConstant
+ */
 class MessageConstant
 {
     public const SUPPRESSION_MESSAGE = 'Suppression avec success';

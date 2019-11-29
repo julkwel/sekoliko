@@ -70,7 +70,7 @@ class SekolikoEntityManager
 
             return true;
         } catch (Exception $exception) {
-            return false;
+            dd($exception->getMessage());
         }
     }
 

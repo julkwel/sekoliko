@@ -1,4 +1,7 @@
 <?php
+/**
+ * Julien Rajerison <julienrajerison5@gmail.com>.
+ **/
 
 namespace App\Entity;
 
@@ -49,6 +52,9 @@ class Room
      */
     private $deletedAt;
 
+    /**
+     * Room constructor.
+     */
     public function __construct()
     {
         $this->reservations = new ArrayCollection();

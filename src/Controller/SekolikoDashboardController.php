@@ -17,6 +17,8 @@ class SekolikoDashboardController extends AbstractBaseController
 {
     /**
      * @Route("/dashboard",name="admin_dashboard",methods={"POST","GET"})
+     *
+     * @return Response
      */
     public function dashboardController(): Response
     {

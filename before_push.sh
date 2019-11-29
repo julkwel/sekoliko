@@ -1,0 +1,1 @@
+Symfony2-coding-standard/vendor/bin/phpcs --standard=Symfony --ignore=*/vendor/*,/src/Kernel.php,*/Migrations/* src/

@@ -1,4 +1,7 @@
 <?php
+/**
+ * Julien Rajerison <julienrajerison5@gmail.com>.
+ **/
 
 namespace App\Repository;
 
@@ -15,6 +18,11 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  */
 class HistoryRepository extends ServiceEntityRepository
 {
+    /**
+     * HistoryRepository constructor.
+     *
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, History::class);

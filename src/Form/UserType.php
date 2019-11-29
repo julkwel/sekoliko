@@ -21,6 +21,10 @@ use Symfony\Component\Validator\Constraints\File;
  */
 class UserType extends AbstractType
 {
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array                $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -62,8 +66,8 @@ class UserType extends AbstractType
                 'birthLocale',
                 TextType::class,
                 [
-                    'label'=>'Lieu de naissance',
-                    'required'=>false,
+                    'label' => 'Lieu de naissance',
+                    'required' => false,
                 ]
             )
             ->add(
@@ -108,6 +112,9 @@ class UserType extends AbstractType
             );
     }
 
+    /**
+     * @param OptionsResolver $resolver
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(['data_class' => User::class]);
