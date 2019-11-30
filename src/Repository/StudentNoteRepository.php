@@ -33,19 +33,16 @@ class StudentNoteRepository extends ServiceEntityRepository
     /**
      * @param Student $student
      * @param Session $session
-     * @param Subject $matiere
      *
      * @return StudentNote[] Returns an array of StudentNote objects
      */
-    public function findBySession(Student $student, Session $session, Subject $matiere)
+    public function findBySession(Student $student, Session $session)
     {
         return $this->createQueryBuilder('s')
             ->andWhere('s.session = :session')
-            ->andWhere('s.matiere = :matiere')
             ->andWhere('s.student = :student')
             ->setParameter('session', $session)
             ->setParameter('student', $student)
-            ->setParameter('matiere', $matiere)
             ->orderBy('s.id', 'ASC')
             ->getQuery()
             ->getResult();
