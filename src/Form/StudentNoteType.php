@@ -5,7 +5,11 @@
 
 namespace App\Form;
 
+use App\Entity\ClassSubject;
 use App\Entity\StudentNote;
+use App\Entity\Subject;
+use App\Repository\ClassSubjectRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,7 +27,24 @@ class StudentNoteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('note', TextType::class, ['label' => 'Note /20']);
+            ->add(
+                'matiere',
+                EntityType::class,
+                [
+                    'class' => ClassSubject::class,
+                    'query_builder' => function (ClassSubjectRepository $repository) use ($options) {
+                        return $repository->findByClassForm($options['user'], $options['classe']);
+                    },
+                    'choice_label' => 'subject.name',
+                ]
+            )
+            ->add(
+                'note',
+                TextType::class,
+                [
+                    'label' => 'Note /20',
+                ]
+            );
     }
 
     /**
@@ -31,6 +52,12 @@ class StudentNoteType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(['data_class' => StudentNote::class]);
+        $resolver->setDefaults(
+            [
+                'data_class' => StudentNote::class,
+                'user' => null,
+                'classe' => null,
+            ]
+        );
     }
 }

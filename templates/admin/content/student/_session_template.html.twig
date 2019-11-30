@@ -1,0 +1,6 @@
+<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+    {% for session in sessions %}
+        <a class="dropdown-item"
+           href="{{ path('student_note_list', {'session': session.id, 'student': student.id}) }}">{{ session.name }}</a>
+    {% endfor %}
+</div>

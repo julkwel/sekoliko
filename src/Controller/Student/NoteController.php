@@ -21,6 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
+ * @Route("/{_locale}/admin/note")
  * Class NoteController
  */
 class NoteController extends AbstractBaseController
@@ -54,11 +55,18 @@ class NoteController extends AbstractBaseController
     {
         $notes = $this->repository->findBySession($student, $session);
 
-        return $this->render('admin/content/student/_student_note.html.twig', ['notes' => $notes]);
+        return $this->render(
+            'admin/content/student/_student_note.html.twig',
+            [
+                'notes' => $notes,
+                'student' => $student,
+                'session' => $session,
+            ]
+        );
     }
 
     /**
-     * @Route("/{student}/{session}/{id?}",name="student_note_manage")
+     * @Route("/manage/{student}/{session}/{id?}",name="student_note_manage")
      *
      * @param Request          $request
      * @param Student          $student
@@ -71,14 +79,21 @@ class NoteController extends AbstractBaseController
     {
         $note = $note ?? new StudentNote();
 
-        $form = $this->createForm(StudentNoteType::class, $note);
+        $form = $this->createForm(
+            StudentNoteType::class,
+            $note,
+            [
+                'user' => $this->getUser(),
+                'classe' => $student->getClasse(),
+            ]
+        );
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $note->setSession($session);
             $note->setStudent($student);
 
-            if ($this->em->save($note)) {
+            if ($this->em->save($note, $this->getUser(), $form)) {
                 $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::AJOUT_MESSAGE);
 
                 return $this->redirectToRoute(
@@ -101,6 +116,13 @@ class NoteController extends AbstractBaseController
             );
         }
 
-        return $this->render('admin/content/student/_student_note_manage.html.twig', ['form' => $form->createView()]);
+        return $this->render(
+            'admin/content/student/_student_note_manage.html.twig',
+            [
+                'form' => $form->createView(),
+                'student' => $student->getId(),
+                'session' => $session->getId(),
+            ]
+        );
     }
 }

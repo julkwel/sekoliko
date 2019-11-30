@@ -8,6 +8,7 @@ namespace App\Controller\Session;
 use App\Constant\MessageConstant;
 use App\Controller\AbstractBaseController;
 use App\Entity\Session;
+use App\Entity\Student;
 use App\Form\SessionType;
 use App\Repository\SessionRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -34,6 +35,26 @@ class SessionController extends AbstractBaseController
         $session = $repository->findByScoolYear($this->getUser()->getSchoolYear(), $this->getUser()->getEtsName());
 
         return $this->render('admin/content/EtsSession/_session_list.html.twig', ['sessions' => $session]);
+    }
+
+    /**
+     * @param SessionRepository $repository
+     *
+     * @param Student           $user
+     *
+     * @return Response
+     */
+    public function renderTemplate(SessionRepository $repository, Student $user)
+    {
+        $session = $repository->findByScoolYear($this->getUser()->getSchoolYear(), $this->getUser()->getEtsName());
+
+        return $this->render(
+            'admin/content/student/_session_template.html.twig',
+            [
+                'sessions' => $session,
+                'student' => $user,
+            ]
+        );
     }
 
     /**
