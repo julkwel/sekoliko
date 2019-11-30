@@ -7,7 +7,6 @@ namespace App\Form;
 
 use App\Entity\ClassSubject;
 use App\Entity\StudentNote;
-use App\Entity\Subject;
 use App\Repository\ClassSubjectRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;

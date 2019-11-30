@@ -15,6 +15,7 @@ use App\Helper\HistoryHelper;
 use App\Manager\SekolikoEntityManager;
 use App\Repository\StudentNoteRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -124,5 +125,27 @@ class NoteController extends AbstractBaseController
                 'session' => $session->getId(),
             ]
         );
+    }
+
+    /**
+     * @Route("/student/remove/{id}",name="student_note_remove")
+     *
+     * @param StudentNote $studentNote
+     *
+     * @return RedirectResponse
+     */
+    public function remove(StudentNote $studentNote)
+    {
+        $session = $studentNote->getSession()->getId();
+        $student = $studentNote->getStudent()->getId();
+
+        if ($this->em->remove($studentNote)) {
+            $this->addFlash(MessageConstant::SUCCESS_TYPE, MessageConstant::SUPPRESSION_MESSAGE);
+
+            return $this->redirectToRoute('student_note_list', ['session' => $session, 'student' => $student]);
+        }
+        $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
+
+        return $this->redirectToRoute('student_note_list', ['session' => $session, 'student' => $student]);
     }
 }

@@ -45,10 +45,10 @@
                                    href="{{ path('student_note_manage',{"session":session.id,"student":student.id,'id':note.id}) }}">
                                     <i class="ti-pencil"></i>
                                 </a>
-{#                                <a class="btn btn-outline-danger btn-sm" title="Supprimer"#}
-{#                                   href="{{ path('school_year_remove',{'id':schoolyear.id}) }}">#}
-{#                                    <i class="ti-trash"></i>#}
-{#                                </a>#}
+                                <a class="btn btn-outline-danger btn-sm" title="Supprimer"
+                                   href="{{ path('student_note_remove',{'id':note.id}) }}">
+                                    <i class="ti-trash"></i>
+                                </a>
                             </td>
                         </tr>
                     {% endfor %}
