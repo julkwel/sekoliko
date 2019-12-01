@@ -23,6 +23,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/{_locale}/admin/note")
+ *
  * Class NoteController
  */
 class NoteController extends AbstractBaseController
