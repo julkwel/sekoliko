@@ -22,6 +22,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
+ * This controller will manage student note ,
+ * List : Student note MUST HAVE session and student in parameters
+ * Manage(Edit or New) : Require student and session in parameters with id of note on edit
+ *
  * @Route("/{_locale}/admin/note")
  *
  * Class NoteController
