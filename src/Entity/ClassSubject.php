@@ -5,6 +5,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -53,6 +55,19 @@ class ClassSubject
      * @ORM\ManyToOne(targetEntity="App\Entity\Subject", inversedBy="classSubjects")
      */
     private $subject;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\StudentNote", mappedBy="matiere")
+     */
+    private $studentNotes;
+
+    /**
+     * ClassSubject constructor.
+     */
+    public function __construct()
+    {
+        $this->studentNotes = new ArrayCollection();
+    }
 
     /**
      * @return int|null
@@ -178,6 +193,47 @@ class ClassSubject
     public function setSubject(?Subject $subject): self
     {
         $this->subject = $subject;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|StudentNote[]
+     */
+    public function getStudentNotes(): Collection
+    {
+        return $this->studentNotes;
+    }
+
+    /**
+     * @param StudentNote $studentNote
+     *
+     * @return ClassSubject
+     */
+    public function addStudentNote(StudentNote $studentNote): self
+    {
+        if (!$this->studentNotes->contains($studentNote)) {
+            $this->studentNotes[] = $studentNote;
+            $studentNote->setMatiere($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param StudentNote $studentNote
+     *
+     * @return ClassSubject
+     */
+    public function removeStudentNote(StudentNote $studentNote): self
+    {
+        if ($this->studentNotes->contains($studentNote)) {
+            $this->studentNotes->removeElement($studentNote);
+            // set the owning side to null (unless already changed)
+            if ($studentNote->getMatiere() === $this) {
+                $studentNote->setMatiere(null);
+            }
+        }
 
         return $this;
     }

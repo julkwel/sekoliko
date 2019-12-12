@@ -57,6 +57,7 @@ class ClassRoomController extends AbstractBaseController
     public function manage(Request $request, Section $section, ClassRoom $classRoom = null): Response
     {
         $classRoom = $classRoom ?? new ClassRoom();
+
         $form = $this->createForm(ClassRoomType::class, $classRoom);
         $form->handleRequest($request);
 

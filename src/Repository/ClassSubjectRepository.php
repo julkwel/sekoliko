@@ -5,10 +5,12 @@
 
 namespace App\Repository;
 
+use App\Entity\ClassRoom;
 use App\Entity\ClassSubject;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * @method ClassSubject|null find($id, $lockMode = null, $lockVersion = null)
@@ -44,7 +46,23 @@ class ClassSubjectRepository extends ServiceEntityRepository
             ->setParameter('class', $class)
             ->orderBy('sc.id', 'ASC')
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
+    }
+
+    /**
+     * @param User|null      $user
+     * @param ClassRoom|null $class
+     *
+     * @return QueryBuilder
+     */
+    public function findByClassForm(?User $user, ?ClassRoom $class)
+    {
+        return $this->createQueryBuilder('sc')
+            ->where('sc.deletedAt is NULL')
+            ->andWhere('sc.classRoom = :class')
+            ->andWhere('sc.schoolYear = :year')
+            ->setParameter('year', $user ? $user->getSchoolYear() : null)
+            ->setParameter('class', $class)
+            ->orderBy('sc.id', 'ASC');
     }
 }

@@ -80,6 +80,11 @@ class SchoolYear
     private $classSubjects;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Session", mappedBy="schoolYear")
+     */
+    private $sessions;
+
+    /**
      * SchoolYear constructor.
      */
     public function __construct()
@@ -89,6 +94,7 @@ class SchoolYear
         $this->administrators = new ArrayCollection();
         $this->reservations = new ArrayCollection();
         $this->classSubjects = new ArrayCollection();
+        $this->sessions = new ArrayCollection();
     }
 
     /**
@@ -374,6 +380,47 @@ class SchoolYear
             // set the owning side to null (unless already changed)
             if ($classSubject->getSchoolYear() === $this) {
                 $classSubject->setSchoolYear(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Session[]
+     */
+    public function getSessions(): Collection
+    {
+        return $this->sessions;
+    }
+
+    /**
+     * @param Session $session
+     *
+     * @return SchoolYear
+     */
+    public function addSession(Session $session): self
+    {
+        if (!$this->sessions->contains($session)) {
+            $this->sessions[] = $session;
+            $session->setSchoolYear($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Session $session
+     *
+     * @return SchoolYear
+     */
+    public function removeSession(Session $session): self
+    {
+        if ($this->sessions->contains($session)) {
+            $this->sessions->removeElement($session);
+            // set the owning side to null (unless already changed)
+            if ($session->getSchoolYear() === $this) {
+                $session->setSchoolYear(null);
             }
         }
 

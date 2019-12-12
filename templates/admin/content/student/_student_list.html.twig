@@ -50,6 +50,14 @@
                                    href="{{ path('etudiant_details',{'id': student.id}) }}">
                                     <i class="ti-eye"></i>
                                 </a>
+                                <li class="nav-item dropdown btn btn-outline-primary btn-sm">
+                                    <a class="dropdown-toggle"
+                                       href="#" id="navbarDropdownMenuLink"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="ti-list-ol"></i>
+                                    </a>
+                                    {{ render(controller('App\\Controller\\Session\\SessionController::renderTemplate',{"user":student})) }}
+                                </li>
                                 <a class="btn btn-outline-danger btn-sm" title="Supprimer"
                                    href="{{ path('student_remove',{'id': student.id}) }}">
                                     <i class="ti-trash"></i>
