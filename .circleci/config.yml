@@ -19,7 +19,7 @@ jobs:
       - run: sudo apt update
       - run: sudo docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd
       - run: sudo docker-php-ext-install zip bcmath pdo_mysql
-      - run: sudo apt-get install -y default-mysql-client
+      - run: sudo apt-get install -y default-mysql-client gcc g++
 
       # Download and cache dependencies
       - restore_cache:
