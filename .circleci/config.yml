@@ -53,7 +53,7 @@ jobs:
       - run:
           name: Install webpack depedencies
           command: |
-            ln -s "$(which nodejs)" /usr/bin/node
+            sudo ln -s "$(which nodejs)" /usr/bin/node
             yarn install
             yarn encore prod
 
