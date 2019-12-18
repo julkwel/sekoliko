@@ -24,6 +24,7 @@
                         <th>Coefficient</th>
                         <th>Note obténu</th>
                         <th>Total</th>
+                        <td>Obsérvation</td>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -33,6 +34,7 @@
                         <th>Coefficient</th>
                         <th>Note obténu</th>
                         <th>Total</th>
+                        <td>Obsérvation</td>
                         <th>Action</th>
                     </tr>
                     </tfoot>
@@ -43,6 +45,7 @@
                             <td>{{ note.matiere.coefficient }}</td>
                             <td>{{ note.note }}</td>
                             <td>{{ note.matiere.coefficient * note.note }}</td>
+                            <td>{{ note.observation }}</td>
                             <td>
                                 <a class="btn btn-outline-success btn-sm" title="Modifier"
                                    href="{{ path('student_note_manage',{"session":session.id,"student":student.id,'id':note.id}) }}">
