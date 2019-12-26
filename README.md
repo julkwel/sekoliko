@@ -63,15 +63,6 @@ Then run this command ALWAYS and fix all errors before your push.
 ## Design 
 Make cool and user friendly design, we have a template named `admirator` inside assets directory for theme.
 
-## Online test
-[Sekoliko url](https://www.techzara.org/sekoliko/en/login) 
-
-Use : 
-```
-login : sekoliko
-password : sekoliko
-```
-
 ## Functional proposition
 IF YOU HAVE NEW PROPOSAL FUNCTION PLEASE CREATE NEW ISSUES.
 ____
