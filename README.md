@@ -55,7 +55,7 @@ git clone git://github.com/djoos/Symfony2-coding-standard.git && composer instal
 ./Symfony2-coding-standard/vendor/bin/phpcs --config-set installed_paths ../../../../Symfony2-coding-standard
 ```
 
-Then run this command ALWAYS before your push.
+Then run this command ALWAYS and fix all errors before your push.
 
 ```
 ./Symfony2-coding-standard/vendor/bin/phpcs --standard=Symfony --ignore=*/vendor/*,/src/Kernel.php,*/Migrations/* ./src/
