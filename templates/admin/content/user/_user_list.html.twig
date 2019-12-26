@@ -13,7 +13,9 @@
                         <th>Nom</th>
                         <th>Etablissement</th>
                         <th>Date d'entrer</th>
-                        <th>Action</th>
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DIRECTION') %}
+                            <th>Action</th>
+                        {% endif %}
                     </tr>
                     </thead>
                     <tfoot>
@@ -21,7 +23,9 @@
                         <th>Nom</th>
                         <th>Etablissement</th>
                         <th>Date d'entrer</th>
-                        <th>Action</th>
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DIRECTION') %}
+                            <th>Action</th>
+                        {% endif %}
                     </tr>
                     </tfoot>
                     <tbody>
@@ -31,12 +35,14 @@
                                 <td>{{ user.nom }}</td>
                                 <td>{{ user.etsName }}</td>
                                 <td>{{ user.dateCreate|date('Y-m-d') }}</td>
-                                <td>
-                                    <a class="btn btn-outline-danger btn-sm" title="Supprimer"
-                                       href="{{ path('user_delete', {'id': user.id}) }}">
-                                        <i class="ti-trash"></i>
-                                    </a>
-                                </td>
+                                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DIRECTION') %}
+                                    <td>
+                                        <a class="btn btn-outline-danger btn-sm" title="Supprimer"
+                                           href="{{ path('user_delete', {'id': user.id}) }}">
+                                            <i class="ti-trash"></i>
+                                        </a>
+                                    </td>
+                                {% endif %}
                             </tr>
                         {% endif %}
                     {% endfor %}

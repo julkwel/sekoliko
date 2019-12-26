@@ -10,6 +10,14 @@ security:
             entity:
                 class: App\Entity\User
                 property: username
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_ADMIN
+        ROLE_PROFS: ROLE_PROFS
+        ROLE_STUDENT: ROLE_ETUDIANT
+        ROLE_DIRECTION: ROLE_DIRECTION
+        ROLE_SUPER_ADMIN: ROLE_SUPER_ADMIN
+        ROLE_SCOLARITE: ROLE_SCOLARITE
+        ROLE_TRESORIER: ROLE_TRESORIER
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -25,7 +33,6 @@ security:
                     - App\Security\SekolikoAuthenticator
             logout:
                 path: app_logout
-                # where to redirect after logout
                 target: /en/login
 
             # activate different ways to authenticate
