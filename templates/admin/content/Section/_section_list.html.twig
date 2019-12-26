@@ -19,33 +19,39 @@
                     <thead>
                     <tr>
                         <th>Nom</th>
-                        <th>Action</th>
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DIRECTION') %}
+                            <th>Action</th>
+                        {% endif %}
                     </tr>
                     </thead>
                     <tfoot>
                     <tr>
                         <th>Nom</th>
-                        <th>Action</th>
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DIRECTION') %}
+                            <th>Action</th>
+                        {% endif %}
                     </tr>
                     </tfoot>
                     <tbody>
                     {% for section in sections %}
                         <tr>
                             <td>{{ section.name }}</td>
-                            <td>
-                                <a class="btn btn-outline-success btn-sm" title="Modifier"
-                                   href="{{ path('section_manage',{'id': section.id}) }}">
-                                    <i class="ti-pencil"></i>
-                                </a>
-                                <a class="btn btn-outline-primary btn-sm" title="Liste classe"
-                                   href="{{ path('class_room_list',{'id': section.id}) }}">
-                                    <i class="ti-list"></i>
-                                </a>
-                                <a class="btn btn-outline-danger btn-sm" title="Supprimer"
-                                   href="{{ path('section_remove',{'id':section.id}) }}">
-                                    <i class="ti-trash"></i>
-                                </a>
-                            </td>
+                            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DIRECTION') %}
+                                <td>
+                                    <a class="btn btn-outline-success btn-sm" title="Modifier"
+                                       href="{{ path('section_manage',{'id': section.id}) }}">
+                                        <i class="ti-pencil"></i>
+                                    </a>
+                                    <a class="btn btn-outline-primary btn-sm" title="Liste classe"
+                                       href="{{ path('class_room_list',{'id': section.id}) }}">
+                                        <i class="ti-list"></i>
+                                    </a>
+                                    <a class="btn btn-outline-danger btn-sm" title="Supprimer"
+                                       href="{{ path('section_remove',{'id':section.id}) }}">
+                                        <i class="ti-trash"></i>
+                                    </a>
+                                </td>
+                            {% endif %}
                         </tr>
                     {% endfor %}
                     </tbody>

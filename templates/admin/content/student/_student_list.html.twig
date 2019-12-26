@@ -21,7 +21,9 @@
                         <th>Nom</th>
                         <th>Prénom</th>
                         <th>Photo</th>
-                        <th>Action</th>
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DIRECTION') %}
+                            <th>Action</th>
+                        {% endif %}
                     </tr>
                     </thead>
                     <tfoot>
@@ -29,7 +31,9 @@
                         <th>Nom</th>
                         <th>Prénom</th>
                         <th>Photo</th>
-                        <th>Action</th>
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DIRECTION') %}
+                            <th>Action</th>
+                        {% endif %}
                     </tr>
                     </tfoot>
                     <tbody>
@@ -41,32 +45,34 @@
                                 <img src="{{ asset('/uploads/phototechzara/'~student.user.photo) }}"
                                      class="w-3r h-3r bdrs-50p" alt="">
                             </td>
-                            <td>
-                                <a class="btn btn-outline-success btn-sm" title="Modifier"
-                                   href="{{ path('student_manage',{'classe':classe.id,'id': student.id}) }}">
-                                    <i class="ti-pencil"></i>
-                                </a>
-                                <a class="btn btn-outline-primary btn-sm" title="Details"
-                                   href="{{ path('etudiant_details',{'id': student.id}) }}">
-                                    <i class="ti-eye"></i>
-                                </a>
-                                <li class="nav-item dropdown btn btn-outline-primary btn-sm">
-                                    <a class="dropdown-toggle"
-                                       href="#" id="navbarDropdownMenuLink"
-                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="ti-list-ol"></i>
+                            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DIRECTION') %}
+                                <td>
+                                    <a class="btn btn-outline-success btn-sm" title="Modifier"
+                                       href="{{ path('student_manage',{'classe':classe.id,'id': student.id}) }}">
+                                        <i class="ti-pencil"></i>
                                     </a>
-                                    {{ render(controller('App\\Controller\\Session\\SessionController::renderTemplate',{"user":student})) }}
-                                </li>
-                                <a class="btn btn-outline-danger btn-sm" title="Supprimer"
-                                   href="{{ path('student_remove',{'id': student.id}) }}">
-                                    <i class="ti-trash"></i>
-                                </a>
-                                <a class="btn btn-outline-secondary btn-sm" title="Historique"
-                                   href="{{ path('history_user',{'id': student.user.id}) }}">
-                                    <i class="ti-bookmark-alt"></i>
-                                </a>
-                            </td>
+                                    <a class="btn btn-outline-primary btn-sm" title="Details"
+                                       href="{{ path('etudiant_details',{'id': student.id}) }}">
+                                        <i class="ti-eye"></i>
+                                    </a>
+                                    <li class="nav-item dropdown btn btn-outline-primary btn-sm">
+                                        <a class="dropdown-toggle"
+                                           href="#" id="navbarDropdownMenuLink"
+                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="ti-list-ol"></i>
+                                        </a>
+                                        {{ render(controller('App\\Controller\\Session\\SessionController::renderTemplate',{"user":student})) }}
+                                    </li>
+                                    <a class="btn btn-outline-danger btn-sm" title="Supprimer"
+                                       href="{{ path('student_remove',{'id': student.id}) }}">
+                                        <i class="ti-trash"></i>
+                                    </a>
+                                    <a class="btn btn-outline-secondary btn-sm" title="Historique"
+                                       href="{{ path('history_user',{'id': student.user.id}) }}">
+                                        <i class="ti-bookmark-alt"></i>
+                                    </a>
+                                </td>
+                            {% endif %}
                         </tr>
                     {% endfor %}
                     </tbody>

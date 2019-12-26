@@ -22,7 +22,9 @@
                         <th>Nom</th>
                         <th>Prénom</th>
                         <th>Poste</th>
-                        <th>Action</th>
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DIRECTION') %}
+                            <th>Action</th>
+                        {% endif %}
                     </tr>
                     </thead>
                     <tfoot>
@@ -30,7 +32,9 @@
                         <th>Nom</th>
                         <th>Prénom</th>
                         <th>Poste</th>
-                        <th>Action</th>
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DIRECTION') %}
+                            <th>Action</th>
+                        {% endif %}
                     </tr>
                     </tfoot>
                     <tbody>
@@ -40,20 +44,22 @@
                                 <td>{{ scolarite.user.nom }}</td>
                                 <td>{{ scolarite.user.prenom }}</td>
                                 <td>{{ scolarite.type.libelle }}</td>
-                                <td>
-                                    <a class="btn btn-outline-success btn-sm" title="Modifier"
-                                       href="{{ path('scolarite_manage',{'id': scolarite.id,'type':types.id}) }}">
-                                        <i class="ti-pencil"></i>
-                                    </a>
-                                    <a class="btn btn-outline-primary btn-sm" title="Details"
-                                       href="{{ path('scolarite_user_details',{'id': scolarite.id }) }}">
-                                        <i class="ti-eye"></i>
-                                    </a>
-                                    <a class="btn btn-outline-danger btn-sm" title="Supprimer"
-                                       href="{{ path('scolarite_remove',{'id':scolarite.id}) }}">
-                                        <i class="ti-trash"></i>
-                                    </a>
-                                </td>
+                                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DIRECTION') %}
+                                    <td>
+                                        <a class="btn btn-outline-success btn-sm" title="Modifier"
+                                           href="{{ path('scolarite_manage',{'id': scolarite.id,'type':types.id}) }}">
+                                            <i class="ti-pencil"></i>
+                                        </a>
+                                        <a class="btn btn-outline-primary btn-sm" title="Details"
+                                           href="{{ path('scolarite_user_details',{'id': scolarite.id }) }}">
+                                            <i class="ti-eye"></i>
+                                        </a>
+                                        <a class="btn btn-outline-danger btn-sm" title="Supprimer"
+                                           href="{{ path('scolarite_remove',{'id':scolarite.id}) }}">
+                                            <i class="ti-trash"></i>
+                                        </a>
+                                    </td>
+                                {% endif %}
                             </tr>
                         {% endif %}
                     {% endfor %}

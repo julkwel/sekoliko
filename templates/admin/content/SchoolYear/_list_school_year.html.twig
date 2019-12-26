@@ -20,7 +20,9 @@
                         <th>Nom</th>
                         <th>Début</th>
                         <th>Fin</th>
-                        <th>Action</th>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <th>Action</th>
+                        {% endif %}
                     </tr>
                     </thead>
                     <tfoot>
@@ -28,7 +30,9 @@
                         <th>Nom</th>
                         <th>Début</th>
                         <th>Fin</th>
-                        <th>Action</th>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <th>Action</th>
+                        {% endif %}
                     </tr>
                     </tfoot>
                     <tbody>
@@ -37,16 +41,18 @@
                             <td>{{ schoolyear.name }}</td>
                             <td>{{ schoolyear.startDate|date('Y-m-d') }}</td>
                             <td>{{ schoolyear.endDate|date('Y-m-d') }}</td>
-                            <td>
-                                <a class="btn btn-outline-success btn-sm" title="Modifier"
-                                   href="{{ path('school_year_manage',{'id': schoolyear.id}) }}">
-                                    <i class="ti-pencil"></i>
-                                </a>
-                                <a class="btn btn-outline-danger btn-sm" title="Supprimer"
-                                   href="{{ path('school_year_remove',{'id':schoolyear.id}) }}">
-                                    <i class="ti-trash"></i>
-                                </a>
-                            </td>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <td>
+                                    <a class="btn btn-outline-success btn-sm" title="Modifier"
+                                       href="{{ path('school_year_manage',{'id': schoolyear.id}) }}">
+                                        <i class="ti-pencil"></i>
+                                    </a>
+                                    <a class="btn btn-outline-danger btn-sm" title="Supprimer"
+                                       href="{{ path('school_year_remove',{'id':schoolyear.id}) }}">
+                                        <i class="ti-trash"></i>
+                                    </a>
+                                </td>
+                            {% endif %}
                         </tr>
                     {% endfor %}
                     </tbody>

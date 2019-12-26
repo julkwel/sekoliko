@@ -22,7 +22,9 @@
                         <th>Début</th>
                         <th>Fin</th>
                         <th>Status</th>
-                        <th>Action</th>
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DIRECTION') %}
+                            <th>Action</th>
+                        {% endif %}
                     </tr>
                     </thead>
                     <tfoot>
@@ -31,7 +33,9 @@
                         <th>Début</th>
                         <th>Fin</th>
                         <th>Status</th>
-                        <th>Action</th>
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DIRECTION') %}
+                            <th>Action</th>
+                        {% endif %}
                     </tr>
                     </tfoot>
                     <tbody>
@@ -47,6 +51,7 @@
                                     <span class="badge badge-success">Validé</span>
                                 {% endif %}
                             </td>
+                            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DIRECTION') %}
                             <td>
                                 {% if reservation.fin != true %}
                                     {% if reservation.isValid != true %}
@@ -67,6 +72,7 @@
                                     <span class="badge badge-success">Terminé</span>
                                 {% endif %}
                             </td>
+                            {% endif %}
                         </tr>
                     {% endfor %}
                     </tbody>

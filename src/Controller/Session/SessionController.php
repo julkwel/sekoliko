@@ -32,7 +32,10 @@ class SessionController extends AbstractBaseController
      */
     public function list(SessionRepository $repository)
     {
-        $session = $repository->findByScoolYear($this->getUser()->getSchoolYear(), $this->getUser()->getEtsName());
+        $session = $repository->findByScoolYear(
+            $this->getUser() ? $this->getUser()->getSchoolYear() : null,
+            $this->getUser() ? $this->getUser()->getEtsName() : null
+        );
 
         return $this->render('admin/content/EtsSession/_session_list.html.twig', ['sessions' => $session]);
     }

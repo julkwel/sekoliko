@@ -19,33 +19,39 @@
                     <thead>
                     <tr>
                         <th>Nom</th>
-                        <th>Action</th>
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DIRECTION') %}
+                            <th>Action</th>
+                        {% endif %}
                     </tr>
                     </thead>
                     <tfoot>
                     <tr>
                         <th>Nom</th>
-                        <th>Action</th>
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DIRECTION') %}
+                            <th>Action</th>
+                        {% endif %}
                     </tr>
                     </tfoot>
                     <tbody>
                     {% for room in rooms %}
                         <tr>
                             <td>{{ room.name }}</td>
-                            <td>
-                                <a class="btn btn-outline-success btn-sm" title="Modifier"
-                                   href="{{ path('room_manage',{'id': room.id}) }}">
-                                    <i class="ti-pencil"></i>
-                                </a>
-                                <a class="btn btn-outline-primary btn-sm" title="Reservation"
-                                   href="{{ path('room_reservations_list',{'id':room.id}) }}">
-                                    <i class="ti-list"></i>
-                                </a>
-                                <a class="btn btn-outline-danger btn-sm" title="Supprimer"
-                                   href="{{ path('remove_room',{'id':room.id}) }}">
-                                    <i class="ti-trash"></i>
-                                </a>
-                            </td>
+                            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DIRECTION')  %}
+                                <td>
+                                    <a class="btn btn-outline-success btn-sm" title="Modifier"
+                                       href="{{ path('room_manage',{'id': room.id}) }}">
+                                        <i class="ti-pencil"></i>
+                                    </a>
+                                    <a class="btn btn-outline-primary btn-sm" title="Reservation"
+                                       href="{{ path('room_reservations_list',{'id':room.id}) }}">
+                                        <i class="ti-list"></i>
+                                    </a>
+                                    <a class="btn btn-outline-danger btn-sm" title="Supprimer"
+                                       href="{{ path('remove_room',{'id':room.id}) }}">
+                                        <i class="ti-trash"></i>
+                                    </a>
+                                </td>
+                            {% endif %}
                         </tr>
                     {% endfor %}
                     </tbody>

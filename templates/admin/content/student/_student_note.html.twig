@@ -23,7 +23,11 @@
                         <th>Matiere</th>
                         <th>Coefficient</th>
                         <th>Note obténu</th>
-                        <th>Action</th>
+                        <th>Total</th>
+                        <td>Obsérvation</td>
+                        {% if is_granted('ROLE_PROFS') %}
+                            <th>Action</th>
+                        {% endif %}
                     </tr>
                     </thead>
                     <tfoot>
@@ -31,7 +35,11 @@
                         <th>Matiere</th>
                         <th>Coefficient</th>
                         <th>Note obténu</th>
-                        <th>Action</th>
+                        <th>Total</th>
+                        <td>Obsérvation</td>
+                        {% if is_granted('ROLE_PROFS') %}
+                            <th>Action</th>
+                        {% endif %}
                     </tr>
                     </tfoot>
                     <tbody>
@@ -40,16 +48,20 @@
                             <td>{{ note.matiere.subject.name }}</td>
                             <td>{{ note.matiere.coefficient }}</td>
                             <td>{{ note.note }}</td>
-                            <td>
-                                <a class="btn btn-outline-success btn-sm" title="Modifier"
-                                   href="{{ path('student_note_manage',{"session":session.id,"student":student.id,'id':note.id}) }}">
-                                    <i class="ti-pencil"></i>
-                                </a>
-                                <a class="btn btn-outline-danger btn-sm" title="Supprimer"
-                                   href="{{ path('student_note_remove',{'id':note.id}) }}">
-                                    <i class="ti-trash"></i>
-                                </a>
-                            </td>
+                            <td>{{ note.matiere.coefficient * note.note }}</td>
+                            <td>{{ note.observation }}</td>
+                            {% if is_granted('ROLE_PROFS') %}
+                                <td>
+                                    <a class="btn btn-outline-success btn-sm" title="Modifier"
+                                       href="{{ path('student_note_manage',{"session":session.id,"student":student.id,'id':note.id}) }}">
+                                        <i class="ti-pencil"></i>
+                                    </a>
+                                    <a class="btn btn-outline-danger btn-sm" title="Supprimer"
+                                       href="{{ path('student_note_remove',{'id':note.id}) }}">
+                                        <i class="ti-trash"></i>
+                                    </a>
+                                </td>
+                            {% endif %}
                         </tr>
                     {% endfor %}
                     </tbody>
