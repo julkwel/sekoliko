@@ -17,7 +17,14 @@ class SessionListner
 {
     private $container;
     private $router;
-
+    
+    /**
+    *
+    * SessionListner constructor
+    *
+    * @param ContainerInterface $container
+    * @param RouterInterface $router
+    */
     public function __construct(ContainerInterface $container, RouterInterface $router)
     {
         $this->container = $container;
