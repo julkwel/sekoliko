@@ -5,7 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     brochures_directory: '%kernel.project_dir%/public/uploads/photo'
-
+    locale: en
 services:
     # default configuration for services in *this* file
     _defaults:

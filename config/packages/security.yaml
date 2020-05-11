@@ -33,7 +33,7 @@ security:
                     - App\Security\SekolikoAuthenticator
             logout:
                 path: app_logout
-                target: /en/login
+                target: /login
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
@@ -44,5 +44,5 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-         - { path: ^/admin, roles: [ ROLE_ADMIN , ROLE_SUPER_ADMIN ] }
          - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/admin, roles: [ ROLE_ADMIN , ROLE_SUPER_ADMIN ] }

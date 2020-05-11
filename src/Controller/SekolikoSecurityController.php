@@ -17,7 +17,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SekolikoSecurityController extends AbstractController
 {
     /**
-     * @Route("/{_locale}/login", name="app_login")
+     * @Route("/login", name="app_login")
      *
      * @param AuthenticationUtils $authenticationUtils
      *

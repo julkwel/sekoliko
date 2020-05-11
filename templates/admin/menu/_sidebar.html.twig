@@ -25,6 +25,14 @@
                     <span class="title">Dashboard</span>
                 </a>
             </li>
+            <li class="nav-item  {% if menu_docs is defined %} actived{% endif %}">
+                <a class="sidebar-link" href="{{ path('docs_accueil') }}">
+                    <span class="icon-holder">
+                        <i class="c-blue-500 ti-info-alt"></i>
+                    </span>
+                    <span class="title">Documentation</span>
+                </a>
+            </li>
             <li class="nav-item">
                 <a class="sidebar-link" href="{{ path('school_year_list') }}">
                     <span class="icon-holder">
@@ -116,6 +124,13 @@
                     <span class="title">Section / Niveau</span>
                 </a>
             </li>
+            <hr style="color: white;border: solid 1px white">
+            <ul>
+                <li>
+                    <i class="ti-user"></i>
+                    {{ app.user.username }} <span class="badge badge-warning">{{ app.user.roles|join }}</span>
+                </li>
+            </ul>
         </ul>
     </div>
 </div>
