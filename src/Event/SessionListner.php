@@ -36,10 +36,10 @@ class SessionListner
      */
     public function onKernelException(ExceptionEvent $event)
     {
-//        $security = $this->container->get('security.authorization_checker');
-//
-//        if ($event && $security->isGranted('IS_AUTHENTICATED_ANONYMOUSLY')) {
-//            $event->setResponse(new RedirectResponse($this->router->generate('app_logout')));
-//        }
+        $security = $this->container->get('security.authorization_checker');
+
+        if ($event && $security->isGranted('IS_AUTHENTICATED_ANONYMOUSLY')) {
+            $event->setResponse(new RedirectResponse($this->router->generate('app_logout')));
+        }
     }
 }
