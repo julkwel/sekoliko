@@ -1,6 +1,6 @@
 $(document).ready(function (e) {
     $('.datetimepicker').datetimepicker({
-        format:'YYYY-MM-DD HH:MM',
+        format: 'YYYY-MM-DD HH:MM',
         icons: {
             time: 'ti-time',
             date: 'ti-calendar',
@@ -17,7 +17,7 @@ $(document).ready(function (e) {
     // Custom file input bootstrap fix
     $('.custom-file-label').addClass('custom-file-control');
     $('.custom-file').addClass('d-block');
-    $('.custom-file-input').on('change',function(){
+    $('.custom-file-input').on('change', function () {
         var fileName = $(this).val();
         $(this).next('.custom-file-label').html(fileName);
     })

@@ -48,7 +48,7 @@ class AdministratorRepository extends ServiceEntityRepository
 
         return $this->createQueryBuilder('a')
             ->where('a.deletedAt is NULL')
-            ->andWhere((!$user->getSchoolYear() ? 'a.schoolYear IS NULL' : 'a.schoolYear = :year'))
+            ->andWhere(!$user->getSchoolYear() ? 'a.schoolYear IS NULL' : 'a.schoolYear = :year')
             ->andWhere('a.etsName = :ets')
             ->setParameters($parameters)
             ->getQuery()

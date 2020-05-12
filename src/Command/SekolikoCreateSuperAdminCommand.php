@@ -74,7 +74,8 @@ class SekolikoCreateSuperAdminCommand extends Command
         $passWord = $helper->ask($input, $output, new Question('Mots de passe : '));
 
         $user = new User();
-        $user->setEtsName($etablissement)
+        $user
+            ->setEtsName($etablissement)
             ->setUsername($username)
             ->setNom($name)
             ->setRoles(['ROLE_SUPER_ADMIN'])
