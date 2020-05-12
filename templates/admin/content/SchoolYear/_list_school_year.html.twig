@@ -20,9 +20,7 @@
                         <th>Nom</th>
                         <th>Début</th>
                         <th>Fin</th>
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <th>Action</th>
-                        {% endif %}
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tfoot>
@@ -30,9 +28,7 @@
                         <th>Nom</th>
                         <th>Début</th>
                         <th>Fin</th>
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <th>Action</th>
-                        {% endif %}
+                        <th>Action</th>
                     </tr>
                     </tfoot>
                     <tbody>
@@ -41,7 +37,8 @@
                             <td>{{ schoolyear.name }}</td>
                             <td>{{ schoolyear.startDate|date('Y-m-d') }}</td>
                             <td>{{ schoolyear.endDate|date('Y-m-d') }}</td>
-                            {% if is_granted('ROLE_ADMIN') %}
+
+                            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
                                 <td>
                                     <a class="btn btn-outline-success btn-sm" title="Modifier"
                                        href="{{ path('school_year_manage',{'id': schoolyear.id}) }}">
@@ -51,6 +48,12 @@
                                        href="{{ path('school_year_remove',{'id':schoolyear.id}) }}">
                                         <i class="ti-trash"></i>
                                     </a>
+                                    {% if is_granted('ROLE_SUPER_ADMIN') %}
+                                        <a class="btn btn-outline-warning btn-sm" title="Attention"
+                                           href="{{ path('update_school_year',{'id':app.user.id,'year':schoolyear.id}) }}">
+                                            Mise à jour de mon année scolaire
+                                        </a>
+                                    {% endif %}
                                 </td>
                             {% endif %}
                         </tr>

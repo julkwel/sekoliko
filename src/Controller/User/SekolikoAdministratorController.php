@@ -9,6 +9,8 @@ use App\Constant\MessageConstant;
 use App\Constant\RoleConstant;
 use App\Controller\AbstractBaseController;
 use App\Entity\Administrator;
+use App\Entity\SchoolYear;
+use App\Entity\User;
 use App\Form\AdministratorType;
 use App\Repository\AdministratorRepository;
 use Exception;
@@ -99,6 +101,22 @@ class SekolikoAdministratorController extends AbstractBaseController
         }
 
         return $this->redirectToRoute('administrator_list');
+    }
+
+    /**
+     * @Route("/update/{id}/{year}", name="update_school_year", methods={"POST","GET"})
+     *
+     * @param User       $user
+     * @param SchoolYear $year
+     *
+     * @return RedirectResponse
+     */
+    public function updateSchoolYear(User $user, SchoolYear $year)
+    {
+        $user->setSchoolYear($year);
+        $this->manager->flush();
+
+        return $this->redirectToRoute('school_year_list');
     }
 
     /**

@@ -22,28 +22,32 @@ class SessionListner
     /** @var RouterInterface */
     private $router;
 
+    /** @var KernelInterface */
+    private $kernel;
+
     /**
      *
      * SessionListner constructor
      *
      * @param ContainerInterface $container
      * @param RouterInterface    $router
+     * @param KernelInterface    $kernel
      */
-    public function __construct(ContainerInterface $container, RouterInterface $router)
+    public function __construct(ContainerInterface $container, RouterInterface $router, KernelInterface $kernel)
     {
         $this->container = $container;
         $this->router = $router;
+        $this->kernel = $kernel;
     }
 
     /**
-     * @param ExceptionEvent  $event
-     * @param KernelInterface $kernel
+     * @param ExceptionEvent $event
      */
-    public function onKernelException(ExceptionEvent $event, KernelInterface $kernel)
+    public function onKernelException(ExceptionEvent $event)
     {
         $security = $this->container->get('security.authorization_checker');
 
-        if ($kernel->getEnvironment() === 'prod' && $event && $security->isGranted('IS_AUTHENTICATED_ANONYMOUSLY')) {
+        if (($this->kernel->getEnvironment() === 'prod') && $event && $security->isGranted('IS_AUTHENTICATED_ANONYMOUSLY')) {
             $event->setResponse(new RedirectResponse($this->router->generate('app_logout')));
         }
     }
