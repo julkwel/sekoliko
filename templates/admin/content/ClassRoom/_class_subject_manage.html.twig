@@ -7,13 +7,17 @@
     <div class="row">
         <div class="col-md-4">
             <div class="bgc-white bd bdrs-3 p-20 mB-20"><h4 class="c-grey-900 mB-20">Gestion matière de classe</h4>
-                {{ form_start(form) }}
-                {{ form_widget(form) }}
-                <div class="col-md-12 d-block">
-                    <a href="{{ path('class_subject_list',{"id":classe.id}) }}" class="btn btn-warning">Annuler</a>
-                    <input type="submit" class="btn btn-primary float-right" value="Enregistrer">
-                </div>
-                {{ form_end(form) }}
+                {% if form.subject.vars.choices is empty %}
+                    <a href="{{ path('subject_manage') }}">Veuillez créer une matière</a>
+                {% else %}
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <div class="col-md-12 d-block">
+                        <a href="{{ path('class_subject_list',{"id":classe.id}) }}" class="btn btn-warning">Annuler</a>
+                        <input type="submit" class="btn btn-primary float-right" value="Enregistrer">
+                    </div>
+                    {{ form_end(form) }}
+                {% endif %}
             </div>
         </div>
     </div>
