@@ -37,7 +37,6 @@
                             <td>{{ schoolyear.name }}</td>
                             <td>{{ schoolyear.startDate|date('Y-m-d') }}</td>
                             <td>{{ schoolyear.endDate|date('Y-m-d') }}</td>
-
                             {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
                                 <td>
                                     <a class="btn btn-outline-success btn-sm" title="Modifier"
