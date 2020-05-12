@@ -34,6 +34,6 @@ class LoginTest extends WebTestCase
      */
     public function urlProvider(): ?Generator
     {
-        yield ['/{_locale}/login', 'GET'];
+        yield ['/login', 'GET'];
     }
 }
