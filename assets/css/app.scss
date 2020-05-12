@@ -19,6 +19,7 @@ $sk_base_color: #1f0a3b;
   background: #fff;
   z-index: 90000
 }
+
 #loader.fadeOut {
   opacity: 0;
   visibility: hidden
@@ -76,4 +77,8 @@ $sk_base_color: #1f0a3b;
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+.google-shadow {
+  box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
 }
