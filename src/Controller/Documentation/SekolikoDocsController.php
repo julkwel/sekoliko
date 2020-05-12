@@ -47,6 +47,8 @@ class SekolikoDocsController extends AbstractBaseController
 
     /**
      * @Route("/", name="docs_accueil", methods={"GET"})
+     *
+     * @return Response
      */
     public function docs()
     {
