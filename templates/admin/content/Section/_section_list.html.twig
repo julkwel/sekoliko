@@ -24,15 +24,15 @@
                                 </div>
                                 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DIRECTION') %}
                                     <div class="w-100 d-block text-center">
-                                        <a class="btn btn-outline-success btn-sm" title="Modifier"
+                                        <a class="btn btn-outline-success" title="Modifier"
                                            href="{{ path('section_manage',{'id': section.id}) }}">
                                             <i class="ti-pencil"></i>
                                         </a>
-                                        <a class="btn btn-outline-primary btn-sm" title="Liste classe"
+                                        <a class="btn btn-outline-primary" title="Liste classe"
                                            href="{{ path('class_room_list',{'id': section.id}) }}">
                                             <i class="ti-list"></i>
                                         </a>
-                                        <a class="btn btn-outline-danger btn-sm" title="Supprimer"
+                                        <a class="btn btn-outline-danger" title="Supprimer"
                                            href="{{ path('section_remove',{'id':section.id}) }}">
                                             <i class="ti-trash"></i>
                                         </a>
