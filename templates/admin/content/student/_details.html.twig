@@ -23,13 +23,30 @@
                         </ul>
                     </div>
                     <div class="bd mb-1 bgc-white p-20 sk-bd">
+                        <h6>Ecolage <a href="{{ path('paiement_ecolage', {'id': student.id}) }}">Paiement écolage</a>
+                        </h6>
+                        <ul class="list-group">
+                            <li class="list-group-item">Ecolage par mois
+                                : {{ student.classe and student.classe.ecolage ? student.classe.ecolage : 0 }}</li>
+                            {% for ecolage in student.ecolages %}
+                                <li class="list-group-item d-block w-100">
+                                    <span class="float-left">{{ ecolage.month }} - <span
+                                                class="badge badge-success">{{ ecolage.price }}</span> - {{ ecolage.createdAt|date('d-m-Y H:i') }}</span>
+                                    <div class="badge badge-warning  float-right text-white"><i class="ti-check"></i>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="bd mb-1 bgc-white p-20 sk-bd">
                         <h6>Utilisateur</h6>
                         <ul class="list-group">
                             <li class="list-group-item"><u>Nom </u>: {{ student.user.nom }}</li>
                             <li class="list-group-item"><u>Prénom</u> : {{ student.user.prenom }}</li>
                             <li class="list-group-item"><u>Imatriculation</u> : {{ student.user.imatriculation }}</li>
                             <li class="list-group-item"><u>Sexe</u> : {{ student.user.sexe }}</li>
-                            <li class="list-group-item"><u>Date de naissance</u> : {{ student.user.birthDate|date('Y-m-d') }}</li>
+                            <li class="list-group-item"><u>Date de naissance</u>
+                                : {{ student.user.birthDate|date('Y-m-d') }}</li>
                             <li class="list-group-item"><u>Lieu de naissance</u> : {{ student.user.birthLocale }}</li>
                         </ul>
                     </div>

@@ -5,16 +5,16 @@
 
 namespace App\Form;
 
-use App\Entity\ClassRoom;
+use App\Entity\Ecolage;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class ClassRoomType.
+ * Class EcolageType.
  */
-class ClassRoomType extends AbstractType
+class EcolageType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -22,9 +22,7 @@ class ClassRoomType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('name', TextType::class, ['label' => 'Nom de la classe'])
-            ->add('ecolage', TextType::class, ['label' => 'Montant écolage']);
+        $builder->add('month', TextType::class, ['label' => 'Mois']);
     }
 
     /**
@@ -32,6 +30,6 @@ class ClassRoomType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(['data_class' => ClassRoom::class]);
+        $resolver->setDefaults(['data_class' => Ecolage::class]);
     }
 }

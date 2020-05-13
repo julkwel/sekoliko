@@ -6,12 +6,15 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\Timestampable;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EcolageRepository")
  */
 class Ecolage
 {
+    use Timestampable;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -33,6 +36,11 @@ class Ecolage
      * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $price;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Student", inversedBy="ecolages")
+     */
+    private $student;
 
     /**
      * @return int|null
@@ -98,6 +106,26 @@ class Ecolage
     public function setPrice(?string $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * @return Student|null
+     */
+    public function getStudent(): ?Student
+    {
+        return $this->student;
+    }
+
+    /**
+     * @param Student|null $student
+     *
+     * @return $this
+     */
+    public function setStudent(?Student $student): self
+    {
+        $this->student = $student;
 
         return $this;
     }

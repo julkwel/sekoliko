@@ -68,6 +68,11 @@ class ClassRoom
     private $students;
 
     /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $ecolage;
+
+    /**
      * ClassRoom constructor.
      *
      * @throws Exception
@@ -265,6 +270,26 @@ class ClassRoom
                 $student->setClasse(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getEcolage(): ?string
+    {
+        return $this->ecolage;
+    }
+
+    /**
+     * @param string|null $ecolage
+     *
+     * @return $this
+     */
+    public function setEcolage(?string $ecolage): self
+    {
+        $this->ecolage = $ecolage;
 
         return $this;
     }

@@ -9,7 +9,9 @@ use App\Constant\MessageConstant;
 use App\Constant\RoleConstant;
 use App\Controller\AbstractBaseController;
 use App\Entity\ClassRoom;
+use App\Entity\Ecolage;
 use App\Entity\Student;
+use App\Form\EcolageType;
 use App\Form\StudentType;
 use App\Helper\HistoryHelper;
 use App\Manager\SekolikoEntityManager;
@@ -179,5 +181,35 @@ class StudentController extends AbstractBaseController
         $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
 
         return $this->redirectToRoute('student_list', ['id' => $classe]);
+    }
+
+    /**
+     * @Route("/ecolage/{id}", name="paiement_ecolage", methods={"POST","GET"})
+     *
+     * @param Request $request
+     * @param Student $student
+     *
+     * @return Response
+     */
+    public function paidEcolage(Request $request, Student $student)
+    {
+        $ecolage = new Ecolage();
+        $form = $this->createForm(EcolageType::class, $ecolage);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $ecolage->setIsPaid(true);
+            $ecolage->setPrice($request->get('montant'));
+            $student->addEcolage($ecolage);
+
+            $this->manager->flush();
+
+            return $this->redirectToRoute('etudiant_details', ['id' => $student->getId()]);
+        }
+
+        return $this->render(
+            'admin/content/student/_ecolage_paiement.html.twig',
+            ['form' => $form->createView(), 'student' => $student]
+        );
     }
 }

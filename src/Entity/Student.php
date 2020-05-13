@@ -83,12 +83,18 @@ class Student
     private $studentNotes;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Ecolage", mappedBy="student", cascade={"persist","remove"})
+     */
+    private $ecolages;
+
+    /**
      * Student constructor.
      */
     public function __construct()
     {
         $this->isRenvoie = false;
         $this->studentNotes = new ArrayCollection();
+        $this->ecolages = new ArrayCollection();
     }
 
     /**
@@ -334,6 +340,47 @@ class Student
             // set the owning side to null (unless already changed)
             if ($studentNote->getStudent() === $this) {
                 $studentNote->setStudent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Ecolage[]
+     */
+    public function getEcolages(): Collection
+    {
+        return $this->ecolages;
+    }
+
+    /**
+     * @param Ecolage $ecolage
+     *
+     * @return $this
+     */
+    public function addEcolage(Ecolage $ecolage): self
+    {
+        if (!$this->ecolages->contains($ecolage)) {
+            $this->ecolages[] = $ecolage;
+            $ecolage->setStudent($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Ecolage $ecolage
+     *
+     * @return $this
+     */
+    public function removeEcolage(Ecolage $ecolage): self
+    {
+        if ($this->ecolages->contains($ecolage)) {
+            $this->ecolages->removeElement($ecolage);
+            // set the owning side to null (unless already changed)
+            if ($ecolage->getStudent() === $this) {
+                $ecolage->setStudent(null);
             }
         }
 
