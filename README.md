@@ -2,6 +2,7 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-12-orange.svg?style=flat-square)](#contributors)
 
 School Management Web Application OPENSOURCE
+![sekoliko](https://raw.githubusercontent.com/julkwel/sekoliko/develop/public/images/demo.png)
 
 ## Requirements
 ```
