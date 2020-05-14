@@ -73,6 +73,11 @@ class ClassRoom
     private $ecolage;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\EmploiDuTemps", mappedBy="classe")
+     */
+    private $emploiDuTemps;
+
+    /**
      * ClassRoom constructor.
      *
      * @throws Exception
@@ -82,6 +87,7 @@ class ClassRoom
         $this->createdAt = new DateTime('now');
         $this->classSubjects = new ArrayCollection();
         $this->students = new ArrayCollection();
+        $this->emploiDuTemps = new ArrayCollection();
     }
 
     /**
@@ -290,6 +296,47 @@ class ClassRoom
     public function setEcolage(?string $ecolage): self
     {
         $this->ecolage = $ecolage;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|EmploiDuTemps[]
+     */
+    public function getEmploiDuTemps(): Collection
+    {
+        return $this->emploiDuTemps;
+    }
+
+    /**
+     * @param EmploiDuTemps $emploiDuTemp
+     *
+     * @return $this
+     */
+    public function addEmploiDuTemp(EmploiDuTemps $emploiDuTemp): self
+    {
+        if (!$this->emploiDuTemps->contains($emploiDuTemp)) {
+            $this->emploiDuTemps[] = $emploiDuTemp;
+            $emploiDuTemp->setClasse($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param EmploiDuTemps $emploiDuTemp
+     *
+     * @return $this
+     */
+    public function removeEmploiDuTemp(EmploiDuTemps $emploiDuTemp): self
+    {
+        if ($this->emploiDuTemps->contains($emploiDuTemp)) {
+            $this->emploiDuTemps->removeElement($emploiDuTemp);
+            // set the owning side to null (unless already changed)
+            if ($emploiDuTemp->getClasse() === $this) {
+                $emploiDuTemp->setClasse(null);
+            }
+        }
 
         return $this;
     }

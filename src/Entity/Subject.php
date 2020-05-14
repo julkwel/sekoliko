@@ -43,11 +43,17 @@ class Subject
     private $classSubjects;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\EmploiDuTemps", mappedBy="matiere")
+     */
+    private $emploiDuTemps;
+
+    /**
      * Subject constructor.
      */
     public function __construct()
     {
         $this->classSubjects = new ArrayCollection();
+        $this->emploiDuTemps = new ArrayCollection();
     }
 
     /**
@@ -129,6 +135,47 @@ class Subject
             // set the owning side to null (unless already changed)
             if ($classSubject->getSubject() === $this) {
                 $classSubject->setSubject(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|EmploiDuTemps[]
+     */
+    public function getEmploiDuTemps(): Collection
+    {
+        return $this->emploiDuTemps;
+    }
+
+    /**
+     * @param EmploiDuTemps $emploiDuTemp
+     *
+     * @return $this
+     */
+    public function addEmploiDuTemp(EmploiDuTemps $emploiDuTemp): self
+    {
+        if (!$this->emploiDuTemps->contains($emploiDuTemp)) {
+            $this->emploiDuTemps[] = $emploiDuTemp;
+            $emploiDuTemp->setMatiere($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param EmploiDuTemps $emploiDuTemp
+     *
+     * @return $this
+     */
+    public function removeEmploiDuTemp(EmploiDuTemps $emploiDuTemp): self
+    {
+        if ($this->emploiDuTemps->contains($emploiDuTemp)) {
+            $this->emploiDuTemps->removeElement($emploiDuTemp);
+            // set the owning side to null (unless already changed)
+            if ($emploiDuTemp->getMatiere() === $this) {
+                $emploiDuTemp->setMatiere(null);
             }
         }
 
