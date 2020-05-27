@@ -39,6 +39,7 @@
     "style-loader": "^0.19.0",
     "stylelint": "^13.3.3",
     "stylelint-config-standard": "^17.0.0",
+    "url-loader": "^4.0.0",
     "webpack": "^4.43.0",
     "webpack-dashboard": "^3.2.0",
     "webpack-dev-server": "^3.11.0",

@@ -7,6 +7,7 @@ namespace App\Controller\Front;
 
 use App\Controller\AbstractBaseController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -17,10 +18,10 @@ class FrontController extends AbstractBaseController
     /**
      * @Route("/",name="front_route")
      *
-     * @return RedirectResponse
+     * @return Response
      */
-    public function redirectToLogin(): RedirectResponse
+    public function redirectToLogin(): Response
     {
-        return $this->redirectToRoute('app_login');
+        return $this->render('front/content/_index.html.twig');
     }
 }

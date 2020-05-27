@@ -25,7 +25,7 @@ Encore
      */
     .addEntry('app', './assets/js/app.js')
     .addEntry('login', './assets/js/login.js')
-    //.addEntry('page2', './assets/js/page2.js')
+    .addEntry('front', './assets/js/front.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
@@ -48,7 +48,8 @@ Encore
     .enableVersioning(Encore.isProduction())
 
     // enables @babel/preset-env polyfills
-    .configureBabel(() => {}, {
+    .configureBabel(() => {
+    }, {
         useBuiltIns: 'usage',
         corejs: 3
     })
@@ -72,6 +73,10 @@ Encore
         'window.Tether': 'tether',
         tether: 'tether',
         Tether: 'tether'
+    })
+    .configureUrlLoader({
+        fonts: { limit: 4096 },
+        images: { limit: 4096 }
     })
 ;
 
