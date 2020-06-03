@@ -3,8 +3,9 @@
  * Julien Rajerison <julienrajerison5@gmail.com>.
  */
 
-namespace App\Controller;
+namespace App\Controller\Dashboard;
 
+use App\Controller\AbstractBaseController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 

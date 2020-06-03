@@ -3,9 +3,9 @@
  * Julien Rajerison <julienrajerison5@gmail.com>.
  */
 
-namespace App\Controller;
+namespace App\Controller\Security;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Controller\AbstractBaseController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,7 +14,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 /**
  * Class SekolikoSecurityController.
  */
-class SekolikoSecurityController extends AbstractController
+class SekolikoSecurityController extends AbstractBaseController
 {
     /**
      * @Route("/login", name="app_login")
