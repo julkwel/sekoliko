@@ -10,6 +10,8 @@ use App\Entity\Student;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 
 /**
  * @method Student|null find($id, $lockMode = null, $lockVersion = null)
@@ -28,6 +30,24 @@ class StudentRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Student::class);
     }
+
+    /**
+     * @param User $user
+     *
+     * @return mixed
+     *
+     * @throws NoResultException
+     * @throws NonUniqueResultException
+     */
+    public function findAllBySchool(User $user)
+    {
+        return $this->createQueryBuilder('s')
+            ->select('count(s.id)')
+            ->andWhere('s.etsName = :etsName')
+            ->setParameter('etsName', $user->getEtsName())
+            ->getQuery()->getSingleScalarResult();
+    }
+
 
     /**
      * @param User      $user
