@@ -30,7 +30,8 @@
         "symfony/validator": "4.4.*",
         "symfony/web-link": "4.4.*",
         "symfony/webpack-encore-bundle": "^1.6",
-        "symfony/yaml": "4.4.*"
+        "symfony/yaml": "4.4.*",
+      "ext-json": "*"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.5",

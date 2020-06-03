@@ -6,6 +6,7 @@
 parameters:
     brochures_directory: '%kernel.project_dir%/public/uploads/photo'
     locale: en
+    default_email: 'sekoliko.madagascar@gmail.com '
 services:
     # default configuration for services in *this* file
     _defaults:

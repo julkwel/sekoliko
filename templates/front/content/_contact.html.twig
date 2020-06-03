@@ -32,29 +32,54 @@
             </div>
 
             <div class="col-lg-6">
-                <form action="#" method="post" role="form" class="php-email-form" data-aos="fade-up">
+                <form action="#" method="post" role="form" id="contact-email-form" class="php-email-form sekoliko-email" data-aos="fade-up">
                     <div class="form-group">
-                        <input placeholder="Votre nom" type="text" name="name" class="form-control" id="name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                        <input placeholder="Votre nom"
+                               type="text"
+                               name="name"
+                               class="form-control"
+                               id="name"
+                               data-rule="minlen:4"
+                               data-msg="Please enter at least 4 chars" />
                         <div class="validate"></div>
                     </div>
                     <div class="form-group">
-                        <input placeholder="Votre email" type="email" class="form-control" name="email" id="email" data-rule="email" data-msg="Please enter a valid email" />
+                        <input
+                                placeholder="Votre email"
+                                type="email"
+                                class="form-control"
+                                name="email"
+                                id="email"
+                                data-rule="email"
+                                data-msg="Please enter a valid email" />
                         <div class="validate"></div>
                     </div>
                     <div class="form-group">
-                        <input placeholder="Sujet" type="text" class="form-control" name="subject" id="subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                        <input
+                                placeholder="Sujet"
+                                type="text"
+                                class="form-control"
+                                name="subject"
+                                id="subject"
+                                data-rule="minlen:4"
+                                data-msg="Please enter at least 8 chars of subject" />
                         <div class="validate"></div>
                     </div>
                     <div class="form-group">
-                        <textarea placeholder="Votre message" class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us"></textarea>
+                        <textarea
+                                placeholder="Votre message"
+                                class="form-control"
+                                name="message"
+                                rows="5"
+                                id="message"
+                                data-rule="required"
+                                data-msg="Please write something for us">
+                        </textarea>
                         <div class="validate"></div>
                     </div>
-                    <div class="mb-3">
-                        <div class="loading">Loading</div>
-                        <div class="error-message"></div>
-                        <div class="sent-message">Your message has been sent. Thank you!</div>
+                    <div class="text-center">
+                        <button type="submit" id="send-email" class="d-block w-100" data-url="{{ path('send_contact_email') }}">Envoyer</button>
                     </div>
-                    <div class="text-center"><button type="submit">Envoyer</button></div>
                 </form>
             </div>
         </div>
