@@ -1,3 +1,5 @@
+import fullscreen from "./fullscreen";
+
 $(document).ready(function (e) {
     $('.datetimepicker').datetimepicker({
         format: 'YYYY-MM-DD HH:MM',
@@ -20,5 +22,9 @@ $(document).ready(function (e) {
     $('.custom-file-input').on('change', function () {
         var fileName = $(this).val();
         $(this).next('.custom-file-label').html(fileName);
+    });
+
+    $(document).on('click','#fullscreen',function () {
+        fullscreen('#fullscreen');
     })
 });

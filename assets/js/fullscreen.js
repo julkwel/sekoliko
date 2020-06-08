@@ -3,7 +3,8 @@
  *
  * @param {string} id | the id will to toggle
  */
-export default function openFullscreen(id) {
+export default function openFullscreen(id)
+{
     let element = document.getElementById('element');
 
     if (element && !document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {

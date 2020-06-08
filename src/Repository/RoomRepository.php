@@ -29,11 +29,12 @@ class RoomRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param User $user
+     * @param User      $user
+     * @param bool|null $isCount
      *
      * @return mixed
      */
-    public function findBySchoolYear(User $user)
+    public function findBySchoolYear(User $user, ?bool $isCount)
     {
         $list = $this->createQueryBuilder('a')
             ->where('a.deletedAt is NULL')
@@ -42,6 +43,6 @@ class RoomRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
 
-        return $list;
+        return $isCount ? count($list) : $list;
     }
 }

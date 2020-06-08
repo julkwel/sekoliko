@@ -9,6 +9,7 @@ use App\Entity\Scolarite;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query\Expr\Join;
 
 /**
  * @method Scolarite|null find($id, $lockMode = null, $lockVersion = null)
@@ -36,7 +37,7 @@ class ScolariteRepository extends ServiceEntityRepository
      */
     public function findBySchoolYear(User $user, $type)
     {
-        $list = $this->createQueryBuilder('s')
+        return $this->createQueryBuilder('s')
             ->where('s.deletedAt is NULL')
             ->andWhere('s.schoolYear = :year')
             ->andWhere('s.etsName = :ets')
@@ -46,7 +47,20 @@ class ScolariteRepository extends ServiceEntityRepository
             ->setParameter('type', $type)
             ->getQuery()
             ->getResult();
+    }
 
-        return $list;
+    /**
+     * @param User $user
+     *
+     * @return mixed
+     */
+    public function findProfs(User $user)
+    {
+        return count($this->createQueryBuilder('c')
+            ->innerJoin('c.user', 'u', Join::WITH, 'u.roles LIKE :role')
+            ->andWhere('c.deletedAt IS NULL')
+            ->andWhere('c.etsName = :etsName')
+            ->setParameter('role', '%"'.'ROLE_PROFS'.'"%')
+            ->setParameter('etsName', $user->getEtsName())->getQuery()->getResult());
     }
 }
