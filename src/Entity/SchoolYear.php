@@ -20,13 +20,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class SchoolYear
 {
     use SekolikoEtablissementTrait;
-
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    use EntityIdTrait;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -95,14 +89,6 @@ class SchoolYear
         $this->reservations = new ArrayCollection();
         $this->classSubjects = new ArrayCollection();
         $this->sessions = new ArrayCollection();
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     /**

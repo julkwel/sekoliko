@@ -19,13 +19,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class Room
 {
     use SekolikoEtablissementTrait;
-
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    use EntityIdTrait;
 
     /**
      * @ORM\Column(type="string", length=100)
@@ -58,14 +52,6 @@ class Room
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     /**

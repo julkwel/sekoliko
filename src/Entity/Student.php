@@ -19,13 +19,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class Student
 {
     use SekolikoEtablissementTrait;
-
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    use EntityIdTrait;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\User", cascade={"persist", "remove"})
@@ -95,14 +89,6 @@ class Student
         $this->isRenvoie = false;
         $this->studentNotes = new ArrayCollection();
         $this->ecolages = new ArrayCollection();
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     /**

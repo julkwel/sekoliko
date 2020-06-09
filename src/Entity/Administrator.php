@@ -19,13 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Administrator
 {
     use SekolikoEtablissementTrait;
-
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    use EntityIdTrait;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
@@ -57,7 +51,7 @@ class Administrator
     private $deletedAt;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $adresse;
 
@@ -112,14 +106,6 @@ class Administrator
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $noteLibre;
-
-    /**
-     * @return int|null
-     */
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     /**
      * @return string|null

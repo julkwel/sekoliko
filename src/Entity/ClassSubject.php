@@ -18,13 +18,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class ClassSubject
 {
     use SekolikoEtablissementTrait;
-
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    use EntityIdTrait;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\ClassRoom", inversedBy="classSubjects")
@@ -67,14 +61,6 @@ class ClassSubject
     public function __construct()
     {
         $this->studentNotes = new ArrayCollection();
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     /**

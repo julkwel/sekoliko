@@ -12,12 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class StudentNote
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    use EntityIdTrait;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\ClassSubject", inversedBy="studentNotes")
@@ -44,14 +39,6 @@ class StudentNote
      * @ORM\ManyToOne(targetEntity="App\Entity\Session", inversedBy="studentNotes")
      */
     private $session;
-
-    /**
-     * @return int|null
-     */
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     /**
      * @return ClassSubject|null

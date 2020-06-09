@@ -13,12 +13,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class History
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    use SekolikoEtablissementTrait;
+    use EntityIdTrait;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="action", cascade={"persist", "remove"})
@@ -42,14 +38,6 @@ class History
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="histories")
      */
     private $userAct;
-
-    /**
-     * @return int|null
-     */
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     /**
      * @return User|null

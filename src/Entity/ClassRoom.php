@@ -22,13 +22,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class ClassRoom
 {
     use SekolikoEtablissementTrait;
-
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    use EntityIdTrait;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Section", inversedBy="classRooms")
@@ -88,14 +82,6 @@ class ClassRoom
         $this->classSubjects = new ArrayCollection();
         $this->students = new ArrayCollection();
         $this->emploiDuTemps = new ArrayCollection();
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     /**

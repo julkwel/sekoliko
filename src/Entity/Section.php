@@ -20,13 +20,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class Section
 {
     use SekolikoEtablissementTrait;
-
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    use EntityIdTrait;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -51,14 +45,6 @@ class Section
     public function __construct()
     {
         $this->classRooms = new ArrayCollection();
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     /**

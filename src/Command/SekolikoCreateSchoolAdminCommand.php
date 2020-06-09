@@ -5,6 +5,8 @@
 
 namespace App\Command;
 
+use App\Entity\AdministrationType;
+use App\Entity\Administrator;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
@@ -14,46 +16,38 @@ use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-/**
- * Class SekolikoCreateSuperAdminCommand.
- */
-class SekolikoCreateSuperAdminCommand extends Command
+class SekolikoCreateSchoolAdminCommand extends Command
 {
-    /**
-     * @var UserPasswordEncoderInterface
-     */
-    private $passwordEncoder;
+    /** @var UserPasswordEncoderInterface */
+    private $encoder;
 
-    /**
-     * @var EntityManagerInterface
-     */
+    /** @var EntityManagerInterface */
     private $manager;
 
     /**
-     * SekolikoCreateSuperAdminCommand constructor.
+     * SekolikoCreateSchoolAdminCommand constructor.
      *
-     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param UserPasswordEncoderInterface $userPasswordEncoder
      * @param EntityManagerInterface       $entityManager
      * @param string|null                  $name
      */
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $entityManager, string $name = null)
+    public function __construct(UserPasswordEncoderInterface $userPasswordEncoder, EntityManagerInterface $entityManager, string $name = null)
     {
         parent::__construct($name);
-        $this->passwordEncoder = $passwordEncoder;
+        $this->encoder = $userPasswordEncoder;
         $this->manager = $entityManager;
     }
-
     /**
      * @var string
      */
-    protected static $defaultName = 'sekoliko:create:super-admin';
+    protected static $defaultName = 'sekoliko:create:admin';
 
     /**
      * Configuration and command description.
      */
     protected function configure()
     {
-        $this->setDescription('Création utilisateur superAdmin pour Sekoliko');
+        $this->setDescription('Création utilisateur admin pour un établissement !');
     }
 
     /**
@@ -68,21 +62,31 @@ class SekolikoCreateSuperAdminCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
         $helper = $this->getHelper('question');
-
+        $libelle = $helper->ask($input, $output, new Question('Type utilisateur (administration/direction ...) : '));
+        $etablissement = $helper->ask($input, $output, new Question('Etablissement : '));
         $name = $helper->ask($input, $output, new Question('Nom : '));
         $username = $helper->ask($input, $output, new Question('Login : '));
         $passWord = $helper->ask($input, $output, new Question('Mots de passe : '));
 
+        $type = new AdministrationType();
+        $type->setLibelle($libelle);
+        $this->manager->persist($type);
+
         $user = new User();
         $user
+            ->setEtsName($etablissement)
             ->setUsername($username)
             ->setNom($name)
-            ->setRoles(['ROLE_SUPER_ADMIN'])
-            ->setPassword($this->passwordEncoder->encodePassword($user, $passWord));
+            ->setRoles(['ROLE_ADMIN'])
+            ->setPassword($this->encoder->encodePassword($user, $passWord));
 
-        $this->manager->persist($user);
+        $admin = new Administrator();
+        $admin->setUser($user);
+        $admin->setType($type);
+
+        $this->manager->persist($admin);
         $this->manager->flush();
 
-        $io->success('Création utilisateur '.$name.' réussi');
+        $io->success('Création utilisateur '.$name.' pour l\'établissement '.$etablissement.' réussi');
     }
 }

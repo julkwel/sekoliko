@@ -12,12 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Docs
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    use EntityIdTrait;
 
     /**
      * @ORM\Column(type="string", length=255)

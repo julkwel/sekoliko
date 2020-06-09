@@ -18,13 +18,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class Session
 {
     use SekolikoEtablissementTrait;
-
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    use EntityIdTrait;
 
     /**
      * @ORM\Column(type="string", length=100)
@@ -52,14 +46,6 @@ class Session
     public function __construct()
     {
         $this->studentNotes = new ArrayCollection();
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     /**

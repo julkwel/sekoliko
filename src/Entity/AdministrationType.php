@@ -16,12 +16,7 @@ class AdministrationType
 {
     use SekolikoEtablissementTrait;
 
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    use EntityIdTrait;
 
     /**
      * @ORM\Column(type="string", length=100)
@@ -39,14 +34,6 @@ class AdministrationType
     public function __construct()
     {
         $this->administrators = new ArrayCollection();
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     /**

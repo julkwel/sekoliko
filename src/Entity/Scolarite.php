@@ -20,13 +20,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Scolarite
 {
     use SekolikoEtablissementTrait;
-
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    use EntityIdTrait;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\ScolariteType", inversedBy="scolarites")
@@ -115,14 +109,6 @@ class Scolarite
     public function __construct()
     {
         $this->classSubjects = new ArrayCollection();
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     /**

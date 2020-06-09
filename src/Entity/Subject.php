@@ -19,13 +19,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class Subject
 {
     use SekolikoEtablissementTrait;
-
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    use EntityIdTrait;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -54,14 +48,6 @@ class Subject
     {
         $this->classSubjects = new ArrayCollection();
         $this->emploiDuTemps = new ArrayCollection();
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     /**

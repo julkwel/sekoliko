@@ -15,12 +15,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Reservation
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    use SekolikoEtablissementTrait;
+    use EntityIdTrait;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Room", inversedBy="reservations")
@@ -70,14 +66,6 @@ class Reservation
     public function __construct()
     {
         $this->reservator = new ArrayCollection();
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     /**

@@ -14,13 +14,7 @@ use Gedmo\Timestampable\Traits\Timestampable;
 class Ecolage
 {
     use Timestampable;
-
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    use EntityIdTrait;
 
     /**
      * @ORM\Column(type="string", length=100)
@@ -41,14 +35,6 @@ class Ecolage
      * @ORM\ManyToOne(targetEntity="App\Entity\Student", inversedBy="ecolages")
      */
     private $student;
-
-    /**
-     * @return int|null
-     */
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     /**
      * @return string|null
