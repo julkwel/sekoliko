@@ -36,7 +36,7 @@ class RoomController extends AbstractBaseController
         return $this->render(
             'admin/content/Room/_room_list.html.twig',
             [
-                'rooms' => $repository->findBySchoolYear($this->getUser()),
+                'rooms' => $repository->findBySchoolYear($this->getUser(), false),
             ]
         );
     }
