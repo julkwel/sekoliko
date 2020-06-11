@@ -34,7 +34,7 @@ class RoomRepository extends ServiceEntityRepository
      *
      * @return mixed
      */
-    public function findBySchoolYear(User $user, ?bool $isCount)
+    public function findBySchoolYear(User $user, bool $isCount = false)
     {
         $list = $this->createQueryBuilder('a')
             ->where('a.deletedAt is NULL')
