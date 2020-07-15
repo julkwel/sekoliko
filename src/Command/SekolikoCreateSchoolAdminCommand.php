@@ -16,6 +16,9 @@ use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+/**
+ * Class SekolikoCreateSchoolAdminCommand.
+ */
 class SekolikoCreateSchoolAdminCommand extends Command
 {
     /** @var UserPasswordEncoderInterface */
