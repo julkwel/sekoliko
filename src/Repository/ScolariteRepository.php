@@ -50,17 +50,22 @@ class ScolariteRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param User $user
+     * @param User      $user
+     * @param bool|null $profs
      *
      * @return mixed
      */
-    public function findProfs(User $user)
+    public function findProfs(User $user, ?bool $profs = true)
     {
-        return count($this->createQueryBuilder('c')
-            ->innerJoin('c.user', 'u', Join::WITH, 'u.roles LIKE :role')
-            ->andWhere('c.deletedAt IS NULL')
-            ->andWhere('c.etsName = :etsName')
-            ->setParameter('role', '%"'.'ROLE_PROFS'.'"%')
-            ->setParameter('etsName', $user->getEtsName())->getQuery()->getResult());
+        $qb = $this->createQueryBuilder('c');
+
+        return count(
+            $qb
+                ->innerJoin('c.user', 'u', Join::WITH, 'u.roles LIKE :role')
+                ->andWhere('c.deletedAt IS NULL')
+                ->andWhere('c.etsName = :etsName')
+                ->setParameter('role', '%"'.$profs ? 'ROLE_PROFS' : 'ROLE_DIRECTION'.'"%')
+                ->setParameter('etsName', $user->getEtsName())->getQuery()->getResult()
+        );
     }
 }

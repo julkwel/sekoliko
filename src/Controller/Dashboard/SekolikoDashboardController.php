@@ -73,12 +73,13 @@ class SekolikoDashboardController extends AbstractBaseController
     {
         /** @var User $user */
         $user = $this->getUser();
+
         return $this->render(
             'admin/content/_dashboard_admin.html.twig',
             [
-                'data' => 'Hello',
                 'students' => $this->studentRepository->findAllBySchool($user),
                 'profs' => $this->profsRepository->findProfs($user),
+                'personels' => $this->profsRepository->findProfs($user, false),
                 'rooms' => $this->roomRepository->findBySchoolYear($user, true),
                 'admins' => count($this->adminRepository->findBySchoolYear($user)),
             ]

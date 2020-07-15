@@ -49,46 +49,48 @@
                     <span class="title">Sessions</span>
                 </a>
             </li>
-            <li class="nav-item dropdown {% if menu_administration is defined %} open actived{% endif %}">
-                <a class="dropdown-toggle" href="javascript:void(0);">
+            {% if is_granted('ROLE_ADMIN') %}
+                <li class="nav-item dropdown {% if menu_administration is defined %} open actived{% endif %}">
+                    <a class="dropdown-toggle" href="javascript:void(0);">
                     <span class="icon-holder">
                          <i class="ti-user"></i>
                     </span>
-                    <span class="title">Administration</span>
-                    <span class="arrow">
+                        <span class="title">Administration</span>
+                        <span class="arrow">
                         <i class="ti-angle-right"></i>
                     </span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="{{ path('administrator_list') }}">Personnel Administratif</a></li>
-                    <li><a href="{{ path('administration_type_list') }}">Poste</a></li>
-                </ul>
-            </li>
-            <li class="nav-item dropdown {% if menu_scolarite is defined %} open actived{% endif %}">
-                <a class="dropdown-toggle" href="javascript:void(0);">
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ path('administrator_list') }}">Personnel Administratif</a></li>
+                        <li><a href="{{ path('administration_type_list') }}">Poste</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown {% if menu_scolarite is defined %} open actived{% endif %}">
+                    <a class="dropdown-toggle" href="javascript:void(0);">
                     <span class="icon-holder">
                          <i class="c-orange-500 ti-check-box"></i>
                     </span>
-                    <span class="title">Scolarité</span>
-                    <span class="arrow">
+                        <span class="title">Scolarité</span>
+                        <span class="arrow">
                         <i class="ti-angle-right"></i>
                     </span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li class="nav-item dropdown {% if menu_scolarite_list is defined %} open actived{% endif %}">
-                        <a href="#">
-                            <span>Personnel Scolarité</span>
-                            <span class="arrow">
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="nav-item dropdown {% if menu_scolarite_list is defined %} open actived{% endif %}">
+                            <a href="#">
+                                <span>Personnel Scolarité</span>
+                                <span class="arrow">
                                 <i class="ti-angle-right"></i>
                             </span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            {{ render(controller('App\\Controller\\Menu\\MenuController::list')) }}
-                        </ul>
-                    </li>
-                    <li><a href="{{ path('scolarite_type_list') }}">Poste</a></li>
-                </ul>
-            </li>
+                            </a>
+                            <ul class="dropdown-menu">
+                                {{ render(controller('App\\Controller\\Menu\\MenuController::list')) }}
+                            </ul>
+                        </li>
+                        <li><a href="{{ path('scolarite_type_list') }}">Poste</a></li>
+                    </ul>
+                </li>
+            {% endif %}
             <li class="nav-item {% if menu_matiere is defined %} actived{% endif %}">
                 <a class="sidebar-link" href="{{ path('subject_list') }}">
                     <span class="icon-holder">
