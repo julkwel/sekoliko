@@ -81,7 +81,15 @@ class ClassSubjectController extends AbstractBaseController
                     ]
                 );
             } catch (Exception $exception) {
-                dd($exception->getMessage());
+                $this->addFlash(MessageConstant::ERROR_TYPE, MessageConstant::ERROR_MESSAGE);
+
+                return $this->redirectToRoute(
+                    'class_subject_manage',
+                    [
+                        'classe' => $classe->getId(),
+                        'id' => $subject->getId() ?? null,
+                    ]
+                );
             }
         }
 
