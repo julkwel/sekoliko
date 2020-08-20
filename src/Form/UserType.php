@@ -98,6 +98,9 @@ class UserType extends AbstractType
                 PasswordType::class,
                 [
                     'label' => 'Mots de passe de l\'utilisateur',
+                    'attr' => [
+                        'minlength' => '8',
+                    ],
                 ]
             )
             ->add(

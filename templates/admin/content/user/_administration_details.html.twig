@@ -21,7 +21,7 @@
                         <h6>Etablissement</h6>
                         <ul class="list-group">
                             <li class="list-group-item"><u>Nom de l'établissement </u>: {{ app.user.etsName }}</li>
-                            <li class="list-group-item"><u>Nom d'utilisateur </u>: {{ app.user.username }}</li>
+                            <li class="list-group-item"><u>Nom d'utilisateur </u>: {{ personel.user.username }}</li>
                         </ul>
                     </div>
                     <div class="bd mb-1 bgc-white p-20 sk-bd">
@@ -31,7 +31,8 @@
                             <li class="list-group-item"><u>Prénom</u> : {{ personel.user.prenom }}</li>
                             <li class="list-group-item"><u>Imatriculation</u> : {{ personel.user.imatriculation }}</li>
                             <li class="list-group-item"><u>Sexe</u> : {{ personel.user.sexe }}</li>
-                            <li class="list-group-item"><u>Date de naissance</u> : {{ personel.user.birthDate|date('Y-m-d') }}</li>
+                            <li class="list-group-item"><u>Date de naissance</u>
+                                : {{ personel.user.birthDate|date('Y-m-d') }}</li>
                             <li class="list-group-item"><u>Lieu de naissance</u> : {{ personel.user.birthLocale }}</li>
                         </ul>
                     </div>

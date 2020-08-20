@@ -88,6 +88,9 @@ class AdministratorType extends AbstractType
                 TextType::class,
                 [
                     'label' => 'Numéro CIN',
+                    'attr' => [
+                        'minlength' => 12,
+                    ],
                 ]
             )
             ->add(
