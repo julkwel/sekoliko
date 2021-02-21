@@ -8,9 +8,11 @@ namespace App\Manager;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
@@ -28,6 +30,10 @@ class SekolikoEntityManager
 
     /** @var TokenStorageInterface */
     protected $tokenStorage;
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
 
     /**
      * SekolikoEntityManager constructor.
@@ -35,12 +41,14 @@ class SekolikoEntityManager
      * @param EntityManagerInterface $manager
      * @param ParameterBagInterface  $parameterBag
      * @param TokenStorageInterface  $tokenStorage
+     * @param LoggerInterface        $logger
      */
-    public function __construct(EntityManagerInterface $manager, ParameterBagInterface $parameterBag, TokenStorageInterface $tokenStorage)
+    public function __construct(EntityManagerInterface $manager, ParameterBagInterface $parameterBag, TokenStorageInterface $tokenStorage, LoggerInterface $logger)
     {
         $this->em = $manager;
         $this->parameterBag = $parameterBag;
         $this->tokenStorage = $tokenStorage;
+        $this->logger = $logger;
     }
 
     /**
@@ -52,7 +60,7 @@ class SekolikoEntityManager
      */
     public function save($entity, User $user = null, FormInterface $form = null)
     {
-        $user ?: $this->tokenStorage->getToken()->getUser();
+        $user ? : $this->tokenStorage->getToken()->getUser();
         $this->customField($entity, $user);
         if (method_exists($entity, 'getUser')) {
             $this->customField($entity->getUser(), $user);
@@ -107,7 +115,7 @@ class SekolikoEntityManager
      *
      * @return bool
      */
-    public function uploadPhoto($brochureFile, $entity, $user)
+    public function uploadPhoto(UploadedFile $brochureFile,object $entity, User $user)
     {
         $fullPath = $this->parameterBag->get('brochures_directory').$user->getEtsName();
         $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
@@ -124,8 +132,7 @@ class SekolikoEntityManager
 
             return $entity;
         } catch (FileException $e) {
-            // TODO remove on prod
-            dd($e->getMessage());
+            $this->logger->error('File upload error : '.$e->getMessage());
 
             return $entity;
         }
