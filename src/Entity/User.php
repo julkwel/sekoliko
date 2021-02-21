@@ -6,6 +6,7 @@
 namespace App\Entity;
 
 use DateTime;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -161,7 +162,7 @@ class User implements UserInterface
      */
     public function setUsername(string $username): self
     {
-        $this->username = $username;
+        $this->username = mb_strtolower($username);
 
         return $this;
     }
@@ -254,19 +255,19 @@ class User implements UserInterface
     }
 
     /**
-     * @return \DateTimeInterface|null
+     * @return DateTimeInterface|null
      */
-    public function getDateCreate(): ?\DateTimeInterface
+    public function getDateCreate(): ?DateTimeInterface
     {
         return $this->dateCreate;
     }
 
     /**
-     * @param \DateTimeInterface|null $dateCreate
+     * @param DateTimeInterface|null $dateCreate
      *
      * @return User
      */
-    public function setDateCreate(?\DateTimeInterface $dateCreate): self
+    public function setDateCreate(?DateTimeInterface $dateCreate): self
     {
         $this->dateCreate = $dateCreate;
 
@@ -553,19 +554,19 @@ class User implements UserInterface
     }
 
     /**
-     * @return \DateTimeInterface|null
+     * @return DateTimeInterface|null
      */
-    public function getBirthDate(): ?\DateTimeInterface
+    public function getBirthDate(): ?DateTimeInterface
     {
         return $this->birthDate;
     }
 
     /**
-     * @param \DateTimeInterface|null $birthDate
+     * @param DateTimeInterface|null $birthDate
      *
      * @return User
      */
-    public function setBirthDate(?\DateTimeInterface $birthDate): self
+    public function setBirthDate(?DateTimeInterface $birthDate): self
     {
         $this->birthDate = $birthDate;
 

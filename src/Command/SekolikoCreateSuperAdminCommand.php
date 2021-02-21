@@ -73,6 +73,13 @@ class SekolikoCreateSuperAdminCommand extends Command
         $username = $helper->ask($input, $output, new Question('Login : '));
         $passWord = $helper->ask($input, $output, new Question('Mots de passe : '));
 
+        $user = $this->manager->getRepository(User::class)->findBy(['username' => $username]);
+
+        if ($user) {
+            $io->error('User already exist !');
+            exit(1);
+        }
+
         $user = new User();
         $user
             ->setUsername($username)
