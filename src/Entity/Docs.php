@@ -25,14 +25,6 @@ class Docs
     private $description;
 
     /**
-     * @return int|null
-     */
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    /**
      * @return string|null
      */
     public function getTitle(): ?string
