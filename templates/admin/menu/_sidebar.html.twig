@@ -33,22 +33,24 @@
                     <span class="title">Documentation</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="sidebar-link" href="{{ path('school_year_list') }}">
+            {% if not is_granted('ROLE_SUPER_ADMIN') %}
+                <li class="nav-item">
+                    <a class="sidebar-link" href="{{ path('school_year_list') }}">
                     <span class="icon-holder">
                         <i class="c-orange-500 ti-calendar"></i>
                     </span>
-                    <span class="title">Années scolaires</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="sidebar-link" href="{{ path('session_list') }}">
+                        <span class="title">Années scolaires</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="sidebar-link" href="{{ path('session_list') }}">
                     <span class="icon-holder">
                         <i class="c-orange-500 ti-clipboard"></i>
                     </span>
-                    <span class="title">Sessions</span>
-                </a>
-            </li>
+                        <span class="title">Sessions</span>
+                    </a>
+                </li>
+            {% endif %}
             {% if is_granted('ROLE_ADMIN') %}
                 <li class="nav-item dropdown {% if menu_administration is defined %} open actived{% endif %}">
                     <a class="dropdown-toggle" href="javascript:void(0);">
@@ -91,41 +93,42 @@
                     </ul>
                 </li>
             {% endif %}
-            <li class="nav-item {% if menu_matiere is defined %} actived{% endif %}">
-                <a class="sidebar-link" href="{{ path('subject_list') }}">
+            {% if not is_granted('ROLE_SUPER_ADMIN') %}
+                <li class="nav-item {% if menu_matiere is defined %} actived{% endif %}">
+                    <a class="sidebar-link" href="{{ path('subject_list') }}">
                     <span class="icon-holder">
                         <i class="c-blue-500 ti-book"></i>
                     </span>
-                    <span class="title">Matières</span>
-                </a>
-            </li>
-            <li class="nav-item dropdown {% if menu_etablissement is defined or menu_room is defined %}
-             open actived{% endif %}">
-                <a class="dropdown-toggle" href="javascript:void(0);">
+                        <span class="title">Matières</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown {% if menu_etablissement is defined or menu_room is defined %}open actived{% endif %}">
+                    <a class="dropdown-toggle" href="javascript:void(0);">
                     <span class="icon-holder">
                         <i class="c-red-500 ti-settings"></i>
                     </span>
-                    <span class="title">Infrastructure</span>
-                    <span class="arrow">
+                        <span class="title">Infrastructure</span>
+                        <span class="arrow">
                         <i class="ti-angle-right"></i>
                     </span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li class="nav-item {% if menu_room is defined %}actived{% endif %}">
-                        <a href="{{ path('room_list') }}">
-                            <span class="title">Salle</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item">
-                <a class="sidebar-link" href="{{ path('section_list') }}">
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="nav-item {% if menu_room is defined %}actived{% endif %}">
+                            <a href="{{ path('room_list') }}">
+                                <span class="title">Salle</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="sidebar-link" href="{{ path('section_list') }}">
                     <span class="icon-holder">
                         <i class="c-orange-500 ti-list"></i>
                     </span>
-                    <span class="title">Section / Niveau</span>
-                </a>
-            </li>
+                        <span class="title">Section / Niveau</span>
+                    </a>
+                </li>
+            {% endif %}
             <hr style="color: white;border: solid 1px white">
             <ul>
                 <li>
