@@ -23,17 +23,17 @@ class SekolikoEntityManager
     /**
      * @var EntityManagerInterface
      */
-    protected $em;
+    protected EntityManagerInterface $em;
 
     /** @var ParameterBagInterface */
-    protected $parameterBag;
+    protected ParameterBagInterface $parameterBag;
 
     /** @var TokenStorageInterface */
-    protected $tokenStorage;
+    protected TokenStorageInterface $tokenStorage;
     /**
      * @var LoggerInterface
      */
-    private $logger;
+    private LoggerInterface $logger;
 
     /**
      * SekolikoEntityManager constructor.
@@ -78,7 +78,7 @@ class SekolikoEntityManager
 
             return true;
         } catch (Exception $exception) {
-            dd($exception->getMessage());
+            $this->logger->error('POST SAVE :'.$exception->getMessage());
 
             return false;
         }
@@ -117,17 +117,8 @@ class SekolikoEntityManager
      */
     public function uploadPhoto(UploadedFile $brochureFile, object $entity, User $user)
     {
-        $fullPath = $this->parameterBag->get('brochures_directory').$user->getEtsName();
-        $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
-        // this is needed to safely include the file name as part of the URL
-        $safeFilename = transliterator_transliterate(
-            'Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()',
-            $originalFilename
-        );
-        $newFilename = $safeFilename.'-'.uniqid().'.'.$brochureFile->guessExtension();
-        // Move the file to the directory where brochures are stored
         try {
-            $brochureFile->move($fullPath, $newFilename);
+            $newFilename = $this->doUpload($brochureFile, $user);
             $entity->getUser()->setPhoto($newFilename);
 
             return $entity;
@@ -144,26 +135,16 @@ class SekolikoEntityManager
      *
      * @return User
      */
-    public function uploadPhotoEts($brochureFile, User $user)
+    public function uploadPhotoEts(UploadedFile $brochureFile, User $user)
     {
-        if ($brochureFile) {
-            $fullPath = $this->parameterBag->get('brochures_directory').$user->getEtsName();
-            $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
-            // this is needed to safely include the file name as part of the URL
-            $safeFilename = transliterator_transliterate(
-                'Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()',
-                $originalFilename
-            );
-            $newFilename = $safeFilename.'-'.uniqid().'.'.$brochureFile->guessExtension();
-            // Move the file to the directory where brochures are stored
+        if ($brochureFile && $brochureFile instanceof UploadedFile) {
             try {
-                $brochureFile->move($fullPath, $newFilename);
+                $newFilename = $this->doUpload($brochureFile, $user);
                 $user->setEtsLogo($newFilename);
 
                 return $user;
             } catch (FileException $e) {
-                // TODO remove on prod
-                dd($e->getMessage());
+                $this->logger->error('FILE ETS UPLOAD : '.$e->getMessage());
 
                 return $user;
             }
@@ -173,34 +154,45 @@ class SekolikoEntityManager
     }
 
     /**
-     * @param mixed $brochureFile
-     * @param User  $user
+     * @param UploadedFile $brochureFile
+     * @param User         $user
      *
      * @return User
      */
-    public function uploadUserPhoto($brochureFile, User $user)
+    public function uploadUserPhoto(UploadedFile $brochureFile, User $user)
     {
-        if ($brochureFile) {
-            $fullPath = $this->parameterBag->get('brochures_directory').$user->getEtsName();
-            $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
-            // this is needed to safely include the file name as part of the URL
-            $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
-            $newFilename = $safeFilename.'-'.uniqid().'.'.$brochureFile->guessExtension();
-            // Move the file to the directory where brochures are stored
+        if ($brochureFile && $brochureFile instanceof UploadedFile) {
             try {
-                $brochureFile->move($fullPath, $newFilename);
+                $newFilename = $this->doUpload($brochureFile, $user);
                 $user->setPhoto($newFilename);
 
                 return $user;
             } catch (FileException $e) {
-                // TODO remove on prod
-                dd($e->getMessage());
+                $this->logger->error('FILE USER UPLOAD : '.$e->getMessage());
 
                 return $user;
             }
         }
 
         return $user;
+    }
+
+    /**
+     * @param UploadedFile $brochureFile
+     * @param User         $user
+     *
+     * @return string
+     */
+    public function doUpload(UploadedFile $brochureFile, User $user)
+    {
+        $fullPath = $this->parameterBag->get('brochures_directory').$user->getEtsName();
+        $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
+        // this is needed to safely include the file name as part of the URL
+        $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+        $newFilename = $safeFilename.'-'.uniqid().'.'.$brochureFile->guessExtension();
+        $brochureFile->move($fullPath, $newFilename);
+
+        return $newFilename;
     }
 
     /**
@@ -216,8 +208,7 @@ class SekolikoEntityManager
 
             return true;
         } catch (Exception $exception) {
-            // TODO remove on prod
-            dd($exception);
+            $this->logger->error('REMOVING ERROR : '.$exception->getMessage());
 
             return false;
         }
