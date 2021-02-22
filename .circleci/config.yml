@@ -9,7 +9,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/php:7.2-node-browsers
+      - image: circleci/php:7.4-node-browsers
       - image: circleci/mysql:5.7-ram
         environment:
           - MYSQL_ROOT_PASSWORD=root
