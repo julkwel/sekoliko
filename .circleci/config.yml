@@ -31,7 +31,7 @@ jobs:
           name: Symfony depedencies install
           command: |
             cp .env.test .env
-            composer install --update-with-all-dependencies -n --prefer-dist
+            composer update -n --prefer-dist
 
       - save_cache:
           key: v1-dependencies-{{ checksum "composer.json" }}
