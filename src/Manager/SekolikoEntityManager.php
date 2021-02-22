@@ -90,7 +90,7 @@ class SekolikoEntityManager
      *
      * @return object
      */
-    public function customField($entity, User $user)
+    public function customField(object $entity, User $user)
     {
         if (method_exists($entity, 'setEtsName')) {
             $entity->setEtsName($user->getEtsName());
@@ -109,13 +109,13 @@ class SekolikoEntityManager
     }
 
     /**
-     * @param $brochureFile
-     * @param $entity
-     * @param $user
+     * @param UploadedFile $brochureFile
+     * @param object       $entity
+     * @param User         $user
      *
-     * @return bool
+     * @return object
      */
-    public function uploadPhoto(UploadedFile $brochureFile,object $entity, User $user)
+    public function uploadPhoto(UploadedFile $brochureFile, object $entity, User $user)
     {
         $fullPath = $this->parameterBag->get('brochures_directory').$user->getEtsName();
         $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
