@@ -138,6 +138,11 @@ class User implements UserInterface
     private $birthLocale;
 
     /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isEnabled;
+
+    /**
      * User constructor.
      */
     public function __construct()
@@ -145,6 +150,7 @@ class User implements UserInterface
         $this->reservations = new ArrayCollection();
         $this->classRooms = new ArrayCollection();
         $this->histories = new ArrayCollection();
+        $this->isEnabled = false;
     }
 
     /**
@@ -609,6 +615,18 @@ class User implements UserInterface
     public function setBirthLocale(?string $birthLocale): self
     {
         $this->birthLocale = $birthLocale;
+
+        return $this;
+    }
+
+    public function getIsEnabled(): ?bool
+    {
+        return $this->isEnabled;
+    }
+
+    public function setIsEnabled(?bool $isEnabled): self
+    {
+        $this->isEnabled = $isEnabled;
 
         return $this;
     }

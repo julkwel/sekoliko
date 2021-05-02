@@ -52,7 +52,7 @@ class SekolikoUserController extends AbstractBaseController
      */
     public function manageUser(Request $request, User $user = null): Response
     {
-        $user = $user ?: new User();
+        $user = $user ? : new User();
         if (1 === $user->getId()) {
             $this->addFlash('error', 'Vous n\'avez pas le droit de modifier cet utilisateur');
 
@@ -116,8 +116,10 @@ class SekolikoUserController extends AbstractBaseController
     public function beforePersistUser(User $user, FormInterface $form): User
     {
         $pass = $form->get('password')->getData();
-        $user->setRoles([RoleConstant::ROLE_SEKOLIKO['Administrateur']]);
-        $user->setPassword($this->passencoder->encodePassword($user, $pass));
+        $user
+            ->setIsEnabled(true)
+            ->setRoles([RoleConstant::ROLE_SEKOLIKO['Administrateur']])
+            ->setPassword($this->passencoder->encodePassword($user, $pass));
 
         return $user;
     }

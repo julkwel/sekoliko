@@ -10,7 +10,7 @@ use App\Entity\Student;
 use App\Entity\StudentNote;
 use App\Entity\Subject;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method StudentNote|null find($id, $lockMode = null, $lockVersion = null)

@@ -27,6 +27,13 @@ trait SekolikoEtablissementTrait
     private $etsLogo;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string",nullable=true)
+     */
+    private $etsHashName;
+
+    /**
      * @return string|null
      */
     public function getEtsName(): ?string
@@ -62,6 +69,26 @@ trait SekolikoEtablissementTrait
     public function setEtsLogo(?string $etsLogo): self
     {
         $this->etsLogo = $etsLogo;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getEtsHashName(): ?string
+    {
+        return $this->etsHashName;
+    }
+
+    /**
+     * @param string|null $etsHashName
+     *
+     * @return SekolikoEtablissementTrait
+     */
+    public function setEtsHashName(?string $etsHashName): SekolikoEtablissementTrait
+    {
+        $this->etsHashName = base64_encode(trim(mb_strtolower($etsHashName)));
 
         return $this;
     }

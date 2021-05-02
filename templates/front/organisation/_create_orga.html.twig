@@ -1,0 +1,15 @@
+{% extends 'front/_base_front.html.twig' %}
+
+{% block body %}
+    {% include 'front/menu/_top_nav.html.twig' %}
+    {% include 'front/content/_initial_section.html.twig' %}
+    <div class="container p-5">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <div class="text-center d-block w-100">
+            <button class="btn btn-primary" type="submit">Enregistrer</button>
+        </div>
+        {{ form_end(form) }}
+    </div>
+    {% include 'front/content/_footer.html.twig' %}
+{% endblock %}

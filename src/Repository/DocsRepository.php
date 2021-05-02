@@ -7,7 +7,7 @@ namespace App\Repository;
 
 use App\Entity\Docs;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method Docs|null find($id, $lockMode = null, $lockVersion = null)

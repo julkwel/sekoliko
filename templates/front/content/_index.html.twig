@@ -1,6 +1,18 @@
 {% extends 'front/_base_front.html.twig' %}
 
 {% block body %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+
     {% include 'front/menu/_top_nav.html.twig' %}
     {% include 'front/content/_initial_section.html.twig' %}
     {% include 'front/content/_details_section.html.twig' %}

@@ -49,9 +49,16 @@
                 </div>
                 <div class="d-block">
                     <button type="submit" class="btn d-block sk-btn-login w-100 btn-primary">CONNEXION</button>
-                    <span class="text-right d-block text-danger mt-2">
-                        sekoliko  ©  <script>document.write((new Date()).getFullYear().toString())</script> tous droits réservés
-                    </span>
+                    <div class="row">
+                        <div class="text-left mt-2 float-left">
+                            <a href="{{ path('front_route') }}">Accueil</a>
+                        </div>
+                        <div class="text-right text-danger mt-2 d-md-block d-lg-block d-none float-right" style="right: 5px;position: absolute">
+                            sekoliko ©
+                            <script>document.write((new Date()).getFullYear().toString())</script>
+                            tous droits réservés
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>

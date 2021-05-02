@@ -8,6 +8,7 @@
         "ext-intl": "*",
         "ext-json": "*",
         "doctrine/annotations": "^1.8",
+        "doctrine/doctrine-migrations-bundle": "^2.0",
         "dompdf/dompdf": "^0.8.3",
         "sensio/framework-extra-bundle": "^5.1",
         "stof/doctrine-extensions-bundle": "^1.3",

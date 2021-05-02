@@ -81,6 +81,7 @@ class SekolikoCreateSchoolAdminCommand extends Command
             ->setUsername($username)
             ->setNom($name)
             ->setRoles(['ROLE_ADMIN'])
+            ->setIsEnabled(true)
             ->setPassword($this->encoder->encodePassword($user, $passWord));
 
         $admin = new Administrator();

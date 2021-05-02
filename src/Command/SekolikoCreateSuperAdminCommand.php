@@ -82,6 +82,7 @@ class SekolikoCreateSuperAdminCommand extends Command
 
         $user = new User();
         $user
+            ->setIsEnabled(true)
             ->setUsername($username)
             ->setNom($name)
             ->setRoles(['ROLE_SUPER_ADMIN'])
