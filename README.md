@@ -6,9 +6,12 @@ School Management Web Application OPENSOURCE
 
 ## Requirements
 ```
-composer
-node && yarn
-php > 7.1
+- composer
+- node && yarn
+- php > 7.2
+- motivation
+- basics of symfony & php
+- basics of Javascript
 ```
 ## Usage
 Step 1. Fork this project
@@ -49,7 +52,7 @@ Create your first user by running
 
 ## STANDARD
 
-Code must be follow symfony coding standard style ,Install this coding standard in your root directory of sekoliko.
+Code must follow [symfony coding standard style](https://symfony.com/doc/current/contributing/code/standards.html),Install this coding standard in your root directory of sekoliko.
 
 ```
 git clone git://github.com/djoos/Symfony2-coding-standard.git && composer install -d ./Symfony2-coding-standard
@@ -61,17 +64,33 @@ Then run this command ALWAYS and fix all errors before your push.
 ```
 ./Symfony2-coding-standard/vendor/bin/phpcs --standard=Symfony --ignore=*/vendor/*,/src/Kernel.php,*/Migrations/* ./src/
 ```
+
 ## Design 
 Make cool and user friendly design, we have a template named `admirator` inside assets directory for theme.
 
-## Functional proposition
-IF YOU HAVE NEW PROPOSAL FUNCTION PLEASE CREATE NEW ISSUES.
+## Git
+Commit convention :
+ - All commit MUST be tagged with one of the following tags : [bug] / [fix] / [feature] / [design] / [packages] / [wip]
+ - DON'T create merge request for unstable developpment.
+ - All code must be passed with TU/TF.
+ 
+## Goal 
+- SaaS (Software as a Service ) App for School/University in Madagascar
+- Online course
+- Online report
+- Fee management
+- Student/Teachers/Administration management ( attendance, year sumary )
+- Classroom management for thos school who doesn't have fixed room.
+
+## NON Goal
+- Online university.
+
 ____
 **Make cool things :wink:**
 ____
 ## Contributors ✨
 
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+Thanks goes to these wonderful people :
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
