@@ -53,12 +53,12 @@ class SekolikoEntityManager
 
     /**
      * @param object             $entity
-     * @param User               $user
+     * @param User|null          $user
      * @param FormInterface|null $form
      *
      * @return bool
      */
-    public function save($entity, User $user = null, FormInterface $form = null)
+    public function save(object $entity, User $user = null, FormInterface $form = null)
     {
         $user ? : $this->tokenStorage->getToken()->getUser();
         $this->customField($entity, $user);
