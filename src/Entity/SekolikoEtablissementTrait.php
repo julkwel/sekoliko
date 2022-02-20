@@ -84,9 +84,9 @@ trait SekolikoEtablissementTrait
     /**
      * @param string|null $etsHashName
      *
-     * @return SekolikoEtablissementTrait
+     * @return self
      */
-    public function setEtsHashName(?string $etsHashName): SekolikoEtablissementTrait
+    public function setEtsHashName(?string $etsHashName): self
     {
         $this->etsHashName = base64_encode(trim(mb_strtolower($etsHashName)));
 

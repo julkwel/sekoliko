@@ -21,6 +21,11 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  */
 class SekolikoCreateSchoolAdminCommand extends Command
 {
+    /**
+     * @var string
+     */
+    protected static $defaultName = 'sekoliko:create:admin';
+
     /** @var UserPasswordEncoderInterface */
     private $encoder;
 
@@ -40,10 +45,6 @@ class SekolikoCreateSchoolAdminCommand extends Command
         $this->encoder = $userPasswordEncoder;
         $this->manager = $entityManager;
     }
-    /**
-     * @var string
-     */
-    protected static $defaultName = 'sekoliko:create:admin';
 
     /**
      * Configuration and command description.
@@ -59,7 +60,7 @@ class SekolikoCreateSchoolAdminCommand extends Command
      * @param InputInterface  $input
      * @param OutputInterface $output
      *
-     * @return int|void|null
+     * @return int
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -92,5 +93,6 @@ class SekolikoCreateSchoolAdminCommand extends Command
         $this->manager->flush();
 
         $io->success('Création utilisateur '.$name.' pour l\'établissement '.$etablissement.' réussi');
+        return 1;
     }
 }

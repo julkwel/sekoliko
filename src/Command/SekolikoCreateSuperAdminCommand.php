@@ -92,5 +92,6 @@ class SekolikoCreateSuperAdminCommand extends Command
         $this->manager->flush();
 
         $io->success('Création utilisateur '.$name.' réussi');
+        exit(1);
     }
 }
