@@ -28,16 +28,34 @@ class OrganisationType extends AbstractType
                 'userType',
                 ChoiceType::class,
                 [
-                    'label' =>'Rôle de l\'utilisateur',
+                    'label' => 'Rôle de l\'utilisateur',
                     'choices' => [
                         'Administration' => 'Administration',
                         'Secretaire' => 'Secretaire',
                     ],
                 ]
             )
-            ->add('username', TextType::class, ['label' =>'Nom de l\'utilisateur',])
-            ->add('login', TextType::class, ['label' =>'Identifiant de l\'utilisateur',])
-            ->add('password', TextType::class, ['label' =>'Mots de passe de l\'utilisateur',]);
+            ->add(
+                'username',
+                TextType::class,
+                [
+                    'label' => 'Nom de l\'utilisateur',
+                ]
+            )
+            ->add(
+                'login',
+                TextType::class,
+                [
+                    'label' => 'Identifiant de l\'utilisateur',
+                ]
+            )
+            ->add(
+                'password',
+                TextType::class,
+                [
+                    'label' => 'Mots de passe de l\'utilisateur',
+                ]
+            );
     }
 
     /**

@@ -14,6 +14,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
@@ -26,7 +27,7 @@ class SekolikoCreateSchoolAdminCommand extends Command
      */
     protected static $defaultName = 'sekoliko:create:admin';
 
-    /** @var UserPasswordEncoderInterface */
+    /** @var UserPasswordHasherInterface */
     private $encoder;
 
     /** @var EntityManagerInterface */
@@ -35,11 +36,11 @@ class SekolikoCreateSchoolAdminCommand extends Command
     /**
      * SekolikoCreateSchoolAdminCommand constructor.
      *
-     * @param UserPasswordEncoderInterface $userPasswordEncoder
-     * @param EntityManagerInterface       $entityManager
-     * @param string|null                  $name
+     * @param UserPasswordHasherInterface $userPasswordEncoder
+     * @param EntityManagerInterface      $entityManager
+     * @param string|null                 $name
      */
-    public function __construct(UserPasswordEncoderInterface $userPasswordEncoder, EntityManagerInterface $entityManager, string $name = null)
+    public function __construct(UserPasswordHasherInterface $userPasswordEncoder, EntityManagerInterface $entityManager, string $name = null)
     {
         parent::__construct($name);
         $this->encoder = $userPasswordEncoder;
@@ -83,7 +84,7 @@ class SekolikoCreateSchoolAdminCommand extends Command
             ->setNom($name)
             ->setRoles(['ROLE_ADMIN'])
             ->setIsEnabled(true)
-            ->setPassword($this->encoder->encodePassword($user, $passWord));
+            ->setPassword($this->encoder->hashPassword($user, $passWord));
 
         $admin = new Administrator();
         $admin->setUser($user);
@@ -93,6 +94,7 @@ class SekolikoCreateSchoolAdminCommand extends Command
         $this->manager->flush();
 
         $io->success('Création utilisateur '.$name.' pour l\'établissement '.$etablissement.' réussi');
+
         return 1;
     }
 }

@@ -1,7 +1,8 @@
 security:
-    encoders:
+    password_hashers:
         App\Entity\User:
             algorithm: auto
+            Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
@@ -28,6 +29,7 @@ security:
                 lifetime: 604800 # 1 week in seconds
                 path:     /
             anonymous: true
+            provider: app_user_provider
             guard:
                 authenticators:
                     - App\Security\SekolikoAuthenticator

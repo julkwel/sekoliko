@@ -6,12 +6,14 @@
 namespace App\Command;
 
 use App\Entity\User;
+use Couchbase\PasswordAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
@@ -20,7 +22,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class SekolikoCreateSuperAdminCommand extends Command
 {
     /**
-     * @var UserPasswordEncoderInterface
+     * @var UserPasswordHasherInterface
      */
     private $passwordEncoder;
 
@@ -32,11 +34,11 @@ class SekolikoCreateSuperAdminCommand extends Command
     /**
      * SekolikoCreateSuperAdminCommand constructor.
      *
-     * @param UserPasswordEncoderInterface $passwordEncoder
-     * @param EntityManagerInterface       $entityManager
-     * @param string|null                  $name
+     * @param UserPasswordHasherInterface $passwordEncoder
+     * @param EntityManagerInterface      $entityManager
+     * @param string|null                 $name
      */
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $entityManager, string $name = null)
+    public function __construct(UserPasswordHasherInterface $passwordEncoder, EntityManagerInterface $entityManager, string $name = null)
     {
         parent::__construct($name);
         $this->passwordEncoder = $passwordEncoder;
@@ -86,12 +88,12 @@ class SekolikoCreateSuperAdminCommand extends Command
             ->setUsername($username)
             ->setNom($name)
             ->setRoles(['ROLE_SUPER_ADMIN'])
-            ->setPassword($this->passwordEncoder->encodePassword($user, $passWord));
+            ->setPassword($this->passwordEncoder->hashPassword($user, $passWord));
 
         $this->manager->persist($user);
         $this->manager->flush();
-
         $io->success('Création utilisateur '.$name.' réussi');
-        exit(1);
+
+        return 1;
     }
 }

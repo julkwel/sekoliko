@@ -619,11 +619,19 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return bool|null
+     */
     public function getIsEnabled(): ?bool
     {
         return $this->isEnabled;
     }
 
+    /**
+     * @param bool|null $isEnabled
+     *
+     * @return $this
+     */
     public function setIsEnabled(?bool $isEnabled): self
     {
         $this->isEnabled = $isEnabled;
