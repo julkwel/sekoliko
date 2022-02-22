@@ -13,7 +13,7 @@ jobs:
       - image: circleci/mysql:5.7-ram
         environment:
           - MYSQL_ROOT_PASSWORD=root
-a
+
     steps:
       - checkout
       - run: sudo apt update
