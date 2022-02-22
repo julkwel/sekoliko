@@ -9,6 +9,7 @@ School Management Web Application OPENSOURCE
 - composer
 - node && yarn
 - php > 7.2
+- symfony cli (link to download: https://symfony.com/download)
 - motivation
 - basics of symfony & php
 - basics of Javascript
@@ -32,7 +33,9 @@ Step 5. Install node dependencies
 
 `- yarn install`
 
-Step 6. configure `.env` to your own database
+Step 6. Create new database then, create new file `.env.local`, add `.env` content to this and configure DATABASE_URL in `.env.local` to follow your own database configuration like :
+
+`- DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.7"`
 
 Step 7. Update database schema
 
@@ -40,15 +43,19 @@ Step 7. Update database schema
 
 Step 6. Run server
 
-`- bin/console server:run`
+`- symfony serve`
 
 Step 7. Run webpack server for assets
 
 `- yarn encore dev --watch`
 
-Create your first user by running 
+Create your first user by running :
 
 `php bin/console sekoliko:create:super-admin`
+
+For new school and admin run :
+
+`php bin/console sekoliko:create:admin`
 
 ## STANDARD
 
