@@ -13,7 +13,7 @@ jobs:
       - image: circleci/mysql:5.7-ram
         environment:
           - MYSQL_ROOT_PASSWORD=root
-
+a
     steps:
       - checkout
       - run: sudo apt update
@@ -53,6 +53,8 @@ jobs:
       - run:
           name: Install webpack depedencies
           command: |
+            yarn remove node-sass
+            yarn add sass
             yarn install
             yarn encore prod
 
