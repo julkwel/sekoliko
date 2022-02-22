@@ -53,7 +53,10 @@ a
       - run:
           name: Install webpack depedencies
           command: |
-            yarn remove node-sass && yarn add sass && yarn install && yarn encore prod
+            yarn remove node-sass
+            yarn add sass
+            yarn install
+            yarn encore prod
 
       - save_cache:
           key: node-v1-{{ checksum "package.json" }}
