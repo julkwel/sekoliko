@@ -61,7 +61,7 @@
     "jquery-sparkline": "^2.4.0",
     "jvectormap": "^2.0.4",
     "load-google-maps-api": "^1.0.0",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.21",
     "masonry-layout": "^4.2.0",
     "moment": "^2.25.3",
     "perfect-scrollbar": "^1.5.0",
