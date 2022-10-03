@@ -42,7 +42,7 @@
     "url-loader": "^4.0.0",
     "webpack": "^4.43.0",
     "webpack-dashboard": "^3.2.0",
-    "webpack-dev-server": "^3.11.0",
+    "webpack-dev-server": "^3.11.3",
     "webpack-notifier": "^1.6.0"
   },
   "dependencies": {
