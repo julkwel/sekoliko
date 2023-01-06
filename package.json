@@ -28,7 +28,7 @@
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "2.7.0",
     "extract-text-webpack-plugin": "^3.0.1",
-    "html-webpack-plugin": "^2.30.1",
+    "html-webpack-plugin": "^5.5.0",
     "imagemin-webpack-plugin": "^2.4.2",
     "node-sass": "^4.14.1",
     "postcss-cssnext": "^3.0.2",
